@@ -1,11 +1,16 @@
 import React from 'react';
 import './App.css';
-import GlBox from './components/molecules/GlBox';
+import { BrowserRouter, Route, Switch } from 'react-router-dom';
 
 function App() {
   return (
     <div className="App">
-      <GlBox />
+        <BrowserRouter>
+          <Switch>
+            <Route exact path="/" component={Top} />
+            <Route path="/edit" component={EditContainer} />
+          </Switch>
+        </BrowserRouter>
     </div>
   );
 }
