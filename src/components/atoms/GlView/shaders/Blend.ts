@@ -48,8 +48,8 @@ vec3 blendMultiply(vec3 base, vec3 blend, float opacity) {
 }
 `;
 
-/** 
- * colorBurn 焼き込みカラー 
+/**
+ * colorBurn 焼き込みカラー
  */
 export const colorBurn = `
 float blendColorBurn(float base, float blend) {
@@ -65,7 +65,7 @@ vec3 blendColorBurn(vec3 base, vec3 blend, float opacity) {
 }
 `;
 
-/** 
+/**
  * lighten 明るい方
  */
 export const lighten = `
@@ -133,7 +133,7 @@ vec3 blendAdd(vec3 base, vec3 blend, float opacity) {
 }
 `;
 
-/** 
+/**
  * overlay オーバーレイ
  */
 export const overlay = `
@@ -206,7 +206,7 @@ vec3 blendLinearDodge(vec3 base, vec3 blend, float opacity) {
 }
 `;
 
-/** 
+/**
  * linearLight リニアライト
  * linearBurnとlinearDodgeを必要とする
  */
@@ -238,7 +238,7 @@ vec3 blendDifference(vec3 base, vec3 blend, float opacity) {
 }
 `;
 
-/** 
+/**
  * substract 減算
  */
 export const substract = `
@@ -255,7 +255,7 @@ vec3 blendSubstract(vec3 base, vec3 blend, float opacity) {
 }
 `;
 
-/** 
+/**
  * all オール
  */
 export const ShaderBlendAll = `

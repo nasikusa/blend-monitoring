@@ -1,12 +1,12 @@
-import {MimeImage} from './MIMEs';
+import { MimeImage } from './MIMEs';
 
-export interface StoredImage{
-    source: string;
-    originalWidth: number;
-    originalHeight: number;
-    aspect: number;
-    mime: MimeImage;
-    fileSize: number;
-};
+export interface StoredImage {
+  source: string;
+  originalWidth: number;
+  originalHeight: number;
+  aspect: number;
+  mime: MimeImage;
+  fileSize: number;
+}
 
 export type StoredImages = StoredImage[];

@@ -1,5 +1,5 @@
 /**
- * 
+ *
  * @see : https://gist.github.com/mattdesl/6024dfb256406e7d325dd9d4c6e64c13
  */
 export const ShaderContainImageSize = `

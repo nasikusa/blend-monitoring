@@ -1,4 +1,4 @@
-import {MimeImage} from './MIMEs';
+import { MimeImage } from './MIMEs';
 
 /**
  * レイヤータイプ
@@ -11,32 +11,32 @@ export type GlLayerImageType = `cover` | `contain` | `normal`;
  * レイヤーの画像情報
  *
  */
-export interface GlLayerDataImage{
-    source: string;
-    originalWidth: number;
-    originalHeight: number;
-    aspect: number;
-    mime: MimeImage;
-    fileSize: number;
-    type: GlLayerImageType;
-};
+export interface GlLayerDataImage {
+  source: string;
+  originalWidth: number;
+  originalHeight: number;
+  aspect: number;
+  mime: MimeImage;
+  fileSize: number;
+  type: GlLayerImageType;
+}
 
 /**
  * 単一のレイヤー情報
  *
  */
-export interface GlLayerDataInterfaceItem{
-    name: string;
-    type: GlLayerType;
-    blendMode: string;
-    opacity: number;
-    image? : GlLayerDataImage;
-    singleColor? : number;
-    layerNumber?: number;
-    createdAt?: number;
-    updatedAt?: number;
-    isUpdate?: boolean;
-    isBottomLayer?: boolean;
+export interface GlLayerDataInterfaceItem {
+  name: string;
+  type: GlLayerType;
+  blendMode: string;
+  opacity: number;
+  image?: GlLayerDataImage;
+  singleColor?: number;
+  layerNumber?: number;
+  createdAt?: number;
+  updatedAt?: number;
+  isUpdate?: boolean;
+  isBottomLayer?: boolean;
 }
 
 /**

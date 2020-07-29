@@ -1,13 +1,12 @@
 import React from 'react';
-import {useSelector} from 'react-redux';
+import { useSelector } from 'react-redux';
 import Collections from '../components/molecules/Collections';
 
-export default (props:any) => {
+export default (props: any) => {
+  // @ts-ignore
+  const collectionData = useSelector((state) => state.collectionData);
 
-    // @ts-ignore
-    const collectionData = useSelector((state) => state.collectionData);
+  const combineProps = { collectionData, ...props };
 
-    const combineProps = { collectionData, ...props };
-  
-    return <Collections {...combineProps} />;
-  }
+  return <Collections {...combineProps} />;
+};

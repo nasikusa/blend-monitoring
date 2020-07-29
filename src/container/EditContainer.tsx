@@ -1,23 +1,19 @@
 import React from 'react';
-import {useSelector,useDispatch} from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import Edit from '../components/pages/Edit';
 
 import { updateSingleItemSize as updateSingleItemSizeAction } from '../stores/glSettings';
 
-export default (props:any) => {
+export default (props: any) => {
+  // @ts-ignore
+  const themeSettings = useSelector((state) => state.themeSettings);
+  const dispatch = useDispatch();
 
-    // @ts-ignore
-    const themeSettings = useSelector((state) => state.themeSettings);
-    const dispatch = useDispatch();
-  
-    const updateSingleItemSize = React.useCallback(
-      () => {
-        dispatch(updateSingleItemSizeAction)
-      },
-      [dispatch]
-    );
+  const updateSingleItemSize = React.useCallback(() => {
+    dispatch(updateSingleItemSizeAction);
+  }, [dispatch]);
 
-    const combineProps = { themeSettings, updateSingleItemSize, ...props };
-  
-    return <Edit {...combineProps} />;
-  }
+  const combineProps = { themeSettings, updateSingleItemSize, ...props };
+
+  return <Edit {...combineProps} />;
+};

@@ -10,25 +10,25 @@ import HelpIcon from '@material-ui/icons/Help';
 import { CollectionType } from '../../../types/CollectionData';
 
 interface PropsInterface {
-    collectionType: CollectionType
-};
+  collectionType: CollectionType;
+}
 
 export default (props: PropsInterface) => {
-    const { collectionType } = props;
-    switch( collectionType ){
-        case `singleImage`:
-        case `singleImageMultiBlend`:
-            return(<ImageIcon />);
-        case `multiImage`:
-            return(<PermMediaIcon />);
-        case `singleColor`:
-        case `singleColorMultiBlend`:
-            return(<ColorLensIcon />);
-        case `multiColor`:
-            return(<BrushIcon />);
-        case `adjust`:
-            return(<BarChartIcon />);
-        default:
-            return (<HelpIcon />);
-    }
-}
+  const { collectionType } = props;
+  switch (collectionType) {
+    case `singleImage`:
+    case `singleImageMultiBlend`:
+      return <ImageIcon />;
+    case `multiImage`:
+      return <PermMediaIcon />;
+    case `singleColor`:
+    case `singleColorMultiBlend`:
+      return <ColorLensIcon />;
+    case `multiColor`:
+      return <BrushIcon />;
+    case `adjust`:
+      return <BarChartIcon />;
+    default:
+      return <HelpIcon />;
+  }
+};

@@ -9,80 +9,88 @@ import Input from '@material-ui/core/Input';
 import OpacityIcon from '@material-ui/icons/Opacity';
 
 const useStyles = makeStyles({
-    input: {
-        width: 52,
-    },
-    label: {
-        fontSize: `12px`,
-    }
-  });
+  input: {
+    width: 52,
+  },
+  label: {
+    fontSize: `12px`,
+  },
+});
 
 /**
  * 透過度のスライダーコンポーネント
- * @param props 
+ * @param props
  */
-const OpacitySlider: React.FC = (props:any) => {
+const OpacitySlider: React.FC = (props: any) => {
+  const [opacity, setOpacity] = React.useState<
+    number | string | Array<number | string>
+  >(100);
+  const classes = useStyles();
+  const { itemKey } = props;
 
-    const [opacity, setOpacity] = React.useState<number | string | Array<number | string>>(100);
-    const classes = useStyles();
-    const {itemKey} = props;
+  /**
+   * スライダー変更時のイベント
+   * @param event
+   * @param newValue 透過度の値
+   */
+  const handleChange = (event: any, newValue: number | number[]) => {
+    setOpacity(newValue as number);
+  };
 
-    /**
-     * スライダー変更時のイベント
-     * @param event 
-     * @param newValue 透過度の値
-     */
-    const handleChange = (event: any, newValue: number | number[]) => {
-        setOpacity(newValue as number);
-    };
+  /**
+   * 透過度スライダーの脇の文字列入力inputを変更した際のイベント
+   * @param event
+   */
+  const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setOpacity(event.target.value === '' ? '' : Number(event.target.value));
+  };
 
-    /**
-     * 透過度スライダーの脇の文字列入力inputを変更した際のイベント
-     * @param event 
-     */
-    const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-        setOpacity(event.target.value === '' ? '' : Number(event.target.value));
-      };
-    
-    const handleBlur = () => {
+  const handleBlur = () => {
     if (opacity < 0) {
-        setOpacity(0);
+      setOpacity(0);
     } else if (opacity > 100) {
-        setOpacity(100);
+      setOpacity(100);
     }
-    };
+  };
 
-    return (
-        <Box width={1}>
-            <Typography gutterBottom  className={classes.label}>
-                透過度
-            </Typography>
-            <Grid container spacing={2}>
-                <Grid item>
-                    <OpacityIcon />
-                </Grid>
-                <Grid item xs>
-                <Slider value={typeof opacity === 'number' ? opacity : 0} min={0} max={100} valueLabelDisplay="auto" onChange={handleChange} aria-labelledby="opacity-slider" />
-                </Grid>
-                <Grid item>
-                    <Input
-                        className={classes.input}
-                        value={opacity}
-                        margin="dense"
-                        onChange={handleInputChange}
-                        onBlur={handleBlur}
-                        inputProps={{
-                        step: 10,
-                        min: 0,
-                        max: 100,
-                        type: 'number',
-                        'aria-labelledby': 'input-slider',
-                        }}
-                    />
-                </Grid>
-            </Grid>
-        </Box>
-    );
-}
+  return (
+    <Box width={1}>
+      <Typography gutterBottom className={classes.label}>
+        透過度
+      </Typography>
+      <Grid container spacing={2}>
+        <Grid item>
+          <OpacityIcon />
+        </Grid>
+        <Grid item xs>
+          <Slider
+            value={typeof opacity === 'number' ? opacity : 0}
+            min={0}
+            max={100}
+            valueLabelDisplay="auto"
+            onChange={handleChange}
+            aria-labelledby="opacity-slider"
+          />
+        </Grid>
+        <Grid item>
+          <Input
+            className={classes.input}
+            value={opacity}
+            margin="dense"
+            onChange={handleInputChange}
+            onBlur={handleBlur}
+            inputProps={{
+              step: 10,
+              min: 0,
+              max: 100,
+              type: 'number',
+              'aria-labelledby': 'input-slider',
+            }}
+          />
+        </Grid>
+      </Grid>
+    </Box>
+  );
+};
 
 export default OpacitySlider;

@@ -11,7 +11,5 @@ ${base}
 `;
 
 export default () => {
-    return(
-        <Global styles={foundation} />
-    );
-}
+  return <Global styles={foundation} />;
+};

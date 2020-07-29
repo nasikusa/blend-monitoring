@@ -13,50 +13,51 @@ import CollectionMainIcon from '../../atoms/CollectionMainIcon';
 import GetCollectionsName from '../../../utils/GetCollectionsName';
 
 const useStyles = makeStyles((theme) => ({
-    nested: {
-      paddingLeft: theme.spacing(4),
+  nested: {
+    paddingLeft: theme.spacing(4),
+    backgroundColor: `transparent`,
+    '&:hover': {
       backgroundColor: `transparent`,
-      "&:hover": {
-        backgroundColor: `transparent`,
-      },
-      cursor: `default`,
     },
-    collapse: {
-        backgroundColor: `#484848`,
-    }
+    cursor: `default`,
+  },
+  collapse: {
+    backgroundColor: `#484848`,
+  },
 }));
 
-export default (props:any) => {
+export default (props: any) => {
+  const { itemKey, collectionData } = props;
+  const classes = useStyles();
+  const [open, setOpen] = React.useState(true);
 
-    const { itemKey, collectionData } = props;
-    const classes = useStyles();
-    const [open, setOpen] = React.useState(true);
-    
-    const handleClick = () => {
-        setOpen(!open);
-    };
-    
-    return(
-        <>
-            <ListItem button disableRipple onClick={handleClick}>
-                <ListItemIcon>
-                    <CollectionMainIcon collectionType={collectionData[itemKey].type} />
-                </ListItemIcon>
-                <ListItemText primary={GetCollectionsName(collectionData[itemKey].type)} />
-            </ListItem>
-            <Collapse in={open} timeout="auto" className={classes.collapse}>
-                <List component="div" disablePadding>
-                    <ListItem button className={classes.nested} disableRipple>
-                        <OpacitySlider itemKey={itemKey} />
-                    </ListItem>
-                    <Divider />
-                    <ListItem button className={classes.nested} disableRipple>
-                        <BlendModalContainer itemKey={itemKey} />
-                    </ListItem>
-                    <Divider />
-                </List>
-            </Collapse>
-            <Divider />
-        </>
-    );
+  const handleClick = () => {
+    setOpen(!open);
+  };
+
+  return (
+    <>
+      <ListItem button disableRipple onClick={handleClick}>
+        <ListItemIcon>
+          <CollectionMainIcon collectionType={collectionData[itemKey].type} />
+        </ListItemIcon>
+        <ListItemText
+          primary={GetCollectionsName(collectionData[itemKey].type)}
+        />
+      </ListItem>
+      <Collapse in={open} timeout="auto" className={classes.collapse}>
+        <List component="div" disablePadding>
+          <ListItem button className={classes.nested} disableRipple>
+            <OpacitySlider itemKey={itemKey} />
+          </ListItem>
+          <Divider />
+          <ListItem button className={classes.nested} disableRipple>
+            <BlendModalContainer itemKey={itemKey} />
+          </ListItem>
+          <Divider />
+        </List>
+      </Collapse>
+      <Divider />
+    </>
+  );
 };

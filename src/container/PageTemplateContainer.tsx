@@ -1,13 +1,12 @@
 import React from 'react';
-import {useSelector} from 'react-redux';
+import { useSelector } from 'react-redux';
 import PageTemplate from '../components/templates/PageTemplate';
 
-export default (props:any) => {
+export default (props: any) => {
+  // @ts-ignore
+  const themeSettings = useSelector((state) => state.themeSettings);
 
-    // @ts-ignore
-    const themeSettings = useSelector((state) => state.themeSettings);
+  const combineProps = { themeSettings, ...props };
 
-    const combineProps = { themeSettings, ...props };
-  
-    return <PageTemplate {...combineProps} />;
-  }
+  return <PageTemplate {...combineProps} />;
+};

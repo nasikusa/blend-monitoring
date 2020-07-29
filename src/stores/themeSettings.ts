@@ -1,19 +1,18 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { createSlice } from '@reduxjs/toolkit';
 
 const initialState = {
-    general: {
-        backgroundColor: `#232323`,
-    },
-    header: {
-        appBarHeight: `30px`,
-    }
-}
+  general: {
+    backgroundColor: `#232323`,
+  },
+  header: {
+    appBarHeight: `30px`,
+  },
+};
 
 const slice = createSlice({
-  name: "themeSettings",
+  name: 'themeSettings',
   initialState,
-  reducers: {
-  },
+  reducers: {},
 });
 
 export default slice.reducer;

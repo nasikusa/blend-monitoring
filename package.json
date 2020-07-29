@@ -108,7 +108,8 @@
     "start": "node scripts/start.js",
     "build": "node scripts/build.js",
     "test": "node scripts/test.js",
-    "lint": "eslint src/**"
+    "lint": "eslint src/**",
+    "clean": "eslint src/** --fix"
   },
   "eslintConfig": {
     "extends": [
@@ -116,7 +117,8 @@
       "airbnb",
       "plugin:jsx-a11y/recommended",
       "prettier",
-      "prettier/react"
+      "prettier/react",
+      "plugin:prettier/recommended"
     ],
     "parser": "@typescript-eslint/parser",
     "plugins": [
@@ -146,6 +148,13 @@
             ".ts",
             ".tsx"
           ]
+        }
+      ],
+      "prettier/prettier": [
+        "error",
+        {
+          "singleQuote": true,
+          "trailingComma": "es5"
         }
       ]
     }
