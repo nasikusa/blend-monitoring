@@ -7,7 +7,7 @@ import {
 /**
  * 関数シェーダーを吐き出す関数
  */
-export default (multiLayerData: any) => {
+export default () => {
   return `
     ${ShaderBlendAll}
     ${ShaderContainImageSize}

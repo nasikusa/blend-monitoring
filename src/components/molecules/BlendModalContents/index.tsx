@@ -1,5 +1,5 @@
 import React from 'react';
-import { makeStyles, Theme, createStyles } from '@material-ui/core/styles';
+import { makeStyles, createStyles } from '@material-ui/core/styles';
 import FormControl from '@material-ui/core/FormControl';
 import FormGroup from '@material-ui/core/FormGroup';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
@@ -10,7 +10,7 @@ import {
   readyBlendModeData,
 } from '../../../utils/GetBlendModeData';
 
-const useStyles = makeStyles((theme: Theme) =>
+const useStyles = makeStyles(() =>
   createStyles({
     root: {
       display: 'flex',
@@ -31,10 +31,6 @@ const useStyles = makeStyles((theme: Theme) =>
     },
   })
 );
-
-const blendModeEnglishNames = readyBlendModeArray.map((singleBlendModeData) => {
-  return singleBlendModeData.mode;
-});
 
 const brightnessPlusBlendMode = readyBlendModeArray.filter(
   (singleBlendModeData) => singleBlendModeData.type.brightness === `+`

@@ -32,8 +32,8 @@ const GlView: React.FC = (props: any) => {
       precision highp float;
       varying vec2 ${glUVName};
       ${CreateShaderVariables(multiLayerData)}
-      ${CreateShaderFunctions(multiLayerData)}
-      
+      ${CreateShaderFunctions()}
+
       void main() {
         vec3 ${glResultColorName} = vec3(0.0);
         ${CreateShaderProcessesVariables(multiLayerData, glUVName, glSettings)}
@@ -41,7 +41,7 @@ const GlView: React.FC = (props: any) => {
         ${CreateShaderProcesses(multiLayerData, glResultColorName)}
 
         gl_FragColor = vec4( ${glResultColorName} , 1.0 );
-      }   
+      }
       `;
   // console.log(shaderString);
 

@@ -1,5 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { image01, image02, image03 } from '../constants/temp/tempImageData';
+import { image01, image02 } from '../constants/temp/tempImageData';
 import {
   readyBlendModeData,
   getBoolStateBlendObject,

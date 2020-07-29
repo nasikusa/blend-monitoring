@@ -1,4 +1,4 @@
-import { image01, image02, image03 } from './tempImageData';
+import { image01, image03 } from './tempImageData';
 
 export const glAllLayerDataStateItem = [
   [

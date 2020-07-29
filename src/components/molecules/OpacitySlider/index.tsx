@@ -21,12 +21,11 @@ const useStyles = makeStyles({
  * 透過度のスライダーコンポーネント
  * @param props
  */
-const OpacitySlider: React.FC = (props: any) => {
+const OpacitySlider: React.FC = () => {
   const [opacity, setOpacity] = React.useState<
     number | string | Array<number | string>
   >(100);
   const classes = useStyles();
-  const { itemKey } = props;
 
   /**
    * スライダー変更時のイベント

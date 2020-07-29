@@ -1,3 +1,4 @@
+/* eslint-disable */
 import BlendModeData from '../constants/blendModeData';
 
 /**

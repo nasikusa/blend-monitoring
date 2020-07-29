@@ -48,7 +48,7 @@ export default (props: any) => {
       <Collapse in={open} timeout="auto" className={classes.collapse}>
         <List component="div" disablePadding>
           <ListItem button className={classes.nested} disableRipple>
-            <OpacitySlider itemKey={itemKey} />
+            <OpacitySlider />
           </ListItem>
           <Divider />
           <ListItem button className={classes.nested} disableRipple>

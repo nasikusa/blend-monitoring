@@ -1,5 +1,5 @@
 import React from 'react';
-import { makeStyles, Theme, createStyles } from '@material-ui/core/styles';
+import { makeStyles, createStyles } from '@material-ui/core/styles';
 import Modal from '@material-ui/core/Modal';
 import Grid from '@material-ui/core/Grid';
 import Box from '@material-ui/core/Box';
@@ -19,7 +19,7 @@ type Props = {
   itemKey: number;
 };
 
-const useStyles = makeStyles((theme: Theme) =>
+const useStyles = makeStyles(() =>
   createStyles({
     label: {
       fontSize: `12px`,
