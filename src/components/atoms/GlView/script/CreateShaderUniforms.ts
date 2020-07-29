@@ -9,6 +9,9 @@ export default ( multiLayerData : any ): string[] => {
             case `singleColor`:
                 
             break;
+            default:
+
+            break;
         }
     });
     return resultUniformsObject;

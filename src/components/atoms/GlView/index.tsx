@@ -8,14 +8,26 @@ import CreateShaderProcesses from './script/CreateShaderProcesses';
 import CreateShaderProcessesVariables from './script/CreateShaderProcessesVariables';
 import CreateShaderVariables from './script/CreateShaderVariables';
 
-  export default (props: any) => {
+  /**
+   * シェーダー描画部分を担当する関数
+   */
+  const GlView: React.FC = (props: any) => {
       const { itemKey, allLayerData, glSettings } = props;
 
       const multiLayerData = allLayerData[itemKey];
 
+      /**
+       * 最終的に描画されるベースとなるカラー変数名
+       */
       const glResultColorName = `resultColor`;
+      /**
+       * ベースとなるuv変数の名前
+       */
       const glUVName = `uv`;
 
+      /**
+       * シェーダー文字列
+       */
       const shaderString = `
       precision highp float;
       varying vec2 ${glUVName};
@@ -49,3 +61,5 @@ import CreateShaderVariables from './script/CreateShaderVariables';
         </div>
       );
   }
+
+  export default GlView;

@@ -7,8 +7,12 @@ import CollectionContainer from '../../../container/CollectionContainer';
 export default (props: any) => {
 
     const {collectionData} = props;
+
+    /**
+     * コレクションの配列。操作上の理由から最後に反転させていることに注意してください。
+     */
     const collectionItems = collectionData.map(( collectionDataItem: any, currentIndex: number ) => {
-        return(<CollectionContainer key={currentIndex} itemKey={currentIndex} />);
+        return(<CollectionContainer itemKey={currentIndex} />);
     }).reverse();
 
     return(

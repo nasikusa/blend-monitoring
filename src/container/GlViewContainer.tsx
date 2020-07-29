@@ -10,7 +10,7 @@ export default (props:any) => {
     // @ts-ignore
     const glSettings = useSelector(state => state.glSettings);
 
-    const _props = { allLayerData, glSettings, ...props };
+    const combineProps = { allLayerData, glSettings, ...props };
   
-    return <GlView {..._props} />;
+    return <GlView {...combineProps} />;
 }

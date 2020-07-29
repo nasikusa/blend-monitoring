@@ -1,12 +1,11 @@
 import React from 'react';
-import './App.css';
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
-import FoundationStyle from './styles/foundation';
 import { createMuiTheme, ThemeProvider  } from '@material-ui/core/styles';
 import teal from '@material-ui/core/colors/teal';
 import cyan from '@material-ui/core/colors/cyan';
 import Top from './components/pages/Top';
 import EditContainer from './container/EditContainer';
+import FoundationStyle from './styles/foundation';
 
 const theme = createMuiTheme({
     palette: {

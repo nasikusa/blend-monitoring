@@ -1,4 +1,5 @@
 /**
+ * 
  * @see : https://gist.github.com/mattdesl/6024dfb256406e7d325dd9d4c6e64c13
  */
 export const ShaderContainImageSize = `
@@ -27,6 +28,7 @@ vec2 ShaderContainImageSize (vec2 uv, vec2 resolution, vec2 texResolution) {
 `;
 
 /**
+ * cssのbackground-size: coverのような効果のシェーダー
  * @see : https://gist.github.com/statico/df64c5d167362ecf7b34fca0b1459a44
  */
 export const ShaderCoverImageSize = `

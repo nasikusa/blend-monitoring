@@ -7,7 +7,7 @@ import ListItemText from '@material-ui/core/ListItemText';
 import Divider from '@material-ui/core/Divider';
 import Collapse from '@material-ui/core/Collapse';
 
-import OpacitySlider from '../../atoms/OpacitySlider';
+import OpacitySlider from '../OpacitySlider';
 import BlendModalContainer from '../../../container/BlendModalContainer';
 import CollectionMainIcon from '../../atoms/CollectionMainIcon';
 import GetCollectionsName from '../../../utils/GetCollectionsName';
@@ -38,7 +38,7 @@ export default (props:any) => {
     
     return(
         <>
-            <ListItem button disableRipple={true} onClick={handleClick}>
+            <ListItem button disableRipple onClick={handleClick}>
                 <ListItemIcon>
                     <CollectionMainIcon collectionType={collectionData[itemKey].type} />
                 </ListItemIcon>
@@ -46,11 +46,11 @@ export default (props:any) => {
             </ListItem>
             <Collapse in={open} timeout="auto" className={classes.collapse}>
                 <List component="div" disablePadding>
-                    <ListItem button className={classes.nested} disableRipple={true}>
+                    <ListItem button className={classes.nested} disableRipple>
                         <OpacitySlider itemKey={itemKey} />
                     </ListItem>
                     <Divider />
-                    <ListItem button className={classes.nested} disableRipple={true}>
+                    <ListItem button className={classes.nested} disableRipple>
                         <BlendModalContainer itemKey={itemKey} />
                     </ListItem>
                     <Divider />

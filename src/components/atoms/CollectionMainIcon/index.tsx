@@ -5,6 +5,7 @@ import PermMediaIcon from '@material-ui/icons/PermMedia';
 import ColorLensIcon from '@material-ui/icons/ColorLens';
 import BrushIcon from '@material-ui/icons/Brush';
 import BarChartIcon from '@material-ui/icons/BarChart';
+import HelpIcon from '@material-ui/icons/Help';
 
 import { CollectionType } from '../../../types/CollectionData';
 
@@ -27,5 +28,7 @@ export default (props: PropsInterface) => {
             return(<BrushIcon />);
         case `adjust`:
             return(<BarChartIcon />);
+        default:
+            return (<HelpIcon />);
     }
 }

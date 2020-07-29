@@ -1,6 +1,13 @@
 import chroma from "chroma-js";
 import ZeroOneFloatAdjust from '../../../../utils/ZeroOneFloatAdjust';
 
+/**
+ * main関数内で使用する変数を定義する
+ * @param multiLayerData
+ * @param glUVName 全体で共通のuv変数の名前
+ * @param glSettings glsl描画の共通設定
+ * 
+ */
 export default ( multiLayerData : any, glUVName: string, glSettings: any ) => {
     const resultShaderArray: string[] = multiLayerData.map( ( singleLayerData : any ) => {
         const { type, layerNumber, image } = singleLayerData;
@@ -29,15 +36,21 @@ export default ( multiLayerData : any, glUVName: string, glSettings: any ) => {
                         vec3 layer${layerNumber}ColorVec3 = layer${layerNumber}ColorVec4.rgb;
                         `;
                     break;
+                    default:
+
+                    break;
                 }
             break;
-            case `singleColor`:
+            case `singleColor`: {
                 const glColor = chroma(`${singleLayerData.singleColor}`).gl();
-                console.log(glColor);
                 shader = `
                 vec4 layer${layerNumber}ColorVec4 = vec4( ${ZeroOneFloatAdjust(glColor[0])} , ${ZeroOneFloatAdjust(glColor[1])} , ${ZeroOneFloatAdjust(glColor[2])} , ${ZeroOneFloatAdjust(glColor[3])} );
                 vec3 layer${layerNumber}ColorVec3 = layer${layerNumber}ColorVec4.rgb;
                 `;
+            break;
+            }
+            default:
+
             break;
         }
         return shader;

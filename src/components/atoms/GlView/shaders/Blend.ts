@@ -1,4 +1,7 @@
+// Blend.ts
 /**
+ * 描画モードに関係したシェーダー文字列を格納している
+ * @packageDocumentation
  * @see : https://github.com/jamieowen/glsl-blend
  */
 
@@ -46,7 +49,7 @@ vec3 blendMultiply(vec3 base, vec3 blend, float opacity) {
 `;
 
 /** 
- * color-burn 焼き込みカラー 
+ * colorBurn 焼き込みカラー 
  */
 export const colorBurn = `
 float blendColorBurn(float base, float blend) {
@@ -148,7 +151,7 @@ vec3 blendOverlay(vec3 base, vec3 blend, float opacity) {
 `;
 
 /**
- * soft-light ソフトライト
+ * softLight ソフトライト
  */
 export const softLight = `
 float blendSoftLight(float base, float blend) {
@@ -166,7 +169,7 @@ vec3 blendSoftLight(vec3 base, vec3 blend, float opacity) {
 `;
 
 /**
- * linear-burn 焼きこみリニア
+ * linearBurn 焼きこみリニア
  */
 export const linearBurn = `
 float blendLinearBurn(float base, float blend) {
@@ -185,7 +188,7 @@ vec3 blendLinearBurn(vec3 base, vec3 blend, float opacity) {
 `;
 
 /**
- * linear-dodge 覆い焼きリニア
+ * linearDodge 覆い焼きリニア
  */
 export const linearDodge = `
 float blendLinearDodge(float base, float blend) {
@@ -204,11 +207,10 @@ vec3 blendLinearDodge(vec3 base, vec3 blend, float opacity) {
 `;
 
 /** 
- * linear-light リニアライト
+ * linearLight リニアライト
+ * linearBurnとlinearDodgeを必要とする
  */
 export const linearLight = `
-${linearBurn}
-${linearDodge}
 
 float blendLinearLight(float base, float blend) {
 	return blend<0.5?blendLinearBurn(base,(2.0*blend)):blendLinearDodge(base,(2.0*(blend-0.5)));
@@ -267,6 +269,8 @@ ${colorDodge}
 ${add}
 ${overlay}
 ${softLight}
+${linearBurn}
+${linearDodge}
 ${linearLight}
 ${difference}
 ${substract}

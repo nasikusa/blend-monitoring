@@ -6,7 +6,7 @@ import { updateSingleItemSize as updateSingleItemSizeAction } from '../stores/gl
 
 export default (props:any) => {
 
-    //@ts-ignore
+    // @ts-ignore
     const themeSettings = useSelector((state) => state.themeSettings);
     const dispatch = useDispatch();
   
@@ -17,7 +17,7 @@ export default (props:any) => {
       [dispatch]
     );
 
-    const _props = { themeSettings, updateSingleItemSize, ...props };
+    const combineProps = { themeSettings, updateSingleItemSize, ...props };
   
-    return <Edit {..._props} />;
+    return <Edit {...combineProps} />;
   }

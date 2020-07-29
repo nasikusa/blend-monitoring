@@ -1,5 +1,4 @@
 import React from 'react';
-import {useSelector} from 'react-redux';
 import { makeStyles, Theme, createStyles } from '@material-ui/core/styles';
 import FormControl from '@material-ui/core/FormControl';
 import FormGroup from '@material-ui/core/FormGroup';
@@ -47,16 +46,17 @@ const CategoryBlendMode = [
 
 
 export default (props:any) => {
+    
     const classes = useStyles();
+    const { itemKey, collectionData } = props;
+    const boolBlendModeStateObject = collectionData[itemKey].blendMode;
+    const blendModeActiveState:any = boolBlendModeStateObject;
+    const [state, setState] = React.useState(blendModeActiveState);
 
     const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         setState({ ...state, [event.target.name]: event.target.checked });
     };
-    const { itemKey, collectionData } = props;
-    const boolBlendModeStateObject = collectionData[itemKey].blendMode;
     
-    const blendModeActiveState:any = boolBlendModeStateObject;
-    const [state, setState] = React.useState(blendModeActiveState);
     
 
     const checkBoxes = CategoryBlendMode.map((oneCategoryBlendMode) => {

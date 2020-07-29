@@ -172,3 +172,5 @@ export const glAllLayerDataStateItem = [
         }
     ],
 ];
+
+export default glAllLayerDataStateItem;

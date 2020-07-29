@@ -4,7 +4,7 @@ import HeaderContainer from '../../../container/HeaderContainer';
 
 export default (props: any) => {
 
-    const {themeSettings} = props;
+    const {themeSettings,body} = props;
 
     const styles = css`
         padding-top: ${themeSettings.header.appBarHeight};
@@ -13,7 +13,7 @@ export default (props: any) => {
     return(
         <div css={styles}>
             <HeaderContainer />
-            {props.body}
+            {body}
         </div>
     );
 }

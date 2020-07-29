@@ -4,10 +4,10 @@ import PageTemplate from '../components/templates/PageTemplate';
 
 export default (props:any) => {
 
-    //@ts-ignore
+    // @ts-ignore
     const themeSettings = useSelector((state) => state.themeSettings);
 
-    const _props = { themeSettings, ...props };
+    const combineProps = { themeSettings, ...props };
   
-    return <PageTemplate {..._props} />;
+    return <PageTemplate {...combineProps} />;
   }

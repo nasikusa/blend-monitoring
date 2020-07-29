@@ -16,17 +16,30 @@ const useStyles = makeStyles({
         fontSize: `12px`,
     }
   });
-  
-export default (props:any) => {
+
+/**
+ * 透過度のスライダーコンポーネント
+ * @param props 
+ */
+const OpacitySlider: React.FC = (props:any) => {
 
     const [opacity, setOpacity] = React.useState<number | string | Array<number | string>>(100);
     const classes = useStyles();
     const {itemKey} = props;
 
+    /**
+     * スライダー変更時のイベント
+     * @param event 
+     * @param newValue 透過度の値
+     */
     const handleChange = (event: any, newValue: number | number[]) => {
         setOpacity(newValue as number);
     };
 
+    /**
+     * 透過度スライダーの脇の文字列入力inputを変更した際のイベント
+     * @param event 
+     */
     const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         setOpacity(event.target.value === '' ? '' : Number(event.target.value));
       };
@@ -71,3 +84,5 @@ export default (props:any) => {
         </Box>
     );
 }
+
+export default OpacitySlider;

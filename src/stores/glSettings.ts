@@ -1,5 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
-// Stateの初期状態
+
 const initialState: any = {
     rowCount: 3,
     maxRowCount: 6,
@@ -8,13 +8,12 @@ const initialState: any = {
     singleItemHeight: 300, // temp
     singleItemAspect: 1.0, // temp
 }
-// Sliceを生成する
 const slice = createSlice({
   name: "glSettings",
   initialState,
   reducers: {
     updateSingleItemSize: (state,action) => {
-      const glBoxClientWidth = action.payload.glBoxClientWidth;
+      const {glBoxClientWidth} = action.payload;
       const singleItemWidth = Math.ceil(glBoxClientWidth / state.rowCount) -1;
       const singleItemHeight = singleItemWidth * state.singleItemAspect;
       return {
@@ -26,8 +25,6 @@ const slice = createSlice({
   },
 });
 
-// Reducerをエクスポートする
 export default slice.reducer;
 
-// Action Creatorsをエクスポートする
 export const { updateSingleItemSize } = slice.actions;

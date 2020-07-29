@@ -25,7 +25,7 @@
     "@types/react-router-dom": "^5.1.5",
     "@types/redux-logger": "^3.0.8",
     "@typescript-eslint/eslint-plugin": "^2.10.0",
-    "@typescript-eslint/parser": "^2.10.0",
+    "@typescript-eslint/parser": "^3.7.1",
     "babel-eslint": "10.1.0",
     "babel-jest": "^24.9.0",
     "babel-loader": "8.1.0",
@@ -38,11 +38,14 @@
     "dotenv": "8.2.0",
     "dotenv-expand": "5.1.0",
     "eslint": "^6.6.0",
+    "eslint-config-airbnb": "^18.2.0",
+    "eslint-config-prettier": "^6.11.0",
     "eslint-config-react-app": "^5.2.1",
     "eslint-loader": "3.0.3",
     "eslint-plugin-flowtype": "4.6.0",
     "eslint-plugin-import": "2.20.1",
-    "eslint-plugin-jsx-a11y": "6.2.3",
+    "eslint-plugin-jsx-a11y": "^6.3.1",
+    "eslint-plugin-prettier": "^3.1.4",
     "eslint-plugin-react": "7.19.0",
     "eslint-plugin-react-hooks": "^1.6.1",
     "file-loader": "4.3.0",
@@ -93,6 +96,7 @@
     "style-loader": "0.23.1",
     "terser-webpack-plugin": "2.3.5",
     "ts-pnp": "1.1.6",
+    "typedocs": "^0.6.7",
     "typescript": "~3.7.2",
     "url-loader": "2.3.0",
     "webpack": "4.42.0",
@@ -103,10 +107,48 @@
   "scripts": {
     "start": "node scripts/start.js",
     "build": "node scripts/build.js",
-    "test": "node scripts/test.js"
+    "test": "node scripts/test.js",
+    "lint": "eslint src/**"
   },
   "eslintConfig": {
-    "extends": "react-app"
+    "extends": [
+      "react-app",
+      "airbnb",
+      "plugin:jsx-a11y/recommended",
+      "prettier",
+      "prettier/react"
+    ],
+    "parser": "@typescript-eslint/parser",
+    "plugins": [
+      "jsx-a11y",
+      "prettier"
+    ],
+    "settings": {
+      "import/resolver": {
+        "node": {
+          "extensions": [
+            ".js",
+            ".jsx",
+            ".json",
+            ".ts",
+            ".tsx"
+          ]
+        }
+      }
+    },
+    "rules": {
+      "import/extensions": ["off"],
+      "react/jsx-props-no-spreading": ["off"],
+      "react/jsx-filename-extension": [
+        1,
+        {
+          "extensions": [
+            ".ts",
+            ".tsx"
+          ]
+        }
+      ]
+    }
   },
   "browserslist": {
     "production": [

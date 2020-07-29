@@ -9,6 +9,9 @@ export default ( multiLayerData : any ) => {
             case `singleColor`:
                 shader = `uniform vec4 layer${layerNumber};`;
             break;
+            default:
+
+            break;
         }
         return shader;
     });

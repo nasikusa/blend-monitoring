@@ -1,7 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { image01, image02, image03 } from '../constants/temp/tempImageData';
 
-// Stateの初期状態
 const initialState = [
     {
         type: `dataURL`,
@@ -35,7 +34,6 @@ const initialState = [
     },
 ];
 
-// Sliceを生成する
 const slice = createSlice({
   name: "collectionData",
   initialState,
@@ -43,8 +41,6 @@ const slice = createSlice({
   },
 });
 
-// Reducerをエクスポートする
 export default slice.reducer;
 
-// Action Creatorsをエクスポートする
 // export const { blendChange } = slice.actions;

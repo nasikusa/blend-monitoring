@@ -4,10 +4,10 @@ import BlendModalContents from '../components/molecules/BlendModalContents';
 
 export default (props:any) => {
 
-    //@ts-ignore
+    // @ts-ignore
     const collectionData = useSelector((state) => state.collectionData);
 
-    const _props = { collectionData, ...props };
+    const combineProps = { collectionData, ...props };
   
-    return <BlendModalContents {..._props} />;
+    return <BlendModalContents {...combineProps} />;
   }

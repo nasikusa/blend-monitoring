@@ -4,9 +4,9 @@ import Header from '../components/organisms/Header';
 
 export default (props:any) => {
 
-    //@ts-ignore
+    // @ts-ignore
     const themeSettings = useSelector((state) => state.themeSettings);
-    const _props = { themeSettings, ...props };
+    const combineProps = { themeSettings, ...props };
   
-    return <Header {..._props} />;
+    return <Header {...combineProps} />;
   }

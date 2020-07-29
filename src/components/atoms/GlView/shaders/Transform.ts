@@ -1,4 +1,4 @@
-export const rotate = `
+const rotate = `
 vec2 rotate(vec2 v, float a) {
 	float s = sin(a);
 	float c = cos(a);
@@ -6,3 +6,5 @@ vec2 rotate(vec2 v, float a) {
 	return m * v;
 }
 `;
+
+export default rotate;

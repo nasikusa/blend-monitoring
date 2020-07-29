@@ -26,7 +26,7 @@ export const readyBlendModeData = getReadyBlendMode(BlendModeData);
  */
 export const getBoolStateBlendObject = ( blendModeData:any, invertBlendModeArray: string[] = [], defaultBooleanValue: boolean = false ) => {
     let resultObject:any = {};
-    let insertObject:any = {};
+    const insertObject:any = {};
     for(let k of Object.keys(blendModeData)) {
         if( blendModeData[k].ready !== false ){
             resultObject[k] = defaultBooleanValue;
@@ -62,7 +62,7 @@ export const isSingleTrueStateObject = (boolStateBlendObject:any) => {
 }
 
 export const getTrueStateBlendNameArray = (boolStateBlendObject:any) => {
-    let boolTrueNameArray: string[] = [];
+    const boolTrueNameArray: string[] = [];
     for(let k of Object.keys(boolStateBlendObject)) {
         if( boolStateBlendObject[k] === true ){
             boolTrueNameArray.push(k);

@@ -16,5 +16,7 @@ export default ( type: CollectionType ) => {
             return `画像コレクション`;
         case `adjust`:
             return `調整レイヤー`;
+        default:
+            return `不明なレイヤー`;
     }
 }

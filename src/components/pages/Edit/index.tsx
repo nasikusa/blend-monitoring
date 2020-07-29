@@ -6,8 +6,8 @@ import Grid from '@material-ui/core/Grid';
 import Box from '@material-ui/core/Box';
 import { makeStyles } from '@material-ui/core/styles';
 
-import GlBox from '../../../components/organisms/GlBox';
-import GlEdit from '../../../components/organisms/GlEdit';
+import GlBox from "../../organisms/GlBox";
+import GlEdit from "../../organisms/GlEdit";
 import PageTemplateContainer from "../../../container/PageTemplateContainer";
 
 
