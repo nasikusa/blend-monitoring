@@ -172,7 +172,8 @@
   },
   "babel": {
     "presets": [
-      "react-app"
+      "react-app",
+      "@emotion/babel-preset-css-prop"
     ]
   }
 }
