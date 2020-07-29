@@ -1,34 +1,51 @@
-import React, { Component } from "react";
+import React from "react";
 import { Shaders, Node, GLSL } from "gl-react";
 import { Surface } from "gl-react-dom";
 
-// in gl-react you need to statically define "shaders":
-const shaders = Shaders.create({
-    helloGL: {
-  // This is our first fragment shader in GLSL language (OpenGL Shading Language)
-  // (GLSL code gets compiled and run on the GPU)
-      frag: GLSL`
-  precision highp float;
-  varying vec2 uv;
-  void main() {
-    gl_FragColor = vec4(uv.x, uv.y, 0.5, 1.0);
-  }
-  `
-  // the main() function is called FOR EACH PIXELS
-  // the varying uv is a vec2 where x and y respectively varying from 0.0 to 1.0.
-  // we set in output the pixel color using the vec4(r,g,b,a) format.
-  // see GLSL_ES_Specification_1.0.17
-    }
-  });
-  
-  export default class Example extends Component {
-    render() {
+import CreateShaderUniforms from './script/CreateShaderUniforms';
+import CreateShaderFunctions from './script/CreateShaderFunctions';
+import CreateShaderProcesses from './script/CreateShaderProcesses';
+import CreateShaderProcessesVariables from './script/CreateShaderProcessesVariables';
+import CreateShaderVariables from './script/CreateShaderVariables';
+
+  export default (props: any) => {
+      const { itemKey, allLayerData, glSettings } = props;
+
+      const multiLayerData = allLayerData[itemKey];
+
+      const glResultColorName = `resultColor`;
+      const glUVName = `uv`;
+
+      const shaderString = `
+      precision highp float;
+      varying vec2 ${glUVName};
+      ${CreateShaderVariables(multiLayerData)}
+      ${CreateShaderFunctions(multiLayerData)}
+      
+      void main() {
+        vec3 ${glResultColorName} = vec3(0.0);
+        ${CreateShaderProcessesVariables(multiLayerData, glUVName, glSettings)}
+
+        ${CreateShaderProcesses(multiLayerData, glResultColorName)}
+
+        gl_FragColor = vec4( ${glResultColorName} , 1.0 );
+      }   
+      `;
+      // console.log(shaderString);
+
+      const shaders = Shaders.create({
+          firstGL: {
+            frag: GLSL`
+            ${shaderString}
+            `
+          }
+        });
+
       return (
-        <Surface width={300} height={300}>
-          <Node shader={shaders.helloGL} />
-        </Surface>
+        <div>
+            <Surface width={glSettings.singleItemWidth} height={glSettings.singleItemHeight}>
+                <Node shader={shaders.firstGL} uniforms={{ ...CreateShaderUniforms(multiLayerData)}} />
+            </Surface>
+        </div>
       );
-  // Surface creates the canvas, an area of pixels where you can draw.
-  // Node instanciates a "shader program" with the fragment shader defined above.
-    }
   }
