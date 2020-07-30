@@ -3,6 +3,7 @@
  * 描画モードに関係したシェーダー文字列を格納している
  * @packageDocumentation
  * @see : https://github.com/jamieowen/glsl-blend
+ * @todo : hsl系の描画モード、除算の描画モード、カラー比較(明・暗)の描画モードの追加
  */
 
 /**
@@ -255,6 +256,88 @@ vec3 blendSubstract(vec3 base, vec3 blend, float opacity) {
 }
 `;
 
+// added
+/**
+ * vividLight ビビッドライト
+ * 焼き込みカラーと覆い焼きカラーが必要
+ */
+export const vividLight = `
+float blendVividLight(float base, float blend) {
+	return (blend<0.5)?blendColorBurn(base,(2.0*blend)):blendColorDodge(base,(2.0*(blend-0.5)));
+}
+
+vec3 blendVividLight(vec3 base, vec3 blend) {
+	return vec3(blendVividLight(base.r,blend.r),blendVividLight(base.g,blend.g),blendVividLight(base.b,blend.b));
+}
+
+vec3 blendVividLight(vec3 base, vec3 blend, float opacity) {
+	return (blendVividLight(base, blend) * opacity + base * (1.0 - opacity));
+}
+`;
+
+/**
+ * pinLight ピンライト
+ * 比較(暗)と比較(明)が必要
+ */
+export const pinLight = `
+float blendPinLight(float base, float blend) {
+	return (blend<0.5)?blendDarken(base,(2.0*blend)):blendLighten(base,(2.0*(blend-0.5)));
+}
+
+vec3 blendPinLight(vec3 base, vec3 blend) {
+	return vec3(blendPinLight(base.r,blend.r),blendPinLight(base.g,blend.g),blendPinLight(base.b,blend.b));
+}
+
+vec3 blendPinLight(vec3 base, vec3 blend, float opacity) {
+	return (blendPinLight(base, blend) * opacity + base * (1.0 - opacity));
+}
+`;
+
+/**
+ * hardLight ハードライト
+ * overlayが必要
+ */
+export const hardLight = `
+vec3 blendHardLight(vec3 base, vec3 blend) {
+	return blendOverlay(blend,base);
+}
+
+vec3 blendHardLight(vec3 base, vec3 blend, float opacity) {
+	return (blendHardLight(base, blend) * opacity + base * (1.0 - opacity));
+}
+`;
+
+/**
+ * hardMix ハードミックス
+ * vividLightが必要
+ */
+export const hardMix = `
+float blendHardMix(float base, float blend) {
+	return (blendVividLight(base,blend)<0.5)?0.0:1.0;
+}
+
+vec3 blendHardMix(vec3 base, vec3 blend) {
+	return vec3(blendHardMix(base.r,blend.r),blendHardMix(base.g,blend.g),blendHardMix(base.b,blend.b));
+}
+
+vec3 blendHardMix(vec3 base, vec3 blend, float opacity) {
+	return (blendHardMix(base, blend) * opacity + base * (1.0 - opacity));
+}
+`;
+
+/**
+ * exclusion 除外
+ */
+export const exclusion = `
+vec3 blendExclusion(vec3 base, vec3 blend) {
+	return base+blend-2.0*base*blend;
+}
+
+vec3 blendExclusion(vec3 base, vec3 blend, float opacity) {
+	return (blendExclusion(base, blend) * opacity + base * (1.0 - opacity));
+}
+`;
+
 /**
  * all オール
  */
@@ -274,4 +357,9 @@ ${linearDodge}
 ${linearLight}
 ${difference}
 ${substract}
+${exclusion}
+${hardLight}
+${vividLight}
+${pinLight}
+${hardMix}
 `;
