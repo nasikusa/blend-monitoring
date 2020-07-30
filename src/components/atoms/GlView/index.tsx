@@ -2,28 +2,35 @@ import React from 'react';
 import { Shaders, Node, GLSL } from 'gl-react';
 import { Surface } from 'gl-react-dom';
 
+import CreateShaderVariables from './script/CreateShaderVariables';
 import CreateShaderUniforms from './script/CreateShaderUniforms';
 import CreateShaderFunctions from './script/CreateShaderFunctions';
 import CreateShaderProcesses from './script/CreateShaderProcesses';
 import CreateShaderProcessesVariables from './script/CreateShaderProcessesVariables';
-import CreateShaderVariables from './script/CreateShaderVariables';
+
+import { GlSettingsType } from '../../../stores/glSettings';
+import { GlCollectionInterfaceArray } from '../../../stores/collectionData';
+
+type Props = {
+  itemKey: number;
+  glSettings: GlSettingsType;
+  multiCollectionData: GlCollectionInterfaceArray;
+};
+
+/**
+ * 最終的に描画されるベースとなるカラー変数名
+ */
+export const glResultColorName = `resultColor`;
+/**
+ * ベースとなるuv変数の名前
+ */
+export const glUVName = `uv`;
 
 /**
  * シェーダー描画部分を担当する関数
  */
-const GlView: React.FC = (props: any) => {
-  const { itemKey, allLayerData, glSettings } = props;
-
-  const multiLayerData = allLayerData[itemKey];
-
-  /**
-   * 最終的に描画されるベースとなるカラー変数名
-   */
-  const glResultColorName = `resultColor`;
-  /**
-   * ベースとなるuv変数の名前
-   */
-  const glUVName = `uv`;
+const GlView: React.FC<Props> = (props: Props) => {
+  const { itemKey, glSettings, multiCollectionData } = props;
 
   /**
    * シェーダー文字列
@@ -31,20 +38,31 @@ const GlView: React.FC = (props: any) => {
   const shaderString = `
       precision highp float;
       varying vec2 ${glUVName};
-      ${CreateShaderVariables(multiLayerData)}
+      ${CreateShaderVariables(multiCollectionData)}
       ${CreateShaderFunctions()}
 
       void main() {
         vec3 ${glResultColorName} = vec3(0.0);
-        ${CreateShaderProcessesVariables(multiLayerData, glUVName, glSettings)}
+        ${CreateShaderProcessesVariables(
+          multiCollectionData,
+          glUVName,
+          glSettings
+        )}
 
-        ${CreateShaderProcesses(multiLayerData, glResultColorName)}
+        ${CreateShaderProcesses(
+          multiCollectionData,
+          glResultColorName,
+          itemKey
+        )}
 
         gl_FragColor = vec4( ${glResultColorName} , 1.0 );
       }
       `;
-  // console.log(shaderString);
+  console.log(shaderString);
 
+  /**
+   * シェーダー本体
+   */
   const shaders = Shaders.create({
     firstGL: {
       frag: GLSL`
@@ -61,7 +79,7 @@ const GlView: React.FC = (props: any) => {
       >
         <Node
           shader={shaders.firstGL}
-          uniforms={{ ...CreateShaderUniforms(multiLayerData) }}
+          uniforms={{ ...CreateShaderUniforms(multiCollectionData) }}
         />
       </Surface>
     </div>

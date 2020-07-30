@@ -1,67 +1,93 @@
 import chroma from 'chroma-js';
 import ZeroOneFloatAdjust from '../../../../utils/ZeroOneFloatAdjust';
 
+import {
+  GlCollectionInterface,
+  GlCollectionInterfaceArray,
+} from '../../../../stores/collectionData';
+import { GlSettingsType } from '../../../../stores/glSettings';
+
 /**
  * main関数内で使用する変数を定義する
- * @param multiLayerData
+ * @param multiCollectionData
  * @param glUVName 全体で共通のuv変数の名前
  * @param glSettings glsl描画の共通設定
  *
  */
-export default (multiLayerData: any, glUVName: string, glSettings: any) => {
-  const resultShaderArray: string[] = multiLayerData.map(
-    (singleLayerData: any) => {
-      const { type, layerNumber, image } = singleLayerData;
+export default (
+  multiCollectionData: GlCollectionInterfaceArray,
+  glUVName: string,
+  glSettings: GlSettingsType
+) => {
+  /**
+   * シェーダー文字列配列
+   */
+  const resultShaderArray: string[] = multiCollectionData.map(
+    (
+      singleCollectionData: GlCollectionInterface,
+      collectionCurrentIndex: number
+    ) => {
+      const { type, size, imageWidth, imageHeight } = singleCollectionData;
+
+      /**
+       * シェーダー文字列の変数
+       */
       let shader: string = '';
       switch (type) {
-        case `image`:
-          switch (image.type) {
+        case `singleImage`:
+        case `singleImageMultiBlends`:
+        case `multiImages`:
+          switch (size) {
             case `normal`:
               shader = `
-                        vec4 layer${layerNumber}ColorVec4 = texture2D( layer${layerNumber} , ${glUVName} );
-                        vec3 layer${layerNumber}ColorVec3 = layer${layerNumber}ColorVec4.rgb;
+                        vec4 layer${collectionCurrentIndex}ColorVec4 = texture2D( layer${collectionCurrentIndex} , ${glUVName} );
+                        vec3 layer${collectionCurrentIndex}ColorVec3 = layer${collectionCurrentIndex}ColorVec4.rgb;
                         `;
               break;
             case `cover`:
               shader = `
-                        vec2 layer${layerNumber}ColorUV = ShaderCoverImageSize( ${glUVName}, vec2( ${glSettings.singleItemWidth.toFixed(
+                        vec2 layer${collectionCurrentIndex}ColorUV = ShaderCoverImageSize( ${glUVName}, vec2( ${glSettings.singleItemWidth.toFixed(
                 1
               )}, ${glSettings.singleItemHeight.toFixed(
                 1
-              )} ) , vec2( ${image.originalWidth.toFixed(
+              )} ) , vec2( ${imageWidth.toFixed(1)} , ${imageHeight.toFixed(
                 1
-              )} , ${image.originalHeight.toFixed(1)} ) );
-                        vec4 layer${layerNumber}ColorVec4 = texture2D( layer${layerNumber} , layer${layerNumber}ColorUV );
-                        vec3 layer${layerNumber}ColorVec3 = layer${layerNumber}ColorVec4.rgb;
+              )} ) );
+                        vec4 layer${collectionCurrentIndex}ColorVec4 = texture2D( layer${collectionCurrentIndex} , layer${collectionCurrentIndex}ColorUV );
+                        vec3 layer${collectionCurrentIndex}ColorVec3 = layer${collectionCurrentIndex}ColorVec4.rgb;
                         `;
               break;
             case `contain`:
               // not working
               shader = `
-                        vec2 layer${layerNumber}ColorUV = ShaderContainImageSize( ${glUVName}, vec2( ${glSettings.singleItemWidth.toFixed(
+                        vec2 layer${collectionCurrentIndex}ColorUV = ShaderContainImageSize( ${glUVName}, vec2( ${glSettings.singleItemWidth.toFixed(
                 1
               )}, ${glSettings.singleItemHeight.toFixed(
                 1
-              )} ) , vec2( ${image.originalWidth.toFixed(
+              )} ) , vec2( ${imageWidth.toFixed(1)} , ${imageHeight.toFixed(
                 1
-              )} , ${image.originalHeight.toFixed(1)} ) );
-                        vec4 layer${layerNumber}ColorVec4 = texture2D( layer${layerNumber} , layer${layerNumber}ColorUV );
-                        vec3 layer${layerNumber}ColorVec3 = layer${layerNumber}ColorVec4.rgb;
+              )} ) );
+                        vec4 layer${collectionCurrentIndex}ColorVec4 = texture2D( layer${collectionCurrentIndex} , layer${collectionCurrentIndex}ColorUV );
+                        vec3 layer${collectionCurrentIndex}ColorVec3 = layer${collectionCurrentIndex}ColorVec4.rgb;
                         `;
               break;
             default:
               break;
           }
           break;
-        case `singleColor`: {
-          const glColor = chroma(`${singleLayerData.singleColor}`).gl();
+        case `singleColor`:
+        case `singleColorMultiBlends`:
+        case `multiColors`: {
+          const glColor = chroma(`${singleCollectionData.color}`).gl();
+          const [glRedColor, glGreenColor, glBlueColor, glAlphaColor] = glColor;
+
           shader = `
-                vec4 layer${layerNumber}ColorVec4 = vec4( ${ZeroOneFloatAdjust(
-            glColor[0]
-          )} , ${ZeroOneFloatAdjust(glColor[1])} , ${ZeroOneFloatAdjust(
-            glColor[2]
-          )} , ${ZeroOneFloatAdjust(glColor[3])} );
-                vec3 layer${layerNumber}ColorVec3 = layer${layerNumber}ColorVec4.rgb;
+                vec4 layer${collectionCurrentIndex}ColorVec4 = vec4( ${ZeroOneFloatAdjust(
+            glRedColor
+          )} , ${ZeroOneFloatAdjust(glGreenColor)} , ${ZeroOneFloatAdjust(
+            glBlueColor
+          )} , ${ZeroOneFloatAdjust(glAlphaColor)} );
+                vec3 layer${collectionCurrentIndex}ColorVec3 = layer${collectionCurrentIndex}ColorVec4.rgb;
                 `;
           break;
         }
