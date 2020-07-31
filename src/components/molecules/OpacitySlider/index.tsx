@@ -8,6 +8,9 @@ import Input from '@material-ui/core/Input';
 
 import OpacityIcon from '@material-ui/icons/Opacity';
 
+/**
+ * mateiral uiのカスタムスタイル
+ */
 const useStyles = makeStyles({
   input: {
     width: 52,
@@ -19,7 +22,7 @@ const useStyles = makeStyles({
 
 /**
  * 透過度のスライダーコンポーネント
- * @param props
+ * @todo Opacityだけでなく汎用性をもたせたい
  */
 const OpacitySlider: React.FC = () => {
   const [opacity, setOpacity] = React.useState<
@@ -44,6 +47,9 @@ const OpacitySlider: React.FC = () => {
     setOpacity(event.target.value === '' ? '' : Number(event.target.value));
   };
 
+  /**
+   * input変更時のブラーイベント
+   */
   const handleBlur = () => {
     if (opacity < 0) {
       setOpacity(0);

@@ -1,6 +1,15 @@
 import { createSlice } from '@reduxjs/toolkit';
 
-const initialState = {
+export type ThemeSettingsType = {
+  general: {
+    backgroundColor: string;
+  };
+  header: {
+    appBarHeight: string;
+  };
+};
+
+const initialState: ThemeSettingsType = {
   general: {
     backgroundColor: `#232323`,
   },

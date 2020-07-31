@@ -1,8 +1,85 @@
+export type BasicBlendModeType = 'normal';
+
+export type BrightnessPlusBlendModesType =
+  | 'lighten'
+  | 'screen'
+  | 'linearDodge'
+  | 'colorDodge'
+  | 'lighterColor';
+
+export type BrightnessPlusMinusBlendModesType =
+  | 'pinLight'
+  | 'overlay'
+  | 'linearLight'
+  | 'vividLight'
+  | 'softLight'
+  | 'hardLight'
+  | 'hardMix';
+
+export type BrightnessMinusBlendModesType =
+  | 'darken'
+  | 'multiply'
+  | 'linearBurn'
+  | 'colorBurn'
+  | 'darkerColor';
+
+export type HSLBlendModesType = 'hue' | 'color' | 'saturation' | 'luminosity';
+
+export type MathBlendModesType =
+  | 'difference'
+  | 'exclusion'
+  | 'subtract'
+  | 'divide';
+
+export type BlendModesType =
+  | BasicBlendModeType
+  | BrightnessPlusBlendModesType
+  | BrightnessPlusMinusBlendModesType
+  | BrightnessMinusBlendModesType
+  | HSLBlendModesType
+  | MathBlendModesType;
+
+export type BlendModeTypeBaseType = 'other' | 'normal' | 'hsl' | 'math';
+
+export type BlendModeTypeBrightnessType = null | '+' | '+-' | '-';
+
+export type BlendModeTypeMathType =
+  | null
+  | 'IndividualComparison'
+  | 'Multiplication'
+  | 'Addition'
+  | 'Division'
+  | 'TotalComparison';
+
+export type BlendModeDataItemType = {
+  mode: BlendModesType;
+  type: {
+    base: BlendModeTypeBaseType;
+    brightness: BlendModeTypeBrightnessType;
+    math: BlendModeTypeMathType;
+  };
+  name: {
+    ja: string;
+    equalJa?: string;
+    equalEn?: string;
+  };
+  exist?: {
+    adobe?: boolean;
+    css?: boolean;
+    blender?: boolean;
+  };
+  ready?: boolean;
+};
+
+export type BlendModeDataType = {
+  [key: string]: BlendModeDataItemType;
+};
+
 /**
  * @see: https://twitter.com/optie_f/status/974263251071418368
  * @todo: existの箇所の対応(今はすべてtrueになってるので意味がない)
  */
-const blemdModeData = {
+const blendModeData: BlendModeDataType = {
   normal: {
     mode: `normal`,
     type: {
@@ -59,7 +136,7 @@ const blemdModeData = {
       math: `Addition`,
     },
     name: {
-      equalJp: `加算`,
+      equalJa: `加算`,
       ja: `覆い焼きリニア(加算)`,
       equalEn: `Add`,
     },
@@ -427,4 +504,4 @@ const blemdModeData = {
   },
 };
 
-export default blemdModeData;
+export default blendModeData;

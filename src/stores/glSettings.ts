@@ -1,6 +1,9 @@
 import { createSlice } from '@reduxjs/toolkit';
 
 export type GlSettingsType = {
+  itemCount: number;
+  maxItemCount: number;
+  minItemCount: number;
   rowCount: number;
   maxRowCount: number;
   minRowCount: number;
@@ -13,6 +16,9 @@ export type GlSettingsType = {
  * glSettingsの初期state
  */
 const initialState: GlSettingsType = {
+  itemCount: 4,
+  maxItemCount: 15,
+  minItemCount: 0,
   rowCount: 3,
   maxRowCount: 6,
   minRowCount: 1,
@@ -20,6 +26,9 @@ const initialState: GlSettingsType = {
   singleItemHeight: 300, // temp
   singleItemAspect: 1.0, // temp
 };
+
+initialState.singleItemAspect =
+  initialState.singleItemWidth / initialState.singleItemHeight;
 
 /**
  * toolkitを使用したスライス

@@ -8,7 +8,16 @@ import Checkbox from '@material-ui/core/Checkbox';
 import {
   readyBlendModeArray,
   readyBlendModeData,
+  // getBoolStateBlendObject,
 } from '../../../utils/GetBlendModeData';
+
+import { GlCollectionInterfaceArray } from '../../../stores/collectionData';
+
+export type Props = {
+  glCollectionOrderKey: number;
+  collectionData: GlCollectionInterfaceArray;
+  updateBlendMode: any;
+};
 
 const useStyles = makeStyles(() =>
   createStyles({
@@ -51,7 +60,7 @@ const CategoryBlendMode = [
   mathBlendMode,
 ];
 
-export default (props: any) => {
+export default (props: Props) => {
   const classes = useStyles();
   const { itemKey, collectionData } = props;
   const boolBlendModeStateObject = collectionData[itemKey].blendMode;
