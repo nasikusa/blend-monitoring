@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { makeStyles, createStyles } from '@material-ui/core/styles';
 import Modal from '@material-ui/core/Modal';
 import Grid from '@material-ui/core/Grid';
@@ -9,14 +9,13 @@ import Fade from '@material-ui/core/Fade';
 import Button from '@material-ui/core/Button';
 
 import PhotoLibraryIcon from '@material-ui/icons/PhotoLibrary';
-import {
-  isSingleTrueStateObject,
-  getTrueStateBlendNameArray,
-} from '../../../utils/GetBlendModeData';
+import { GlCollectionOrderContext } from '../Collections';
 import BlendModalContentsContainer from '../../../container/BlendModalContentsContainer';
 
+import { GlCollectionInterfaceArray } from '../../../stores/collectionData';
+
 type Props = {
-  itemKey: number;
+  collectionData: GlCollectionInterfaceArray;
 };
 
 const useStyles = makeStyles(() =>
@@ -36,18 +35,30 @@ const useStyles = makeStyles(() =>
   })
 );
 
-export default (props: any) => {
+/**
+ * 描画モードのモーダルを管理するコンポーネント。モーダルの中身に関しては、
+ * 他コンポーネントを参照してください。
+ */
+export default (props: Props) => {
   const classes = useStyles();
   const [open, setOpen] = React.useState(true);
-  const { itemKey, collectionData } = props;
+  const { collectionData } = props;
+  const glCollectionOrderKey = useContext(GlCollectionOrderContext);
   const collectionDataState = collectionData;
-  const boolBlendModeStateObject = collectionDataState[itemKey].blendMode;
+  const boolBlendModeStateObject =
+    collectionDataState[glCollectionOrderKey].blendMode;
 
-  const handleOpen = () => {
+  /**
+   * モーダルの開閉stateをtrueにする関数
+   */
+  const handleOpen = (): void => {
     setOpen(true);
   };
 
-  const handleClose = () => {
+  /**
+   * モーダルの開閉stateをfalseにする関数
+   */
+  const handleClose = (): void => {
     setOpen(false);
   };
 
@@ -66,9 +77,9 @@ export default (props: any) => {
           onClick={handleOpen}
           style={{ maxHeight: '25px' }}
         >
-          {isSingleTrueStateObject(boolBlendModeStateObject)
-            ? getTrueStateBlendNameArray(boolBlendModeStateObject)[0]
-            : `複数の描画モード`}
+          {Array.isArray(boolBlendModeStateObject)
+            ? `複数の描画モード`
+            : boolBlendModeStateObject}
         </Button>
       </Grid>
       <Modal
@@ -84,7 +95,9 @@ export default (props: any) => {
         }}
       >
         <Fade in={open}>
-          <BlendModalContentsContainer itemKey={itemKey} />
+          <BlendModalContentsContainer
+            glCollectionOrderKey={glCollectionOrderKey}
+          />
         </Fade>
       </Modal>
     </Box>

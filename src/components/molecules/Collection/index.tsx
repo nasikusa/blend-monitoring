@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
@@ -11,7 +11,17 @@ import OpacitySlider from '../OpacitySlider';
 import BlendModalContainer from '../../../container/BlendModalContainer';
 import CollectionMainIcon from '../../atoms/CollectionMainIcon';
 import GetCollectionsName from '../../../utils/GetCollectionsName';
+import { GlCollectionOrderContext } from '../Collections';
 
+import { GlCollectionInterfaceArray } from '../../../stores/collectionData';
+
+export type Props = {
+  collectionData: GlCollectionInterfaceArray;
+};
+
+/**
+ * Material UIのスタイル
+ */
 const useStyles = makeStyles((theme) => ({
   nested: {
     paddingLeft: theme.spacing(4),
@@ -26,12 +36,19 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default (props: any) => {
-  const { itemKey, collectionData } = props;
+/**
+ * 単一のコレクションコンポーネント
+ */
+export default (props: Props) => {
+  const { collectionData } = props;
   const classes = useStyles();
+  const glCollectionOrderKey = useContext(GlCollectionOrderContext);
   const [open, setOpen] = React.useState(true);
 
-  const handleClick = () => {
+  /**
+   * MaterialUIのCollapseコンポーネントの開閉stateを変更する関数
+   */
+  const handleClick = (): void => {
     setOpen(!open);
   };
 
@@ -39,10 +56,14 @@ export default (props: any) => {
     <>
       <ListItem button disableRipple onClick={handleClick}>
         <ListItemIcon>
-          <CollectionMainIcon collectionType={collectionData[itemKey].type} />
+          <CollectionMainIcon
+            collectionType={collectionData[glCollectionOrderKey].type}
+          />
         </ListItemIcon>
         <ListItemText
-          primary={GetCollectionsName(collectionData[itemKey].type)}
+          primary={GetCollectionsName(
+            collectionData[glCollectionOrderKey].type
+          )}
         />
       </ListItem>
       <Collapse in={open} timeout="auto" className={classes.collapse}>
@@ -52,7 +73,7 @@ export default (props: any) => {
           </ListItem>
           <Divider />
           <ListItem button className={classes.nested} disableRipple>
-            <BlendModalContainer itemKey={itemKey} />
+            <BlendModalContainer />
           </ListItem>
           <Divider />
         </List>

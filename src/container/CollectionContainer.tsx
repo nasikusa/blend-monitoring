@@ -2,11 +2,11 @@ import React from 'react';
 import { useSelector } from 'react-redux';
 import Collection from '../components/molecules/Collection';
 
-export default (props: any) => {
+export default () => {
   // @ts-ignore
   const collectionData = useSelector((state) => state.collectionData);
 
-  const combineProps = { collectionData, ...props };
+  const combineProps = { collectionData };
 
   return <Collection {...combineProps} />;
 };

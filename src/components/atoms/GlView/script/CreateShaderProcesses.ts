@@ -9,13 +9,13 @@ import {
  * ベースとなるカラーに色を追加する処理プロセス - main関数内で実行される
  * @param multiCollectionData 複数のコレクションがまとまったデータ配列
  * @param baseLayerName       最終出力されるベースとなるレイヤーの名前
- * @param itemKey             コレクション全体の中での順番（表示的には下から、配列としては上から）
+ * @param glItemOrderKey      glsl描画アイテムそれぞれの順番
  * @todo 透過度対応
  */
 export default (
   multiCollectionData: GlCollectionInterfaceArray,
   baseLayerName: string,
-  itemKey: number
+  glItemOrderKey: number
 ) => {
   /**
    * シェーダー文字列の配列
@@ -32,7 +32,7 @@ export default (
         opacity,
         baseLayerName,
         `layer${collectionCurrentIndex}ColorVec3`,
-        itemKey
+        glItemOrderKey
       )}
         `;
 

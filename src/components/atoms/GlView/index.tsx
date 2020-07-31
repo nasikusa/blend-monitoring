@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { Shaders, Node, GLSL } from 'gl-react';
 import { Surface } from 'gl-react-dom';
 
@@ -7,6 +7,7 @@ import CreateShaderUniforms from './script/CreateShaderUniforms';
 import CreateShaderFunctions from './script/CreateShaderFunctions';
 import CreateShaderProcesses from './script/CreateShaderProcesses';
 import CreateShaderProcessesVariables from './script/CreateShaderProcessesVariables';
+import { GlItemOrderContext } from '../../organisms/GlBox';
 
 import { GlSettingsType } from '../../../stores/glSettings';
 import { GlCollectionInterfaceArray } from '../../../stores/collectionData';
@@ -30,7 +31,9 @@ export const glUVName = `uv`;
  * シェーダー描画部分を担当する関数
  */
 const GlView: React.FC<Props> = (props: Props) => {
-  const { itemKey, glSettings, multiCollectionData } = props;
+  const { glSettings, multiCollectionData } = props;
+
+  const glItemOrderKey = useContext(GlItemOrderContext);
 
   /**
    * シェーダー文字列
@@ -52,13 +55,13 @@ const GlView: React.FC<Props> = (props: Props) => {
         ${CreateShaderProcesses(
           multiCollectionData,
           glResultColorName,
-          itemKey
+          glItemOrderKey
         )}
 
         gl_FragColor = vec4( ${glResultColorName} , 1.0 );
       }
       `;
-  console.log(shaderString);
+  // console.log(shaderString);
 
   /**
    * シェーダー本体
