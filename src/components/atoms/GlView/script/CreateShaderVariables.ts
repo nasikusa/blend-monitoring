@@ -25,12 +25,18 @@ export default (multiCollectionData: GlCollectionInterfaceArray): string => {
         case 'singleImage':
         case 'singleImageMultiBlends':
         case 'multiImages':
-          shader = `uniform sampler2D layer${collectionCurrentIndex};`;
+          shader = `
+          uniform float layer${collectionCurrentIndex}Opacity;
+          uniform sampler2D layer${collectionCurrentIndex};
+          `;
           break;
         case 'singleColor':
         case 'singleColorMultiBlends':
         case 'multiColors':
-          shader = `uniform vec4 layer${collectionCurrentIndex};`;
+          shader = `
+          uniform float layer${collectionCurrentIndex}Opacity;
+          uniform vec4 layer${collectionCurrentIndex};
+          `;
           break;
         default:
           break;

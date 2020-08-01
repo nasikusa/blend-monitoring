@@ -32,7 +32,8 @@ export default (
         opacity,
         baseLayerName,
         `layer${collectionCurrentIndex}ColorVec3`,
-        glItemOrderKey
+        glItemOrderKey,
+        collectionCurrentIndex
       )}
         `;
 
