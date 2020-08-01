@@ -18,6 +18,9 @@ const base = css`
   body {
     max-height: 100vh;
     font-family: 'Noto Sans JP', sans-serif;
+    padding-top: 0px !important;
+    padding-left: 0px !important;
+    padding-right: 0px !important;
   }
   html {
     box-sizing: border-box;
