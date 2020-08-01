@@ -2,16 +2,20 @@ import React from 'react';
 import { useSelector } from 'react-redux';
 
 import GlView from '../components/atoms/GlView';
+import { AppState } from '../stores/index';
 
 export type Props = {
   itemKey: number;
 };
 
+/**
+ * glViewコンポーネントのcontainerコンポーネント
+ */
 export default (props: Props) => {
-  // @ts-ignore
-  const glSettings = useSelector((state) => state.glSettings);
-  // @ts-ignore
-  const multiCollectionData = useSelector((state) => state.collectionData);
+  const glSettings = useSelector((state: AppState) => state.glSettings);
+  const multiCollectionData = useSelector(
+    (state: AppState) => state.collectionData
+  );
 
   const combineProps = {
     multiCollectionData,

@@ -1,12 +1,22 @@
-import React from 'react';
-import { useSelector } from 'react-redux';
+import React, { useCallback } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
 import Collection from '../components/molecules/Collection';
 
-export default () => {
-  // @ts-ignore
-  const collectionData = useSelector((state) => state.collectionData);
+import { AppState } from '../stores/index';
+import { deleteSingleCollection as deleteSingleCollectionAction } from '../stores/collectionData';
 
-  const combineProps = { collectionData };
+export default () => {
+  const collectionData = useSelector((state: AppState) => state.collectionData);
+  const dispatch = useDispatch();
+
+  const deleteSingleCollection = useCallback(
+    (value) => {
+      dispatch(deleteSingleCollectionAction(value));
+    },
+    [dispatch]
+  );
+
+  const combineProps = { collectionData, deleteSingleCollection };
 
   return <Collection {...combineProps} />;
 };
