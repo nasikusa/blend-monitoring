@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { makeStyles, createStyles } from '@material-ui/core/styles';
 import FormControl from '@material-ui/core/FormControl';
 import FormGroup from '@material-ui/core/FormGroup';
@@ -10,11 +10,10 @@ import {
   readyBlendModeData,
   // getBoolStateBlendObject,
 } from '../../../utils/GetBlendModeData';
-
+import { GlCollectionOrderContext } from '../Collections';
 import { GlCollectionInterfaceArray } from '../../../stores/collectionData';
 
 export type Props = {
-  glCollectionOrderKey: number;
   collectionData: GlCollectionInterfaceArray;
   updateBlendMode: any;
 };
@@ -62,30 +61,43 @@ const CategoryBlendMode = [
 
 export default (props: Props) => {
   const classes = useStyles();
-  const { itemKey, collectionData } = props;
-  const boolBlendModeStateObject = collectionData[itemKey].blendMode;
-  const blendModeActiveState: any = boolBlendModeStateObject;
-  const [state, setState] = React.useState(blendModeActiveState);
-
+  const { collectionData, updateBlendMode } = props;
+  const glCollectionOrderKey = useContext(GlCollectionOrderContext);
+  let boolBlendModeStateObject = collectionData[glCollectionOrderKey].blendMode;
+  if (typeof boolBlendModeStateObject === 'string') {
+    boolBlendModeStateObject = [boolBlendModeStateObject];
+  }
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setState({ ...state, [event.target.name]: event.target.checked });
+    updateBlendMode({
+      blendMode: event.target.name,
+      boolValue: event.target.checked,
+      glCollectionOrderKey,
+    });
   };
-
   const checkBoxes = CategoryBlendMode.map((oneCategoryBlendMode) => {
-    const labels = oneCategoryBlendMode.map((blendModeData) => (
-      <FormControlLabel
-        control={
-          <Checkbox
-            color="primary"
-            checked={state[blendModeData.mode]}
-            onChange={handleChange}
-            name={blendModeData.mode}
-          />
-        }
-        label={readyBlendModeData[blendModeData.mode].name.ja}
-        className={classes.formLabel}
-      />
-    ));
+    const labels = oneCategoryBlendMode.map((blendModeData) => {
+      let checkBoxValue = false;
+      if (Array.isArray(boolBlendModeStateObject)) {
+        checkBoxValue = boolBlendModeStateObject.includes(blendModeData.mode);
+      } else {
+        checkBoxValue = boolBlendModeStateObject === blendModeData.mode;
+      }
+
+      return (
+        <FormControlLabel
+          control={
+            <Checkbox
+              color="primary"
+              checked={checkBoxValue}
+              onChange={handleChange}
+              name={blendModeData.mode}
+            />
+          }
+          label={readyBlendModeData[blendModeData.mode].name.ja}
+          className={classes.formLabel}
+        />
+      );
+    });
     return (
       <FormControl component="fieldset" className={classes.formControl}>
         <FormGroup>{labels}</FormGroup>

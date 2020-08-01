@@ -11,6 +11,7 @@ import Button from '@material-ui/core/Button';
 import PhotoLibraryIcon from '@material-ui/icons/PhotoLibrary';
 import { GlCollectionOrderContext } from '../Collections';
 import BlendModalContentsContainer from '../../../container/BlendModalContentsContainer';
+import { readyBlendModeData } from '../../../utils/GetBlendModeData';
 
 import { GlCollectionInterfaceArray } from '../../../stores/collectionData';
 
@@ -79,7 +80,7 @@ export default (props: Props) => {
         >
           {Array.isArray(boolBlendModeStateObject)
             ? `複数の描画モード`
-            : boolBlendModeStateObject}
+            : readyBlendModeData[boolBlendModeStateObject].name.ja}
         </Button>
       </Grid>
       <Modal

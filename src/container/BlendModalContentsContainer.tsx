@@ -1,12 +1,23 @@
 import React from 'react';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import BlendModalContents from '../components/molecules/BlendModalContents';
 
-export default (props: any) => {
-  // @ts-ignore
-  const collectionData = useSelector((state) => state.collectionData);
+import { updateBlendMode as updateBlendModeAction } from '../stores/collectionData';
+import { AppState } from '../stores/index';
 
-  const combineProps = { collectionData, ...props };
+export default (props: any) => {
+  const collectionData = useSelector((state: AppState) => state.collectionData);
+
+  const dispatch = useDispatch();
+
+  const updateBlendMode = React.useCallback(
+    (value) => {
+      dispatch(updateBlendModeAction(value));
+    },
+    [dispatch]
+  );
+
+  const combineProps = { collectionData, updateBlendMode, ...props };
 
   return <BlendModalContents {...combineProps} />;
 };
