@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import Slider from '@material-ui/core/Slider';
 import Grid from '@material-ui/core/Grid';
@@ -7,6 +7,8 @@ import Typography from '@material-ui/core/Typography';
 import Input from '@material-ui/core/Input';
 
 import OpacityIcon from '@material-ui/icons/Opacity';
+
+import { GlCollectionOrderContext } from '../Collections';
 
 /**
  * mateiral uiのカスタムスタイル
@@ -24,19 +26,27 @@ const useStyles = makeStyles({
  * 透過度のスライダーコンポーネント
  * @todo Opacityだけでなく汎用性をもたせたい
  */
-const OpacitySlider: React.FC = () => {
-  const [opacity, setOpacity] = React.useState<
-    number | string | Array<number | string>
-  >(100);
+const OpacitySlider: React.FC = (props: any) => {
+  // const [opacity, setOpacity] = React.useState<
+  //   number | string | Array<number | string>
+  // >(100);
   const classes = useStyles();
+  const { updateOpacity, collectionData } = props;
+  const glCollectionOrderKey = useContext(GlCollectionOrderContext);
+  const globalStateOpacityValue = collectionData[glCollectionOrderKey].opacity;
 
   /**
    * スライダー変更時のイベント
    * @param event
    * @param newValue 透過度の値
    */
-  const handleChange = (event: any, newValue: number | number[]) => {
-    setOpacity(newValue as number);
+  const handleChange = (event: any, value: number | number[]) => {
+    if (!Array.isArray(value)) {
+      updateOpacity({
+        opacityValue: value * 0.01,
+        glCollectionOrderKey,
+      });
+    }
   };
 
   /**
@@ -44,17 +54,30 @@ const OpacitySlider: React.FC = () => {
    * @param event
    */
   const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setOpacity(event.target.value === '' ? '' : Number(event.target.value));
+    // setOpacity(event.target.value === '' ? '' : Number(event.target.value));
+    updateOpacity({
+      opacityValue:
+        event.target.value === '' ? '' : Number(event.target.value) * 0.01,
+      glCollectionOrderKey,
+    });
   };
 
   /**
    * input変更時のブラーイベント
    */
   const handleBlur = () => {
-    if (opacity < 0) {
-      setOpacity(0);
-    } else if (opacity > 100) {
-      setOpacity(100);
+    if (globalStateOpacityValue < 0) {
+      // setOpacity(0);
+      updateOpacity({
+        opacityValue: 0.0,
+        glCollectionOrderKey,
+      });
+    } else if (globalStateOpacityValue > 100) {
+      // setOpacity(100);
+      updateOpacity({
+        opacityValue: 1.0,
+        glCollectionOrderKey,
+      });
     }
   };
 
@@ -69,9 +92,14 @@ const OpacitySlider: React.FC = () => {
         </Grid>
         <Grid item xs>
           <Slider
-            value={typeof opacity === 'number' ? opacity : 0}
+            value={
+              typeof globalStateOpacityValue === 'number'
+                ? Math.floor(globalStateOpacityValue * 100)
+                : 0
+            }
             min={0}
             max={100}
+            step={5}
             valueLabelDisplay="auto"
             onChange={handleChange}
             aria-labelledby="opacity-slider"
@@ -80,7 +108,7 @@ const OpacitySlider: React.FC = () => {
         <Grid item>
           <Input
             className={classes.input}
-            value={opacity}
+            value={Math.floor(globalStateOpacityValue * 100)}
             margin="dense"
             onChange={handleInputChange}
             onBlur={handleBlur}
