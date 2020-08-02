@@ -17,7 +17,8 @@ import { GlSettingsType } from '../../../../stores/glSettings';
 export default (
   multiCollectionData: GlCollectionInterfaceArray,
   glUVName: string,
-  glSettings: GlSettingsType
+  glSettings: GlSettingsType,
+  glItemOrderKey: number
 ) => {
   /**
    * シェーダー文字列配列
@@ -40,44 +41,54 @@ export default (
           switch (size) {
             case `normal`:
               shader = `
-                        vec4 layer${collectionCurrentIndex}ColorVec4 = texture2D( layer${collectionCurrentIndex} , ${glUVName} );
-                        vec3 layer${collectionCurrentIndex}ColorVec3 = layer${collectionCurrentIndex}ColorVec4.rgb;
-                        `;
+vec4 layer${collectionCurrentIndex}ColorVec4 = texture2D( layer${collectionCurrentIndex} , ${glUVName} );
+vec3 layer${collectionCurrentIndex}ColorVec3 = layer${collectionCurrentIndex}ColorVec4.rgb;
+`;
               break;
             case `cover`:
-              shader = `
-                        vec2 layer${collectionCurrentIndex}ColorUV = ShaderCoverImageSize( ${glUVName}, vec2( ${glSettings.singleItemWidth.toFixed(
-                1
-              )}, ${glSettings.singleItemHeight.toFixed(
-                1
-              )} ) , vec2( ${imageWidth.toFixed(1)} , ${imageHeight.toFixed(
-                1
-              )} ) );
-                        vec4 layer${collectionCurrentIndex}ColorVec4 = texture2D( layer${collectionCurrentIndex} , layer${collectionCurrentIndex}ColorUV );
-                        vec3 layer${collectionCurrentIndex}ColorVec3 = layer${collectionCurrentIndex}ColorVec4.rgb;
-                        `;
+              if (imageWidth != null && imageHeight != null) {
+                shader = `
+  // background-size: coverのような感じでUV座標を取得し、vec2型の変数に入れる
+  vec2 layer${collectionCurrentIndex}ColorUV = ShaderCoverImageSize(
+  ${glUVName},
+  vec2( ${glSettings.singleItemWidth.toFixed(1)},
+  ${glSettings.singleItemHeight.toFixed(1)} ) ,
+  vec2( ${imageWidth.toFixed(1)} , ${imageHeight.toFixed(1)} ) );
+
+  vec4 layer${collectionCurrentIndex}ColorVec4 =
+  texture2D( layer${collectionCurrentIndex} , layer${collectionCurrentIndex}ColorUV );
+
+  vec3 layer${collectionCurrentIndex}ColorVec3 =
+  layer${collectionCurrentIndex}ColorVec4.rgb;
+  `;
+              }
               break;
             case `contain`:
               // not working
-              shader = `
-                        vec2 layer${collectionCurrentIndex}ColorUV = ShaderContainImageSize( ${glUVName}, vec2( ${glSettings.singleItemWidth.toFixed(
-                1
-              )}, ${glSettings.singleItemHeight.toFixed(
-                1
-              )} ) , vec2( ${imageWidth.toFixed(1)} , ${imageHeight.toFixed(
-                1
-              )} ) );
-                        vec4 layer${collectionCurrentIndex}ColorVec4 = texture2D( layer${collectionCurrentIndex} , layer${collectionCurrentIndex}ColorUV );
-                        vec3 layer${collectionCurrentIndex}ColorVec3 = layer${collectionCurrentIndex}ColorVec4.rgb;
-                        `;
+              if (imageWidth != null && imageHeight != null) {
+                shader = `
+  vec2 layer${collectionCurrentIndex}ColorUV =
+  ShaderContainImageSize(
+  ${glUVName},
+  vec2( ${glSettings.singleItemWidth.toFixed(1)},
+  ${glSettings.singleItemHeight.toFixed(1)} ) ,
+  vec2( ${imageWidth.toFixed(1)} ,
+  ${imageHeight.toFixed(1)} ) );
+
+  vec4 layer${collectionCurrentIndex}ColorVec4 =
+  texture2D( layer${collectionCurrentIndex} , layer${collectionCurrentIndex}ColorUV );
+
+  vec3 layer${collectionCurrentIndex}ColorVec3 =
+   layer${collectionCurrentIndex}ColorVec4.rgb;
+  `;
+              }
               break;
             default:
               break;
           }
           break;
         case `singleColor`:
-        case `singleColorMultiBlends`:
-        case `multiColors`: {
+        case `singleColorMultiBlends`: {
           const glColor = chroma(`${singleCollectionData.color}`).gl();
           const [glRedColor, glGreenColor, glBlueColor, glAlphaColor] = glColor;
 
@@ -89,6 +100,29 @@ export default (
           )} , ${ZeroOneFloatAdjust(glAlphaColor)} );
                 vec3 layer${collectionCurrentIndex}ColorVec3 = layer${collectionCurrentIndex}ColorVec4.rgb;
                 `;
+          break;
+        }
+        case `multiColors`: {
+          if (Array.isArray(singleCollectionData.color)) {
+            const glColor = chroma(
+              `${singleCollectionData.color[glItemOrderKey]}`
+            ).gl();
+            const [
+              glRedColor,
+              glGreenColor,
+              glBlueColor,
+              glAlphaColor,
+            ] = glColor;
+
+            shader = `
+                  vec4 layer${collectionCurrentIndex}ColorVec4 = vec4( ${ZeroOneFloatAdjust(
+              glRedColor
+            )} , ${ZeroOneFloatAdjust(glGreenColor)} , ${ZeroOneFloatAdjust(
+              glBlueColor
+            )} , ${ZeroOneFloatAdjust(glAlphaColor)} );
+                  vec3 layer${collectionCurrentIndex}ColorVec3 = layer${collectionCurrentIndex}ColorVec4.rgb;
+                  `;
+          }
           break;
         }
         default:

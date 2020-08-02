@@ -33,6 +33,9 @@ export const glUVName = `uv`;
 const GlView: React.FC<Props> = (props: Props) => {
   const { glSettings, multiCollectionData } = props;
 
+  /**
+   * glsl描画アイテムの順番
+   */
   const glItemOrderKey = useContext(GlItemOrderContext);
 
   /**
@@ -49,7 +52,8 @@ const GlView: React.FC<Props> = (props: Props) => {
         ${CreateShaderProcessesVariables(
           multiCollectionData,
           glUVName,
-          glSettings
+          glSettings,
+          glItemOrderKey
         )}
 
         ${CreateShaderProcesses(
@@ -61,7 +65,7 @@ const GlView: React.FC<Props> = (props: Props) => {
         gl_FragColor = vec4( ${glResultColorName} , 1.0 );
       }
       `;
-  // console.log(shaderString);
+  console.log(shaderString);
 
   /**
    * シェーダー本体
@@ -82,7 +86,9 @@ const GlView: React.FC<Props> = (props: Props) => {
       >
         <Node
           shader={shaders.firstGL}
-          uniforms={{ ...CreateShaderUniforms(multiCollectionData) }}
+          uniforms={{
+            ...CreateShaderUniforms(multiCollectionData, glItemOrderKey),
+          }}
         />
       </Surface>
     </div>

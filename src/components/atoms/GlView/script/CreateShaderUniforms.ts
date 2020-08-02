@@ -10,7 +10,8 @@ type returnObjectType = { [key: string]: any };
  * シェーダーのuniforms用のオブジェクトを生成する関数
  */
 export default (
-  multiCollectionData: GlCollectionInterfaceArray
+  multiCollectionData: GlCollectionInterfaceArray,
+  glItemOrderKey: number
 ): returnObjectType => {
   /**
    * 最終的に返されるオブジェクト
@@ -21,10 +22,12 @@ export default (
       singleCollectionData: GlCollectionInterface,
       collectionCurrentIndex: number
     ) => {
-      const { type, image, opacity } = singleCollectionData;
+      const { type, image, opacity, visibility } = singleCollectionData;
 
       let resultOpacityValue: string = '0.0';
-      if (Array.isArray(opacity)) {
+      if (!visibility) {
+        resultOpacityValue = '0.0';
+      } else if (Array.isArray(opacity)) {
         resultOpacityValue = ZeroOneFloatAdjust(
           opacity[collectionCurrentIndex]
         );
@@ -35,8 +38,13 @@ export default (
       switch (type) {
         case `singleImage`:
         case `singleImageMultiBlends`:
-        case `multiImages`:
           resultUniformsObject[`layer${collectionCurrentIndex}`] = image;
+          break;
+        case `multiImages`:
+          if (image != null) {
+            resultUniformsObject[`layer${collectionCurrentIndex}`] =
+              image[glItemOrderKey];
+          }
           break;
         case `singleColor`:
           break;
