@@ -99,7 +99,6 @@ const OpacitySlider: React.FC = (props: any) => {
             }
             min={0}
             max={100}
-            step={5}
             valueLabelDisplay="auto"
             onChange={handleChange}
             aria-labelledby="opacity-slider"
