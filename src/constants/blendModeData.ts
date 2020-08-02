@@ -218,7 +218,7 @@ const blendModeData: BlendModeDataType = {
       math: `Addition`,
     },
     name: {
-      ja: `オーバーレイ`,
+      ja: `リニアライト`,
     },
     exist: {
       adobe: true,
