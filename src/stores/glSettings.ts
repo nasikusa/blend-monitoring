@@ -19,7 +19,7 @@ const initialState: GlSettingsType = {
   itemCount: 4,
   maxItemCount: 15,
   minItemCount: 0,
-  rowCount: 3,
+  rowCount: 4,
   maxRowCount: 6,
   minRowCount: 1,
   singleItemWidth: 300, // temp
