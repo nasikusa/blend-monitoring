@@ -59,6 +59,17 @@ const CategoryBlendMode = [
   mathBlendMode,
 ];
 
+/**
+ * keyのための配列
+ * @todo : 変更があったとき
+ */
+const categoryBlendModeKeys = [
+  'brightnessPlus',
+  'brightnessPlusMinus',
+  'brightnessMinus',
+  'math',
+];
+
 export default (props: Props) => {
   const classes = useStyles();
   const { collectionData, updateBlendMode } = props;
@@ -74,36 +85,43 @@ export default (props: Props) => {
       glCollectionOrderKey,
     });
   };
-  const checkBoxes = CategoryBlendMode.map((oneCategoryBlendMode) => {
-    const labels = oneCategoryBlendMode.map((blendModeData) => {
-      let checkBoxValue = false;
-      if (Array.isArray(boolBlendModeStateObject)) {
-        checkBoxValue = boolBlendModeStateObject.includes(blendModeData.mode);
-      } else {
-        checkBoxValue = boolBlendModeStateObject === blendModeData.mode;
-      }
+  const checkBoxes = CategoryBlendMode.map(
+    (oneCategoryBlendMode, currentIndex: number) => {
+      const labels = oneCategoryBlendMode.map((blendModeData) => {
+        let checkBoxValue = false;
+        if (Array.isArray(boolBlendModeStateObject)) {
+          checkBoxValue = boolBlendModeStateObject.includes(blendModeData.mode);
+        } else {
+          checkBoxValue = boolBlendModeStateObject === blendModeData.mode;
+        }
 
+        return (
+          <FormControlLabel
+            key={blendModeData.mode}
+            control={
+              <Checkbox
+                color="primary"
+                checked={checkBoxValue}
+                onChange={handleChange}
+                name={blendModeData.mode}
+              />
+            }
+            label={readyBlendModeData[blendModeData.mode].name.ja}
+            className={classes.formLabel}
+          />
+        );
+      });
       return (
-        <FormControlLabel
-          control={
-            <Checkbox
-              color="primary"
-              checked={checkBoxValue}
-              onChange={handleChange}
-              name={blendModeData.mode}
-            />
-          }
-          label={readyBlendModeData[blendModeData.mode].name.ja}
-          className={classes.formLabel}
-        />
+        <FormControl
+          key={categoryBlendModeKeys[currentIndex]}
+          component="fieldset"
+          className={classes.formControl}
+        >
+          <FormGroup>{labels}</FormGroup>
+        </FormControl>
       );
-    });
-    return (
-      <FormControl component="fieldset" className={classes.formControl}>
-        <FormGroup>{labels}</FormGroup>
-      </FormControl>
-    );
-  });
+    }
+  );
 
   return <div className={classes.root}>{checkBoxes}</div>;
 };

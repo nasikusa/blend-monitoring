@@ -24,7 +24,10 @@ export default (props: Props) => {
   const collectionItems = collectionData
     .map((collectionDataItem: GlCollectionInterface, currentIndex: number) => {
       return (
-        <GlCollectionOrderContext.Provider value={currentIndex}>
+        <GlCollectionOrderContext.Provider
+          key={collectionDataItem.id}
+          value={currentIndex}
+        >
           <CollectionContainer />
         </GlCollectionOrderContext.Provider>
       );

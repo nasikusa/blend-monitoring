@@ -6,3 +6,5 @@ export const DeveloperInfo = {
   github: `nasikusa`,
   twitter: `nakanasinokusa`,
 };
+
+export const maxCountOfGlItem = 14;
