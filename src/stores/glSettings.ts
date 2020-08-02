@@ -33,27 +33,23 @@ initialState.singleItemAspect =
 /**
  * toolkitを使用したスライス
  */
-const slice = createSlice({
+export const glSettingsSlice = createSlice({
   name: 'glSettings',
   initialState,
   reducers: {
-    updateSingleItemSize: () =>
-      // state = initialState,
-      // action: PayloadAction<number>
-      {
-        // console.log('!!!');
-        // const { glBoxClientWidth } = action.payload;
-        // const singleItemWidth = Math.ceil(glBoxClientWidth / state.rowCount) - 1;
-        // const singleItemHeight = singleItemWidth * state.singleItemAspect;
-        // return {
-        //   ...state,
-        //   singleItemWidth,
-        //   singleItemHeight,
-        // };
-      },
+    updateSingleItemSize: (state, action) => {
+      const { glBoxClientWidth } = action.payload;
+      const singleItemWidth = Math.ceil(glBoxClientWidth / state.rowCount) - 1;
+      const singleItemHeight = singleItemWidth * state.singleItemAspect;
+      return {
+        ...state,
+        singleItemWidth,
+        singleItemHeight,
+      };
+    },
   },
 });
 
-export default slice.reducer;
+export default glSettingsSlice.reducer;
 
-export const { updateSingleItemSize } = slice.actions;
+export const { updateSingleItemSize } = glSettingsSlice.actions;
