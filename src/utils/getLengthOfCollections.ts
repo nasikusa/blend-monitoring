@@ -17,8 +17,8 @@ const aryMinFunctionForReduce = (a: number, b: number) => {
  *  型のアイテムの中から最大/最小の配列の数を取得する関数
  */
 export default (
-  collectionData: GlCollectionInterfaceArray,
-  getType: 'min' | 'max'
+  collectionData: GlCollectionInterfaceArray = [],
+  getType: 'min' | 'max' = 'max'
 ) => {
   const targetProps: (keyof GlCollectionInterface &
     canCollectionMultiItemProps)[] = ['blendMode', 'color', 'image'];
@@ -43,6 +43,9 @@ export default (
           internalLengthArray.push(1);
         }
       }
+      if (internalLengthArray.length === 0) {
+        return 0;
+      }
       if (getType === 'max') {
         /**
          * 単一のプロパティでの最大のlength
@@ -61,6 +64,9 @@ export default (
       return minLengthValue;
     }
   );
+  if (collectionData.length === 0) {
+    return 0;
+  }
   if (getType === 'max') {
     /**
      * 対象となるすべてのプロパティでの最大のlength
