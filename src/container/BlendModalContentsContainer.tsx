@@ -7,7 +7,7 @@ import { AppState } from '../stores/index';
 
 export default (props: any) => {
   const collectionData = useSelector((state: AppState) => state.collectionData);
-
+  const blendModeOrder = useSelector((state: AppState) => state.blendModeOrder);
   const dispatch = useDispatch();
 
   const updateBlendMode = React.useCallback(
@@ -17,7 +17,12 @@ export default (props: any) => {
     [dispatch]
   );
 
-  const combineProps = { collectionData, updateBlendMode, ...props };
+  const combineProps = {
+    collectionData,
+    updateBlendMode,
+    blendModeOrder,
+    ...props,
+  };
 
   return <BlendModalContents {...combineProps} />;
 };

@@ -1,14 +1,20 @@
 import React, { useContext } from 'react';
 import { makeStyles, createStyles } from '@material-ui/core/styles';
-import Modal from '@material-ui/core/Modal';
+import { css } from '@emotion/core';
+import DialogTitle from '@material-ui/core/DialogTitle';
+import Dialog from '@material-ui/core/Dialog';
 import Grid from '@material-ui/core/Grid';
 import Box from '@material-ui/core/Box';
 import Typography from '@material-ui/core/Typography';
-import Backdrop from '@material-ui/core/Backdrop';
-import Fade from '@material-ui/core/Fade';
+import DialogActions from '@material-ui/core/DialogActions';
+import DialogContent from '@material-ui/core/DialogContent';
 import Button from '@material-ui/core/Button';
+import IconButton from '@material-ui/core/IconButton';
+import Paper, { PaperProps } from '@material-ui/core/Paper';
+import Draggable from 'react-draggable';
 
 import PhotoLibraryIcon from '@material-ui/icons/PhotoLibrary';
+import CloseIcon from '@material-ui/icons/Close';
 import { GlCollectionOrderContext } from '../Collections';
 import BlendModalContentsContainer from '../../../container/BlendModalContentsContainer';
 import { readyBlendModeData } from '../../../utils/GetBlendModeData';
@@ -36,13 +42,29 @@ const useStyles = makeStyles(() =>
   })
 );
 
+function PaperComponent(props: PaperProps) {
+  return (
+    <Draggable
+      handle="#draggable-dialog-title"
+      cancel={'[class*="MuiDialogContent-root"]'}
+    >
+      <Paper {...props} />
+    </Draggable>
+  );
+}
+
+const modalBackStyle = css`
+  pointer-events: none;
+`;
+
 /**
  * 描画モードのモーダルを管理するコンポーネント。モーダルの中身に関しては、
  * 他コンポーネントを参照してください。
+ * @todo モーダル背景の透過度を調整できるようにしたい
  */
 export default (props: Props) => {
   const classes = useStyles();
-  const [open, setOpen] = React.useState(true);
+  const [open, setOpen] = React.useState(false);
   const { collectionData } = props;
   const glCollectionOrderKey = useContext(GlCollectionOrderContext);
   const collectionDataState = collectionData;
@@ -83,24 +105,39 @@ export default (props: Props) => {
             : readyBlendModeData[boolBlendModeStateObject].name.ja}
         </Button>
       </Grid>
-      <Modal
-        aria-labelledby="blendModeModal"
+      <Dialog
         className={classes.modal}
-        open={open}
         onClose={handleClose}
-        closeAfterTransition
-        BackdropComponent={Backdrop}
+        aria-labelledby="dialog-title"
+        open={open}
+        maxWidth="lg"
+        fullWidth
         BackdropProps={{
-          timeout: 500,
-          invisible: true,
+          style: { backgroundColor: 'rgba(0,0,0,0)', pointerEvents: 'none' },
         }}
+        PaperProps={{
+          style: { backgroundColor: 'rgba(0,0,0,0.5)', pointerEvents: 'all' },
+        }}
+        PaperComponent={PaperComponent}
+        css={modalBackStyle}
       >
-        <Fade in={open}>
+        <DialogTitle id="draggable-dialog-title" style={{ cursor: 'move' }}>
+          描画モードの設定パネル
+          <IconButton aria-label="close" onClick={handleClose}>
+            <CloseIcon />
+          </IconButton>
+        </DialogTitle>
+        <DialogContent dividers>
           <BlendModalContentsContainer
             glCollectionOrderKey={glCollectionOrderKey}
           />
-        </Fade>
-      </Modal>
+        </DialogContent>
+        <DialogActions>
+          <Button onClick={handleClose} color="primary">
+            パネルを閉じる
+          </Button>
+        </DialogActions>
+      </Dialog>
     </Box>
   );
 };

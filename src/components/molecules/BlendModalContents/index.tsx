@@ -16,24 +16,21 @@ import { GlCollectionInterfaceArray } from '../../../stores/collectionData';
 export type Props = {
   collectionData: GlCollectionInterfaceArray;
   updateBlendMode: any;
+  blendModeOrder: string[];
 };
 
 const useStyles = makeStyles(() =>
   createStyles({
     root: {
       display: 'flex',
-      background: `rgba(0,0,0,0.7)`,
       padding: `30px`,
-      borderRadius: `10px`,
     },
-    formControl: {
-      //   margin: theme.spacing(3),
-    },
+    formControl: {},
     formLabel: {
       width: `200px`,
       transition: `background-color 0.15s ease`,
       '&:hover': {
-        backgroundColor: `rgba(255,255,255,0.3)`,
+        backgroundColor: `rgba(255,255,255,0.15)`,
       },
       userSelect: `none`,
     },
@@ -53,9 +50,9 @@ const mathBlendMode = readyBlendModeArray.filter(
   (singleBlendModeData) => singleBlendModeData.type.base === `math`
 );
 const CategoryBlendMode = [
-  brightnessPlusBlendMode,
-  brightnessPlusMinusBlendMode,
   brightnessMinusBlendMode,
+  brightnessPlusMinusBlendMode,
+  brightnessPlusBlendMode,
   mathBlendMode,
 ];
 
@@ -72,7 +69,7 @@ const categoryBlendModeKeys = [
 
 export default (props: Props) => {
   const classes = useStyles();
-  const { collectionData, updateBlendMode } = props;
+  const { collectionData, updateBlendMode, blendModeOrder } = props;
   const glCollectionOrderKey = useContext(GlCollectionOrderContext);
   let boolBlendModeStateObject = collectionData[glCollectionOrderKey].blendMode;
   if (typeof boolBlendModeStateObject === 'string') {
@@ -83,6 +80,7 @@ export default (props: Props) => {
       blendMode: event.target.name,
       boolValue: event.target.checked,
       glCollectionOrderKey,
+      blendModeOrder,
     });
   };
   const checkBoxes = CategoryBlendMode.map(
