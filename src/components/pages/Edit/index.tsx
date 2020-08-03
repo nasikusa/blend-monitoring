@@ -1,4 +1,4 @@
-import React, { useRef } from 'react';
+import React, { useRef, useEffect } from 'react';
 import EventListener from 'react-event-listener';
 import { RemoveScroll } from 'react-remove-scroll';
 
@@ -32,6 +32,15 @@ const Edit = (props: Props) => {
       glBoxClientWidth: ref.current.clientWidth,
     });
   };
+
+  useEffect(() => {
+    if (containerRef.current != null && containerRef != null) {
+      updateSingleItemSize({
+        // @ts-ignore
+        glBoxClientWidth: containerRef.current.clientWidth,
+      });
+    }
+  }, [containerRef, updateSingleItemSize]);
 
   const pageBody = (
     <RemoveScroll>
