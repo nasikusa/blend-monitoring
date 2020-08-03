@@ -3,6 +3,7 @@ import { v4 as uuidv4 } from 'uuid';
 
 import { image01, image02 } from '../constants/temp/tempImageData';
 import { BlendModesType } from '../constants/blendModeData';
+import getOrderdBlendModeArray from '../utils/getOrderdBlendModeArray';
 
 /**
  * コレクションの種類。
@@ -70,16 +71,43 @@ const initialState: GlCollectionInterfaceArray = [
     id: uuidv4(),
     visibility: true,
     innerItemLength: 4,
-    innerItemId: [uuidv4(), uuidv4(), uuidv4(), uuidv4()],
+    innerItemId: [uuidv4(), uuidv4(), uuidv4()],
     type: `singleImageMultiBlends`,
     collectionNumber: 1,
     opacity: 1.0,
-    blendMode: [`multiply`, `screen`, `overlay`, `colorBurn`],
+    blendMode: [`multiply`, 'screen', 'colorBurn'],
     color: null,
     image: image02,
     size: `cover`,
     imageWidth: 1024,
     imageHeight: 1024,
+  },
+  // {
+  //   id: uuidv4(),
+  //   visibility: true,
+  //   type: `multiImages`,
+  //   collectionNumber: 1,
+  //   opacity: 1.0,
+  //   blendMode: `multiply`,
+  //   color: null,
+  //   image: [image01, image02, image03],
+  //   size: `cover`,
+  //   imageWidth: 1024,
+  //   imageHeight: 1024,
+  // },
+  {
+    id: uuidv4(),
+    innerItemId: uuidv4(),
+    visibility: true,
+    type: `singleColor`,
+    collectionNumber: 2,
+    opacity: 1.0,
+    blendMode: 'overlay',
+    color: '#00ff00',
+    image: null,
+    size: null,
+    imageWidth: null,
+    imageHeight: null,
   },
 ];
 
@@ -87,12 +115,130 @@ const slice = createSlice({
   name: 'collectionData',
   initialState,
   reducers: {
-    updateBlendMode: (state) => {
-      console.log(state);
-      // const { blendMode, boolValue } = action.payload;
+    updateBlendMode: (state, action) => {
+      const {
+        blendMode,
+        glCollectionOrderKey,
+        boolValue,
+        blendModeOrder,
+      } = action.payload;
+      const stateBlendModeData = state[glCollectionOrderKey].blendMode;
+
+      if (Array.isArray(stateBlendModeData)) {
+        let newBlendModeValue: string[] = [];
+        if (boolValue === false) {
+          newBlendModeValue = stateBlendModeData.filter(
+            (stateSingleBlendModeValue) => {
+              return stateSingleBlendModeValue !== blendMode;
+            }
+          );
+        } else if (boolValue === true) {
+          newBlendModeValue = [...stateBlendModeData, blendMode];
+        }
+
+        newBlendModeValue = getOrderdBlendModeArray(
+          newBlendModeValue,
+          blendModeOrder
+        );
+
+        return state.map((singleCollectionData, currentIndex) => {
+          if (currentIndex === glCollectionOrderKey) {
+            return {
+              ...singleCollectionData,
+              blendMode: newBlendModeValue,
+            };
+          }
+          return singleCollectionData;
+        });
+      }
+
+      if (typeof stateBlendModeData === 'string') {
+        const newBlendModeValue = blendMode;
+        return state.map((singleCollectionData, currentIndex) => {
+          if (currentIndex === glCollectionOrderKey) {
+            return {
+              ...singleCollectionData,
+              blendMode: newBlendModeValue,
+            };
+          }
+          return singleCollectionData;
+        });
+      }
+
       return {
         ...state,
-        // blendMode:
+      };
+    },
+    updateOpacity: (state, action) => {
+      console.log(action.payload);
+      const { opacityValue, glCollectionOrderKey } = action.payload;
+      return state.map((singleCollectionData, currentIndex) => {
+        if (currentIndex === glCollectionOrderKey) {
+          return {
+            ...singleCollectionData,
+            opacity: opacityValue,
+          };
+        }
+        return singleCollectionData;
+      });
+    },
+    deleteSingleCollection: (state, action) => {
+      const { deleteCollectionNumber } = action.payload;
+      return state.filter((singleCollectionData, currentIndex) => {
+        if (currentIndex !== deleteCollectionNumber) {
+          return singleCollectionData;
+        }
+        return null;
+      });
+    },
+    updateVisibility: (
+      state,
+      action: {
+        type: string;
+        payload: {
+          visibilityBoolValue: boolean;
+          glCollectionOrderKey: number;
+        };
+      }
+    ) => {
+      const { visibilityBoolValue, glCollectionOrderKey } = action.payload;
+      return state.map((singleCollectionData, currentIndex) => {
+        if (currentIndex === glCollectionOrderKey) {
+          return {
+            ...singleCollectionData,
+            visibility: visibilityBoolValue,
+          };
+        }
+        return singleCollectionData;
+      });
+    },
+    updateColor: (state, action) => {
+      const { colorValue, glCollectionOrderKey } = action.payload;
+      console.log(colorValue);
+      if (Array.isArray(colorValue)) {
+        return {
+          ...state,
+        };
+      }
+
+      if (typeof colorValue === 'string') {
+        const resultCollectionData = state.map(
+          (singleCollectionData, currentIndex) => {
+            if (currentIndex === glCollectionOrderKey) {
+              return {
+                ...singleCollectionData,
+                color: colorValue,
+              };
+            }
+            return singleCollectionData;
+          }
+        );
+        console.log(resultCollectionData);
+        return resultCollectionData;
+      }
+
+      return {
+        ...state,
       };
     },
   },
@@ -100,4 +246,10 @@ const slice = createSlice({
 
 export default slice.reducer;
 
-export const { updateBlendMode } = slice.actions;
+export const {
+  updateBlendMode,
+  updateOpacity,
+  deleteSingleCollection,
+  updateVisibility,
+  updateColor,
+} = slice.actions;
