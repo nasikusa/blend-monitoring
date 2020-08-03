@@ -2,7 +2,6 @@ import React from 'react';
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
 import { createMuiTheme, ThemeProvider } from '@material-ui/core/styles';
 import teal from '@material-ui/core/colors/teal';
-import cyan from '@material-ui/core/colors/cyan';
 import Top from './components/pages/Top';
 import EditContainer from './container/EditContainer';
 import FoundationStyle from './styles/foundation';
@@ -11,7 +10,9 @@ const theme = createMuiTheme({
   palette: {
     type: 'dark',
     primary: teal,
-    secondary: cyan,
+    secondary: {
+      main: '#00b0ff',
+    },
   },
   typography: {
     fontSize: 12,

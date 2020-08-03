@@ -1,5 +1,8 @@
 import { createSlice } from '@reduxjs/toolkit';
 
+/**
+ * glSettingsストアの初期stateの型
+ */
 export type GlSettingsType = {
   itemCount: number;
   maxItemCount: number;
@@ -10,6 +13,8 @@ export type GlSettingsType = {
   singleItemWidth: number;
   singleItemHeight: number;
   singleItemAspect: number;
+  baseLayerDefaultColor: string;
+  collectionDefaultColor: string;
 };
 
 /**
@@ -22,9 +27,11 @@ const initialState: GlSettingsType = {
   rowCount: 4,
   maxRowCount: 6,
   minRowCount: 1,
-  singleItemWidth: 300, // temp
-  singleItemHeight: 300, // temp
-  singleItemAspect: 1.0, // temp
+  singleItemWidth: 300,
+  singleItemHeight: 300,
+  singleItemAspect: 1.0,
+  baseLayerDefaultColor: '#000000',
+  collectionDefaultColor: '#000000',
 };
 
 initialState.singleItemAspect =

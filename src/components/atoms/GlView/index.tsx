@@ -65,7 +65,7 @@ const GlView: React.FC<Props> = (props: Props) => {
         gl_FragColor = vec4( ${glResultColorName} , 1.0 );
       }
       `;
-  console.log(shaderString);
+  // console.log(shaderString);
 
   /**
    * シェーダー本体

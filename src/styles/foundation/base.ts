@@ -2,7 +2,7 @@ import { css } from '@emotion/core';
 
 const base = css`
   ::-webkit-scrollbar {
-    width: 10px;
+    width: 6px;
   }
   ::-webkit-scrollbar-track {
     border-radius: 10px;

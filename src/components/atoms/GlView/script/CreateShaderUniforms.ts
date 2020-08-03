@@ -8,6 +8,8 @@ type returnObjectType = { [key: string]: any };
 
 /**
  * シェーダーのuniforms用のオブジェクトを生成する関数
+ * @todo: カラーのuniform
+ * @see: gl-reactのuniformsのdocs https://gl-react-cookbook.surge.sh/api#uniforms
  */
 export default (
   multiCollectionData: GlCollectionInterfaceArray,
@@ -26,6 +28,7 @@ export default (
 
       let resultOpacityValue: string = '0.0';
       if (!visibility) {
+        // opacity = 0 で非表示と同義になる。もしくは他の方法でもいいのかも。
         resultOpacityValue = '0.0';
       } else if (Array.isArray(opacity)) {
         resultOpacityValue = ZeroOneFloatAdjust(
@@ -47,11 +50,13 @@ export default (
           }
           break;
         case `singleColor`:
+        case `singleColorMultiBlends`:
+          break;
+        case `multiColors`:
           break;
         default:
           break;
       }
-
       resultUniformsObject[
         `layer${collectionCurrentIndex}Opacity`
       ] = resultOpacityValue;

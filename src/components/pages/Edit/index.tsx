@@ -6,7 +6,7 @@ import Grid from '@material-ui/core/Grid';
 import Box from '@material-ui/core/Box';
 import { makeStyles } from '@material-ui/core/styles';
 
-import GlEdit from '../../organisms/GlEdit';
+import GlEditContainer from '../../../container/GlEditContainer';
 import PageTemplateContainer from '../../../container/PageTemplateContainer';
 import GlBoxContainer from '../../../container/GlBoxContainer';
 
@@ -49,7 +49,7 @@ const Edit = (props: Props) => {
           <GlBoxContainer />
         </Grid>
         <Grid xs={3}>
-          <GlEdit />
+          <GlEditContainer />
         </Grid>
         <EventListener
           target="window"
