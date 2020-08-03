@@ -1,10 +1,9 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
-import Collections from '../components/molecules/Collections';
+import GlEdit from '../components/organisms/GlEdit';
 import { AppState } from '../stores/index';
 
 export default () => {
-  const collectionData = useSelector((state: AppState) => state.collectionData);
   const themeSettings = useSelector((state: AppState) => state.themeSettings);
 
   const editPanelUpperMargin = `${
@@ -12,7 +11,7 @@ export default () => {
     Number(themeSettings.glEdit.tabButtonHeight.slice(0, -2))
   }px`;
 
-  const combineProps = { collectionData, editPanelUpperMargin };
+  const combineProps = { editPanelUpperMargin };
 
-  return <Collections {...combineProps} />;
+  return <GlEdit {...combineProps} />;
 };

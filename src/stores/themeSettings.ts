@@ -7,6 +7,9 @@ export type ThemeSettingsType = {
   header: {
     appBarHeight: string;
   };
+  glEdit: {
+    tabButtonHeight: string;
+  };
 };
 
 const initialState: ThemeSettingsType = {
@@ -15,6 +18,9 @@ const initialState: ThemeSettingsType = {
   },
   header: {
     appBarHeight: `30px`,
+  },
+  glEdit: {
+    tabButtonHeight: '72px',
   },
 };
 
