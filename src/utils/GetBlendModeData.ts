@@ -1,16 +1,24 @@
-/* eslint-disable */
-import BlendModeData from '../constants/blendModeData';
+/*eslint-disable*/
+import BlendModeData, {
+  BlendModesType,
+  BlendModeDataItemType,
+  BlendModeDataType,
+} from '../constants/blendModeData';
+
+// 配列 <=> オブジェクト
+// ソート用
+// 配列 | 文字列 処理
 
 /**
  * すでに準備が整っている描画モードを取得する
  */
-export const getReadyBlendMode = (blendModeData: any) => {
-  const resultObject: any = {};
-  for (const k of Object.keys(blendModeData)) {
-    if (blendModeData[k].ready !== false) {
-      resultObject[k] = blendModeData[k];
+const getReadyBlendMode = (blendModeData: BlendModeDataType) => {
+  const resultObject: BlendModeDataType = {};
+  Object.keys(blendModeData).forEach((objectKey: string) => {
+    if (blendModeData[objectKey].ready !== false) {
+      resultObject[objectKey] = blendModeData[objectKey];
     }
-  }
+  });
   return resultObject;
 };
 
@@ -32,12 +40,12 @@ export const getBoolStateBlendObject = (
 ) => {
   let resultObject: any = {};
   const insertObject: any = {};
-  for (const k of Object.keys(blendModeData)) {
-    if (blendModeData[k].ready !== false) {
-      resultObject[k] = defaultBooleanValue;
-    }
-  }
 
+  Object.keys(blendModeData).forEach((objectKey) => {
+    if (blendModeData[objectKey].ready !== false) {
+      resultObject[objectKey] = defaultBooleanValue;
+    }
+  });
   invertBlendModeArray.forEach((blendModeName: string) => {
     insertObject[blendModeName] = !defaultBooleanValue;
   });
