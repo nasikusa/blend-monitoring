@@ -170,6 +170,7 @@ export default (props: Props) => {
   const ColorBox = (colorBoxProps: any) => {
     const { backgroundColor, itemKey } = colorBoxProps;
     const style = css`
+      padding: 9px !important;
       position: relative;
       background-color: ${backgroundColor};
       cursor: pointer;
@@ -243,14 +244,16 @@ export default (props: Props) => {
           css={sketchPickerStyle}
         />
       </Box>
-      <Button
-        variant="contained"
-        color="primary"
-        onClick={handleOpen}
-        style={{ maxHeight: '25px' }}
-      >
-        カラーパネルを開く
-      </Button>
+      <Box ml={4}>
+        <Button
+          variant="contained"
+          color="primary"
+          onClick={handleOpen}
+          style={{ maxHeight: '25px' }}
+        >
+          カラーパネルを開く
+        </Button>
+      </Box>
     </Box>
   );
 };
