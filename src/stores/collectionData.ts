@@ -214,11 +214,19 @@ const slice = createSlice({
     },
     updateColor: (state, action) => {
       const { colorValue, glCollectionOrderKey } = action.payload;
-      console.log(colorValue);
       if (Array.isArray(colorValue)) {
-        return {
-          ...state,
-        };
+        const resultCollectionData = state.map(
+          (singleCollectionData, currentIndex) => {
+            if (currentIndex === glCollectionOrderKey) {
+              return {
+                ...singleCollectionData,
+                color: colorValue.map((val) => val),
+              };
+            }
+            return singleCollectionData;
+          }
+        );
+        return resultCollectionData;
       }
 
       if (typeof colorValue === 'string') {
@@ -233,13 +241,14 @@ const slice = createSlice({
             return singleCollectionData;
           }
         );
-        console.log(resultCollectionData);
         return resultCollectionData;
       }
 
-      return {
-        ...state,
-      };
+      return state.map((singleCollectionData) => {
+        return {
+          ...singleCollectionData,
+        };
+      });
     },
   },
 });

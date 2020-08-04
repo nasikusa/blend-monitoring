@@ -1,6 +1,8 @@
 import React, { useState, useContext } from 'react';
 import { css } from '@emotion/core';
+import { makeStyles, createStyles, Theme } from '@material-ui/core/styles';
 import Grid from '@material-ui/core/Grid';
+import Paper from '@material-ui/core/Paper';
 import Box from '@material-ui/core/Box';
 import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
@@ -16,6 +18,19 @@ type Props = {
   globalStateColorData: GlCollectionInterface['color'];
 };
 
+const useStyles = makeStyles((theme: Theme) =>
+  createStyles({
+    root: {
+      flexGrow: 1,
+    },
+    paper: {
+      padding: theme.spacing(2),
+      textAlign: 'center',
+      color: theme.palette.text.secondary,
+    },
+  })
+);
+
 /**
  * カラーパネルコンポーネント
  * @todo ピッカーのデフォルトプリセットカラーの設定
@@ -23,6 +38,8 @@ type Props = {
 export default (props: Props) => {
   const { updateColor, globalStateColorData } = props;
   const [colorPickerOpen, setColorPickerOpen] = useState(false);
+  const [currentColorBoxKey, setCurrentColorBoxKey] = useState(0);
+  const classes = useStyles();
   /**
    * デフォルトのカラーをグローバルのstateから取得する
    */
@@ -43,12 +60,14 @@ export default (props: Props) => {
    */
   const sketchPickerStyle = css`
     width: 100% !important;
+    /* @todo カラーピッカーのサイズを変更できるようにしたいです */
     max-width: 250px !important;
     padding: 0px !important;
-    background: transparent;
-    border-radius: 0px;
+    background: transparent !important;
+    border-radius: 0px !important;
+    box-shadow: none !important;
     .flexbox-fix {
-      /* 背景色は変数化したいです */
+      /* @todo 背景色は変数化したいです */
       background: #484848 !important;
     }
     > div:nth-of-type(2) {
@@ -105,10 +124,39 @@ export default (props: Props) => {
    */
   const handleColorChangeComplete = (event: { hex: string }): void => {
     setColorValue(event.hex);
-    updateColor({
-      colorValue: event.hex,
-      glCollectionOrderKey,
-    });
+    if (typeof globalStateColorData === 'string') {
+      updateColor({
+        colorValue: event.hex,
+        glCollectionOrderKey,
+      });
+    }
+    if (Array.isArray(globalStateColorData)) {
+      let newColorState = globalStateColorData.map((val: any) => val);
+      newColorState = newColorState.map((val: any, currentIndex: number) => {
+        if (currentIndex === currentColorBoxKey) {
+          return event.hex;
+        }
+        return val;
+      });
+      updateColor({
+        colorValue: newColorState,
+        glCollectionOrderKey,
+      });
+    }
+  };
+
+  /**
+   * 単色ボタンを押したときに発火する関数
+   * @param itemKey
+   */
+  const handleColorBoxClick = (itemKey: any): void => {
+    setCurrentColorBoxKey(itemKey);
+    if (typeof globalStateColorData === 'string') {
+      setColorValue(globalStateColorData);
+    }
+    if (Array.isArray(globalStateColorData)) {
+      setColorValue(globalStateColorData[itemKey]);
+    }
   };
 
   /**
@@ -119,22 +167,82 @@ export default (props: Props) => {
     setColorValue(event.hex);
   };
 
+  const ColorBox = (colorBoxProps: any) => {
+    const { backgroundColor, itemKey } = colorBoxProps;
+    const style = css`
+      position: relative;
+      background-color: ${backgroundColor};
+      cursor: pointer;
+      border-radius: ${currentColorBoxKey === itemKey ? '30%' : '0%'};
+      border: 2px solid
+        ${currentColorBoxKey === itemKey
+          ? 'rgba(255,255,255,1)'
+          : 'rgba(0,0,0,0)'};
+    `;
+    return (
+      <Grid item xs>
+        <Paper
+          css={style}
+          onClick={() => handleColorBoxClick(itemKey)}
+          elevation={0}
+          className={classes.paper}
+          square
+        />
+      </Grid>
+    );
+  };
+
+  const ColorBoxes = () => {
+    let colorBoxItems = [];
+    if (typeof globalStateColorData === 'string') {
+      colorBoxItems.push(
+        <ColorBox backgroundColor={globalStateColorData} itemKey={0} />
+      );
+    }
+    if (Array.isArray(globalStateColorData)) {
+      // eslint-disable-next-line react/prop-types
+      colorBoxItems = globalStateColorData.map(
+        (singleColorData: string, currentIndex: number) => {
+          return (
+            <ColorBox
+              backgroundColor={singleColorData}
+              itemKey={currentIndex}
+            />
+          );
+        }
+      );
+    }
+
+    return (
+      <Box ml={2}>
+        <Grid container spacing={0}>
+          {colorBoxItems}
+        </Grid>
+      </Box>
+    );
+  };
+
   return (
     <Box width={1}>
       <Typography gutterBottom>カラー</Typography>
       <Grid container spacing={4}>
         <Grid item>
-          <ColorLensIcon />
+          <Box display="flex" mb={1}>
+            <ColorLensIcon />
+            <ColorBoxes />
+          </Box>
         </Grid>
       </Grid>
-      <SketchPicker
-        color={colorValue}
-        onChangeComplete={handleColorChangeComplete}
-        onChange={handleColorChange}
-        disableAlpha
-        presetColors={[]}
-        css={sketchPickerStyle}
-      />
+      <Box ml={4}>
+        <SketchPicker
+          color={colorValue}
+          onChangeComplete={handleColorChangeComplete}
+          onChange={handleColorChange}
+          disableAlpha
+          presetColors={[]}
+          css={sketchPickerStyle}
+        />
+      </Box>
       <Button
         variant="contained"
         color="primary"
