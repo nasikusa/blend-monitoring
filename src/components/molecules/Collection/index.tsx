@@ -17,10 +17,10 @@ import ExpandMore from '@material-ui/icons/ExpandMore';
 import OpacityIcon from '@material-ui/icons/Opacity';
 import PhotoLibraryIcon from '@material-ui/icons/PhotoLibrary';
 import VisibilityIcon from '@material-ui/icons/Visibility';
-import PermMediaIcon from '@material-ui/icons/PermMedia';
 import VisibilityOffIcon from '@material-ui/icons/VisibilityOff';
 import DeleteIcon from '@material-ui/icons/Delete';
 import ColorLensIcon from '@material-ui/icons/ColorLens';
+import TextureIcon from '@material-ui/icons/Texture';
 
 import CustomSliderContainer from '../../../container/CustomSliderContainer';
 import BlendModalContainer from '../../../container/BlendModalContainer';
@@ -273,7 +273,7 @@ export default (props: Props) => {
               color={
                 collectionTypeFunctionObject.visibility
                   ? visibilityOpenFlag
-                    ? 'primary'
+                    ? 'secondary'
                     : 'inherit'
                   : 'disabled'
               }
@@ -284,7 +284,7 @@ export default (props: Props) => {
               color={
                 collectionTypeFunctionObject.visibility
                   ? visibilityOpenFlag
-                    ? 'primary'
+                    ? 'secondary'
                     : 'inherit'
                   : 'disabled'
               }
@@ -305,7 +305,7 @@ export default (props: Props) => {
             color={
               collectionTypeFunctionObject.opacity
                 ? opacityOpenFlag
-                  ? 'primary'
+                  ? 'secondary'
                   : 'inherit'
                 : 'disabled'
             }
@@ -325,7 +325,7 @@ export default (props: Props) => {
             color={
               collectionTypeFunctionObject.blendMode
                 ? blendModeOpenFlag
-                  ? 'primary'
+                  ? 'secondary'
                   : 'inherit'
                 : 'disabled'
             }
@@ -345,7 +345,7 @@ export default (props: Props) => {
             color={
               collectionTypeFunctionObject.color
                 ? colorOpenFlag
-                  ? 'primary'
+                  ? 'secondary'
                   : 'inherit'
                 : 'disabled'
             }
@@ -361,11 +361,11 @@ export default (props: Props) => {
           onClick={handleImageFlagClick}
           size={secondaryIconButtonSize}
         >
-          <PermMediaIcon
+          <TextureIcon
             color={
               collectionTypeFunctionObject.image
                 ? imageOpenFlag
-                  ? 'primary'
+                  ? 'secondary'
                   : 'inherit'
                 : 'disabled'
             }

@@ -1,9 +1,12 @@
 import { createSlice } from '@reduxjs/toolkit';
 import { v4 as uuidv4 } from 'uuid';
+// import randomColor from 'randomcolor';
+// import red from '@material-ui/core/colors/red';
 
-import { image01, image02 } from '../constants/temp/tempImageData';
+import { image02, image03 } from '../constants/temp/tempImageData';
 import { BlendModesType } from '../constants/blendModeData';
 import getOrderdBlendModeArray from '../utils/getOrderdBlendModeArray';
+// import hueShades from '../constants/hueShades';
 
 /**
  * コレクションの種類。
@@ -36,7 +39,7 @@ export interface GlCollectionInterface {
   innerItemLength?: number;
   visibility: boolean;
   type: CollectionTypeType;
-  collectionNumber: number;
+  collectionNumber?: number;
   opacity: number | number[];
   blendMode: BlendModesType | BlendModesType[];
   color: null | string | string[];
@@ -62,20 +65,20 @@ const initialState: GlCollectionInterfaceArray = [
     opacity: 1.0,
     blendMode: 'normal',
     color: null,
-    image: image01,
-    size: `normal`,
-    imageWidth: 1024,
-    imageHeight: 1024,
+    image: image03,
+    size: `cover`,
+    imageWidth: 1277,
+    imageHeight: 674,
   },
   {
     id: uuidv4(),
     visibility: true,
     innerItemLength: 4,
-    innerItemId: [uuidv4(), uuidv4(), uuidv4()],
+    innerItemId: uuidv4(),
     type: `singleImageMultiBlends`,
     collectionNumber: 1,
     opacity: 1.0,
-    blendMode: [`multiply`, 'screen', 'colorBurn'],
+    blendMode: `multiply`,
     color: null,
     image: image02,
     size: `cover`,
@@ -85,30 +88,46 @@ const initialState: GlCollectionInterfaceArray = [
   // {
   //   id: uuidv4(),
   //   visibility: true,
+  //   innerItemId: [uuidv4(), uuidv4(), uuidv4()],
   //   type: `multiImages`,
   //   collectionNumber: 1,
   //   opacity: 1.0,
   //   blendMode: `multiply`,
   //   color: null,
-  //   image: [image01, image02, image03],
+  //   image: [
+  //     image01,
+  //     image02,
+  //     'http://img.youtube.com/vi/ony539T074w/maxresdefault.jpg',
+  //   ],
   //   size: `cover`,
   //   imageWidth: 1024,
   //   imageHeight: 1024,
   // },
-  {
-    id: uuidv4(),
-    innerItemId: uuidv4(),
-    visibility: true,
-    type: `singleColor`,
-    collectionNumber: 2,
-    opacity: 1.0,
-    blendMode: 'overlay',
-    color: '#00ff00',
-    image: null,
-    size: null,
-    imageWidth: null,
-    imageHeight: null,
-  },
+  // {
+  //   id: uuidv4(),
+  //   innerItemId: [
+  //     uuidv4(),
+  //     uuidv4(),
+  //     uuidv4(),
+  //     uuidv4(),
+  //     uuidv4(),
+  //     uuidv4(),
+  //     uuidv4(),
+  //     uuidv4(),
+  //     uuidv4(),
+  //     uuidv4(),
+  //   ],
+  //   visibility: true,
+  //   type: `multiColors`,
+  //   collectionNumber: 2,
+  //   opacity: 1.0,
+  //   blendMode: 'overlay',
+  //   color: randomColor({ hue: 'orange', count: 10 }),
+  //   image: null,
+  //   size: null,
+  //   imageWidth: null,
+  //   imageHeight: null,
+  // },
 ];
 
 const slice = createSlice({
@@ -170,7 +189,6 @@ const slice = createSlice({
       };
     },
     updateOpacity: (state, action) => {
-      console.log(action.payload);
       const { opacityValue, glCollectionOrderKey } = action.payload;
       return state.map((singleCollectionData, currentIndex) => {
         if (currentIndex === glCollectionOrderKey) {
@@ -250,6 +268,44 @@ const slice = createSlice({
         };
       });
     },
+    createCollection: (state, action) => {
+      const { collectionDataObject, targetCollectionOrder } = action.payload;
+      const adjustTargetCollectionOrder = (() => {
+        if (targetCollectionOrder != null) {
+          return targetCollectionOrder;
+        }
+        return state.length;
+      })();
+
+      const blendMode = Array.isArray(collectionDataObject.blendMode)
+        ? [...collectionDataObject.blendMode]
+        : collectionDataObject.blendMode;
+      const color = Array.isArray(collectionDataObject.color)
+        ? [...collectionDataObject.color]
+        : collectionDataObject.color;
+      const image = Array.isArray(collectionDataObject.image)
+        ? [...collectionDataObject.image]
+        : collectionDataObject.image;
+      const opacity = Array.isArray(collectionDataObject.opacity)
+        ? [...collectionDataObject.opacity]
+        : collectionDataObject.opacity;
+      const innerItemId = Array.isArray(collectionDataObject.innerItemId)
+        ? [...collectionDataObject.innerItemId]
+        : collectionDataObject.innerItemId;
+
+      return [
+        ...state.slice(0, adjustTargetCollectionOrder),
+        {
+          ...collectionDataObject,
+          blendMode,
+          color,
+          image,
+          opacity,
+          innerItemId,
+        },
+        ...state.slice(adjustTargetCollectionOrder),
+      ];
+    },
   },
 });
 
@@ -261,4 +317,5 @@ export const {
   deleteSingleCollection,
   updateVisibility,
   updateColor,
+  createCollection,
 } = slice.actions;

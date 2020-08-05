@@ -7,33 +7,36 @@ import BrushIcon from '@material-ui/icons/Brush';
 import BarChartIcon from '@material-ui/icons/BarChart';
 import HelpIcon from '@material-ui/icons/Help';
 import PhotoLibraryIcon from '@material-ui/icons/PhotoLibrary';
+import FilterNoneIcon from '@material-ui/icons/FilterNone';
 
 import { CollectionTypeType } from '../../../stores/collectionData';
 
 interface PropsInterface {
   collectionType: CollectionTypeType;
+  iconProps?: any;
 }
 
 /**
  * コレクションのタイプから、アイコン画像DOMを返却する関数
  */
 export default (props: PropsInterface) => {
-  const { collectionType } = props;
+  const { collectionType, iconProps } = props;
   switch (collectionType) {
     case 'singleImage':
-      return <ImageIcon />;
+      return <ImageIcon {...iconProps} />;
     case 'singleImageMultiBlends':
-      return <PhotoLibraryIcon />;
+      return <PhotoLibraryIcon {...iconProps} />;
     case 'multiImages':
-      return <PermMediaIcon />;
+      return <PermMediaIcon {...iconProps} />;
     case 'singleColor':
+      return <BrushIcon {...iconProps} />;
     case 'singleColorMultiBlends':
-      return <ColorLensIcon />;
+      return <FilterNoneIcon {...iconProps} />;
     case 'multiColors':
-      return <BrushIcon />;
+      return <ColorLensIcon {...iconProps} />;
     case 'adjust':
-      return <BarChartIcon />;
+      return <BarChartIcon {...iconProps} />;
     default:
-      return <HelpIcon />;
+      return <HelpIcon {...iconProps} />;
   }
 };

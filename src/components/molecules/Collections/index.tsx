@@ -1,12 +1,15 @@
 import React, { createContext } from 'react';
 import { css } from '@emotion/core';
+import Box from '@material-ui/core/Box';
 import List from '@material-ui/core/List';
+import Divider from '@material-ui/core/Divider';
 import CollectionContainer from '../../../container/CollectionContainer';
 
 import {
   GlCollectionInterfaceArray,
   GlCollectionInterface,
 } from '../../../stores/collectionData';
+import CreateCollectionPanelContainer from '../../../container/CreateCollectionPanelContainer';
 
 export type Props = {
   collectionData: GlCollectionInterfaceArray;
@@ -40,8 +43,12 @@ export default (props: Props) => {
     .reverse();
 
   return (
-    <div css={scrollStyle}>
-      <List>{collectionItems}</List>
-    </div>
+    <Box>
+      <CreateCollectionPanelContainer />
+      <Divider />
+      <Box css={scrollStyle}>
+        <List>{collectionItems}</List>
+      </Box>
+    </Box>
   );
 };
