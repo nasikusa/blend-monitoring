@@ -63,8 +63,8 @@ export default (props: any) => {
       <Tabs
         value={value}
         onChange={handleChange}
-        indicatorColor="primary"
-        textColor="primary"
+        indicatorColor="secondary"
+        textColor="secondary"
         aria-label="タブパネル"
       >
         <Tab icon={<LayersIcon />} label="レイヤー" {...a11yProps(0)} />

@@ -11,7 +11,11 @@ const theme = createMuiTheme({
     type: 'dark',
     primary: teal,
     secondary: {
-      main: '#00b0ff',
+      // main: '#e1ff39',
+      main: '#F4FFB5',
+    },
+    success: {
+      main: '#F4FFB5',
     },
   },
   typography: {
