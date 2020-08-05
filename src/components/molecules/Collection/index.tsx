@@ -10,7 +10,6 @@ import Divider from '@material-ui/core/Divider';
 import IconButton from '@material-ui/core/IconButton';
 import List from '@material-ui/core/List';
 import Collapse from '@material-ui/core/Collapse';
-import Tooltip from '@material-ui/core/Tooltip';
 
 import ExpandLess from '@material-ui/icons/ExpandLess';
 import ExpandMore from '@material-ui/icons/ExpandMore';
@@ -22,6 +21,7 @@ import DeleteIcon from '@material-ui/icons/Delete';
 import ColorLensIcon from '@material-ui/icons/ColorLens';
 import TextureIcon from '@material-ui/icons/Texture';
 
+import CustomTooltip from '../../atoms/CustomTooltip';
 import CustomSliderContainer from '../../../container/CustomSliderContainer';
 import BlendModalContainer from '../../../container/BlendModalContainer';
 import ColorPanelContainer from '../../../container/ColorPanelContainer';
@@ -166,7 +166,7 @@ export default (props: Props) => {
   /**
    * ツールチップの表示がされるまでのdelayタイム(ミリ秒)
    */
-  const iconsTooltipEnterDelayTime = 1500;
+  const iconsTooltipEnterDelayTime = 1250;
 
   const [allOpenFlag, setAllOpenFlag] = useState(true);
 
@@ -260,7 +260,7 @@ export default (props: Props) => {
    */
   const SecondaryAreaElement = (
     <>
-      <Tooltip
+      <CustomTooltip
         enterDelay={iconsTooltipEnterDelayTime}
         title="一時的に非表示にします"
       >
@@ -292,8 +292,8 @@ export default (props: Props) => {
             />
           )}
         </IconButton>
-      </Tooltip>
-      <Tooltip
+      </CustomTooltip>
+      <CustomTooltip
         enterDelay={iconsTooltipEnterDelayTime}
         title="透過度パネルを開閉します"
       >
@@ -312,8 +312,8 @@ export default (props: Props) => {
             fontSize={secondaryIconSize}
           />
         </IconButton>
-      </Tooltip>
-      <Tooltip
+      </CustomTooltip>
+      <CustomTooltip
         enterDelay={iconsTooltipEnterDelayTime}
         title="描画モードパネルを開閉します"
       >
@@ -332,8 +332,8 @@ export default (props: Props) => {
             fontSize={secondaryIconSize}
           />
         </IconButton>
-      </Tooltip>
-      <Tooltip
+      </CustomTooltip>
+      <CustomTooltip
         enterDelay={iconsTooltipEnterDelayTime}
         title="カラーパネルを開閉します"
       >
@@ -352,8 +352,8 @@ export default (props: Props) => {
             fontSize={secondaryIconSize}
           />
         </IconButton>
-      </Tooltip>
-      <Tooltip
+      </CustomTooltip>
+      <CustomTooltip
         enterDelay={iconsTooltipEnterDelayTime}
         title="画像パネルを開閉します"
       >
@@ -372,8 +372,8 @@ export default (props: Props) => {
             fontSize={secondaryIconSize}
           />
         </IconButton>
-      </Tooltip>
-      <Tooltip
+      </CustomTooltip>
+      <CustomTooltip
         enterDelay={iconsTooltipEnterDelayTime}
         title="レイヤー・コレクションを削除します"
       >
@@ -383,7 +383,7 @@ export default (props: Props) => {
         >
           <DeleteIcon color="error" fontSize={secondaryIconSize} />
         </IconButton>
-      </Tooltip>
+      </CustomTooltip>
     </>
   );
 

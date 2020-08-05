@@ -85,7 +85,10 @@ export default (props: any) => {
       <Grid>
         {collectionTypesArray.map((singleCollectionType, currentIndex) => {
           return (
-            <Tooltip title={collectionTypeNameObject[singleCollectionType].ja}>
+            <CustomTooltip
+              enterDelay={750}
+              title={collectionTypeNameObject[singleCollectionType].ja}
+            >
               <IconButton
                 onClick={() => {
                   handleChange(currentIndex);
@@ -98,7 +101,7 @@ export default (props: any) => {
                   }}
                 />
               </IconButton>
-            </Tooltip>
+            </CustomTooltip>
           );
         })}
       </Grid>
