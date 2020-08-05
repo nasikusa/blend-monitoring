@@ -4,10 +4,15 @@ import { makeStyles, createStyles, Theme } from '@material-ui/core/styles';
 import Grid from '@material-ui/core/Grid';
 import Paper from '@material-ui/core/Paper';
 import Box from '@material-ui/core/Box';
+import IconButton from '@material-ui/core/IconButton';
 import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
 import { SketchPicker } from 'react-color';
 import ColorLensIcon from '@material-ui/icons/ColorLens';
+
+import DeleteIcon from '@material-ui/icons/Delete';
+import AddBoxIcon from '@material-ui/icons/AddBox';
+import SortIcon from '@material-ui/icons/Sort';
 
 import { GlCollectionOrderContext } from '../Collections';
 
@@ -27,6 +32,9 @@ const useStyles = makeStyles((theme: Theme) =>
       padding: theme.spacing(2),
       textAlign: 'center',
       color: theme.palette.text.secondary,
+    },
+    label: {
+      fontSize: '12px',
     },
   })
 );
@@ -61,7 +69,7 @@ export default (props: Props) => {
   const sketchPickerStyle = css`
     width: 100% !important;
     /* @todo カラーピッカーのサイズを変更できるようにしたいです */
-    max-width: 250px !important;
+    max-width: 200px !important;
     padding: 0px !important;
     background: transparent !important;
     border-radius: 0px !important;
@@ -167,28 +175,59 @@ export default (props: Props) => {
     setColorValue(event.hex);
   };
 
+  /**
+   * 新しいカラーを追加するアイコンをクリックしたときに発火する関数
+   */
+  const handleAddNewColor = () => {
+    if (Array.isArray(globalStateColorData)) {
+      const newColorState = [...globalStateColorData, '#000000'];
+      updateColor({
+        colorValue: newColorState,
+        glCollectionOrderKey,
+      });
+    }
+  };
+
+  /**
+   * カラーを削除するアイコンをクリックしたときに発火する関数
+   */
+  const handlRemoveColor = () => {
+    if (Array.isArray(globalStateColorData)) {
+      const newColorState = globalStateColorData.filter(
+        (hexValue, currentIndex) => currentColorBoxKey !== currentIndex
+      );
+      updateColor({
+        colorValue: newColorState,
+        glCollectionOrderKey,
+      });
+    }
+  };
+
   const ColorBox = (colorBoxProps: any) => {
     const { backgroundColor, itemKey } = colorBoxProps;
-    const style = css`
-      padding: 9px !important;
+    const gridStyle = css`
+      flex-grow: 0 !important;
+    `;
+    const paperStyle = css`
+      padding: 13px !important;
       position: relative;
       background-color: ${backgroundColor};
       cursor: pointer;
-      border-radius: ${currentColorBoxKey === itemKey ? '30%' : '0%'};
-      border: 2px solid
-        ${currentColorBoxKey === itemKey
-          ? 'rgba(255,255,255,1)'
-          : 'rgba(0,0,0,0)'};
+      border-radius: ${currentColorBoxKey === itemKey ? '10%' : '50%'};
+      transform: scale(${currentColorBoxKey === itemKey ? '1.2' : '1.0'});
+      z-index: ${currentColorBoxKey === itemKey ? '5' : '3'};
     `;
     return (
-      <Grid item xs>
+      <Grid item xs css={gridStyle}>
         <Paper
-          css={style}
+          css={paperStyle}
           onClick={() => handleColorBoxClick(itemKey)}
           elevation={0}
           className={classes.paper}
           square
-        />
+        >
+          {/* {itemKey} */}
+        </Paper>
       </Grid>
     );
   };
@@ -223,37 +262,62 @@ export default (props: Props) => {
     );
   };
 
+  const ColorBoxFunctions = () => {
+    return (
+      <Box ml={4}>
+        <IconButton onClick={handleAddNewColor} size="small">
+          <AddBoxIcon fontSize="small" />
+        </IconButton>
+        <IconButton size="small">
+          <SortIcon fontSize="small" />
+        </IconButton>
+        <IconButton onClick={handlRemoveColor} size="small">
+          <DeleteIcon fontSize="small" />
+        </IconButton>
+      </Box>
+    );
+  };
+
   return (
     <Box width={1}>
-      <Typography gutterBottom>カラー</Typography>
-      <Grid container spacing={4}>
-        <Grid item>
+      <Typography gutterBottom className={classes.label}>
+        カラー
+      </Typography>
+      <Grid container spacing={1}>
+        <Grid item xs={12}>
           <Box display="flex" mb={1}>
             <ColorLensIcon />
             <ColorBoxes />
           </Box>
+          <Box display="flex" mb={1}>
+            <ColorBoxFunctions />
+          </Box>
+        </Grid>
+        <Grid item xs={12}>
+          <Box ml={4}>
+            <SketchPicker
+              color={colorValue}
+              onChangeComplete={handleColorChangeComplete}
+              onChange={handleColorChange}
+              disableAlpha
+              presetColors={[]}
+              css={sketchPickerStyle}
+            />
+          </Box>
+        </Grid>
+        <Grid item xs={12}>
+          <Box ml={4}>
+            <Button
+              variant="contained"
+              color="primary"
+              onClick={handleOpen}
+              style={{ maxHeight: '25px' }}
+            >
+              カラーパネルを開く
+            </Button>
+          </Box>
         </Grid>
       </Grid>
-      <Box ml={4}>
-        <SketchPicker
-          color={colorValue}
-          onChangeComplete={handleColorChangeComplete}
-          onChange={handleColorChange}
-          disableAlpha
-          presetColors={[]}
-          css={sketchPickerStyle}
-        />
-      </Box>
-      <Box ml={4}>
-        <Button
-          variant="contained"
-          color="primary"
-          onClick={handleOpen}
-          style={{ maxHeight: '25px' }}
-        >
-          カラーパネルを開く
-        </Button>
-      </Box>
     </Box>
   );
 };
