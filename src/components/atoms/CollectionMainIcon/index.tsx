@@ -3,7 +3,7 @@ import React from 'react';
 import ImageIcon from '@material-ui/icons/Image';
 import PermMediaIcon from '@material-ui/icons/PermMedia';
 import ColorLensIcon from '@material-ui/icons/ColorLens';
-import BrushIcon from '@material-ui/icons/Brush';
+import CropDinIcon from '@material-ui/icons/CropDin';
 import BarChartIcon from '@material-ui/icons/BarChart';
 import HelpIcon from '@material-ui/icons/Help';
 import PhotoLibraryIcon from '@material-ui/icons/PhotoLibrary';
@@ -17,9 +17,10 @@ interface PropsInterface {
 }
 
 /**
- * コレクションのタイプから、アイコン画像DOMを返却する関数
+ * コレクションのタイプから、アイコン画像DOMを返却す
+ * @todo singleColorとsingleColorMultiBlendsのアイコンが若干わかりにくいので直したいです..
  */
-export default (props: PropsInterface) => {
+export default function CollectionMainIcon(props: PropsInterface) {
   const { collectionType, iconProps } = props;
   switch (collectionType) {
     case 'singleImage':
@@ -29,7 +30,7 @@ export default (props: PropsInterface) => {
     case 'multiImages':
       return <PermMediaIcon {...iconProps} />;
     case 'singleColor':
-      return <BrushIcon {...iconProps} />;
+      return <CropDinIcon {...iconProps} />;
     case 'singleColorMultiBlends':
       return <FilterNoneIcon {...iconProps} />;
     case 'multiColors':
@@ -39,4 +40,4 @@ export default (props: PropsInterface) => {
     default:
       return <HelpIcon {...iconProps} />;
   }
-};
+}
