@@ -24,6 +24,7 @@ import CollectionFunctionMenuButton, {
 import CollectionMainIcon from '../../atoms/CollectionMainIcon';
 import GetCollectionsName from '../../../utils/GetCollectionsName';
 import { GlCollectionOrderContext } from '../Collections';
+import ImagePanelContainer from '../../../container/ImagePanelContainer';
 
 import {
   GlCollectionInterfaceArray,
@@ -312,6 +313,15 @@ export default (props: Props) => {
         <List component="div" disablePadding>
           <ListItem button className={classes.nested} disableRipple>
             <ColorPanelContainer />
+          </ListItem>
+          <Divider />
+        </List>
+      </Collapse>
+      <Divider />
+      <Collapse in={imageOpenFlag} timeout="auto" className={classes.collapse}>
+        <List component="div" disablePadding>
+          <ListItem button className={classes.nested} disableRipple>
+            <ImagePanelContainer />
           </ListItem>
           <Divider />
         </List>
