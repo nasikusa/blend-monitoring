@@ -18,9 +18,9 @@ export default function getSampleImageURL(
   itemSize?: keyof baseImageSizeObjectType
 ) {
   if (itemSize == null) {
-    return `${unsplashSampleImagesData[itemOrder]}&w=${unsplashRawWidth}&q=${baseUnsplashImageQuority}`;
+    return `${unsplashSampleImagesData[itemOrder].sourceBase}&w=${unsplashRawWidth}&q=${baseUnsplashImageQuority}`;
   }
-  return `${unsplashSampleImagesData[itemOrder]}&w=${baseImageSizeObject[itemSize]}&q=${baseUnsplashImageQuority}`;
+  return `${unsplashSampleImagesData[itemOrder].sourceBase}&w=${baseImageSizeObject[itemSize]}&q=${baseUnsplashImageQuority}`;
 }
 
 /**

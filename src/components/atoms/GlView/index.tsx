@@ -11,10 +11,12 @@ import { GlItemOrderContext } from '../../organisms/GlBox';
 
 import { GlSettingsType } from '../../../stores/glSettings';
 import { GlCollectionInterfaceArray } from '../../../stores/collectionData';
+import { StoredMediaStateType } from '../../../stores/storedMedia';
 
 type Props = {
   itemKey: number;
   glSettings: GlSettingsType;
+  storedMediaState: StoredMediaStateType;
   multiCollectionData: GlCollectionInterfaceArray;
 };
 
@@ -31,7 +33,7 @@ export const glUVName = `uv`;
  * シェーダー描画部分を担当する関数
  */
 const GlView: React.FC<Props> = (props: Props) => {
-  const { glSettings, multiCollectionData } = props;
+  const { glSettings, multiCollectionData, storedMediaState } = props;
 
   /**
    * glsl描画アイテムの順番
@@ -53,7 +55,8 @@ const GlView: React.FC<Props> = (props: Props) => {
           multiCollectionData,
           glUVName,
           glSettings,
-          glItemOrderKey
+          glItemOrderKey,
+          storedMediaState
         )}
 
         ${CreateShaderProcesses(
@@ -87,7 +90,11 @@ const GlView: React.FC<Props> = (props: Props) => {
         <Node
           shader={shaders.firstGL}
           uniforms={{
-            ...CreateShaderUniforms(multiCollectionData, glItemOrderKey),
+            ...CreateShaderUniforms(
+              multiCollectionData,
+              glItemOrderKey,
+              storedMediaState
+            ),
           }}
         />
       </Surface>

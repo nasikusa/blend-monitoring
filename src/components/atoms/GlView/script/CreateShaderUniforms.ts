@@ -3,6 +3,7 @@ import {
   GlCollectionInterface,
 } from '../../../../stores/collectionData';
 import ZeroOneFloatAdjust from '../../../../utils/ZeroOneFloatAdjust';
+import { StoredMediaStateType } from '../../../../stores/storedMedia';
 
 type returnObjectType = { [key: string]: any };
 
@@ -13,7 +14,8 @@ type returnObjectType = { [key: string]: any };
  */
 export default (
   multiCollectionData: GlCollectionInterfaceArray,
-  glItemOrderKey: number
+  glItemOrderKey: number,
+  storedMediaState: StoredMediaStateType
 ): returnObjectType => {
   /**
    * 最終的に返されるオブジェクト
@@ -41,12 +43,15 @@ export default (
       switch (type) {
         case `singleImage`:
         case `singleImageMultiBlends`:
-          resultUniformsObject[`layer${collectionCurrentIndex}`] = image;
+          if (image != null && typeof image === 'string') {
+            resultUniformsObject[`layer${collectionCurrentIndex}`] =
+              storedMediaState[image].resource.large;
+          }
           break;
         case `multiImages`:
           if (image != null) {
             resultUniformsObject[`layer${collectionCurrentIndex}`] =
-              image[glItemOrderKey];
+              storedMediaState[image[glItemOrderKey]].resource.large;
           }
           break;
         case `singleColor`:

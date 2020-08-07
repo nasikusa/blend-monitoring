@@ -6,6 +6,7 @@ import {
   GlCollectionInterfaceArray,
 } from '../../../../stores/collectionData';
 import { GlSettingsType } from '../../../../stores/glSettings';
+import { StoredMediaStateType } from '../../../../stores/storedMedia';
 
 /**
  * main関数内で使用する変数を定義する
@@ -18,7 +19,8 @@ export default (
   multiCollectionData: GlCollectionInterfaceArray,
   glUVName: string,
   glSettings: GlSettingsType,
-  glItemOrderKey: number
+  glItemOrderKey: number,
+  storedMediaState: StoredMediaStateType
 ) => {
   /**
    * シェーダー文字列配列
@@ -28,7 +30,7 @@ export default (
       singleCollectionData: GlCollectionInterface,
       collectionCurrentIndex: number
     ) => {
-      const { type, size, imageWidth, imageHeight } = singleCollectionData;
+      const { type, size, image } = singleCollectionData;
 
       /**
        * シェーダー文字列の変数
@@ -37,17 +39,27 @@ export default (
       switch (type) {
         case `singleImage`:
         case `singleImageMultiBlends`:
-        case `multiImages`:
-          switch (size) {
-            case `normal`:
-              shader = `
-vec4 layer${collectionCurrentIndex}ColorVec4 = texture2D( layer${collectionCurrentIndex} , ${glUVName} );
-vec3 layer${collectionCurrentIndex}ColorVec3 = layer${collectionCurrentIndex}ColorVec4.rgb;
-`;
-              break;
-            case `cover`:
-              if (imageWidth != null && imageHeight != null) {
+        case `multiImages`: {
+          if (image != null) {
+            const imageWidth = Array.isArray(image)
+              ? storedMediaState[image[glItemOrderKey]].rawWidth
+              : storedMediaState[image].rawWidth;
+            const imageHeight = Array.isArray(image)
+              ? storedMediaState[image[glItemOrderKey]].rawHeight
+              : storedMediaState[image].rawHeight;
+
+            switch (size) {
+              case `normal`:
                 shader = `
+vec4 layer${collectionCurrentIndex}ColorVec4 =
+texture2D( layer${collectionCurrentIndex} , ${glUVName} );
+vec3 layer${collectionCurrentIndex}ColorVec3 =
+layer${collectionCurrentIndex}ColorVec4.rgb;
+`;
+                break;
+              case `cover`:
+                if (imageWidth != null && imageHeight != null) {
+                  shader = `
   // background-size: coverのような感じでUV座標を取得し、vec2型の変数に入れる
   vec2 layer${collectionCurrentIndex}ColorUV = ShaderCoverImageSize(
   ${glUVName},
@@ -61,12 +73,12 @@ vec3 layer${collectionCurrentIndex}ColorVec3 = layer${collectionCurrentIndex}Col
   vec3 layer${collectionCurrentIndex}ColorVec3 =
   layer${collectionCurrentIndex}ColorVec4.rgb;
   `;
-              }
-              break;
-            case `contain`:
-              // not working
-              if (imageWidth != null && imageHeight != null) {
-                shader = `
+                }
+                break;
+              case `contain`:
+                // not working
+                if (imageWidth != null && imageHeight != null) {
+                  shader = `
   vec2 layer${collectionCurrentIndex}ColorUV =
   ShaderContainImageSize(
   ${glUVName},
@@ -81,12 +93,14 @@ vec3 layer${collectionCurrentIndex}ColorVec3 = layer${collectionCurrentIndex}Col
   vec3 layer${collectionCurrentIndex}ColorVec3 =
    layer${collectionCurrentIndex}ColorVec4.rgb;
   `;
-              }
-              break;
-            default:
-              break;
+                }
+                break;
+              default:
+                break;
+            }
           }
           break;
+        }
         case `singleColor`:
         case `singleColorMultiBlends`: {
           const glColor = chroma(`${singleCollectionData.color}`).gl();

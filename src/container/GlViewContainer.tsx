@@ -16,10 +16,12 @@ export default (props: Props) => {
   const multiCollectionData = useSelector(
     (state: AppState) => state.collectionData
   );
+  const storedMediaState = useSelector((state: AppState) => state.storedMedia);
 
   const combineProps = {
     multiCollectionData,
     glSettings,
+    storedMediaState,
     ...props,
   };
 
