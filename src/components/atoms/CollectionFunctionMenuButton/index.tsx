@@ -1,7 +1,7 @@
 /* eslint no-nested-ternary: 0 */
 
 import React from 'react';
-
+import { css } from '@emotion/core';
 import IconButton from '@material-ui/core/IconButton';
 import OpacityIcon from '@material-ui/icons/Opacity';
 import PhotoLibraryIcon from '@material-ui/icons/PhotoLibrary';
@@ -26,6 +26,10 @@ export type Props = {
   taretFunctionProp?: keyof collectionObjectFunctionType;
   currentCollectionType: CollectionTypeType;
 };
+
+const collectionFunctionButtonStyle = css`
+  padding: 3px 6px;
+`;
 
 /**
  * コレクションのタイトル下にあるアイコン機能メニュボタンを作成する
@@ -65,7 +69,11 @@ export default function CollectionFunctionMenuButton(props: Props) {
   if (taretFunctionProp === 'garbage') {
     return (
       <CustomTooltip enterDelay={1250} title={labelTitleValue}>
-        <IconButton onClick={clickFunction} size="small">
+        <IconButton
+          css={collectionFunctionButtonStyle}
+          onClick={clickFunction}
+          size="small"
+        >
           <IconElement color="error" fontSize="small" />
         </IconButton>
       </CustomTooltip>
@@ -75,7 +83,11 @@ export default function CollectionFunctionMenuButton(props: Props) {
   if (taretFunctionProp != null) {
     return (
       <CustomTooltip enterDelay={1250} title={labelTitleValue}>
-        <IconButton onClick={clickFunction} size="small">
+        <IconButton
+          css={collectionFunctionButtonStyle}
+          onClick={clickFunction}
+          size="small"
+        >
           <IconElement
             color={
               collectionTypeFunctionObject[currentCollectionType][

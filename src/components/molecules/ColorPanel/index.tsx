@@ -308,10 +308,10 @@ export default (props: Props) => {
         <Grid item xs={12}>
           <Box ml={4}>
             <Button
+              size="small"
               variant="contained"
               color="primary"
               onClick={handleOpen}
-              style={{ maxHeight: '25px' }}
             >
               カラーパネルを開く
             </Button>

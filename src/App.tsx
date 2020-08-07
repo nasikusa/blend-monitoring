@@ -6,6 +6,8 @@ import Top from './components/pages/Top';
 import EditContainer from './container/EditContainer';
 import FoundationStyle from './styles/foundation';
 
+// import type '@material-ui/lab/themeAugmentation';
+
 const theme = createMuiTheme({
   palette: {
     type: 'dark',

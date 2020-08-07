@@ -36,8 +36,8 @@ const useStyles = makeStyles(() =>
       justifyContent: `center`,
     },
     grid: {
-      display: `flex`,
-      alignItems: `center`,
+      // display: `flex`,
+      // alignItems: `center`,
     },
   })
 );
@@ -45,7 +45,7 @@ const useStyles = makeStyles(() =>
 function PaperComponent(props: PaperProps) {
   return (
     <Draggable
-      handle="#draggable-dialog-title"
+      handle="#blend-draggable-dialog-title"
       cancel={'[class*="MuiDialogContent-root"]'}
     >
       <Paper {...props} />
@@ -95,21 +95,23 @@ export default (props: Props) => {
         <Grid item>
           <PhotoLibraryIcon />
         </Grid>
-        <Button
-          variant="contained"
-          color="primary"
-          onClick={handleOpen}
-          style={{ maxHeight: '25px' }}
-        >
-          {Array.isArray(boolBlendModeStateObject)
-            ? `複数の描画モード`
-            : readyBlendModeData[boolBlendModeStateObject].name.ja}
-        </Button>
+        <Grid item>
+          <Button
+            size="small"
+            variant="contained"
+            color="primary"
+            onClick={handleOpen}
+          >
+            {Array.isArray(boolBlendModeStateObject)
+              ? `複数の描画モード`
+              : readyBlendModeData[boolBlendModeStateObject].name.ja}
+          </Button>
+        </Grid>
       </Grid>
       <Dialog
         className={classes.modal}
         onClose={handleClose}
-        aria-labelledby="dialog-title"
+        aria-labelledby="描画モードのパネル"
         open={open}
         maxWidth="lg"
         fullWidth
@@ -122,7 +124,10 @@ export default (props: Props) => {
         PaperComponent={PaperComponent}
         css={modalBackStyle}
       >
-        <DialogTitle id="draggable-dialog-title" style={{ cursor: 'move' }}>
+        <DialogTitle
+          id="blend-draggable-dialog-title"
+          style={{ cursor: 'move' }}
+        >
           描画モードの設定パネル
           <IconButton aria-label="close" onClick={handleClose}>
             <CloseIcon />

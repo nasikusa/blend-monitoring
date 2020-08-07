@@ -7,6 +7,7 @@ import { AppState } from '../stores/index';
 
 export default () => {
   const collectionData = useSelector((state: AppState) => state.collectionData);
+  const glSettingsData = useSelector((state: AppState) => state.glSettings);
   /**
    * コレクションリストのなかで最大の要素数の配列のlengthを格納している変数
    */
@@ -14,7 +15,11 @@ export default () => {
 
   const glItemKeys = getMaxLengthInnerItemId(collectionData);
 
-  const combineProps = { ...{ glItemCount: glItemCountValue, glItemKeys } };
+  const glBoxRowCount = glSettingsData.rowCount;
+
+  const combineProps = {
+    ...{ glItemCount: glItemCountValue, glItemKeys, glBoxRowCount },
+  };
 
   return <GlBox {...combineProps} />;
 };
