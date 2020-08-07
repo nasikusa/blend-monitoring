@@ -37,6 +37,38 @@ vec3 blendDarken(vec3 base, vec3 blend, float opacity) {
 `;
 
 /**
+ * darken 暗い方
+ */
+export const darkerColor = `
+vec3 blendDarkerColor(vec3 base, vec3 blend) {
+  float baseSum = base.r + base.g + base.b;
+  float blendSum = blend.r + blend.g + blend.b;
+  float maxSum = max(baseSum,blendSum);
+  return maxSum == baseSum ? blend : base;
+}
+
+vec3 blendDarkerColor(vec3 base, vec3 blend, float opacity) {
+	return (blendDarkerColor(base, blend) * opacity + base * (1.0 - opacity));
+}
+`;
+
+/**
+ * darken 暗い方
+ */
+export const lighterColor = `
+vec3 blendLighterColor(vec3 base, vec3 blend) {
+  float baseSum = base.r + base.g + base.b;
+  float blendSum = blend.r + blend.g + blend.b;
+  float maxSum = max(baseSum,blendSum);
+  return maxSum == baseSum ? base : blend;
+}
+
+vec3 blendLighterColor(vec3 base, vec3 blend, float opacity) {
+	return (blendLighterColor(base, blend) * opacity + base * (1.0 - opacity));
+}
+`;
+
+/**
  * multiply 乗算
  */
 export const multiply = `
@@ -241,18 +273,37 @@ vec3 blendDifference(vec3 base, vec3 blend, float opacity) {
 
 /**
  * substract 減算
+ * @todo blendが負の値だった場合の対応。そもそもその対応が必要なのかどうか？
  */
-export const substract = `
-float blendSubstract(float base, float blend) {
-	return max(base+blend-1.0,0.0);
+export const subtract = `
+float blendSubtract(float base, float blend) {
+	return max(base-blend,0.0);
 }
 
-vec3 blendSubstract(vec3 base, vec3 blend) {
-	return max(base+blend-vec3(1.0),vec3(0.0));
+vec3 blendSubtract(vec3 base, vec3 blend) {
+	return max(base-blend,vec3(0.0));
 }
 
-vec3 blendSubstract(vec3 base, vec3 blend, float opacity) {
-	return (blendSubstract(base, blend) * opacity + blend * (1.0 - opacity));
+vec3 blendSubtract(vec3 base, vec3 blend, float opacity) {
+	return (blendSubtract(base, blend) * opacity + base * (1.0 - opacity));
+}
+`;
+
+/**
+ * divide 除算
+ * @todo blendが負の値だったときの対応。そもそもその対応が必要なのかどうか？
+ */
+export const divide = `
+float blendDivide(float base, float blend) {
+	return max(base/blend,0.0);
+}
+
+vec3 blendDivide(vec3 base, vec3 blend) {
+	return max(base/blend,vec3(0.0));
+}
+
+vec3 blendDivide(vec3 base, vec3 blend, float opacity) {
+	return (blendDivide(base, blend) * opacity + base * (1.0 - opacity));
 }
 `;
 
@@ -356,10 +407,13 @@ ${softLight}
 ${linearBurn}
 ${linearLight}
 ${difference}
-${substract}
+${subtract}
 ${exclusion}
 ${hardLight}
 ${vividLight}
 ${pinLight}
 ${hardMix}
+${darkerColor}
+${lighterColor}
+${divide}
 `;
