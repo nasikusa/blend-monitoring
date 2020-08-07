@@ -10,13 +10,18 @@ import CustomTooltip from '../../atoms/CustomTooltip';
 import CollectionMainIcon from '../../atoms/CollectionMainIcon';
 import collectionTypesArray from '../../../constants/collectionTypesArray';
 import collectionTypeNameObject from '../../../constants/collectionTypeNameObject';
+import canMultiItemCollectionName from '../../../constants/canMultiItemCollectionName';
 
 /**
  * レイヤー / コレクションを追加するメニューのコンポーネント
  */
 export default (props: any) => {
-  const { createCollection } = props;
+  const { createCollection, hasMultiItemCollection } = props;
 
+  /**
+   * 新しく追加するコレクションオブジェクトを生成して、reduxに送信している関数
+   * @param currentIndex
+   */
   const handleChange = (currentIndex: number) => {
     const clickedTypeName = collectionTypesArray[currentIndex];
     const baseCollectionObject = {
@@ -81,7 +86,7 @@ export default (props: any) => {
 
   return (
     <Box px={2} pb={1} pt={2}>
-      <Typography gutterBottom>レイヤー / コレクションを追加</Typography>
+      <Typography gutterBottom>レイヤー / コレクションを追加する</Typography>
       <Grid>
         {collectionTypesArray.map((singleCollectionType, currentIndex) => {
           return (
@@ -91,13 +96,24 @@ export default (props: any) => {
             >
               <IconButton
                 onClick={() => {
+                  if (
+                    canMultiItemCollectionName.includes(singleCollectionType) &&
+                    hasMultiItemCollection
+                  ) {
+                    return;
+                  }
                   handleChange(currentIndex);
                 }}
               >
                 <CollectionMainIcon
                   collectionType={singleCollectionType}
                   iconProps={{
-                    color: 'secondary',
+                    color:
+                      canMultiItemCollectionName.includes(
+                        singleCollectionType
+                      ) && hasMultiItemCollection
+                        ? 'disabled'
+                        : 'secondary',
                   }}
                 />
               </IconButton>
