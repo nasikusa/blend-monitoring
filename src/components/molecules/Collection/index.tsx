@@ -13,18 +13,13 @@ import Collapse from '@material-ui/core/Collapse';
 
 import ExpandLess from '@material-ui/icons/ExpandLess';
 import ExpandMore from '@material-ui/icons/ExpandMore';
-import OpacityIcon from '@material-ui/icons/Opacity';
-import PhotoLibraryIcon from '@material-ui/icons/PhotoLibrary';
-import VisibilityIcon from '@material-ui/icons/Visibility';
-import VisibilityOffIcon from '@material-ui/icons/VisibilityOff';
-import DeleteIcon from '@material-ui/icons/Delete';
-import ColorLensIcon from '@material-ui/icons/ColorLens';
-import TextureIcon from '@material-ui/icons/Texture';
 
-import CustomTooltip from '../../atoms/CustomTooltip';
 import CustomSliderContainer from '../../../container/CustomSliderContainer';
 import BlendModalContainer from '../../../container/BlendModalContainer';
 import ColorPanelContainer from '../../../container/ColorPanelContainer';
+import CollectionFunctionMenuButton, {
+  Props as CollectionFunctionMenuButtonPropsType,
+} from '../../atoms/CollectionFunctionMenuButton';
 
 import CollectionMainIcon from '../../atoms/CollectionMainIcon';
 import GetCollectionsName from '../../../utils/GetCollectionsName';
@@ -35,23 +30,14 @@ import {
   CollectionTypeType,
 } from '../../../stores/collectionData';
 
+import allCollectionTypeFunctionObject, {
+  collectionObjectFunctionType,
+} from './allCollectionTypeFunctionObject';
+
 export type Props = {
   collectionData: GlCollectionInterfaceArray;
   deleteSingleCollection: any;
   updateVisibility: any;
-};
-
-export type collectionObjectFunctionType = {
-  visibility: boolean;
-  opacity: boolean;
-  blendMode: boolean;
-  color: boolean;
-  image: boolean;
-  garbage: boolean;
-};
-
-export type collectionTypeFunctionType = {
-  [key in CollectionTypeType]: collectionObjectFunctionType;
 };
 
 /**
@@ -78,65 +64,6 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export const allCollectionTypeFunctionObject: collectionTypeFunctionType = {
-  singleColor: {
-    visibility: true,
-    opacity: true,
-    blendMode: true,
-    color: true,
-    image: false,
-    garbage: true,
-  },
-  singleColorMultiBlends: {
-    visibility: true,
-    opacity: true,
-    blendMode: true,
-    color: true,
-    image: false,
-    garbage: true,
-  },
-  multiColors: {
-    visibility: true,
-    opacity: true,
-    blendMode: true,
-    color: true,
-    image: false,
-    garbage: true,
-  },
-  singleImage: {
-    visibility: true,
-    opacity: true,
-    blendMode: true,
-    color: false,
-    image: true,
-    garbage: true,
-  },
-  singleImageMultiBlends: {
-    visibility: true,
-    opacity: true,
-    blendMode: true,
-    color: false,
-    image: true,
-    garbage: true,
-  },
-  multiImages: {
-    visibility: true,
-    opacity: true,
-    blendMode: true,
-    color: false,
-    image: true,
-    garbage: true,
-  },
-  adjust: {
-    visibility: true,
-    opacity: true,
-    blendMode: true,
-    color: false,
-    image: false,
-    garbage: true,
-  },
-};
-
 /**
  * 単一のコレクションコンポーネント
  */
@@ -161,13 +88,9 @@ export default (props: Props) => {
   const collectionTypeFunctionObject =
     allCollectionTypeFunctionObject[singleCollectionType];
 
-  const secondaryIconSize = 'small';
-  const secondaryIconButtonSize = 'small';
   /**
-   * ツールチップの表示がされるまでのdelayタイム(ミリ秒)
+   * すべての機能ボタンが有効になっているかどうかのフラグ
    */
-  const iconsTooltipEnterDelayTime = 1250;
-
   const [allOpenFlag, setAllOpenFlag] = useState(true);
 
   const [visibilityOpenFlag, setVisibilityOpenFlag] = useState(
@@ -186,7 +109,10 @@ export default (props: Props) => {
     collectionTypeFunctionObject.image
   );
 
-  const openHasPanelNameArray: (keyof collectionObjectFunctionType)[] = [
+  /**
+   * コレクションのプロパティの中で、コレクションのパネルを持つもののみの名前の配列
+   */
+  const openHasPanelPropsNameArray: (keyof collectionObjectFunctionType)[] = [
     'opacity',
     'blendMode',
     'color',
@@ -200,11 +126,13 @@ export default (props: Props) => {
     setAllOpenFlag(!allOpenFlag);
   };
 
+  /**
+   * 単一のコレクションのフラグを確認して単一コレクションの総合開閉フラグを管理する関数
+   */
   const handleExpandValueCheck = (): void => {
     if (
-      openHasPanelNameArray.every((flagName) => {
+      openHasPanelPropsNameArray.every((flagName) => {
         if (collectionTypeFunctionObject[flagName] === false) {
-          // console.log(collectionTypeFunctionObject);
           return true;
         }
         switch (flagName) {
@@ -225,6 +153,9 @@ export default (props: Props) => {
     }
   };
 
+  /**
+   * 単一コレクションのvisibilityフラグハンドル関数
+   */
   const handleVisibilityFlagClick = (): void => {
     const invertBoolValue = !visibilityOpenFlag;
     setVisibilityOpenFlag(invertBoolValue);
@@ -234,21 +165,38 @@ export default (props: Props) => {
     });
   };
 
+  /**
+   * 単一コレクションのopacityフラグハンドル関数
+   */
   const handleOpacityFlagClick = (): void => {
     setOpacityOpenFlag(!opacityOpenFlag);
     handleExpandValueCheck();
   };
 
+  /**
+   * 単一コレクションの描画モードフラグハンドル関数
+   */
   const handleBlendModeFlagClick = (): void => {
     setBlendModeOpenFlag(!blendModeOpenFlag);
   };
+
+  /**
+   * 単一コレクションのカラーフラグハンドル関数
+   */
   const handleColorFlagClick = (): void => {
     setColorOpenFlag(!colorOpenFlag);
   };
+
+  /**
+   * 単一コレクションの画像フラグハンドル関数
+   */
   const handleImageFlagClick = (): void => {
     setImageOpenFlag(!imageOpenFlag);
   };
 
+  /**
+   * 単一コレクションのdeleteボタンを押した際に発火する関数
+   */
   const handleDeleteIconClick = (): void => {
     deleteSingleCollection({
       deleteCollectionNumber: glCollectionOrderKey,
@@ -256,134 +204,60 @@ export default (props: Props) => {
   };
 
   /**
-   * コレクションのアイコンメニュー部分のReact要素
+   * タイトル下のアイコン機能メニューのデータ一覧
+   */
+  const secondaryAreaElementDataArray: CollectionFunctionMenuButtonPropsType[] = [
+    {
+      labelTitleValue: '一時的に非表示にします',
+      clickFunction: handleVisibilityFlagClick,
+      isActiveFlag: visibilityOpenFlag,
+      taretFunctionProp: 'visibility',
+      currentCollectionType: singleCollectionType,
+    },
+    {
+      labelTitleValue: '透過度パネルを開閉します',
+      clickFunction: handleOpacityFlagClick,
+      isActiveFlag: opacityOpenFlag,
+      taretFunctionProp: 'opacity',
+      currentCollectionType: singleCollectionType,
+    },
+    {
+      labelTitleValue: '描画モードパネルを開閉します',
+      clickFunction: handleBlendModeFlagClick,
+      isActiveFlag: blendModeOpenFlag,
+      taretFunctionProp: 'blendMode',
+      currentCollectionType: singleCollectionType,
+    },
+    {
+      labelTitleValue: 'カラーパネルを開閉します',
+      clickFunction: handleColorFlagClick,
+      isActiveFlag: colorOpenFlag,
+      taretFunctionProp: 'color',
+      currentCollectionType: singleCollectionType,
+    },
+    {
+      labelTitleValue: '画像パネルを開閉します',
+      clickFunction: handleImageFlagClick,
+      isActiveFlag: imageOpenFlag,
+      taretFunctionProp: 'image',
+      currentCollectionType: singleCollectionType,
+    },
+    {
+      labelTitleValue: 'レイヤー・コレクションを削除します',
+      clickFunction: handleDeleteIconClick,
+      taretFunctionProp: 'garbage',
+      currentCollectionType: singleCollectionType,
+    },
+  ];
+
+  /**
+   * 単一コレクションのタイトル下のアイコンが並んでいる機能ボタンメニュー部分のReact要素
    */
   const SecondaryAreaElement = (
     <>
-      <CustomTooltip
-        enterDelay={iconsTooltipEnterDelayTime}
-        title="一時的に非表示にします"
-      >
-        <IconButton
-          onClick={handleVisibilityFlagClick}
-          size={secondaryIconButtonSize}
-        >
-          {visibilityOpenFlag ? (
-            <VisibilityIcon
-              color={
-                collectionTypeFunctionObject.visibility
-                  ? visibilityOpenFlag
-                    ? 'secondary'
-                    : 'inherit'
-                  : 'disabled'
-              }
-              fontSize={secondaryIconSize}
-            />
-          ) : (
-            <VisibilityOffIcon
-              color={
-                collectionTypeFunctionObject.visibility
-                  ? visibilityOpenFlag
-                    ? 'secondary'
-                    : 'inherit'
-                  : 'disabled'
-              }
-              fontSize={secondaryIconSize}
-            />
-          )}
-        </IconButton>
-      </CustomTooltip>
-      <CustomTooltip
-        enterDelay={iconsTooltipEnterDelayTime}
-        title="透過度パネルを開閉します"
-      >
-        <IconButton
-          onClick={handleOpacityFlagClick}
-          size={secondaryIconButtonSize}
-        >
-          <OpacityIcon
-            color={
-              collectionTypeFunctionObject.opacity
-                ? opacityOpenFlag
-                  ? 'secondary'
-                  : 'inherit'
-                : 'disabled'
-            }
-            fontSize={secondaryIconSize}
-          />
-        </IconButton>
-      </CustomTooltip>
-      <CustomTooltip
-        enterDelay={iconsTooltipEnterDelayTime}
-        title="描画モードパネルを開閉します"
-      >
-        <IconButton
-          onClick={handleBlendModeFlagClick}
-          size={secondaryIconButtonSize}
-        >
-          <PhotoLibraryIcon
-            color={
-              collectionTypeFunctionObject.blendMode
-                ? blendModeOpenFlag
-                  ? 'secondary'
-                  : 'inherit'
-                : 'disabled'
-            }
-            fontSize={secondaryIconSize}
-          />
-        </IconButton>
-      </CustomTooltip>
-      <CustomTooltip
-        enterDelay={iconsTooltipEnterDelayTime}
-        title="カラーパネルを開閉します"
-      >
-        <IconButton
-          onClick={handleColorFlagClick}
-          size={secondaryIconButtonSize}
-        >
-          <ColorLensIcon
-            color={
-              collectionTypeFunctionObject.color
-                ? colorOpenFlag
-                  ? 'secondary'
-                  : 'inherit'
-                : 'disabled'
-            }
-            fontSize={secondaryIconSize}
-          />
-        </IconButton>
-      </CustomTooltip>
-      <CustomTooltip
-        enterDelay={iconsTooltipEnterDelayTime}
-        title="画像パネルを開閉します"
-      >
-        <IconButton
-          onClick={handleImageFlagClick}
-          size={secondaryIconButtonSize}
-        >
-          <TextureIcon
-            color={
-              collectionTypeFunctionObject.image
-                ? imageOpenFlag
-                  ? 'secondary'
-                  : 'inherit'
-                : 'disabled'
-            }
-            fontSize={secondaryIconSize}
-          />
-        </IconButton>
-      </CustomTooltip>
-      <CustomTooltip
-        enterDelay={iconsTooltipEnterDelayTime}
-        title="レイヤー・コレクションを削除します"
-      >
-        <IconButton
-          onClick={handleDeleteIconClick}
-          size={secondaryIconButtonSize}
-        >
-          <DeleteIcon color="error" fontSize={secondaryIconSize} />
-        </IconButton>
-      </CustomTooltip>
+      {secondaryAreaElementDataArray.map((singleSecondaryElemData) => (
+        <CollectionFunctionMenuButton {...singleSecondaryElemData} />
+      ))}
     </>
   );
 
