@@ -61,6 +61,7 @@ const modalBackStyle = css`
  * 描画モードのモーダルを管理するコンポーネント。モーダルの中身に関しては、
  * 他コンポーネントを参照してください。
  * @todo モーダル背景の透過度を調整できるようにしたい
+ * @todo モーダルバツボタンがタッチデバイスで対応できてない(なぜ？)
  */
 export default (props: Props) => {
   const classes = useStyles();

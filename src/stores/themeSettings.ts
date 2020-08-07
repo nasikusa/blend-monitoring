@@ -9,6 +9,10 @@ export type ThemeSettingsType = {
   };
   glEdit: {
     tabButtonHeight: string;
+    createButtonHeight: string;
+  };
+  tooltip: {
+    defaultEntryDelay: number;
   };
 };
 
@@ -21,6 +25,10 @@ const initialState: ThemeSettingsType = {
   },
   glEdit: {
     tabButtonHeight: '72px',
+    createButtonHeight: '94px',
+  },
+  tooltip: {
+    defaultEntryDelay: 1500,
   },
 };
 

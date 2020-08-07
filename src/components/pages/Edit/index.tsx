@@ -1,4 +1,4 @@
-import React, { useRef, useEffect } from 'react';
+import React, { useRef, useEffect, useState } from 'react';
 import EventListener from 'react-event-listener';
 import { RemoveScroll } from 'react-remove-scroll';
 
@@ -17,6 +17,12 @@ export type Props = {
   updateSingleItemSize: any;
 };
 
+type PanelWidthType = 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 | 11 | 12;
+
+/**
+ * Editページコンポーネント
+ * @param props
+ */
 const Edit = (props: Props) => {
   const { themeSettings, updateSingleItemSize } = props;
   const useStyles = makeStyles(() => ({
@@ -27,6 +33,8 @@ const Edit = (props: Props) => {
   }));
   const classes = useStyles();
   const containerRef = useRef(null);
+  const [editPanelWidth] = useState<PanelWidthType>(3);
+  const [viewPanelWidth] = useState<PanelWidthType>(9);
   const handleResize = (ref: any) => {
     updateSingleItemSize({
       glBoxClientWidth: ref.current.clientWidth,
@@ -45,10 +53,14 @@ const Edit = (props: Props) => {
   const pageBody = (
     <RemoveScroll>
       <Box display="flex">
-        <Grid ref={containerRef} xs={9} className={classes.scrollable}>
+        <Grid
+          ref={containerRef}
+          xs={viewPanelWidth}
+          className={classes.scrollable}
+        >
           <GlBoxContainer />
         </Grid>
-        <Grid xs={3}>
+        <Grid xs={editPanelWidth}>
           <GlEditContainer />
         </Grid>
         <EventListener
