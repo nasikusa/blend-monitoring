@@ -1,6 +1,6 @@
 /* eslint no-nested-ternary: 0 */
 
-import React, { useContext, useState } from 'react';
+import React, { useContext, useState, useEffect } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 
 import ListItem from '@material-ui/core/ListItem';
@@ -121,16 +121,28 @@ export default (props: Props) => {
   ];
 
   /**
-   * MaterialUIのCollapseコンポーネントの開閉stateを変更する関数
+   * すべての単一コレクションコンポーネントの開閉stateを変更する関数
+   * @todo 必要なフラグのみ更新するようにしたい
    */
   const handleExpandClick = (): void => {
     setAllOpenFlag(!allOpenFlag);
+    if (allOpenFlag) {
+      setOpacityOpenFlag(false);
+      setBlendModeOpenFlag(false);
+      setColorOpenFlag(false);
+      setImageOpenFlag(false);
+    } else {
+      setOpacityOpenFlag(true);
+      setBlendModeOpenFlag(true);
+      setColorOpenFlag(true);
+      setImageOpenFlag(true);
+    }
   };
 
   /**
    * 単一のコレクションのフラグを確認して単一コレクションの総合開閉フラグを管理する関数
    */
-  const handleExpandValueCheck = (): void => {
+  useEffect((): void => {
     if (
       openHasPanelPropsNameArray.every((flagName) => {
         if (collectionTypeFunctionObject[flagName] === false) {
@@ -151,8 +163,17 @@ export default (props: Props) => {
       })
     ) {
       setAllOpenFlag(true);
+    } else {
+      setAllOpenFlag(false);
     }
-  };
+  }, [
+    opacityOpenFlag,
+    blendModeOpenFlag,
+    colorOpenFlag,
+    imageOpenFlag,
+    openHasPanelPropsNameArray,
+    collectionTypeFunctionObject,
+  ]);
 
   /**
    * 単一コレクションのvisibilityフラグハンドル関数
@@ -171,7 +192,6 @@ export default (props: Props) => {
    */
   const handleOpacityFlagClick = (): void => {
     setOpacityOpenFlag(!opacityOpenFlag);
-    handleExpandValueCheck();
   };
 
   /**
@@ -285,7 +305,7 @@ export default (props: Props) => {
         </IconButton>
       </ListItem>
       <Collapse
-        in={opacityOpenFlag}
+        in={opacityOpenFlag && collectionTypeFunctionObject.opacity}
         timeout="auto"
         className={classes.collapse}
       >
@@ -297,7 +317,7 @@ export default (props: Props) => {
       </Collapse>
       <Divider />
       <Collapse
-        in={blendModeOpenFlag}
+        in={blendModeOpenFlag && collectionTypeFunctionObject.blendMode}
         timeout="auto"
         className={classes.collapse}
       >
@@ -309,7 +329,11 @@ export default (props: Props) => {
         </List>
       </Collapse>
       <Divider />
-      <Collapse in={colorOpenFlag} timeout="auto" className={classes.collapse}>
+      <Collapse
+        in={colorOpenFlag && collectionTypeFunctionObject.color}
+        timeout="auto"
+        className={classes.collapse}
+      >
         <List component="div" disablePadding>
           <ListItem button className={classes.nested} disableRipple>
             <ColorPanelContainer />
@@ -318,7 +342,11 @@ export default (props: Props) => {
         </List>
       </Collapse>
       <Divider />
-      <Collapse in={imageOpenFlag} timeout="auto" className={classes.collapse}>
+      <Collapse
+        in={imageOpenFlag && collectionTypeFunctionObject.image}
+        timeout="auto"
+        className={classes.collapse}
+      >
         <List component="div" disablePadding>
           <ListItem button className={classes.nested} disableRipple>
             <ImagePanelContainer />
