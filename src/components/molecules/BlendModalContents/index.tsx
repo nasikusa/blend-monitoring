@@ -1,14 +1,21 @@
 import React, { useContext } from 'react';
+import { css } from '@emotion/core';
 import { makeStyles, createStyles } from '@material-ui/core/styles';
 import FormControl from '@material-ui/core/FormControl';
 import FormGroup from '@material-ui/core/FormGroup';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
+import PanoramaFishEyeIcon from '@material-ui/icons/PanoramaFishEye';
+import FormLabel from '@material-ui/core/FormLabel';
 import Checkbox from '@material-ui/core/Checkbox';
+import Divider from '@material-ui/core/Divider';
+
+import Brightness3Icon from '@material-ui/icons/Brightness3';
+import WbSunnyIcon from '@material-ui/icons/WbSunny';
+import DialpadIcon from '@material-ui/icons/Dialpad';
 
 import {
   readyBlendModeArray,
   readyBlendModeData,
-  // getBoolStateBlendObject,
 } from '../../../utils/GetBlendModeData';
 import { GlCollectionOrderContext } from '../Collections';
 import { GlCollectionInterfaceArray } from '../../../stores/collectionData';
@@ -19,15 +26,23 @@ export type Props = {
   blendModeOrder: string[];
 };
 
+const iconCenterStyle = css`
+  text-align: center;
+  padding-bottom: 8px;
+`;
+
 const useStyles = makeStyles(() =>
   createStyles({
     root: {
       display: 'flex',
-      padding: `30px`,
+      padding: `10px`,
     },
     formControl: {},
     formLabel: {
-      width: `200px`,
+      width: `150px`,
+      paddingLeft: '15px',
+      marginLeft: '5px',
+      marginRight: '5px',
       transition: `background-color 0.15s ease`,
       '&:hover': {
         backgroundColor: `rgba(255,255,255,0.15)`,
@@ -37,6 +52,9 @@ const useStyles = makeStyles(() =>
   })
 );
 
+const NormalBlendMode = readyBlendModeArray.filter(
+  (singleBlendModeData) => singleBlendModeData.mode === `normal`
+);
 const brightnessPlusBlendMode = readyBlendModeArray.filter(
   (singleBlendModeData) => singleBlendModeData.type.brightness === `+`
 );
@@ -49,7 +67,9 @@ const brightnessMinusBlendMode = readyBlendModeArray.filter(
 const mathBlendMode = readyBlendModeArray.filter(
   (singleBlendModeData) => singleBlendModeData.type.base === `math`
 );
+
 const CategoryBlendMode = [
+  NormalBlendMode,
   brightnessMinusBlendMode,
   brightnessPlusMinusBlendMode,
   brightnessPlusBlendMode,
@@ -61,6 +81,7 @@ const CategoryBlendMode = [
  * @todo : 変更があったとき
  */
 const categoryBlendModeKeys = [
+  'normal',
   'brightnessPlus',
   'brightnessPlusMinus',
   'brightnessMinus',
@@ -115,6 +136,25 @@ export default (props: Props) => {
           component="fieldset"
           className={classes.formControl}
         >
+          {currentIndex !== 0 ? (
+            <Divider absolute orientation="vertical" />
+          ) : (
+            ''
+          )}
+          <FormLabel css={iconCenterStyle} component="legend">
+            {currentIndex === 0 ? <PanoramaFishEyeIcon color="primary" /> : ''}
+            {currentIndex === 1 ? <Brightness3Icon color="primary" /> : ''}
+            {currentIndex === 2 ? (
+              <>
+                <Brightness3Icon color="primary" />
+                <WbSunnyIcon color="primary" />
+              </>
+            ) : (
+              ''
+            )}
+            {currentIndex === 3 ? <WbSunnyIcon color="primary" /> : ''}
+            {currentIndex === 4 ? <DialpadIcon color="primary" /> : ''}
+          </FormLabel>
           <FormGroup>{labels}</FormGroup>
         </FormControl>
       );
