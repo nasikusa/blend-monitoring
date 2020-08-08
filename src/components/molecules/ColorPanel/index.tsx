@@ -43,7 +43,7 @@ const useStyles = makeStyles((theme: Theme) =>
  * カラーパネルコンポーネント
  * @todo ピッカーのデフォルトプリセットカラーの設定
  */
-export default (props: Props) => {
+const ColorPanel: React.FC<Props> = (props: Props) => {
   const { updateColor, globalStateColorData } = props;
   const [colorPickerOpen, setColorPickerOpen] = useState(false);
   const [currentColorBoxKey, setCurrentColorBoxKey] = useState(0);
@@ -203,6 +203,10 @@ export default (props: Props) => {
     }
   };
 
+  /**
+   * カラー確認用の小さいコンポーネント。
+   * @param colorBoxProps
+   */
   const ColorBox = (colorBoxProps: any) => {
     const { backgroundColor, itemKey } = colorBoxProps;
     const gridStyle = css`
@@ -232,6 +236,9 @@ export default (props: Props) => {
     );
   };
 
+  /**
+   * 小さいカラー確認用のアイテムが並んでいるもののラッパー。コンポーネントを返す。
+   */
   const ColorBoxes = () => {
     let colorBoxItems = [];
     if (typeof globalStateColorData === 'string') {
@@ -262,6 +269,9 @@ export default (props: Props) => {
     );
   };
 
+  /**
+   * カラー確認用のアイテムの下にある、追加、削除などを行うエリアのコンポーネント
+   */
   const ColorBoxFunctions = () => {
     return (
       <Box ml={4}>
@@ -321,3 +331,5 @@ export default (props: Props) => {
     </Box>
   );
 };
+
+export default ColorPanel;

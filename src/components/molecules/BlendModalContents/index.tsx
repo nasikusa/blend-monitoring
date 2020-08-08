@@ -26,6 +26,9 @@ export type Props = {
   blendModeOrder: string[];
 };
 
+/**
+ * 各描画モードのチェックボタングループのアイコンのスタイル
+ */
 const iconCenterStyle = css`
   text-align: center;
   padding-bottom: 8px;

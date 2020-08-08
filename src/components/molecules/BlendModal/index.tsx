@@ -12,9 +12,10 @@ import Button from '@material-ui/core/Button';
 import IconButton from '@material-ui/core/IconButton';
 import Paper, { PaperProps } from '@material-ui/core/Paper';
 import Draggable from 'react-draggable';
-
+import Chip from '@material-ui/core/Chip';
 import PhotoLibraryIcon from '@material-ui/icons/PhotoLibrary';
 import CloseIcon from '@material-ui/icons/Close';
+
 import { GlCollectionOrderContext } from '../Collections';
 import BlendModalContentsContainer from '../../../container/BlendModalContentsContainer';
 import { readyBlendModeData } from '../../../utils/GetBlendModeData';
@@ -23,6 +24,8 @@ import { GlCollectionInterfaceArray } from '../../../stores/collectionData';
 
 type Props = {
   collectionData: GlCollectionInterfaceArray;
+  updateBlendMode: any;
+  blendModeOrder: string[];
 };
 
 const useStyles = makeStyles(() =>
@@ -53,6 +56,9 @@ function PaperComponent(props: PaperProps) {
   );
 }
 
+/**
+ * モーダルの背景要素をタッチ不能にして、モーダルの下の要素のクリックを可能にするためのCSS
+ */
 const modalBackStyle = css`
   pointer-events: none;
 `;
@@ -66,7 +72,7 @@ const modalBackStyle = css`
 export default (props: Props) => {
   const classes = useStyles();
   const [open, setOpen] = React.useState(false);
-  const { collectionData } = props;
+  const { collectionData, updateBlendMode, blendModeOrder } = props;
   const glCollectionOrderKey = useContext(GlCollectionOrderContext);
   const collectionDataState = collectionData;
   const boolBlendModeStateObject =
@@ -86,28 +92,60 @@ export default (props: Props) => {
     setOpen(false);
   };
 
+  const handleChipClickClose = (blendModeName: any): void => {
+    updateBlendMode({
+      blendMode: blendModeName,
+      boolValue: false,
+      glCollectionOrderKey,
+      blendModeOrder,
+    });
+  };
+
   return (
     <Box width={1}>
       <Typography gutterBottom className={classes.label}>
         描画モード
       </Typography>
-      <Grid container spacing={4} className={classes.grid}>
-        <Grid item>
-          <PhotoLibraryIcon />
+      <Box mb={1}>
+        <Grid container spacing={4} className={classes.grid}>
+          <Grid item>
+            <PhotoLibraryIcon />
+          </Grid>
+          <Grid item>
+            <Button
+              size="small"
+              variant="contained"
+              color="primary"
+              onClick={handleOpen}
+            >
+              {Array.isArray(boolBlendModeStateObject)
+                ? `複数の描画モード`
+                : readyBlendModeData[boolBlendModeStateObject].name.ja}
+            </Button>
+          </Grid>
         </Grid>
-        <Grid item>
-          <Button
-            size="small"
-            variant="contained"
-            color="primary"
-            onClick={handleOpen}
-          >
-            {Array.isArray(boolBlendModeStateObject)
-              ? `複数の描画モード`
-              : readyBlendModeData[boolBlendModeStateObject].name.ja}
-          </Button>
-        </Grid>
-      </Grid>
+      </Box>
+      <Box ml={4}>
+        {Array.isArray(boolBlendModeStateObject) ? (
+          <Grid container spacing={1}>
+            {boolBlendModeStateObject.map((singleBlendModeData) => {
+              return (
+                <Grid item key={singleBlendModeData}>
+                  <Chip
+                    size="small"
+                    onDelete={() => {
+                      handleChipClickClose(singleBlendModeData);
+                    }}
+                    label={readyBlendModeData[singleBlendModeData].name.ja}
+                  />
+                </Grid>
+              );
+            })}
+          </Grid>
+        ) : (
+          ''
+        )}
+      </Box>
       <Dialog
         className={classes.modal}
         onClose={handleClose}
