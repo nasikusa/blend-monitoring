@@ -12,6 +12,7 @@ import { GlItemOrderContext } from '../../organisms/GlBox';
 import { GlSettingsType } from '../../../stores/glSettings';
 import { GlCollectionInterfaceArray } from '../../../stores/collectionData';
 import { StoredMediaStateType } from '../../../stores/storedMedia';
+import isEmptyMultiCollections from '../../../utils/isEmptyMultiCollections';
 
 type Props = {
   itemKey: number;
@@ -40,35 +41,55 @@ const GlView: React.FC<Props> = (props: Props) => {
    */
   const glItemOrderKey = useContext(GlItemOrderContext);
 
-  /**
-   * シェーダー文字列
-   */
-  const shaderString = `
-      precision highp float;
-      varying vec2 ${glUVName};
-      ${CreateShaderVariables(multiCollectionData)}
-      ${CreateShaderFunctions()}
+  const isEmptyMultiCollectionsFlag = isEmptyMultiCollections(
+    multiCollectionData
+  );
 
-      void main() {
-        vec3 ${glResultColorName} = vec3(0.0);
-        ${CreateShaderProcessesVariables(
-          multiCollectionData,
-          glUVName,
-          glSettings,
-          glItemOrderKey,
-          storedMediaState
-        )}
+  let shaderString = `
+  precision highp float;
+  void main(){
+    gl_FragColor = vec4( 0.0, 0.0, 0.0 , 1.0 );
+  }
+  `;
+  let shaderUniformValue = {};
 
-        ${CreateShaderProcesses(
-          multiCollectionData,
-          glResultColorName,
-          glItemOrderKey
-        )}
+  if (isEmptyMultiCollectionsFlag) {
+    shaderString = `
+    precision highp float;
+    varying vec2 ${glUVName};
+    ${CreateShaderVariables(multiCollectionData)}
+    ${CreateShaderFunctions()}
 
-        gl_FragColor = vec4( ${glResultColorName} , 1.0 );
-      }
-      `;
-  // console.log(shaderString);
+    void main() {
+      vec3 ${glResultColorName} = vec3(0.0);
+      ${CreateShaderProcessesVariables(
+        multiCollectionData,
+        glUVName,
+        glSettings,
+        glItemOrderKey,
+        storedMediaState
+      )}
+
+      ${CreateShaderProcesses(
+        multiCollectionData,
+        glResultColorName,
+        glItemOrderKey
+      )}
+
+      gl_FragColor = vec4( ${glResultColorName} , 1.0 );
+    }
+    `;
+
+    // console.log(shaderString);
+
+    shaderUniformValue = {
+      ...CreateShaderUniforms(
+        multiCollectionData,
+        glItemOrderKey,
+        storedMediaState
+      ),
+    };
+  }
 
   /**
    * シェーダー本体
@@ -87,16 +108,7 @@ const GlView: React.FC<Props> = (props: Props) => {
         width={glSettings.singleItemWidth}
         height={glSettings.singleItemHeight}
       >
-        <Node
-          shader={shaders.firstGL}
-          uniforms={{
-            ...CreateShaderUniforms(
-              multiCollectionData,
-              glItemOrderKey,
-              storedMediaState
-            ),
-          }}
-        />
+        <Node shader={shaders.firstGL} uniforms={shaderUniformValue} />
       </Surface>
     </div>
   );

@@ -57,17 +57,27 @@ export default (props: any) => {
           innerItemId: [uuidv4()],
         };
         break;
+      case 'singleImage':
+        multipleCollectionObject = {
+          image: null,
+          blendMode: 'normal',
+          innerItemId: [uuidv4()],
+          size: 'cover',
+        };
+        break;
       case 'singleImageMultiBlends':
         multipleCollectionObject = {
           image: null,
           blendMode: ['normal'],
           innerItemId: [uuidv4()],
+          size: 'cover',
         };
         break;
       case 'multiImages':
         multipleCollectionObject = {
-          image: null,
+          image: [],
           innerItemId: [uuidv4()],
+          size: 'cover',
         };
         break;
       default:

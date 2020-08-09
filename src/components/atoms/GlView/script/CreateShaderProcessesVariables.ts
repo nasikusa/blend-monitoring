@@ -13,6 +13,7 @@ import { StoredMediaStateType } from '../../../../stores/storedMedia';
  * @param multiCollectionData
  * @param glUVName 全体で共通のuv変数の名前
  * @param glSettings glsl描画の共通設定
+ * @todo sizeがnullの際の挙動がないので修正したいです。
  *
  */
 export default (

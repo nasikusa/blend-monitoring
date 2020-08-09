@@ -10,6 +10,7 @@ type returnObjectType = { [key: string]: any };
 /**
  * シェーダーのuniforms用のオブジェクトを生成する関数
  * @todo: カラーのuniform
+ * @todo 画像サイズを可変にしたい
  * @see: gl-reactのuniformsのdocs https://gl-react-cookbook.surge.sh/api#uniforms
  */
 export default (
@@ -45,13 +46,13 @@ export default (
         case `singleImageMultiBlends`:
           if (image != null && typeof image === 'string') {
             resultUniformsObject[`layer${collectionCurrentIndex}`] =
-              storedMediaState[image].resource.large;
+              storedMediaState[image].resource.medium;
           }
           break;
         case `multiImages`:
           if (image != null) {
             resultUniformsObject[`layer${collectionCurrentIndex}`] =
-              storedMediaState[image[glItemOrderKey]].resource.large;
+              storedMediaState[image[glItemOrderKey]].resource.medium;
           }
           break;
         case `singleColor`:
