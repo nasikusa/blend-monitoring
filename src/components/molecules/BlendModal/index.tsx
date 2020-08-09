@@ -74,9 +74,16 @@ export default (props: Props) => {
   const [open, setOpen] = React.useState(false);
   const { collectionData, updateBlendMode, blendModeOrder } = props;
   const glCollectionOrderKey = useContext(GlCollectionOrderContext);
-  const collectionDataState = collectionData;
-  const boolBlendModeStateObject =
-    collectionDataState[glCollectionOrderKey].blendMode;
+  const getBlendModeNameMenuView = (() => {
+    if (Array.isArray(globalBlendModeStateArray)) {
+      return `複数の描画モード`;
+    }
+    const singleBlendModeData = readyBlendModeData[globalBlendModeStateArray];
+    if (singleBlendModeData != null) {
+      return singleBlendModeData.name.ja;
+    }
+    return '';
+  })();
 
   /**
    * モーダルの開閉stateをtrueにする関数
@@ -118,17 +125,22 @@ export default (props: Props) => {
               color="primary"
               onClick={handleOpen}
             >
-              {Array.isArray(boolBlendModeStateObject)
-                ? `複数の描画モード`
-                : readyBlendModeData[boolBlendModeStateObject].name.ja}
+              {getBlendModeNameMenuView}
             </Button>
           </Grid>
         </Grid>
       </Box>
       <Box ml={4}>
-        {Array.isArray(boolBlendModeStateObject) ? (
+        {Array.isArray(globalBlendModeStateArray) ? (
           <Grid container spacing={1}>
-            {boolBlendModeStateObject.map((singleBlendModeData) => {
+            {globalBlendModeStateArray.map((singleBlendModeData) => {
+              const chipLabelName = (() => {
+                const singleBlendData = readyBlendModeData[singleBlendModeData];
+                if (singleBlendData != null) {
+                  return singleBlendData.name.ja;
+                }
+                return '';
+              })();
               return (
                 <Grid item key={singleBlendModeData}>
                   <Chip
@@ -136,7 +148,7 @@ export default (props: Props) => {
                     onDelete={() => {
                       handleChipClickClose(singleBlendModeData);
                     }}
-                    label={readyBlendModeData[singleBlendModeData].name.ja}
+                    label={chipLabelName}
                   />
                 </Grid>
               );

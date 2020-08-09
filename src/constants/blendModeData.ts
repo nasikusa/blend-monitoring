@@ -72,9 +72,10 @@ export type BlendModeDataItemType = {
 };
 
 export type BlendModeDataType = {
-  [key: string]: BlendModeDataItemType;
+  [key in BlendModesType]: BlendModeDataItemType;
 };
 
+export type PartialBlendModeDataType = Partial<BlendModeDataType>;
 /**
  * @see: https://twitter.com/optie_f/status/974263251071418368
  * @todo: existの箇所の対応(今はすべてtrueになってるので意味がない)

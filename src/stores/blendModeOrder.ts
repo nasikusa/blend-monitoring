@@ -1,7 +1,9 @@
 import { createSlice } from '@reduxjs/toolkit';
 import { readyBlendModeArray } from '../utils/GetBlendModeData';
+import { BlendModesType } from '../constants/blendModeData';
 
-const initialState: string[] = [
+const initialState: BlendModesType[] = [
+  'normal',
   ...readyBlendModeArray
     .filter((val) => val.type.brightness === '-')
     .map((val) => val.mode),
