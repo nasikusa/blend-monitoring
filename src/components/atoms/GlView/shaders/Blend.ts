@@ -291,7 +291,6 @@ vec3 blendSubtract(vec3 base, vec3 blend, float opacity) {
 
 /**
  * divide 除算
- * @todo blendが負の値だったときの対応。そもそもその対応が必要なのかどうか？
  */
 export const divide = `
 float blendDivide(float base, float blend) {
@@ -299,7 +298,7 @@ float blendDivide(float base, float blend) {
 }
 
 vec3 blendDivide(vec3 base, vec3 blend) {
-	return max(base/blend,vec3(0.0));
+	return min(max(base/blend,vec3(0.0)) , 1.0 );
 }
 
 vec3 blendDivide(vec3 base, vec3 blend, float opacity) {
