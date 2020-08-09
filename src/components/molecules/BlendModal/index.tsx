@@ -117,6 +117,7 @@ const modalMinifyStyle = css`
 export default (props: Props) => {
   const classes = useStyles();
   const [open, setOpen] = useState(false);
+  const [modalTransparentFlag, setModalTransparentFlag] = useState(false);
   const [modalMinifyFlag, setModalMinifyFlag] = useState(false);
   const [canDisplayNormalBlend, setCanDisplayNormalBlend] = useState(true);
   const [canDispalyLighterBlend, setCanDisplayLighterBlend] = useState(true);
@@ -209,6 +210,12 @@ export default (props: Props) => {
   };
 
   /**
+   * モーダル透過ハンドル関数
+   */
+  const handleSwitchChangeModalOpacity = (): void => {
+    setModalTransparentFlag(!modalTransparentFlag);
+  };
+  /**
    * モーダルサイズハンドル関数
    */
   const handleSwitchChangeSize = (): void => {
@@ -250,6 +257,12 @@ export default (props: Props) => {
    */
   const modalSwitchParams = [
     {
+      name: 'transparent',
+      onChange: handleSwitchChangeModalOpacity,
+      checked: modalTransparentFlag,
+      label: blendModeSwitchActiveCount <= 1 ? '透過' : 'パネルを透過',
+    },
+    {
       name: 'small',
       onChange: handleSwitchChangeSize,
       checked: modalMinifyFlag,
@@ -265,19 +278,19 @@ export default (props: Props) => {
       name: 'darker',
       onChange: handleSwitchChangeDarkerBlend,
       checked: canDisplayDarkerBlend,
-      label: '暗',
+      label: blendModeSwitchActiveCount <= 1 ? '暗' : '暗く',
     },
     {
       name: 'lighterAndDarker',
       onChange: handleSwitchChangeLighterAndDarkerBlend,
       checked: canDisplayLighterAndDarkerBlend,
-      label: '明暗',
+      label: blendModeSwitchActiveCount <= 1 ? '明暗' : '明暗を強化',
     },
     {
       name: 'lighter',
       onChange: handleSwitchChangeLighterBlend,
       checked: canDispalyLighterBlend,
-      label: '明',
+      label: blendModeSwitchActiveCount <= 1 ? '明' : '明るく',
     },
     {
       name: 'math',
@@ -348,7 +361,12 @@ export default (props: Props) => {
           style: { backgroundColor: 'rgba(0,0,0,0)', pointerEvents: 'none' },
         }}
         PaperProps={{
-          style: { backgroundColor: 'rgba(0,0,0,0.0)', pointerEvents: 'all' },
+          style: {
+            backgroundColor: modalTransparentFlag
+              ? 'rgba(0,0,0,0)'
+              : 'rgba(0,0,0,0.5)',
+            pointerEvents: 'all',
+          },
         }}
         PaperComponent={PaperComponent}
         css={modalMinifyFlag ? modalMinifyStyle : modalBackStyle}
