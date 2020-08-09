@@ -8,6 +8,7 @@ import TextureIcon from '@material-ui/icons/Texture';
 import GridList from '@material-ui/core/GridList';
 import GridListTile from '@material-ui/core/GridListTile';
 
+import MediaModalContainer from '../../../container/MediaModalContainer';
 import checkURL from '../../../utils/checkURL';
 
 export type Props = {
@@ -96,6 +97,10 @@ const ImagePanel: React.FC<Props> = (props: Props) => {
           </Box>
         </Grid>
       </Grid>
+      <MediaModalContainer
+        modalOpen={imagePanelOpen}
+        setModalOpen={setImagePanelOpen}
+      />
     </Box>
   );
 };

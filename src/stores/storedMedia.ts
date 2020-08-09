@@ -1,16 +1,14 @@
 import { createSlice } from '@reduxjs/toolkit';
 
-import {
-  getSampleImageURLObject,
-  getSampleImageAspect,
-  unsplashRawWidth,
-} from '../utils/getSampleImages';
+import { unsplashSampleImagesDataLength } from '../constants/unsplashSampleImages';
+import createStoredMediaInitialState from '../utils/develop/createStoredMediaInitialState';
 
 export type StoredMediaTypesType = 'image' | 'sequenceImages' | 'video';
 
 export type DataTypesType = 'dataURL' | 'url' | 'objectURL' | 'blob' | 'file';
 
 export type StoredMediaStateItemType = {
+  id: string;
   mediaType: StoredMediaTypesType;
   dataType: DataTypesType;
   aspectRatio: number;
@@ -48,52 +46,9 @@ export type StoredMediaStateType = {
 
 export const imageSizeNames = ['thumb', 'small', 'medium', 'large', 'raw'];
 
-const initialState: StoredMediaStateType = {
-  sample0: {
-    mediaType: 'image',
-    dataType: 'url',
-    aspectRatio: getSampleImageAspect(0),
-    resource: getSampleImageURLObject(0),
-    rawWidth: unsplashRawWidth,
-    rawHeight: unsplashRawWidth * getSampleImageAspect(0),
-    mime: `image/jpeg`,
-    isSelected: false,
-    itemOrder: 0,
-  },
-  sample1: {
-    mediaType: 'image',
-    dataType: 'url',
-    aspectRatio: getSampleImageAspect(1),
-    resource: getSampleImageURLObject(1),
-    rawWidth: unsplashRawWidth,
-    rawHeight: unsplashRawWidth * getSampleImageAspect(1),
-    mime: `image/jpeg`,
-    isSelected: false,
-    itemOrder: 0,
-  },
-  sample2: {
-    mediaType: 'image',
-    dataType: 'url',
-    aspectRatio: getSampleImageAspect(2),
-    resource: getSampleImageURLObject(2),
-    rawWidth: unsplashRawWidth,
-    rawHeight: unsplashRawWidth * getSampleImageAspect(2),
-    mime: `image/jpeg`,
-    isSelected: false,
-    itemOrder: 0,
-  },
-  sample3: {
-    mediaType: 'image',
-    dataType: 'url',
-    aspectRatio: getSampleImageAspect(3),
-    resource: getSampleImageURLObject(3),
-    rawWidth: unsplashRawWidth,
-    rawHeight: unsplashRawWidth * getSampleImageAspect(3),
-    mime: `image/jpeg`,
-    isSelected: false,
-    itemOrder: 0,
-  },
-};
+const initialState: StoredMediaStateType = createStoredMediaInitialState(
+  unsplashSampleImagesDataLength
+);
 
 const slice = createSlice({
   name: 'storedMedia',

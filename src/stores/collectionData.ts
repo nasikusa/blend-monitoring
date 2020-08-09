@@ -45,6 +45,13 @@ export interface GlCollectionInterface {
   size: null | 'normal' | 'cover' | 'contain';
 }
 
+export type updateBlendModePayloadType = {
+  blendMode: any;
+  glCollectionOrderKey: any;
+  boolValue: any;
+  blendModeOrder: any;
+};
+
 /**
  * 全コレクションのinterface。
  */
@@ -60,7 +67,7 @@ const initialState: GlCollectionInterfaceArray = [
     opacity: 1.0,
     blendMode: 'normal',
     color: null,
-    image: 'sample3',
+    image: 'sample1',
     size: `cover`,
   },
   // {
@@ -121,16 +128,29 @@ const slice = createSlice({
   name: 'collectionData',
   initialState,
   reducers: {
-    updateBlendMode: (state, action) => {
+    updateBlendMode: (
+      state,
+      action: {
+        type: string;
+        payload: updateBlendModePayloadType;
+      }
+    ) => {
       const {
         blendMode,
         glCollectionOrderKey,
         boolValue,
         blendModeOrder,
       } = action.payload;
+
+      /**
+       * まだ更新されていないコレクションの描画モードデータ
+       */
       const stateBlendModeData = state[glCollectionOrderKey].blendMode;
 
       if (Array.isArray(stateBlendModeData)) {
+        /**
+         * 新しい描画モードの配列
+         */
         let newBlendModeValue: string[] = [];
         if (boolValue === false) {
           newBlendModeValue = stateBlendModeData.filter(
@@ -171,9 +191,50 @@ const slice = createSlice({
         });
       }
 
-      return {
-        ...state,
-      };
+      return [...state];
+    },
+    updateImages: (state, action) => {
+      const { imageID, glCollectionOrderKey, boolValue } = action.payload;
+
+      const stateImageData = state[glCollectionOrderKey].image;
+      if (Array.isArray(stateImageData)) {
+        /**
+         * 新しい画像データIDの配列
+         */
+        let newImageValue: string[] = [];
+        if (boolValue === false) {
+          newImageValue = stateImageData.filter((stateSingleImageValue) => {
+            return stateSingleImageValue !== imageID;
+          });
+        } else if (boolValue === true) {
+          newImageValue = [...stateImageData, imageID];
+        }
+
+        return state.map((singleCollectionData, currentIndex) => {
+          if (currentIndex === glCollectionOrderKey) {
+            return {
+              ...singleCollectionData,
+              image: newImageValue,
+            };
+          }
+          return singleCollectionData;
+        });
+      }
+
+      if (typeof stateImageData === 'string' || stateImageData === null) {
+        const newImageValue = imageID;
+        return state.map((singleCollectionData, currentIndex) => {
+          if (currentIndex === glCollectionOrderKey) {
+            return {
+              ...singleCollectionData,
+              image: newImageValue,
+            };
+          }
+          return singleCollectionData;
+        });
+      }
+
+      return [...state];
     },
     updateOpacity: (state, action) => {
       const { opacityValue, glCollectionOrderKey } = action.payload;
@@ -305,4 +366,5 @@ export const {
   updateVisibility,
   updateColor,
   createCollection,
+  updateImages,
 } = slice.actions;
