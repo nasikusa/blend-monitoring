@@ -35,10 +35,10 @@ const theme = createMuiTheme({
       color: 'primary',
     },
     MuiRadio: {
-      color: 'primary',
+      // color: 'primary',
     },
     MuiSwitch: {
-      color: 'primary',
+      // color: 'primary',
     },
   },
 });
