@@ -1,6 +1,8 @@
-import React, { useContext } from 'react';
+/* eslint no-nested-ternary: 0 */
+
+import React, { useContext, useState } from 'react';
 import { makeStyles, createStyles } from '@material-ui/core/styles';
-import { css } from '@emotion/core';
+import { css, SerializedStyles } from '@emotion/core';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import Dialog from '@material-ui/core/Dialog';
 import Grid from '@material-ui/core/Grid';
@@ -15,6 +17,9 @@ import Draggable from 'react-draggable';
 import Chip from '@material-ui/core/Chip';
 import PhotoLibraryIcon from '@material-ui/icons/PhotoLibrary';
 import CloseIcon from '@material-ui/icons/Close';
+import FormGroup from '@material-ui/core/FormGroup';
+import FormControlLabel from '@material-ui/core/FormControlLabel';
+import Switch from '@material-ui/core/Switch';
 
 import { GlCollectionOrderContext } from '../Collections';
 import BlendModalContentsContainer from '../../../container/BlendModalContentsContainer';
@@ -63,6 +68,46 @@ const modalBackStyle = css`
   pointer-events: none;
 `;
 
+const modalTitleStyle = css`
+  .MuiTypography-root {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  background-color: rgba(255, 255, 255, 0);
+  transition: background-color 0.2s ease;
+  :hover {
+    background-color: rgba(255, 255, 255, 0.2);
+  }
+`;
+
+/**
+ * モーダルを小さいサイズにするスタイル
+ * @todo かなり強制的に塗り替えてしまっているので、他の方法でできるならそれが良いと思う
+ */
+const modalMinifyStyle = css`
+  ${modalBackStyle}
+  .MuiDialogTitle-root {
+    padding: 4px 10px;
+  }
+  .MuiDialogContent-root {
+    padding: 0px;
+  }
+  .MuiDialogContent-root .MuiFormControlLabel-root {
+    width: 130px !important;
+    padding-left: 0px !important;
+  }
+  .MuiFormControlLabel-root .MuiTypography-root {
+    font-size: 12px !important;
+  }
+  .MuiFormLabel-root {
+    padding-bottom: 0px !important;
+  }
+  .MuiDialogActions-root {
+    padding: 0px;
+  }
+`;
+
 /**
  * 描画モードのモーダルを管理するコンポーネント。モーダルの中身に関しては、
  * 他コンポーネントを参照してください。
@@ -71,9 +116,60 @@ const modalBackStyle = css`
  */
 export default (props: Props) => {
   const classes = useStyles();
-  const [open, setOpen] = React.useState(false);
+  const [open, setOpen] = useState(false);
+  const [modalMinifyFlag, setModalMinifyFlag] = useState(false);
+  const [canDisplayNormalBlend, setCanDisplayNormalBlend] = useState(true);
+  const [canDispalyLighterBlend, setCanDisplayLighterBlend] = useState(true);
+  const [
+    canDisplayLighterAndDarkerBlend,
+    setCanDisplayLighterAndDarkerBlend,
+  ] = useState(true);
+  const [canDisplayDarkerBlend, setCanDisplayDarkerBlend] = useState(true);
+  const [canDisplayMathBlend, setCanDisplayMathBlend] = useState(true);
   const { collectionData, updateBlendMode, blendModeOrder } = props;
   const glCollectionOrderKey = useContext(GlCollectionOrderContext);
+  const globalBlendModeStateArray =
+    collectionData[glCollectionOrderKey].blendMode;
+  const blendModeSwitchBoolArray = [
+    canDisplayNormalBlend,
+    canDispalyLighterBlend,
+    canDisplayLighterAndDarkerBlend,
+    canDisplayDarkerBlend,
+    canDisplayMathBlend,
+  ];
+
+  /**
+   * 描画モードの表示のオンオフスイッチの有効数
+   */
+  const blendModeSwitchActiveCount: number = blendModeSwitchBoolArray.filter(
+    (val) => val === true
+  ).length;
+
+  let modalMaxWidthStyle: SerializedStyles = css``;
+  if (modalMinifyFlag) {
+    if (blendModeSwitchActiveCount === 2) {
+      modalMaxWidthStyle = css`
+        max-width: 280px;
+      `;
+    }
+    if (blendModeSwitchActiveCount <= 1) {
+      modalMaxWidthStyle = css`
+        max-width: 140px;
+      `;
+    }
+  } else {
+    if (blendModeSwitchActiveCount === 2) {
+      modalMaxWidthStyle = css`
+        max-width: 380px;
+      `;
+    }
+    if (blendModeSwitchActiveCount <= 1) {
+      modalMaxWidthStyle = css`
+        max-width: 220px;
+      `;
+    }
+  }
+
   const getBlendModeNameMenuView = (() => {
     if (Array.isArray(globalBlendModeStateArray)) {
       return `複数の描画モード`;
@@ -99,7 +195,11 @@ export default (props: Props) => {
     setOpen(false);
   };
 
-  const handleChipClickClose = (blendModeName: any): void => {
+  /**
+   * 描画モードチップのバツアイコンを押したときの関数
+   * @param blendModeName 描画モード名(英語)
+   */
+  const handleChipClickClose = (blendModeName: string): void => {
     updateBlendMode({
       blendMode: blendModeName,
       boolValue: false,
@@ -107,6 +207,85 @@ export default (props: Props) => {
       blendModeOrder,
     });
   };
+
+  /**
+   * モーダルサイズハンドル関数
+   */
+  const handleSwitchChangeSize = (): void => {
+    setModalMinifyFlag(!modalMinifyFlag);
+  };
+  /**
+   * 通常描画モードハンドル関数
+   */
+  const handleSwitchChangeNormalBlend = (): void => {
+    setCanDisplayNormalBlend(!canDisplayNormalBlend);
+  };
+  /**
+   * 明るい描画モードハンドル関数
+   */
+  const handleSwitchChangeLighterBlend = (): void => {
+    setCanDisplayLighterBlend(!canDispalyLighterBlend);
+  };
+  /**
+   * 明暗描画モードハンドル関数
+   */
+  const handleSwitchChangeLighterAndDarkerBlend = (): void => {
+    setCanDisplayLighterAndDarkerBlend(!canDisplayLighterAndDarkerBlend);
+  };
+  /**
+   * 暗くなる描画モードハンドル関数
+   */
+  const handleSwitchChangeDarkerBlend = (): void => {
+    setCanDisplayDarkerBlend(!canDisplayDarkerBlend);
+  };
+  /**
+   * 数学描画モードハンドル関数
+   */
+  const handleSwitchChangeMathBlend = (): void => {
+    setCanDisplayMathBlend(!canDisplayMathBlend);
+  };
+
+  /**
+   * モーダルのスイッチコンポーネントの情報をまとめた配列
+   */
+  const modalSwitchParams = [
+    {
+      name: 'small',
+      onChange: handleSwitchChangeSize,
+      checked: modalMinifyFlag,
+      label: blendModeSwitchActiveCount <= 1 ? '小' : 'サイズを小さく',
+    },
+    {
+      name: 'normal',
+      onChange: handleSwitchChangeNormalBlend,
+      checked: canDisplayNormalBlend,
+      label: '通常',
+    },
+    {
+      name: 'darker',
+      onChange: handleSwitchChangeDarkerBlend,
+      checked: canDisplayDarkerBlend,
+      label: '暗',
+    },
+    {
+      name: 'lighterAndDarker',
+      onChange: handleSwitchChangeLighterAndDarkerBlend,
+      checked: canDisplayLighterAndDarkerBlend,
+      label: '明暗',
+    },
+    {
+      name: 'lighter',
+      onChange: handleSwitchChangeLighterBlend,
+      checked: canDispalyLighterBlend,
+      label: '明',
+    },
+    {
+      name: 'math',
+      onChange: handleSwitchChangeMathBlend,
+      checked: canDisplayMathBlend,
+      label: blendModeSwitchActiveCount <= 1 ? '他' : 'その他',
+    },
+  ];
 
   return (
     <Box width={1}>
@@ -163,22 +342,25 @@ export default (props: Props) => {
         onClose={handleClose}
         aria-labelledby="描画モードのパネル"
         open={open}
-        maxWidth="lg"
-        fullWidth
+        maxWidth={false}
+        disableEnforceFocus
         BackdropProps={{
           style: { backgroundColor: 'rgba(0,0,0,0)', pointerEvents: 'none' },
         }}
         PaperProps={{
-          style: { backgroundColor: 'rgba(0,0,0,0.5)', pointerEvents: 'all' },
+          style: { backgroundColor: 'rgba(0,0,0,0.0)', pointerEvents: 'all' },
         }}
         PaperComponent={PaperComponent}
-        css={modalBackStyle}
+        css={modalMinifyFlag ? modalMinifyStyle : modalBackStyle}
       >
         <DialogTitle
           id="blend-draggable-dialog-title"
           style={{ cursor: 'move' }}
+          css={modalTitleStyle}
         >
-          描画モードの設定パネル
+          {blendModeSwitchActiveCount <= 1
+            ? '描画モード'
+            : '描画モードの設定パネル'}
           <IconButton aria-label="close" onClick={handleClose}>
             <CloseIcon />
           </IconButton>
@@ -186,12 +368,31 @@ export default (props: Props) => {
         <DialogContent dividers>
           <BlendModalContentsContainer
             glCollectionOrderKey={glCollectionOrderKey}
+            canDisplayNormalBlend={canDisplayNormalBlend}
+            canDispalyLighterBlend={canDispalyLighterBlend}
+            canDisplayLighterAndDarkerBlend={canDisplayLighterAndDarkerBlend}
+            canDisplayDarkerBlend={canDisplayDarkerBlend}
+            canDisplayMathBlend={canDisplayMathBlend}
           />
         </DialogContent>
         <DialogActions>
-          <Button onClick={handleClose} color="primary">
-            パネルを閉じる
-          </Button>
+          <FormGroup row css={modalMaxWidthStyle}>
+            {modalSwitchParams.map((singleSwitchParam) => {
+              return (
+                <FormControlLabel
+                  control={
+                    <Switch
+                      size="small"
+                      checked={singleSwitchParam.checked}
+                      onChange={singleSwitchParam.onChange}
+                      name={singleSwitchParam.name}
+                    />
+                  }
+                  label={singleSwitchParam.label}
+                />
+              );
+            })}
+          </FormGroup>
         </DialogActions>
       </Dialog>
     </Box>

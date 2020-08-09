@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React, { useContext, useState } from 'react';
 import { css } from '@emotion/core';
 import { makeStyles, createStyles } from '@material-ui/core/styles';
 import FormControl from '@material-ui/core/FormControl';
@@ -24,12 +24,18 @@ export type Props = {
   collectionData: GlCollectionInterfaceArray;
   updateBlendMode: any;
   blendModeOrder: string[];
+  canDisplayNormalBlend: boolean;
+  canDispalyLighterBlend: boolean;
+  canDisplayLighterAndDarkerBlend: boolean;
+  canDisplayDarkerBlend: boolean;
+  canDisplayMathBlend: boolean;
 };
 
 /**
  * 各描画モードのチェックボタングループのアイコンのスタイル
  */
 const iconCenterStyle = css`
+  width: 100%;
   text-align: center;
   padding-bottom: 8px;
 `;
@@ -71,34 +77,56 @@ const mathBlendMode = readyBlendModeArray.filter(
   (singleBlendModeData) => singleBlendModeData.type.base === `math`
 );
 
-const CategoryBlendMode = [
-  NormalBlendMode,
-  brightnessMinusBlendMode,
-  brightnessPlusMinusBlendMode,
-  brightnessPlusBlendMode,
-  mathBlendMode,
-];
-
 /**
- * keyのための配列
- * @todo : 変更があったとき
+ * 描画モードモーダルの中のコンテンツのReactFC
  */
-const categoryBlendModeKeys = [
-  'normal',
-  'brightnessPlus',
-  'brightnessPlusMinus',
-  'brightnessMinus',
-  'math',
-];
-
-export default (props: Props) => {
+export default function BlendModalContents(props: Props) {
   const classes = useStyles();
-  const { collectionData, updateBlendMode, blendModeOrder } = props;
+  const {
+    collectionData,
+    updateBlendMode,
+    blendModeOrder,
+    canDisplayNormalBlend,
+    canDispalyLighterBlend,
+    canDisplayLighterAndDarkerBlend,
+    canDisplayDarkerBlend,
+    canDisplayMathBlend,
+  } = props;
   const glCollectionOrderKey = useContext(GlCollectionOrderContext);
   let boolBlendModeStateObject = collectionData[glCollectionOrderKey].blendMode;
   if (typeof boolBlendModeStateObject === 'string') {
     boolBlendModeStateObject = [boolBlendModeStateObject];
   }
+  const [isInsertDividerState, setIsInsertDividerState] = useState(false);
+
+  const categoryBlendModeData = [
+    {
+      data: NormalBlendMode,
+      name: 'normal',
+      flagState: canDisplayNormalBlend,
+    },
+    {
+      data: brightnessMinusBlendMode,
+      name: 'brightnessMinus',
+      flagState: canDisplayDarkerBlend,
+    },
+    {
+      data: brightnessPlusMinusBlendMode,
+      name: 'brightnessPlusMinus',
+      flagState: canDisplayLighterAndDarkerBlend,
+    },
+    {
+      data: brightnessPlusBlendMode,
+      name: 'brightnessPlus',
+      flagState: canDispalyLighterBlend,
+    },
+    {
+      data: mathBlendMode,
+      name: 'math',
+      flagState: canDisplayMathBlend,
+    },
+  ];
+
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     updateBlendMode({
       blendMode: event.target.name,
@@ -107,62 +135,97 @@ export default (props: Props) => {
       blendModeOrder,
     });
   };
-  const checkBoxes = CategoryBlendMode.map(
-    (oneCategoryBlendMode, currentIndex: number) => {
-      const labels = oneCategoryBlendMode.map((blendModeData) => {
-        let checkBoxValue = false;
-        if (Array.isArray(boolBlendModeStateObject)) {
-          checkBoxValue = boolBlendModeStateObject.includes(blendModeData.mode);
-        } else {
-          checkBoxValue = boolBlendModeStateObject === blendModeData.mode;
-        }
 
-        return (
-          <FormControlLabel
-            key={blendModeData.mode}
-            control={
-              <Checkbox
-                color="primary"
-                checked={checkBoxValue}
-                onChange={handleChange}
-                name={blendModeData.mode}
-              />
+  /**
+   * 描画モードのチェックボックスが集まった要素
+   */
+  const checkBoxes = categoryBlendModeData.map(
+    (oneCategoryBlendMode, currentIndex: number) => {
+      /**
+       * divideコンポーネントが入る可能性のある変数
+       */
+      let divideElement = <></>;
+      if (isInsertDividerState === false) {
+        setIsInsertDividerState(true);
+      } else {
+        divideElement = <Divider absolute orientation="vertical" />;
+      }
+
+      /**
+       * 単一の描画モードのチェックボックス要素
+       */
+      const oneCategoryLabels = oneCategoryBlendMode.data.map(
+        (blendModeData) => {
+          /**
+           * チェックボックスのbool値を保存しておくための変数
+           */
+          let checkBoxValue = false;
+          if (Array.isArray(boolBlendModeStateObject)) {
+            checkBoxValue = boolBlendModeStateObject.includes(
+              blendModeData.mode
+            );
+          } else {
+            checkBoxValue = boolBlendModeStateObject === blendModeData.mode;
+          }
+
+          const checkBoxLabelName = (() => {
+            const singleBlendModeData = readyBlendModeData[blendModeData.mode];
+            if (singleBlendModeData != null) {
+              return singleBlendModeData.name.ja;
             }
-            label={readyBlendModeData[blendModeData.mode].name.ja}
-            className={classes.formLabel}
-          />
-        );
-      });
-      return (
-        <FormControl
-          key={categoryBlendModeKeys[currentIndex]}
-          component="fieldset"
-          className={classes.formControl}
-        >
-          {currentIndex !== 0 ? (
-            <Divider absolute orientation="vertical" />
-          ) : (
-            ''
-          )}
-          <FormLabel css={iconCenterStyle} component="legend">
-            {currentIndex === 0 ? <PanoramaFishEyeIcon color="primary" /> : ''}
-            {currentIndex === 1 ? <Brightness3Icon color="primary" /> : ''}
-            {currentIndex === 2 ? (
-              <>
-                <Brightness3Icon color="primary" />
-                <WbSunnyIcon color="primary" />
-              </>
-            ) : (
-              ''
-            )}
-            {currentIndex === 3 ? <WbSunnyIcon color="primary" /> : ''}
-            {currentIndex === 4 ? <DialpadIcon color="primary" /> : ''}
-          </FormLabel>
-          <FormGroup>{labels}</FormGroup>
-        </FormControl>
+            return '';
+          })();
+
+          return (
+            <FormControlLabel
+              key={blendModeData.mode}
+              control={
+                <Checkbox
+                  color="primary"
+                  checked={checkBoxValue}
+                  onChange={handleChange}
+                  name={blendModeData.mode}
+                />
+              }
+              label={checkBoxLabelName}
+              className={classes.formLabel}
+            />
+          );
+        }
       );
+      if (oneCategoryBlendMode.flagState) {
+        return (
+          <FormControl
+            key={oneCategoryBlendMode.name}
+            component="fieldset"
+            className={classes.formControl}
+          >
+            {divideElement}
+            <FormLabel css={iconCenterStyle} component="legend">
+              {currentIndex === 0 ? (
+                <PanoramaFishEyeIcon color="primary" />
+              ) : (
+                ''
+              )}
+              {currentIndex === 1 ? <Brightness3Icon color="primary" /> : ''}
+              {currentIndex === 2 ? (
+                <>
+                  <Brightness3Icon color="primary" />
+                  <WbSunnyIcon color="primary" />
+                </>
+              ) : (
+                ''
+              )}
+              {currentIndex === 3 ? <WbSunnyIcon color="primary" /> : ''}
+              {currentIndex === 4 ? <DialpadIcon color="primary" /> : ''}
+            </FormLabel>
+            <FormGroup>{oneCategoryLabels}</FormGroup>
+          </FormControl>
+        );
+      }
+      return <></>;
     }
   );
 
   return <div className={classes.root}>{checkBoxes}</div>;
-};
+}
