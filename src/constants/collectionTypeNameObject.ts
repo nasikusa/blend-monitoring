@@ -23,6 +23,6 @@ const collectionTypeNameObject = {
   base: {
     ja: 'ベースレイヤー',
   },
-};
+} as const;
 
 export default collectionTypeNameObject;

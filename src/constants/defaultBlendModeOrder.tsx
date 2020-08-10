@@ -24,6 +24,6 @@ const defaultBlendModeOrder = [
   'color',
   'saturation',
   'luminosity',
-];
+] as const;
 
 export default defaultBlendModeOrder;

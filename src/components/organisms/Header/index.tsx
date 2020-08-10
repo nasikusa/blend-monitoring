@@ -1,13 +1,19 @@
 import React from 'react';
-
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 
 import HeaderInfos from '../../molecules/HeaderInfos';
+import { AppName } from '../../../constants/appConstantSettings';
 
-export default (props: any) => {
+import { ThemeSettingsType } from '../../../stores/themeSettings';
+
+export type Props = {
+  themeSettings: ThemeSettingsType;
+};
+
+export default function (props: Props) {
   const { themeSettings } = props;
 
   const useStyles = makeStyles({
@@ -29,9 +35,9 @@ export default (props: any) => {
   return (
     <AppBar position="fixed" className={classes.root}>
       <Toolbar className={classes.root}>
-        <Typography className={classes.logo}>BlendMonitoring</Typography>
+        <Typography className={classes.logo}>{AppName}</Typography>
         <HeaderInfos />
       </Toolbar>
     </AppBar>
   );
-};
+}

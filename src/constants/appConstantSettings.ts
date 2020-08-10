@@ -1,10 +1,3 @@
-export type DeveloperInfoType = {
-  name: string;
-  subName: string;
-  github: string;
-  twitter: string;
-};
-
 /**
  * アプリ名
  */
@@ -13,11 +6,14 @@ export const AppName = `BlendMonitoring`;
 /**
  * 開発者情報
  */
-export const DeveloperInfo: DeveloperInfoType = {
+export const DeveloperInfo = {
   name: `nasikusa`,
   subName: `youkan`,
   github: `nasikusa`,
   twitter: `nakanasinokusa`,
-};
+} as const;
 
+/**
+ * 最大の追加できるglsl描画アイテムの数
+ */
 export const maxCountOfGlItem = 14;
