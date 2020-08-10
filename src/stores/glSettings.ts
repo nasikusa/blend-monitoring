@@ -28,8 +28,8 @@ const initialState: GlSettingsType = {
   rowCount: 3,
   maxRowCount: 6,
   minRowCount: 1,
-  singleItemWidth: 400,
-  singleItemHeight: 600,
+  singleItemWidth: 600,
+  singleItemHeight: 400,
   singleItemAspect: 1.0,
   baseLayerDefaultColor: '#000000',
   collectionDefaultColor: '#000000',
@@ -37,7 +37,7 @@ const initialState: GlSettingsType = {
 };
 
 initialState.singleItemAspect =
-  initialState.singleItemWidth / initialState.singleItemHeight;
+  initialState.singleItemHeight / initialState.singleItemWidth;
 
 /**
  * toolkitを使用したスライス
