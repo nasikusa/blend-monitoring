@@ -2,18 +2,22 @@ import React, { useState, useContext } from 'react';
 import { css } from '@emotion/core';
 import { makeStyles, createStyles, Theme } from '@material-ui/core/styles';
 import Grid from '@material-ui/core/Grid';
-import Paper from '@material-ui/core/Paper';
 import Box from '@material-ui/core/Box';
 import IconButton from '@material-ui/core/IconButton';
 import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
-import { SketchPicker } from 'react-color';
+import { SketchPicker, CirclePicker } from 'react-color';
 import ColorLensIcon from '@material-ui/icons/ColorLens';
+import StarBorderIcon from '@material-ui/icons/StarBorder';
 
 import DeleteIcon from '@material-ui/icons/Delete';
 import AddBoxIcon from '@material-ui/icons/AddBox';
 import SortIcon from '@material-ui/icons/Sort';
+import StarIcon from '@material-ui/icons/Star';
+import FormatColorFillIcon from '@material-ui/icons/FormatColorFill';
+import ZoomOutMapIcon from '@material-ui/icons/ZoomOutMap';
 
+import CustomTooltip from '../../atoms/CustomTooltip';
 import { GlCollectionOrderContext } from '../Collections';
 
 import { GlCollectionInterface } from '../../../stores/collectionData';
@@ -21,6 +25,9 @@ import { GlCollectionInterface } from '../../../stores/collectionData';
 type Props = {
   updateColor: any;
   globalStateColorData: GlCollectionInterface['color'];
+  stockedColorData: any;
+  stockAddColor: any;
+  stockRemoveColor: any;
 };
 
 const useStyles = makeStyles((theme: Theme) =>
@@ -39,14 +46,28 @@ const useStyles = makeStyles((theme: Theme) =>
   })
 );
 
+const colorPanelButtonStyle = css`
+  padding: 3px 6px;
+`;
+
 /**
  * カラーパネルコンポーネント
  * @todo ピッカーのデフォルトプリセットカラーの設定
  */
 const ColorPanel: React.FC<Props> = (props: Props) => {
-  const { updateColor, globalStateColorData } = props;
+  const {
+    updateColor,
+    globalStateColorData,
+    stockedColorData,
+    stockAddColor,
+    stockRemoveColor,
+  } = props;
   const [colorPickerOpen, setColorPickerOpen] = useState(false);
   const [currentColorBoxKey, setCurrentColorBoxKey] = useState(0);
+  const [isFillToScreenCurrentColor, setIsFillToScreenCurrentColor] = useState(
+    false
+  );
+  const [isBigSketchPickerSize, setIsBigSketchPickerSize] = useState(false);
   const classes = useStyles();
   /**
    * デフォルトのカラーをグローバルのstateから取得する
@@ -60,8 +81,16 @@ const ColorPanel: React.FC<Props> = (props: Props) => {
     }
     return '#000000';
   };
+
+  /**
+   * SketchPickerは一つのカラーしか持てないため、ここの値でそれを保存している
+   */
   const [colorValue, setColorValue] = useState(defaultColorValue);
   const glCollectionOrderKey = useContext(GlCollectionOrderContext);
+
+  const bigSketchPickerStyle = css`
+    max-width: initial !important;
+  `;
 
   /**
    * SketchPickerコンポーネントのスタイルを変更する。
@@ -98,6 +127,10 @@ const ColorPanel: React.FC<Props> = (props: Props) => {
       > div:nth-of-type(2) {
         /* 単色確認用の色パネル */
         height: 20px !important;
+        > div:nth-of-type(2) {
+          /* 単色確認用のパネルのシャドー */
+          box-shadow: none !important;
+        }
       }
     }
     > div:nth-of-type(3) {
@@ -154,17 +187,25 @@ const ColorPanel: React.FC<Props> = (props: Props) => {
   };
 
   /**
-   * 単色ボタンを押したときに発火する関数
-   * @param itemKey
+   * サークルピッカークリック時の関数
+   * @param color
+   * @param event
    */
-  const handleColorBoxClick = (itemKey: any): void => {
-    setCurrentColorBoxKey(itemKey);
-    if (typeof globalStateColorData === 'string') {
-      setColorValue(globalStateColorData);
-    }
-    if (Array.isArray(globalStateColorData)) {
-      setColorValue(globalStateColorData[itemKey]);
-    }
+  const handleCirclePickerChange = (color: any, event: any) => {
+    const pickerElement =
+      event.target.parentNode.parentNode.parentNode.parentNode;
+    const pickerElementItems = Array.from(pickerElement.children);
+    pickerElementItems.forEach(
+      (singlePickerItem: any, currentIndex: number) => {
+        const currentPickerItem = singlePickerItem;
+        currentPickerItem.dataset.temp_order = currentIndex;
+      }
+    );
+    const currentItemOrder = Number(
+      event.target.parentNode.parentNode.parentNode.dataset.temp_order
+    );
+    setColorValue(color.hex);
+    setCurrentColorBoxKey(currentItemOrder);
   };
 
   /**
@@ -203,67 +244,44 @@ const ColorPanel: React.FC<Props> = (props: Props) => {
     }
   };
 
-  /**
-   * カラー確認用の小さいコンポーネント。
-   * @param colorBoxProps
-   */
-  const ColorBox = (colorBoxProps: any) => {
-    const { backgroundColor, itemKey } = colorBoxProps;
-    const gridStyle = css`
-      flex-grow: 0 !important;
-    `;
-    const paperStyle = css`
-      padding: 13px !important;
-      position: relative;
-      background-color: ${backgroundColor};
-      cursor: pointer;
-      border-radius: ${currentColorBoxKey === itemKey ? '10%' : '50%'};
-      transform: scale(${currentColorBoxKey === itemKey ? '1.2' : '1.0'});
-      z-index: ${currentColorBoxKey === itemKey ? '5' : '3'};
-    `;
-    return (
-      <Grid item xs css={gridStyle}>
-        <Paper
-          css={paperStyle}
-          onClick={() => handleColorBoxClick(itemKey)}
-          elevation={0}
-          className={classes.paper}
-          square
-        >
-          {/* {itemKey} */}
-        </Paper>
-      </Grid>
-    );
+  const handleStockColor = () => {
+    stockAddColor({ newColorValue: colorValue });
+  };
+  const handleStockColorRemove = () => {
+    stockRemoveColor();
+  };
+
+  const handleScreenFillColor = () => {
+    setIsFillToScreenCurrentColor(!isFillToScreenCurrentColor);
+  };
+
+  const handleSketchPickerSize = () => {
+    setIsBigSketchPickerSize(!isBigSketchPickerSize);
   };
 
   /**
    * 小さいカラー確認用のアイテムが並んでいるもののラッパー。コンポーネントを返す。
    */
   const ColorBoxes = () => {
-    let colorBoxItems = [];
+    const cirlcePickerColors = [];
     if (typeof globalStateColorData === 'string') {
-      colorBoxItems.push(
-        <ColorBox backgroundColor={globalStateColorData} itemKey={0} />
-      );
+      cirlcePickerColors.push(globalStateColorData);
     }
     if (Array.isArray(globalStateColorData)) {
       // eslint-disable-next-line react/prop-types
-      colorBoxItems = globalStateColorData.map(
-        (singleColorData: string, currentIndex: number) => {
-          return (
-            <ColorBox
-              backgroundColor={singleColorData}
-              itemKey={currentIndex}
-            />
-          );
-        }
-      );
+      globalStateColorData.forEach((singleColorData: string) => {
+        cirlcePickerColors.push(singleColorData);
+      });
     }
 
     return (
       <Box ml={2}>
         <Grid container spacing={0}>
-          {colorBoxItems}
+          <CirclePicker
+            onChange={handleCirclePickerChange}
+            color={colorValue}
+            colors={[...cirlcePickerColors]}
+          />
         </Grid>
       </Box>
     );
@@ -271,25 +289,105 @@ const ColorPanel: React.FC<Props> = (props: Props) => {
 
   /**
    * カラー確認用のアイテムの下にある、追加、削除などを行うエリアのコンポーネント
+   * @todo まとめて一つの関数とかで入れたい
    */
   const ColorBoxFunctions = () => {
+    const defaultEnterDelayTime = 1000;
     return (
       <Box ml={4}>
-        <IconButton onClick={handleAddNewColor} size="small">
-          <AddBoxIcon fontSize="small" />
-        </IconButton>
-        <IconButton size="small">
-          <SortIcon fontSize="small" />
-        </IconButton>
-        <IconButton onClick={handlRemoveColor} size="small">
-          <DeleteIcon fontSize="small" />
-        </IconButton>
+        <CustomTooltip
+          title="新しいカラーを追加"
+          enterDelay={defaultEnterDelayTime}
+        >
+          <IconButton
+            onClick={handleAddNewColor}
+            css={colorPanelButtonStyle}
+            size="small"
+          >
+            <AddBoxIcon fontSize="small" />
+          </IconButton>
+        </CustomTooltip>
+        <CustomTooltip
+          title="選択しているカラーを削除"
+          enterDelay={defaultEnterDelayTime}
+        >
+          <IconButton
+            onClick={handlRemoveColor}
+            css={colorPanelButtonStyle}
+            size="small"
+          >
+            <DeleteIcon fontSize="small" />
+          </IconButton>
+        </CustomTooltip>
+        <CustomTooltip
+          title="カラーをソート"
+          enterDelay={defaultEnterDelayTime}
+        >
+          <IconButton size="small" css={colorPanelButtonStyle}>
+            <SortIcon fontSize="small" />
+          </IconButton>
+        </CustomTooltip>
+        <CustomTooltip
+          title="カラーをストック"
+          enterDelay={defaultEnterDelayTime}
+        >
+          <IconButton
+            onClick={handleStockColor}
+            css={colorPanelButtonStyle}
+            size="small"
+          >
+            <StarIcon fontSize="small" />
+          </IconButton>
+        </CustomTooltip>
+        <CustomTooltip
+          title="ストックしたカラーをすべて削除"
+          enterDelay={defaultEnterDelayTime}
+        >
+          <IconButton
+            onClick={handleStockColorRemove}
+            css={colorPanelButtonStyle}
+            size="small"
+          >
+            <StarBorderIcon fontSize="small" />
+          </IconButton>
+        </CustomTooltip>
+        <CustomTooltip
+          title="現在のカラーをパネルに映す"
+          enterDelay={defaultEnterDelayTime}
+        >
+          <IconButton
+            onClick={handleScreenFillColor}
+            css={colorPanelButtonStyle}
+            size="small"
+          >
+            <FormatColorFillIcon fontSize="small" />
+          </IconButton>
+        </CustomTooltip>
+        <CustomTooltip
+          title="カラーピッカーを拡大"
+          enterDelay={defaultEnterDelayTime}
+        >
+          <IconButton
+            onClick={handleSketchPickerSize}
+            css={colorPanelButtonStyle}
+            size="small"
+          >
+            <ZoomOutMapIcon fontSize="small" />
+          </IconButton>
+        </CustomTooltip>
       </Box>
     );
   };
 
   return (
-    <Box width={1}>
+    <Box
+      width={1}
+      style={{
+        backgroundColor: isFillToScreenCurrentColor
+          ? colorValue
+          : 'transparent',
+      }}
+    >
       <Typography gutterBottom className={classes.label}>
         カラー
       </Typography>
@@ -310,8 +408,12 @@ const ColorPanel: React.FC<Props> = (props: Props) => {
               onChangeComplete={handleColorChangeComplete}
               onChange={handleColorChange}
               disableAlpha
-              presetColors={[]}
-              css={sketchPickerStyle}
+              presetColors={stockedColorData}
+              css={
+                isBigSketchPickerSize
+                  ? [sketchPickerStyle, bigSketchPickerStyle]
+                  : sketchPickerStyle
+              }
             />
           </Box>
         </Grid>

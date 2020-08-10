@@ -7,6 +7,7 @@ import collectionDataReducer from './collectionData';
 import themeSettingsReducer from './themeSettings';
 import blendModeOrderReducer from './blendModeOrder';
 import storedMediaReducer from './storedMedia';
+import stockedColorsReducer from './stockedColors';
 
 const reducer = combineReducers({
   glSettings: glSettingsReducer,
@@ -14,6 +15,7 @@ const reducer = combineReducers({
   themeSettings: themeSettingsReducer,
   blendModeOrder: blendModeOrderReducer,
   storedMedia: storedMediaReducer,
+  stockedColors: stockedColorsReducer,
 });
 
 const store = configureStore({ reducer });
