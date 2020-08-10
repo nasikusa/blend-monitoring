@@ -25,6 +25,7 @@ export type Props = {
   isActiveFlag?: boolean;
   taretFunctionProp?: keyof collectionObjectFunctionType;
   currentCollectionType: CollectionTypeType;
+  globalTooltopEnterDelayTime: number;
 };
 
 const collectionFunctionButtonStyle = css`
@@ -42,7 +43,10 @@ export default function CollectionFunctionMenuButton(props: Props) {
     isActiveFlag,
     taretFunctionProp,
     currentCollectionType,
+    globalTooltopEnterDelayTime,
   } = props;
+
+  console.log(globalTooltopEnterDelayTime);
 
   const IconElement = (iconProps: any) => {
     switch (taretFunctionProp) {
@@ -68,7 +72,10 @@ export default function CollectionFunctionMenuButton(props: Props) {
   };
   if (taretFunctionProp === 'garbage') {
     return (
-      <CustomTooltip enterDelay={1250} title={labelTitleValue}>
+      <CustomTooltip
+        enterDelay={globalTooltopEnterDelayTime}
+        title={labelTitleValue}
+      >
         <IconButton
           css={collectionFunctionButtonStyle}
           onClick={clickFunction}

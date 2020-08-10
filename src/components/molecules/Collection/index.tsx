@@ -1,8 +1,6 @@
 /* eslint no-nested-ternary: 0 */
-
 import React, { useContext, useState, useEffect } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
-
 import ListItem from '@material-ui/core/ListItem';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
@@ -10,17 +8,13 @@ import Divider from '@material-ui/core/Divider';
 import IconButton from '@material-ui/core/IconButton';
 import List from '@material-ui/core/List';
 import Collapse from '@material-ui/core/Collapse';
-
 import ExpandLess from '@material-ui/icons/ExpandLess';
 import ExpandMore from '@material-ui/icons/ExpandMore';
 
 import CustomSliderContainer from '../../../container/CustomSliderContainer';
 import BlendModalContainer from '../../../container/BlendModalContainer';
 import ColorPanelContainer from '../../../container/ColorPanelContainer';
-import CollectionFunctionMenuButton, {
-  Props as CollectionFunctionMenuButtonPropsType,
-} from '../../atoms/CollectionFunctionMenuButton';
-
+import { Props as CollectionFunctionMenuButtonPropsType } from '../../atoms/CollectionFunctionMenuButton';
 import CollectionMainIcon from '../../atoms/CollectionMainIcon';
 import GetCollectionsName from '../../../utils/GetCollectionsName';
 import { GlCollectionOrderContext } from '../Collections';
@@ -30,10 +24,10 @@ import {
   GlCollectionInterfaceArray,
   CollectionTypeType,
 } from '../../../stores/collectionData';
-
 import allCollectionTypeFunctionObject, {
   collectionObjectFunctionType,
 } from './allCollectionTypeFunctionObject';
+import CollectionFunctionMenuButtonContainer from '../../../container/CollectionFunctionMenuButtonContainer';
 
 export type Props = {
   collectionData: GlCollectionInterfaceArray;
@@ -229,45 +223,51 @@ export default (props: Props) => {
    */
   const secondaryAreaElementDataArray: CollectionFunctionMenuButtonPropsType[] = [
     {
-      labelTitleValue: '一時的に非表示にします',
+      labelTitleValue: '一時的に非表示',
       clickFunction: handleVisibilityFlagClick,
       isActiveFlag: visibilityOpenFlag,
       taretFunctionProp: 'visibility',
       currentCollectionType: singleCollectionType,
+      globalTooltopEnterDelayTime: 1000,
     },
     {
-      labelTitleValue: '透過度パネルを開閉します',
+      labelTitleValue: '透過度パネルを開閉',
       clickFunction: handleOpacityFlagClick,
       isActiveFlag: opacityOpenFlag,
       taretFunctionProp: 'opacity',
       currentCollectionType: singleCollectionType,
+      globalTooltopEnterDelayTime: 1000,
     },
     {
-      labelTitleValue: '描画モードパネルを開閉します',
+      labelTitleValue: '描画モードパネルを開閉',
       clickFunction: handleBlendModeFlagClick,
       isActiveFlag: blendModeOpenFlag,
       taretFunctionProp: 'blendMode',
       currentCollectionType: singleCollectionType,
+      globalTooltopEnterDelayTime: 1000,
     },
     {
-      labelTitleValue: 'カラーパネルを開閉します',
+      labelTitleValue: 'カラーパネルを開閉',
       clickFunction: handleColorFlagClick,
       isActiveFlag: colorOpenFlag,
       taretFunctionProp: 'color',
       currentCollectionType: singleCollectionType,
+      globalTooltopEnterDelayTime: 1000,
     },
     {
-      labelTitleValue: '画像パネルを開閉します',
+      labelTitleValue: '画像パネルを開閉',
       clickFunction: handleImageFlagClick,
       isActiveFlag: imageOpenFlag,
       taretFunctionProp: 'image',
       currentCollectionType: singleCollectionType,
+      globalTooltopEnterDelayTime: 1000,
     },
     {
-      labelTitleValue: 'レイヤー・コレクションを削除します',
+      labelTitleValue: 'レイヤー・コレクションを削除',
       clickFunction: handleDeleteIconClick,
       taretFunctionProp: 'garbage',
       currentCollectionType: singleCollectionType,
+      globalTooltopEnterDelayTime: 1000,
     },
   ];
 
@@ -277,7 +277,7 @@ export default (props: Props) => {
   const SecondaryAreaElement = (
     <>
       {secondaryAreaElementDataArray.map((singleSecondaryElemData) => (
-        <CollectionFunctionMenuButton {...singleSecondaryElemData} />
+        <CollectionFunctionMenuButtonContainer {...singleSecondaryElemData} />
       ))}
     </>
   );

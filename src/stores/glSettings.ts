@@ -15,6 +15,7 @@ export type GlSettingsType = {
   singleItemAspect: number;
   baseLayerDefaultColor: string;
   collectionDefaultColor: string;
+  tooltipEnterDelayTime: number;
 };
 
 /**
@@ -22,7 +23,7 @@ export type GlSettingsType = {
  */
 const initialState: GlSettingsType = {
   itemCount: 4,
-  maxItemCount: 15,
+  maxItemCount: 14,
   minItemCount: 0,
   rowCount: 3,
   maxRowCount: 6,
@@ -32,6 +33,7 @@ const initialState: GlSettingsType = {
   singleItemAspect: 1.0,
   baseLayerDefaultColor: '#000000',
   collectionDefaultColor: '#000000',
+  tooltipEnterDelayTime: 1000,
 };
 
 initialState.singleItemAspect =
