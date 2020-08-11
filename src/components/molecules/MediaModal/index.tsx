@@ -1,6 +1,6 @@
 /* eslint no-nested-ternary: 0 */
 
-import React, { useState } from 'react';
+import React, { useState, useCallback } from 'react';
 import { makeStyles, createStyles } from '@material-ui/core/styles';
 import { css } from '@emotion/core';
 import DialogTitle from '@material-ui/core/DialogTitle';
@@ -14,6 +14,8 @@ import CloseIcon from '@material-ui/icons/Close';
 import FormGroup from '@material-ui/core/FormGroup';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Switch from '@material-ui/core/Switch';
+import { useDropzone } from 'react-dropzone';
+import pica from 'pica';
 
 // import { GlCollectionOrderContext } from '../Collections';
 
@@ -111,8 +113,43 @@ const modalMinifyStyle = css`
 export default (props: Props) => {
   const classes = useStyles();
   const { modalOpen, setModalOpen } = props;
-  const [modalTransparentFlag, setModalTransparentFlag] = useState(false);
   const [modalMinifyFlag, setModalMinifyFlag] = useState(false);
+  const [modalImageMinifyFlag, setModalImageMinifyFlag] = useState(false);
+
+  const onDrop = useCallback((acceptedFiles) => {
+    // Do something with the files
+    console.log(acceptedFiles);
+    const img = acceptedFiles[0];
+    const reader = new FileReader();
+    reader.readAsDataURL(img);
+    reader.onload = () => {
+      // console.log(reader.result);
+      const imgElement = new Image();
+      if (typeof reader.result === 'string') {
+        imgElement.src = reader.result;
+        if (imgElement != null) {
+          // @ts-ignore
+          imgElement.onload = () => {
+            const offScreenCanvas = document.createElement('canvas');
+            offScreenCanvas.width = 100;
+            offScreenCanvas.height = 60;
+            pica({ features: ['js', 'wasm', 'ww'] })
+              .resize(imgElement, offScreenCanvas, {
+                unsharpAmount: 80,
+                unsharpRadius: 0.6,
+                unsharpThreshold: 2,
+              })
+              .then((result: any) => {
+                console.log('fire!');
+                console.log(result.toDataURL());
+              });
+          };
+        }
+      }
+      // drawImage(reader.result)
+    };
+  }, []);
+  const { getRootProps, getInputProps, isDragActive } = useDropzone({ onDrop });
 
   /**
    * モーダルの開閉stateをfalseにする関数
@@ -122,32 +159,32 @@ export default (props: Props) => {
   };
 
   /**
-   * モーダル透過ハンドル関数
-   */
-  const handleSwitchChangeModalOpacity = (): void => {
-    setModalTransparentFlag(!modalTransparentFlag);
-  };
-  /**
    * モーダルサイズハンドル関数
    */
-  const handleSwitchChangeSize = (): void => {
+  const handleSwitchChangePanelSize = (): void => {
     setModalMinifyFlag(!modalMinifyFlag);
+  };
+  /**
+   * モーダル画像サイズハンドル関数
+   */
+  const handleSwitchChangeImageSize = (): void => {
+    setModalImageMinifyFlag(!modalImageMinifyFlag);
   };
   /**
    * モーダルのスイッチコンポーネントの情報をまとめた配列
    */
   const modalSwitchParams = [
     {
-      name: 'transparent',
-      onChange: handleSwitchChangeModalOpacity,
-      checked: modalTransparentFlag,
-      label: 'パネルを透過',
+      name: 'panelSmall',
+      onChange: handleSwitchChangePanelSize,
+      checked: modalMinifyFlag,
+      label: 'パネルサイズを小さく',
     },
     {
-      name: 'small',
-      onChange: handleSwitchChangeSize,
-      checked: modalMinifyFlag,
-      label: 'サイズを小さく',
+      name: 'imageSmall',
+      onChange: handleSwitchChangeImageSize,
+      checked: modalImageMinifyFlag,
+      label: '画像を小さく',
     },
   ];
 
@@ -163,48 +200,51 @@ export default (props: Props) => {
         style: { backgroundColor: 'rgba(0,0,0,0)', pointerEvents: 'none' },
       }}
       PaperProps={{
-        style: {
-          backgroundColor: modalTransparentFlag
-            ? 'rgba(0,0,0,0)'
-            : 'rgba(0,0,0,0.5)',
-          pointerEvents: 'all',
-        },
+        style: { backgroundColor: 'rgba(0,0,0,0.5)', pointerEvents: 'all' },
       }}
       PaperComponent={PaperComponent}
       css={modalMinifyFlag ? modalMinifyStyle : modalBackStyle}
     >
-      <DialogTitle
-        id="blend-draggable-dialog-title"
-        style={{ cursor: 'move' }}
-        css={modalTitleStyle}
-      >
-        画像の設定パネル
-        <IconButton aria-label="close" onClick={handleClose}>
-          <CloseIcon />
-        </IconButton>
-      </DialogTitle>
-      <DialogContent dividers>
-        <MediaModalContentsContainer />
-      </DialogContent>
-      <DialogActions>
-        <FormGroup row>
-          {modalSwitchParams.map((singleSwitchParam) => {
-            return (
-              <FormControlLabel
-                control={
-                  <Switch
-                    size="small"
-                    checked={singleSwitchParam.checked}
-                    onChange={singleSwitchParam.onChange}
-                    name={singleSwitchParam.name}
-                  />
-                }
-                label={singleSwitchParam.label}
-              />
-            );
-          })}
-        </FormGroup>
-      </DialogActions>
+      <div {...getRootProps()}>
+        <input {...getInputProps()} />
+        {isDragActive ? (
+          <p>Drop the files here ...</p>
+        ) : (
+          <p>Drag n drop some files here, or click to select files</p>
+        )}
+        <DialogTitle
+          id="blend-draggable-dialog-title"
+          style={{ cursor: 'move' }}
+          css={modalTitleStyle}
+        >
+          画像の設定パネル
+          <IconButton aria-label="close" onClick={handleClose}>
+            <CloseIcon />
+          </IconButton>
+        </DialogTitle>
+        <DialogContent dividers>
+          <MediaModalContentsContainer />
+        </DialogContent>
+        <DialogActions>
+          <FormGroup row>
+            {modalSwitchParams.map((singleSwitchParam) => {
+              return (
+                <FormControlLabel
+                  control={
+                    <Switch
+                      size="small"
+                      checked={singleSwitchParam.checked}
+                      onChange={singleSwitchParam.onChange}
+                      name={singleSwitchParam.name}
+                    />
+                  }
+                  label={singleSwitchParam.label}
+                />
+              );
+            })}
+          </FormGroup>
+        </DialogActions>
+      </div>
     </Dialog>
   );
 };
