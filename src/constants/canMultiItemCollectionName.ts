@@ -1,4 +1,6 @@
-const canMultiItemCollectionName = [
+import { CollectionTypeType } from '../stores/collectionData';
+
+const canMultiItemCollectionName: CollectionTypeType[] = [
   'singleImageMultiBlends',
   'multiImages',
   'singleColorMultiBlends',

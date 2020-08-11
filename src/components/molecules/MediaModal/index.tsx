@@ -117,8 +117,6 @@ export default (props: Props) => {
   const [modalImageMinifyFlag, setModalImageMinifyFlag] = useState(false);
 
   const onDrop = useCallback((acceptedFiles) => {
-    // Do something with the files
-    console.log(acceptedFiles);
     const img = acceptedFiles[0];
     const reader = new FileReader();
     reader.readAsDataURL(img);
@@ -146,7 +144,6 @@ export default (props: Props) => {
           };
         }
       }
-      // drawImage(reader.result)
     };
   }, []);
   const { getRootProps, getInputProps, isDragActive } = useDropzone({ onDrop });

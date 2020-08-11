@@ -7,6 +7,7 @@ import GridList from '@material-ui/core/GridList';
 import GridListTile from '@material-ui/core/GridListTile';
 import Tabs from '@material-ui/core/Tabs';
 import Tab from '@material-ui/core/Tab';
+import Button from '@material-ui/core/Button';
 
 interface TabPanelProps {
   children?: React.ReactNode;
@@ -20,7 +21,7 @@ const tabsStyle = css`
 `;
 
 const gridListStyle = css`
-  height: 300px;
+  max-height: 300px;
 `;
 
 const gridListTileStyle = css`
@@ -60,7 +61,7 @@ export default function MediaModalContents(props: any) {
     glCollectionOrderKey,
   } = props;
   const [imageBoxWidth] = useState<number>(600);
-  const [imageBoxRowCount] = useState<number>(4);
+  const [imageBoxRowCount] = useState<number>(6);
 
   const [value, setValue] = React.useState(0);
 
@@ -78,6 +79,7 @@ export default function MediaModalContents(props: any) {
 
   return (
     <Box width={imageBoxWidth}>
+      <Button>画像をアップロードする</Button>
       <Tabs
         css={tabsStyle}
         value={value}
@@ -85,6 +87,8 @@ export default function MediaModalContents(props: any) {
         textColor="primary"
         onChange={handleTabChange}
         aria-label="フォルダタブ"
+        variant="scrollable"
+        scrollButtons="auto"
       >
         <Tab label="フォルダ1" />
         <Tab label="フォルダ2" />
@@ -159,7 +163,7 @@ export default function MediaModalContents(props: any) {
               <GridListTile
                 css={gridListTileStyle}
                 key={singleImageID}
-                cols={2}
+                cols={1}
                 rows={1}
               >
                 <img

@@ -3,9 +3,12 @@ import { useSelector } from 'react-redux';
 import Header from '../components/organisms/Header';
 import { AppState } from '../stores/index';
 
-export default (props: any) => {
+/**
+ * ヘッダーコンポーネントのcontainer
+ */
+export default () => {
   const themeSettings = useSelector((state: AppState) => state.themeSettings);
-  const combineProps = { themeSettings, ...props };
+  const combineProps = { themeSettings };
 
   return <Header {...combineProps} />;
 };

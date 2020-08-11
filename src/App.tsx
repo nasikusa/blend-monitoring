@@ -1,7 +1,14 @@
 import React from 'react';
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
-import { createMuiTheme, ThemeProvider } from '@material-ui/core/styles';
+import {
+  createMuiTheme,
+  ThemeProvider as MuiThemeProvider,
+} from '@material-ui/core/styles';
 import teal from '@material-ui/core/colors/teal';
+import { DndProvider } from 'react-dnd';
+import { HTML5Backend } from 'react-dnd-html5-backend';
+import { ThemeProvider as EmotionThemeProvider } from 'emotion-theming';
+
 import Top from './components/pages/Top';
 import EditContainer from './container/EditContainer';
 import FoundationStyle from './styles/foundation';
@@ -11,12 +18,10 @@ import FoundationStyle from './styles/foundation';
 const theme = createMuiTheme({
   palette: {
     type: 'dark',
-    primary: teal,
-    secondary: {
-      // main: '#e1ff39',
-      main: '#F4FFB5',
+    primary: {
+      main: teal[500],
     },
-    success: {
+    secondary: {
       main: '#F4FFB5',
     },
   },
@@ -34,27 +39,31 @@ const theme = createMuiTheme({
     MuiCheckbox: {
       color: 'primary',
     },
-    MuiRadio: {
-      // color: 'primary',
-    },
-    MuiSwitch: {
-      // color: 'primary',
-    },
   },
 });
+
+const emotionTheme = {
+  colors: {
+    primary: 'hotpink',
+  },
+};
 
 function App() {
   return (
     <div className="App">
-      <ThemeProvider theme={theme}>
-        <FoundationStyle />
-        <BrowserRouter>
-          <Switch>
-            <Route exact path="/" component={Top} />
-            <Route path="/edit" component={EditContainer} />
-          </Switch>
-        </BrowserRouter>
-      </ThemeProvider>
+      <MuiThemeProvider theme={theme}>
+        <EmotionThemeProvider theme={emotionTheme}>
+          <DndProvider backend={HTML5Backend}>
+            <FoundationStyle />
+            <BrowserRouter>
+              <Switch>
+                <Route exact path="/" component={Top} />
+                <Route path="/edit" component={EditContainer} />
+              </Switch>
+            </BrowserRouter>
+          </DndProvider>
+        </EmotionThemeProvider>
+      </MuiThemeProvider>
     </div>
   );
 }

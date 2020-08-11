@@ -2,7 +2,7 @@ import defaultBlendModeOrder from '../constants/defaultBlendModeOrder';
 
 export default (
   checkedBlendModeArray: string[],
-  blendModeOrderArray: string[] = defaultBlendModeOrder
+  blendModeOrderArray = defaultBlendModeOrder
 ) => {
   const resultBlendModeArray = blendModeOrderArray.filter(
     (singleBlendModeName) => {
