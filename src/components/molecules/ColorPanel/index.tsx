@@ -47,7 +47,7 @@ const useStyles = makeStyles((theme: Theme) =>
 );
 
 const colorPanelButtonStyle = css`
-  padding: 3px 6px;
+  padding: 6px 6px;
 `;
 
 /**

@@ -29,7 +29,7 @@ export type Props = {
 };
 
 const collectionFunctionButtonStyle = css`
-  padding: 3px 6px;
+  padding: 6px 6px;
 `;
 
 /**
@@ -45,8 +45,6 @@ export default function CollectionFunctionMenuButton(props: Props) {
     currentCollectionType,
     globalTooltopEnterDelayTime,
   } = props;
-
-  console.log(globalTooltopEnterDelayTime);
 
   const IconElement = (iconProps: any) => {
     switch (taretFunctionProp) {
