@@ -67,12 +67,15 @@ const Edit = (props: Props) => {
           <Grid
             item
             ref={containerRef}
-            xs={viewPanelWidth}
+            xs={12}
+            sm={7}
+            md={8}
+            lg={viewPanelWidth}
             className={classes.scrollable}
           >
             <GlBoxContainer />
           </Grid>
-          <Grid item xs={editPanelWidth}>
+          <Grid item xs={12} sm={5} md={4} lg={editPanelWidth}>
             <GlEditContainer />
           </Grid>
           <EventListener
