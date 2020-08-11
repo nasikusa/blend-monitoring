@@ -16,6 +16,7 @@ export type GlSettingsType = {
   baseLayerDefaultColor: string;
   collectionDefaultColor: string;
   tooltipEnterDelayTime: number;
+  isShowDocArea: boolean;
 };
 
 /**
@@ -34,6 +35,7 @@ const initialState: GlSettingsType = {
   baseLayerDefaultColor: '#000000',
   collectionDefaultColor: '#000000',
   tooltipEnterDelayTime: 1000,
+  isShowDocArea: false,
 };
 
 initialState.singleItemAspect =

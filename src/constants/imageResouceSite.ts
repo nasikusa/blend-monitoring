@@ -43,6 +43,6 @@ export const imageResouceSiteArray = {
     name: 'Paper-co',
     url: 'https://free-paper-texture.com/',
   },
-} as const;
+};
 
 export default imageResouceSiteArray;

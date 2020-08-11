@@ -7,6 +7,8 @@ import { AppState } from '../stores/index';
 
 export default () => {
   const themeSettings = useSelector((state: AppState) => state.themeSettings);
+  const appSettings = useSelector((state: AppState) => state.glSettings);
+  const { isShowDocArea } = appSettings;
   const dispatch = useDispatch();
 
   const updateSingleItemSize = React.useCallback(
@@ -16,7 +18,7 @@ export default () => {
     [dispatch]
   );
 
-  const combineProps = { themeSettings, updateSingleItemSize };
+  const combineProps = { themeSettings, updateSingleItemSize, isShowDocArea };
 
   return <Edit {...combineProps} />;
 };
