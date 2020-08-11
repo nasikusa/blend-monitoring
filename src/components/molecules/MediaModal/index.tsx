@@ -15,7 +15,7 @@ import FormGroup from '@material-ui/core/FormGroup';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Switch from '@material-ui/core/Switch';
 import { useDropzone } from 'react-dropzone';
-import pica from 'pica';
+import getResiedImageData from '../../../utils/getResizedImageData';
 
 // import { GlCollectionOrderContext } from '../Collections';
 
@@ -117,34 +117,11 @@ export default (props: Props) => {
   const [modalImageMinifyFlag, setModalImageMinifyFlag] = useState(false);
 
   const onDrop = useCallback((acceptedFiles) => {
-    const img = acceptedFiles[0];
-    const reader = new FileReader();
-    reader.readAsDataURL(img);
-    reader.onload = () => {
-      // console.log(reader.result);
-      const imgElement = new Image();
-      if (typeof reader.result === 'string') {
-        imgElement.src = reader.result;
-        if (imgElement != null) {
-          // @ts-ignore
-          imgElement.onload = () => {
-            const offScreenCanvas = document.createElement('canvas');
-            offScreenCanvas.width = 100;
-            offScreenCanvas.height = 60;
-            pica({ features: ['js', 'wasm', 'ww'] })
-              .resize(imgElement, offScreenCanvas, {
-                unsharpAmount: 80,
-                unsharpRadius: 0.6,
-                unsharpThreshold: 2,
-              })
-              .then((result: any) => {
-                console.log('fire!');
-                console.log(result.toDataURL());
-              });
-          };
-        }
-      }
-    };
+    if (acceptedFiles != null) {
+      getResiedImageData(acceptedFiles).then((result) => {
+        console.log(result);
+      });
+    }
   }, []);
   const { getRootProps, getInputProps, isDragActive } = useDropzone({ onDrop });
 
