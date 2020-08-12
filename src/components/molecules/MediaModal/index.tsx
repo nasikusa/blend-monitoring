@@ -130,6 +130,8 @@ export default (props: Props) => {
 
   const onDrop = useCallback((acceptedFiles) => {
     setOnDropSnackBarOpenFlag(true);
+    setOnLoadMediaSnackBarOpenFlag(false);
+    setOnErrorSnackBarOpenFlag(false);
     console.log(acceptedFiles);
     if (acceptedFiles != null) {
       getResiedImageData(acceptedFiles)
@@ -269,7 +271,7 @@ export default (props: Props) => {
       <Snackbar
         anchorOrigin={{ vertical: 'bottom', horizontal: 'left' }}
         open={onDropSnackBarOpenFlag}
-        autoHideDuration={6000}
+        autoHideDuration={12000}
         onClose={handleDropSnackBarClose}
       >
         <Alert onClose={handleDropSnackBarClose} severity="info">
@@ -279,7 +281,7 @@ export default (props: Props) => {
       <Snackbar
         anchorOrigin={{ vertical: 'bottom', horizontal: 'left' }}
         open={onLoadMediaSnackBarOpenFlag}
-        autoHideDuration={6000}
+        autoHideDuration={12000}
         onClose={handleMediaLoadSnackBarClose}
       >
         <Alert onClose={handleMediaLoadSnackBarClose} severity="success">
@@ -289,7 +291,7 @@ export default (props: Props) => {
       <Snackbar
         anchorOrigin={{ vertical: 'bottom', horizontal: 'left' }}
         open={onErrorSnackBarOpenFlag}
-        autoHideDuration={6000}
+        autoHideDuration={12000}
         onClose={handleErrorSnackBarClose}
       >
         <Alert onClose={handleErrorSnackBarClose} severity="error">
