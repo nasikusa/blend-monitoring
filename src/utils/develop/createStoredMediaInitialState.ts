@@ -11,13 +11,25 @@ import {
   StoredMediaStateType,
 } from '../../stores/storedMedia';
 
+/**
+ *
+ * @param inputItemOrder
+ * @param isUseSampleXXXId idにsample(数字)という文字列を使うかどうか
+ */
 export const createStoredMediaSingleItemState = (
   inputItemOrder: number,
   isUseSampleXXXId: boolean
 ): [string, StoredMediaStateItemType] => {
+  /**
+   * id
+   */
   const resultID: string = isUseSampleXXXId
     ? `sample${inputItemOrder}`
     : uuidv4();
+
+  /**
+   * 結果となるオブジェクト
+   */
   const resultObject: StoredMediaStateItemType = {
     id: resultID,
     mediaType: 'image',
@@ -37,7 +49,7 @@ export const createStoredMediaInitialState = (
   count: number,
   isUseSampleXXXId: boolean = true
 ): StoredMediaStateType => {
-  const resultStateObject: any = {};
+  const resultStateObject: { [key: string]: StoredMediaStateItemType } = {};
   for (let i = 0; i < count; i += 1) {
     const [insertID, insertResultObject] = createStoredMediaSingleItemState(
       i,

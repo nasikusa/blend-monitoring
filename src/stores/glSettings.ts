@@ -31,7 +31,7 @@ const initialState: GlSettingsType = {
   maxRowCount: 6,
   minRowCount: 1,
   singleItemWidth: 600,
-  singleItemHeight: 400,
+  singleItemHeight: 600,
   singleItemAspect: 1.0,
   baseLayerDefaultColor: '#000000',
   collectionDefaultColor: '#000000',

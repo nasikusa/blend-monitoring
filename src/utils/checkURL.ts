@@ -1,3 +1,7 @@
+/**
+ * URL文字列であるかどうかを判別する関数
+ * @param inputString 入力文字列
+ */
 const checkURL = (inputString: string): boolean => {
   /**
    * @see https://www.it-swarm.dev/ja/javascript/javascript%E3%81%AE%E6%96%87%E5%AD%97%E5%88%97%E3%81%8Curl%E3%81%8B%E3%81%A9%E3%81%86%E3%81%8B%E3%82%92%E7%A2%BA%E8%AA%8D/971354377/

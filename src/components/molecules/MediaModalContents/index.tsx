@@ -61,7 +61,7 @@ export default function MediaModalContents(props: any) {
     glCollectionOrderKey,
   } = props;
   const [imageBoxWidth] = useState<number>(600);
-  const [imageBoxRowCount] = useState<number>(6);
+  const [imageBoxRowCount] = useState<number>(9);
 
   const [value, setValue] = React.useState(0);
 

@@ -1,6 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit';
 
-// import { unsplashSampleImagesDataLength } from '../constants/unsplashSampleImages';
 // import createStoredMediaInitialState from '../utils/develop/createStoredMediaInitialState';
 
 export type StoredMediaTypesType = 'image' | 'sequenceImages' | 'video';
@@ -47,7 +46,10 @@ export type StoredMediaStateType = {
 
 export const imageSizeNames = ['thumb', 'small', 'medium', 'large', 'raw'];
 
-// const initialState: StoredMediaStateType = createStoredMediaInitialState(5);
+// const initialState: StoredMediaStateType = createStoredMediaInitialState(
+//   10,
+//   false
+// );
 const initialState: StoredMediaStateType = {};
 
 const slice = createSlice({

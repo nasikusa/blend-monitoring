@@ -1,11 +1,7 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { v4 as uuidv4 } from 'uuid';
-// import randomColor from 'randomcolor';
-// import red from '@material-ui/core/colors/red';
 
 import { BlendModesType } from '../constants/blendModeData';
 import getOrderdBlendModeArray from '../utils/getOrderdBlendModeArray';
-// import hueShades from '../constants/hueShades';
 
 /**
  * コレクションの種類。
@@ -57,72 +53,7 @@ export type updateBlendModePayloadType = {
  */
 export type GlCollectionInterfaceArray = GlCollectionInterface[];
 
-const initialState: GlCollectionInterfaceArray = [
-  {
-    id: uuidv4(),
-    innerItemId: uuidv4(),
-    visibility: true,
-    type: `singleImage`,
-    collectionNumber: 0,
-    opacity: 1.0,
-    blendMode: 'normal',
-    color: null,
-    image: null,
-    size: `cover`,
-  },
-  // {
-  //   id: uuidv4(),
-  //   visibility: true,
-  //   innerItemLength: 4,
-  //   innerItemId: uuidv4(),
-  //   type: `singleImageMultiBlends`,
-  //   collectionNumber: 1,
-  //   opacity: 1.0,
-  //   blendMode: `multiply`,
-  //   color: null,
-  //   image: image02,
-  //   size: `cover`,
-  //   imageWidth: 1024,
-  //   imageHeight: 1024,
-  // },
-  {
-    id: uuidv4(),
-    visibility: true,
-    innerItemId: [uuidv4(), uuidv4(), uuidv4()],
-    type: `multiImages`,
-    collectionNumber: 1,
-    opacity: 1.0,
-    blendMode: `multiply`,
-    color: null,
-    image: [],
-    size: `cover`,
-  },
-  // {
-  //   id: uuidv4(),
-  //   innerItemId: [
-  //     uuidv4(),
-  //     uuidv4(),
-  //     uuidv4(),
-  //     uuidv4(),
-  //     uuidv4(),
-  //     uuidv4(),
-  //     uuidv4(),
-  //     uuidv4(),
-  //     uuidv4(),
-  //     uuidv4(),
-  //   ],
-  //   visibility: true,
-  //   type: `multiColors`,
-  //   collectionNumber: 2,
-  //   opacity: 1.0,
-  //   blendMode: 'overlay',
-  //   color: randomColor({ hue: 'orange', count: 10 }),
-  //   image: null,
-  //   size: null,
-  //   imageWidth: null,
-  //   imageHeight: null,
-  // },
-];
+const initialState: GlCollectionInterfaceArray = [];
 
 const slice = createSlice({
   name: 'collectionData',
