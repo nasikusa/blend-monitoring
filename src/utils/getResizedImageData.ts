@@ -57,16 +57,27 @@ export function getPicaResizedData(
 export async function getSingleResizedImageData(singleFile: any) {
   const file = singleFile;
   const rawSizeDataURL = await readAsDataURL(file);
-  const thumbSizeDataURL = await getPicaResizedData(rawSizeDataURL, 'thumb');
-  const smallSizeDataURL = await getPicaResizedData(rawSizeDataURL, 'small');
-  const mediumSizeDataURL = await getPicaResizedData(rawSizeDataURL, 'medium');
-  const largeSizeDataURL = await getPicaResizedData(rawSizeDataURL, 'large');
+
+  const resizePromiseArray = [];
+  const resizedSizeNames: baseImageSizeNames[] = [
+    'thumb',
+    'small',
+    'medium',
+    'large',
+  ];
+  for (let i = 0; i < resizedSizeNames.length; i += 1) {
+    resizePromiseArray.push(
+      getPicaResizedData(rawSizeDataURL, resizedSizeNames[i])
+    );
+  }
+  const resultURLs = await Promise.all(resizePromiseArray);
+  const [thumbResult, smallResult, mediumResult, largeResult] = resultURLs;
 
   const resultDataURLObject = {
-    thumb: thumbSizeDataURL,
-    small: smallSizeDataURL,
-    medium: mediumSizeDataURL,
-    large: largeSizeDataURL,
+    thumb: thumbResult,
+    small: smallResult,
+    medium: mediumResult,
+    large: largeResult,
     raw: rawSizeDataURL,
   };
 
@@ -84,34 +95,3 @@ export default async function getResizedImageData(files: any) {
   );
   return resultDataURLObjectArray;
 }
-
-// function root() {
-//   const img = acceptedFiles[0];
-//   const reader = new FileReader();
-//   reader.readAsDataURL(img);
-//   reader.onload = () => {
-//     // console.log(reader.result);
-//     const imgElement = new Image();
-//     if (typeof reader.result === 'string') {
-//       imgElement.src = reader.result;
-//       if (imgElement != null) {
-//         // @ts-ignore
-//         imgElement.onload = () => {
-//           const offScreenCanvas = document.createElement('canvas');
-//           offScreenCanvas.width = 100;
-//           offScreenCanvas.height = 60;
-//           pica({ features: ['js', 'wasm', 'ww'] })
-//             .resize(imgElement, offScreenCanvas, {
-//               unsharpAmount: 80,
-//               unsharpRadius: 0.6,
-//               unsharpThreshold: 2,
-//             })
-//             .then((result: any) => {
-//               console.log('fire!');
-//               console.log(result.toDataURL());
-//             });
-//         };
-//       }
-//     }
-//   };
-// }
