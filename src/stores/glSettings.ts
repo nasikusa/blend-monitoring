@@ -17,6 +17,7 @@ export type GlSettingsType = {
   collectionDefaultColor: string;
   tooltipEnterDelayTime: number;
   isShowDocArea: boolean;
+  resizeProcessJpegQuality: number;
 };
 
 /**
@@ -36,6 +37,7 @@ const initialState: GlSettingsType = {
   collectionDefaultColor: '#000000',
   tooltipEnterDelayTime: 1000,
   isShowDocArea: false,
+  resizeProcessJpegQuality: 0.8,
 };
 
 initialState.singleItemAspect =

@@ -3,15 +3,20 @@ import baseImageSizeObject, {
   baseImageSizeNames,
 } from '../constants/baseImageSize';
 
+// const ColorThief = require('colorthief');
+
 /**
  * blobデータをdataURLに変換する
  * @param blob 画像のblobデータ(fileでも可能)
  */
-export function readAsDataURL(blob: any) {
+export function readAsDataURL(blob: any): Promise<string> {
   return new Promise((resolve, reject) => {
     const reader = new FileReader();
     reader.onload = () => {
-      resolve(reader.result);
+      const resultData = reader.result;
+      if (typeof resultData === 'string') {
+        resolve(resultData);
+      }
     };
     reader.onerror = () => {
       reject(reader.error);
@@ -20,43 +25,75 @@ export function readAsDataURL(blob: any) {
   });
 }
 
+function getRawImageData(rawSizeDataURL: any): Promise<any[]> {
+  return new Promise((resolve) => {
+    const imgElement = new Image();
+    // const colorThief = new ColorThief();
+    // console.log(colorThief);
+    imgElement.src = rawSizeDataURL;
+    imgElement.onload = () => {
+      // console.log(imgElement);
+      const imageElement = imgElement;
+      const imageWidth = imgElement.width;
+      const imageHeight = imgElement.height;
+      const imageRatio = imageHeight / imageWidth;
+      // const imageColor = colorThief.getColor(imgElement);
+      // const imagePalette = colorThief.getPalette(imgElement, 10);
+      resolve([
+        imageElement,
+        imageWidth,
+        imageHeight,
+        imageRatio,
+        // imageColor,
+        // imagePalette,
+      ]);
+    };
+  });
+}
+
 export function getPicaResizedData(
   rawSizeDataURL: any,
-  size: baseImageSizeNames
-) {
+  size: baseImageSizeNames,
+  imageElement: any,
+  imageRatio: number
+): Promise<string> {
   return new Promise((resolve, reject) => {
-    const imgElement = new Image();
     const targetResizedWidth = baseImageSizeObject[size];
     const offScreenCanvas = document.createElement('canvas');
-    imgElement.onload = () => {
-      const loadedImageRatio = imgElement.height / imgElement.width;
-      offScreenCanvas.width =
-        targetResizedWidth != null ? targetResizedWidth : 100;
-      offScreenCanvas.height =
-        targetResizedWidth != null
-          ? targetResizedWidth * loadedImageRatio
-          : 100;
-      pica({ features: ['js', 'wasm', 'ww'] })
-        .resize(imgElement, offScreenCanvas, {
-          unsharpAmount: 80,
-          unsharpRadius: 0.6,
-          unsharpThreshold: 2,
-        })
-        .then((result: any) => {
-          const resultDataURL = result.toDataURL('image/jpeg', 0.8);
-          if (resultDataURL) {
-            resolve(resultDataURL);
-          }
-          reject(resultDataURL);
-        });
-    };
-    imgElement.src = rawSizeDataURL;
+    offScreenCanvas.width =
+      targetResizedWidth != null ? targetResizedWidth : 100;
+    offScreenCanvas.height =
+      targetResizedWidth != null ? targetResizedWidth * imageRatio : 100;
+    pica({ features: ['js', 'wasm', 'ww'] })
+      .resize(imageElement, offScreenCanvas, {
+        unsharpAmount: 80,
+        unsharpRadius: 0.6,
+        unsharpThreshold: 2,
+      })
+      .then((result: any) => {
+        const resultDataURL = result.toDataURL('image/jpeg', 0.8);
+        if (resultDataURL) {
+          resolve(resultDataURL);
+        }
+        reject(resultDataURL);
+      })
+      .catch(() => {
+        reject(new Error('エラーが発生しました'));
+      });
   });
 }
 
 export async function getSingleResizedImageData(singleFile: any) {
   const file = singleFile;
   const rawSizeDataURL = await readAsDataURL(file);
+  const [
+    imageElement,
+    imageWidth,
+    imageHeight,
+    imageRatio,
+    // imageColor,
+    // imagePalette,
+  ] = await getRawImageData(rawSizeDataURL);
 
   const resizePromiseArray = [];
   const resizedSizeNames: baseImageSizeNames[] = [
@@ -67,7 +104,12 @@ export async function getSingleResizedImageData(singleFile: any) {
   ];
   for (let i = 0; i < resizedSizeNames.length; i += 1) {
     resizePromiseArray.push(
-      getPicaResizedData(rawSizeDataURL, resizedSizeNames[i])
+      getPicaResizedData(
+        rawSizeDataURL,
+        resizedSizeNames[i],
+        imageElement,
+        imageRatio
+      )
     );
   }
   const resultURLs = await Promise.all(resizePromiseArray);
@@ -81,12 +123,34 @@ export async function getSingleResizedImageData(singleFile: any) {
     raw: rawSizeDataURL,
   };
 
-  return new Promise((resolve, reject) => {
-    if (rawSizeDataURL) {
-      resolve(resultDataURLObject);
-    }
-    reject(resultDataURLObject);
-  });
+  const resultDataURLSizeObject = {
+    thumb: thumbResult.length,
+    small: smallResult.length,
+    medium: mediumResult.length,
+    large: largeResult.length,
+    raw: rawSizeDataURL.length,
+  };
+
+  const resultImageInfoObject = {
+    imageWidth,
+    imageHeight,
+    imageRatio,
+    // imageColor,
+    // imagePalette,
+  };
+
+  return {
+    resultDataURLObject,
+    resultDataURLSizeObject,
+    resultImageInfoObject,
+  };
+
+  // return new Promise((resolve, reject) => {
+  //   if (rawSizeDataURL) {
+  //     resolve(resultDataURLObject);
+  //   }
+  //   reject(new Error('エラーが発生しました'));
+  // });
 }
 
 export default async function getResizedImageData(files: any) {

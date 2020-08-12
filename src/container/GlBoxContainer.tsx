@@ -11,7 +11,11 @@ export default () => {
   /**
    * コレクションリストのなかで最大の要素数の配列のlengthを格納している変数
    */
-  const glItemCountValue = getLengthOfCollections(collectionData, 'max');
+  let glItemCountValue = getLengthOfCollections(collectionData, 'max');
+  const glMinItemCountValue = getLengthOfCollections(collectionData, 'min');
+  if (glMinItemCountValue === 0) {
+    glItemCountValue = 0;
+  }
 
   const glItemKeys = getMaxLengthInnerItemId(collectionData);
 

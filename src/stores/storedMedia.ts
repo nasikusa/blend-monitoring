@@ -1,7 +1,7 @@
 import { createSlice } from '@reduxjs/toolkit';
 
-import { unsplashSampleImagesDataLength } from '../constants/unsplashSampleImages';
-import createStoredMediaInitialState from '../utils/develop/createStoredMediaInitialState';
+// import { unsplashSampleImagesDataLength } from '../constants/unsplashSampleImages';
+// import createStoredMediaInitialState from '../utils/develop/createStoredMediaInitialState';
 
 export type StoredMediaTypesType = 'image' | 'sequenceImages' | 'video';
 
@@ -9,6 +9,7 @@ export type DataTypesType = 'dataURL' | 'url' | 'objectURL' | 'blob' | 'file';
 
 export type StoredMediaStateItemType = {
   id: string;
+  name?: string;
   mediaType: StoredMediaTypesType;
   dataType: DataTypesType;
   aspectRatio: number;
@@ -46,16 +47,29 @@ export type StoredMediaStateType = {
 
 export const imageSizeNames = ['thumb', 'small', 'medium', 'large', 'raw'];
 
-const initialState: StoredMediaStateType = createStoredMediaInitialState(
-  unsplashSampleImagesDataLength
-);
+// const initialState: StoredMediaStateType = createStoredMediaInitialState(5);
+const initialState: StoredMediaStateType = {};
 
 const slice = createSlice({
   name: 'storedMedia',
   initialState,
-  reducers: {},
+  reducers: {
+    addMediaData: (state, action) => {
+      const { newMediaDataObject } = action.payload;
+      const newMediaID = newMediaDataObject.id;
+      return {
+        ...state,
+        [newMediaID]: {
+          ...newMediaDataObject,
+          resource: {
+            ...newMediaDataObject.resource,
+          },
+        },
+      };
+    },
+  },
 });
 
 export default slice.reducer;
 
-// export const { blendChange } = slice.actions;
+export const { addMediaData } = slice.actions;

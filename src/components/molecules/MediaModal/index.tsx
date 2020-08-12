@@ -15,19 +15,25 @@ import FormGroup from '@material-ui/core/FormGroup';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Switch from '@material-ui/core/Switch';
 import { useDropzone } from 'react-dropzone';
+import Snackbar from '@material-ui/core/Snackbar';
+import MuiAlert from '@material-ui/lab/Alert';
+
 import getResiedImageData from '../../../utils/getResizedImageData';
-
-// import { GlCollectionOrderContext } from '../Collections';
-
 import { GlCollectionInterfaceArray } from '../../../stores/collectionData';
 import MediaModalContentsContainer from '../../../container/MediaModalContentsContainer';
+import createStoredMediaItemObject from '../../../utils/createStoredMediaItemObject';
 
 type Props = {
   collectionData: GlCollectionInterfaceArray;
   storedMediaData: any;
   modalOpen: boolean;
   setModalOpen: any;
+  addMediaData: any;
 };
+
+function Alert(props: any) {
+  return <MuiAlert elevation={6} variant="filled" {...props} />;
+}
 
 const useStyles = makeStyles(() =>
   createStyles({
@@ -112,18 +118,46 @@ const modalMinifyStyle = css`
  */
 export default (props: Props) => {
   const classes = useStyles();
-  const { modalOpen, setModalOpen } = props;
+  const { modalOpen, setModalOpen, addMediaData } = props;
   const [modalMinifyFlag, setModalMinifyFlag] = useState(false);
   const [modalImageMinifyFlag, setModalImageMinifyFlag] = useState(false);
+  const [onDropSnackBarOpenFlag, setOnDropSnackBarOpenFlag] = useState(false);
+  const [
+    onLoadMediaSnackBarOpenFlag,
+    setOnLoadMediaSnackBarOpenFlag,
+  ] = useState(false);
+  const [onErrorSnackBarOpenFlag, setOnErrorSnackBarOpenFlag] = useState(false);
 
   const onDrop = useCallback((acceptedFiles) => {
+    setOnDropSnackBarOpenFlag(true);
+    console.log(acceptedFiles);
     if (acceptedFiles != null) {
-      getResiedImageData(acceptedFiles).then((result) => {
-        console.log(result);
-      });
+      getResiedImageData(acceptedFiles)
+        .then((result) => {
+          setOnLoadMediaSnackBarOpenFlag(true);
+          for (let i = 0; i < result.length; i += 1) {
+            const resultItem = result[i];
+            const resultStoredMediaItemObject = createStoredMediaItemObject(
+              resultItem
+            );
+            addMediaData({
+              newMediaDataObject: resultStoredMediaItemObject,
+            });
+          }
+          console.log(result);
+        })
+        .catch(() => {
+          setOnErrorSnackBarOpenFlag(true);
+        })
+        .finally(() => {
+          setOnDropSnackBarOpenFlag(false);
+        });
     }
   }, []);
-  const { getRootProps, getInputProps, isDragActive } = useDropzone({ onDrop });
+  const { getRootProps, getInputProps, isDragActive } = useDropzone({
+    onDrop,
+    noClick: true,
+  });
 
   /**
    * モーダルの開閉stateをfalseにする関数
@@ -144,6 +178,17 @@ export default (props: Props) => {
   const handleSwitchChangeImageSize = (): void => {
     setModalImageMinifyFlag(!modalImageMinifyFlag);
   };
+
+  const handleDropSnackBarClose = (): void => {
+    setOnDropSnackBarOpenFlag(false);
+  };
+  const handleMediaLoadSnackBarClose = (): void => {
+    setOnLoadMediaSnackBarOpenFlag(false);
+  };
+  const handleErrorSnackBarClose = (): void => {
+    setOnErrorSnackBarOpenFlag(false);
+  };
+
   /**
    * モーダルのスイッチコンポーネントの情報をまとめた配列
    */
@@ -163,62 +208,94 @@ export default (props: Props) => {
   ];
 
   return (
-    <Dialog
-      className={classes.modal}
-      onClose={handleClose}
-      aria-labelledby="描画モードのパネル"
-      open={modalOpen}
-      maxWidth={false}
-      disableEnforceFocus
-      BackdropProps={{
-        style: { backgroundColor: 'rgba(0,0,0,0)', pointerEvents: 'none' },
-      }}
-      PaperProps={{
-        style: { backgroundColor: 'rgba(0,0,0,0.5)', pointerEvents: 'all' },
-      }}
-      PaperComponent={PaperComponent}
-      css={modalMinifyFlag ? modalMinifyStyle : modalBackStyle}
-    >
-      <div {...getRootProps()}>
-        <input {...getInputProps()} />
-        {isDragActive ? (
-          <p>Drop the files here ...</p>
-        ) : (
-          <p>Drag n drop some files here, or click to select files</p>
-        )}
-        <DialogTitle
-          id="blend-draggable-dialog-title"
-          style={{ cursor: 'move' }}
-          css={modalTitleStyle}
-        >
-          画像の設定パネル
-          <IconButton aria-label="close" onClick={handleClose}>
-            <CloseIcon />
-          </IconButton>
-        </DialogTitle>
-        <DialogContent dividers>
-          <MediaModalContentsContainer />
-        </DialogContent>
-        <DialogActions>
-          <FormGroup row>
-            {modalSwitchParams.map((singleSwitchParam) => {
-              return (
-                <FormControlLabel
-                  control={
-                    <Switch
-                      size="small"
-                      checked={singleSwitchParam.checked}
-                      onChange={singleSwitchParam.onChange}
-                      name={singleSwitchParam.name}
-                    />
-                  }
-                  label={singleSwitchParam.label}
-                />
-              );
-            })}
-          </FormGroup>
-        </DialogActions>
-      </div>
-    </Dialog>
+    <>
+      <Dialog
+        className={classes.modal}
+        onClose={handleClose}
+        aria-labelledby="描画モードのパネル"
+        open={modalOpen}
+        maxWidth={false}
+        disableEnforceFocus
+        BackdropProps={{
+          style: { backgroundColor: 'rgba(0,0,0,0)', pointerEvents: 'none' },
+        }}
+        PaperProps={{
+          style: { backgroundColor: 'rgba(0,0,0,0.5)', pointerEvents: 'all' },
+        }}
+        PaperComponent={PaperComponent}
+        css={modalMinifyFlag ? modalMinifyStyle : modalBackStyle}
+      >
+        <div {...getRootProps()}>
+          <input {...getInputProps()} />
+          {isDragActive ? (
+            <p>Drop the files here ...</p>
+          ) : (
+            <p>Drag n drop some files here, or click to select files</p>
+          )}
+          <DialogTitle
+            id="blend-draggable-dialog-title"
+            style={{ cursor: 'move' }}
+            css={modalTitleStyle}
+          >
+            画像の設定パネル
+            <IconButton aria-label="close" onClick={handleClose}>
+              <CloseIcon />
+            </IconButton>
+          </DialogTitle>
+          <DialogContent dividers>
+            <MediaModalContentsContainer />
+          </DialogContent>
+          <DialogActions>
+            <FormGroup row>
+              {modalSwitchParams.map((singleSwitchParam) => {
+                return (
+                  <FormControlLabel
+                    control={
+                      <Switch
+                        size="small"
+                        checked={singleSwitchParam.checked}
+                        onChange={singleSwitchParam.onChange}
+                        name={singleSwitchParam.name}
+                      />
+                    }
+                    label={singleSwitchParam.label}
+                  />
+                );
+              })}
+            </FormGroup>
+          </DialogActions>
+        </div>
+      </Dialog>
+      <Snackbar
+        anchorOrigin={{ vertical: 'bottom', horizontal: 'left' }}
+        open={onDropSnackBarOpenFlag}
+        autoHideDuration={6000}
+        onClose={handleDropSnackBarClose}
+      >
+        <Alert onClose={handleDropSnackBarClose} severity="info">
+          画像を読み込んでいます。しばらくお待ちください。
+        </Alert>
+      </Snackbar>
+      <Snackbar
+        anchorOrigin={{ vertical: 'bottom', horizontal: 'left' }}
+        open={onLoadMediaSnackBarOpenFlag}
+        autoHideDuration={6000}
+        onClose={handleMediaLoadSnackBarClose}
+      >
+        <Alert onClose={handleMediaLoadSnackBarClose} severity="success">
+          画像の読み込みが完了しました。
+        </Alert>
+      </Snackbar>
+      <Snackbar
+        anchorOrigin={{ vertical: 'bottom', horizontal: 'left' }}
+        open={onErrorSnackBarOpenFlag}
+        autoHideDuration={6000}
+        onClose={handleErrorSnackBarClose}
+      >
+        <Alert onClose={handleErrorSnackBarClose} severity="error">
+          画像の読み込み中にエラーが発生しました。
+        </Alert>
+      </Snackbar>
+    </>
   );
 };

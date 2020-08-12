@@ -67,7 +67,7 @@ const initialState: GlCollectionInterfaceArray = [
     opacity: 1.0,
     blendMode: 'normal',
     color: null,
-    image: 'sample1',
+    image: null,
     size: `cover`,
   },
   // {
@@ -94,7 +94,7 @@ const initialState: GlCollectionInterfaceArray = [
     opacity: 1.0,
     blendMode: `multiply`,
     color: null,
-    image: ['sample0', 'sample1', 'sample2', 'sample3'],
+    image: [],
     size: `cover`,
   },
   // {
@@ -195,7 +195,6 @@ const slice = createSlice({
     },
     updateImages: (state, action) => {
       const { imageID, glCollectionOrderKey, boolValue } = action.payload;
-
       const stateImageData = state[glCollectionOrderKey].image;
       if (Array.isArray(stateImageData)) {
         /**

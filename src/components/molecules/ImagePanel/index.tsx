@@ -9,7 +9,6 @@ import GridList from '@material-ui/core/GridList';
 import GridListTile from '@material-ui/core/GridListTile';
 
 import MediaModalContainer from '../../../container/MediaModalContainer';
-import checkURL from '../../../utils/checkURL';
 
 export type Props = {
   storedMediaData: any;
@@ -63,23 +62,19 @@ const ImagePanel: React.FC<Props> = (props: Props) => {
                 cellHeight={imageBoxWidth / imageBoxRowCount}
                 cols={imageBoxRowCount}
               >
-                {globalStateImageData.map((singleImageID: any) => {
-                  if (checkURL(singleImageID)) {
-                    return (
-                      <GridListTile key={singleImageID} cols={1}>
-                        <img src={singleImageID} alt={singleImageID} />
-                      </GridListTile>
-                    );
-                  }
-                  return (
-                    <GridListTile key={singleImageID} cols={1}>
-                      <img
-                        src={storedMediaData[singleImageID].resource.small}
-                        alt="sample"
-                      />
-                    </GridListTile>
-                  );
-                })}
+                {globalStateImageData.length !== 0 &&
+                globalStateImageData != null
+                  ? globalStateImageData.map((singleImageID: any) => {
+                      return (
+                        <GridListTile key={singleImageID} cols={1}>
+                          <img
+                            src={storedMediaData[singleImageID].resource.small}
+                            alt="sample"
+                          />
+                        </GridListTile>
+                      );
+                    })
+                  : ''}
               </GridList>
             </Box>
           </Box>
