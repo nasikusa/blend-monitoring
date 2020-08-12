@@ -1,4 +1,4 @@
-import FirstStringUpperCase from '../../../../utils/FisrtStringUpperCase';
+import firstStringUpperCase from '../../../../utils/fisrtStringUpperCase';
 
 import { GlCollectionInterface } from '../../../../stores/collectionData';
 
@@ -26,7 +26,7 @@ export default (
   /**
    * 最終的に吐き出されるシェーダーの文字列
    */
-  const resultShader: string = `blend${FirstStringUpperCase(
+  const resultShader: string = `blend${firstStringUpperCase(
     resultBlendMode
   )}( ${baseLayerName} , ${blendLayerName} , layer${collectionCurrentIndex}Opacity );`;
 
