@@ -5,7 +5,7 @@ import {
 import ZeroOneFloatAdjust from '../../../../utils/ZeroOneFloatAdjust';
 import { StoredMediaStateType } from '../../../../stores/storedMedia';
 
-type returnObjectType = { [key: string]: any };
+type returnObjectType = { [key: string]: string };
 
 /**
  * シェーダーのuniforms用のオブジェクトを生成する関数

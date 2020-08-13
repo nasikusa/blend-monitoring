@@ -26,14 +26,12 @@ export type canCollectionMultiItemProps =
 
 /**
  * 単一のコレクションのinterface。
- * @todo: 画像関連のプロパティはtempです。storedImagesなどに移行したい。
  */
 export interface GlCollectionInterface {
   id: string;
   innerItemId: string[] | string;
   visibility: boolean;
   type: CollectionTypeType;
-  collectionNumber?: number;
   opacity: number | number[];
   blendMode: BlendModesType | BlendModesType[];
   color: null | string | string[];

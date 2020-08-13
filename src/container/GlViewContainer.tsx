@@ -4,14 +4,10 @@ import { useSelector } from 'react-redux';
 import GlView from '../components/atoms/GlView';
 import { AppState } from '../stores/index';
 
-export type Props = {
-  itemKey: number;
-};
-
 /**
  * glViewコンポーネントのcontainerコンポーネント
  */
-export default (props: Props) => {
+export default () => {
   const glSettings = useSelector((state: AppState) => state.glSettings);
   const multiCollectionData = useSelector(
     (state: AppState) => state.collectionData
@@ -22,7 +18,6 @@ export default (props: Props) => {
     multiCollectionData,
     glSettings,
     storedMediaState,
-    ...props,
   };
 
   return <GlView {...combineProps} />;

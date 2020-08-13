@@ -9,10 +9,12 @@ import GridList from '@material-ui/core/GridList';
 import GridListTile from '@material-ui/core/GridListTile';
 
 import MediaModalContainer from '../../../container/MediaModalContainer';
+import { StoredMediaStateType } from '../../../stores/storedMedia';
+import { GlCollectionInterface } from '../../../stores/collectionData';
 
 export type Props = {
-  storedMediaData: any;
-  globalStateImageData: any;
+  storedMediaData: StoredMediaStateType;
+  globalStateImageData: GlCollectionInterface['image'];
 };
 
 const useStyles = makeStyles((theme: Theme) =>
@@ -62,9 +64,10 @@ const ImagePanel: React.FC<Props> = (props: Props) => {
                 cellHeight={imageBoxWidth / imageBoxRowCount}
                 cols={imageBoxRowCount}
               >
-                {globalStateImageData.length !== 0 &&
-                globalStateImageData != null
-                  ? globalStateImageData.map((singleImageID: any) => {
+                {globalStateImageData != null &&
+                globalStateImageData.length !== 0 &&
+                Array.isArray(globalStateImageData)
+                  ? globalStateImageData.map((singleImageID: string) => {
                       return (
                         <GridListTile key={singleImageID} cols={1}>
                           <img

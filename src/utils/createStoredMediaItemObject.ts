@@ -1,24 +1,26 @@
 import { v4 as uuidv4 } from 'uuid';
-import moment from 'moment';
+// import moment from 'moment';
+import { StoredMediaStateItemType } from '../stores/storedMedia';
+import { singleResizedImageDataType } from './getResizedImageData';
 
 /**
  * storedMediaストアのstateのアイテムのオブジェクトを作成する
  * @param resultSingleMediaObject
  */
 export default function createStoredMediaItemObject(
-  resultSingleMediaObject: any
-) {
+  resultSingleMediaObject: singleResizedImageDataType
+): StoredMediaStateItemType {
   const {
     resultDataURLObject,
     resultDataURLSizeObject,
     resultImageInfoObject,
   } = resultSingleMediaObject;
-  const resultObject = {
+  const resultObject: StoredMediaStateItemType = {
     id: uuidv4(),
     mediaType: 'image',
     dataType: 'dataURL',
     aspectRatio: resultImageInfoObject.imageRatio,
-    createdAt: moment().toString(),
+    // createdAt: moment().toString(),
     mime: 'image/jpeg',
     fileSize: resultDataURLSizeObject,
     resource: resultDataURLObject,

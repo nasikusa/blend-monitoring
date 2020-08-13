@@ -1,15 +1,30 @@
 import pica from 'pica';
+import { StoredMediaStateItemType } from '../stores/storedMedia';
 import baseImageSizeObject, {
   baseImageSizeNames,
 } from '../constants/baseImageSize';
 
+export type resultImageInfoObjectType = {
+  imageWidth: StoredMediaStateItemType['rawWidth'];
+  imageHeight: StoredMediaStateItemType['rawHeight'];
+  imageRatio: StoredMediaStateItemType['aspectRatio'];
+  imageColor?: string;
+  imagePalette?: string[];
+};
+
+export type singleResizedImageDataType = {
+  resultDataURLObject: StoredMediaStateItemType['resource'];
+  resultDataURLSizeObject: StoredMediaStateItemType['fileSize'];
+  resultImageInfoObject: resultImageInfoObjectType;
+};
+
 // const ColorThief = require('colorthief');
 
 /**
- * blobデータをdataURLに変換する
- * @param blob 画像のblobデータ(fileでも可能)
+ * fileデータをdataURLに変換する
+ * @param file 画像のfileデータ(fileでも可能)
  */
-export function readAsDataURL(blob: any): Promise<string> {
+export function readAsDataURL(file: File): Promise<string> {
   return new Promise((resolve, reject) => {
     const reader = new FileReader();
     reader.onload = () => {
@@ -21,18 +36,18 @@ export function readAsDataURL(blob: any): Promise<string> {
     reader.onerror = () => {
       reject(reader.error);
     };
-    reader.readAsDataURL(blob);
+    reader.readAsDataURL(file);
   });
 }
 
-function getRawImageData(rawSizeDataURL: any): Promise<any[]> {
+function getRawImageData(
+  rawSizeDataURL: string
+): Promise<[HTMLImageElement, number, number, number]> {
   return new Promise((resolve) => {
     const imgElement = new Image();
     // const colorThief = new ColorThief();
-    // console.log(colorThief);
     imgElement.src = rawSizeDataURL;
     imgElement.onload = () => {
-      // console.log(imgElement);
       const imageElement = imgElement;
       const imageWidth = imgElement.width;
       const imageHeight = imgElement.height;
@@ -51,10 +66,13 @@ function getRawImageData(rawSizeDataURL: any): Promise<any[]> {
   });
 }
 
+/**
+ * @todo picaのリサイズ時の設定をコントロールしたいです
+ */
 export function getPicaResizedData(
-  rawSizeDataURL: any,
+  rawSizeDataURL: string,
   size: baseImageSizeNames,
-  imageElement: any,
+  imageElement: HTMLImageElement,
   imageRatio: number
 ): Promise<string> {
   return new Promise((resolve, reject) => {
@@ -70,8 +88,8 @@ export function getPicaResizedData(
         unsharpRadius: 0.6,
         unsharpThreshold: 2,
       })
-      .then((result: any) => {
-        const resultDataURL = result.toDataURL('image/jpeg', 0.8);
+      .then((result: HTMLCanvasElement) => {
+        const resultDataURL: string = result.toDataURL('image/jpeg', 0.8);
         if (resultDataURL) {
           resolve(resultDataURL);
         }
@@ -83,7 +101,9 @@ export function getPicaResizedData(
   });
 }
 
-export async function getSingleResizedImageData(singleFile: any) {
+export async function getSingleResizedImageData(
+  singleFile: File
+): Promise<singleResizedImageDataType> {
   const file = singleFile;
   const rawSizeDataURL = await readAsDataURL(file);
   const [
@@ -112,10 +132,10 @@ export async function getSingleResizedImageData(singleFile: any) {
       )
     );
   }
-  const resultURLs = await Promise.all(resizePromiseArray);
+  const resultURLs: string[] = await Promise.all(resizePromiseArray);
   const [thumbResult, smallResult, mediumResult, largeResult] = resultURLs;
 
-  const resultDataURLObject = {
+  const resultDataURLObject: StoredMediaStateItemType['resource'] = {
     thumb: thumbResult,
     small: smallResult,
     medium: mediumResult,
@@ -123,7 +143,7 @@ export async function getSingleResizedImageData(singleFile: any) {
     raw: rawSizeDataURL,
   };
 
-  const resultDataURLSizeObject = {
+  const resultDataURLSizeObject: StoredMediaStateItemType['fileSize'] = {
     thumb: thumbResult.length,
     small: smallResult.length,
     medium: mediumResult.length,
@@ -131,7 +151,7 @@ export async function getSingleResizedImageData(singleFile: any) {
     raw: rawSizeDataURL.length,
   };
 
-  const resultImageInfoObject = {
+  const resultImageInfoObject: resultImageInfoObjectType = {
     imageWidth,
     imageHeight,
     imageRatio,
@@ -144,18 +164,11 @@ export async function getSingleResizedImageData(singleFile: any) {
     resultDataURLSizeObject,
     resultImageInfoObject,
   };
-
-  // return new Promise((resolve, reject) => {
-  //   if (rawSizeDataURL) {
-  //     resolve(resultDataURLObject);
-  //   }
-  //   reject(new Error('エラーが発生しました'));
-  // });
 }
 
-export default async function getResizedImageData(files: any) {
+export default async function getResizedImageData(files: File[]) {
   const resultDataURLObjectArray = await Promise.all(
-    files.map(async (singleFile: any) => getSingleResizedImageData(singleFile))
+    files.map(async (singleFile: File) => getSingleResizedImageData(singleFile))
   );
   return resultDataURLObjectArray;
 }

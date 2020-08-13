@@ -4,11 +4,10 @@ import GlViewContainer from '../../../container/GlViewContainer';
 /**
  * glslでの描画するアイテム(glView)のラッパー。その他のinfoなど。
  */
-export default (props: any) => {
-  const { itemKey } = props;
+export default () => {
   return (
     <>
-      <GlViewContainer itemKey={itemKey} />
+      <GlViewContainer />
     </>
   );
 };

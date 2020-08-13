@@ -1,6 +1,6 @@
 import { CollectionTypeType } from '../stores/collectionData';
 
-export default (type: CollectionTypeType) => {
+export default (type: CollectionTypeType): string => {
   switch (type) {
     case `singleColor`:
       return `カラーレイヤー`;

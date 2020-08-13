@@ -12,10 +12,15 @@ import collectionTypesArray from '../../../constants/collectionTypesArray';
 import collectionTypeNameObject from '../../../constants/collectionTypeNameObject';
 import canMultiItemCollectionName from '../../../constants/canMultiItemCollectionName';
 
+export type Props = {
+  createCollection: any;
+  hasMultiItemCollection: boolean;
+};
+
 /**
  * レイヤー / コレクションを追加するメニューのコンポーネント
  */
-export default (props: any) => {
+export default (props: Props) => {
   const { createCollection, hasMultiItemCollection } = props;
 
   /**

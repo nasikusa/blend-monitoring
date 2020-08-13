@@ -4,21 +4,24 @@ import {
   canCollectionMultiItemProps,
 } from '../stores/collectionData';
 
-const aryMaxFunctionForReduce = (a: number, b: number) => {
+const aryMaxFunctionForReduce = (a: number, b: number): number => {
   return Math.max(a, b);
 };
 
-const aryMinFunctionForReduce = (a: number, b: number) => {
+const aryMinFunctionForReduce = (a: number, b: number): number => {
   return Math.min(a, b);
 };
 
 /**
  * storeに保存されている GlCollectionInterfaceArray
  *  型のアイテムの中から最大/最小の配列の数を取得する関数
+ * @param getType 取得するタイプ
+ * @param isCountArrayOnly 配列データのみ計測する
  */
 export default (
   collectionData: GlCollectionInterfaceArray = [],
-  getType: 'min' | 'max' = 'max'
+  getType: 'min' | 'max' = 'max',
+  isCountArrayOnly: boolean = false
 ) => {
   const targetProps: (keyof GlCollectionInterface &
     canCollectionMultiItemProps)[] = ['blendMode', 'color', 'image'];
@@ -39,7 +42,8 @@ export default (
         const currentPropValue = collectionData[i][singleTargetProp];
         if (Array.isArray(currentPropValue)) {
           internalLengthArray.push(currentPropValue.length);
-        } else {
+        }
+        if (!isCountArrayOnly) {
           internalLengthArray.push(1);
         }
       }

@@ -6,7 +6,7 @@ import Box from '@material-ui/core/Box';
 import IconButton from '@material-ui/core/IconButton';
 import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
-import { SketchPicker, CirclePicker } from 'react-color';
+import { SketchPicker, CirclePicker, ColorResult } from 'react-color';
 import ColorLensIcon from '@material-ui/icons/ColorLens';
 import StarBorderIcon from '@material-ui/icons/StarBorder';
 
@@ -163,7 +163,7 @@ const ColorPanel: React.FC<Props> = (props: Props) => {
    * @param event
    * @todo 決めた一定時間後に発火できるようにしたいです
    */
-  const handleColorChangeComplete = (event: { hex: string }): void => {
+  const handleColorChangeComplete = (event: ColorResult): void => {
     setColorValue(event.hex);
     if (typeof globalStateColorData === 'string') {
       updateColor({
@@ -172,8 +172,8 @@ const ColorPanel: React.FC<Props> = (props: Props) => {
       });
     }
     if (Array.isArray(globalStateColorData)) {
-      let newColorState = globalStateColorData.map((val: any) => val);
-      newColorState = newColorState.map((val: any, currentIndex: number) => {
+      let newColorState = globalStateColorData.map((val: string) => val);
+      newColorState = newColorState.map((val: string, currentIndex: number) => {
         if (currentIndex === currentColorBoxKey) {
           return event.hex;
         }
@@ -191,8 +191,11 @@ const ColorPanel: React.FC<Props> = (props: Props) => {
    * @param color
    * @param event
    */
-  const handleCirclePickerChange = (color: any, event: any) => {
-    const pickerElement =
+  const handleCirclePickerChange = (color: ColorResult, event: any) => {
+    /**
+     * @todo ここの型どうすればええんや....。(parentNodeがundefinedである可能性があるので)
+     */
+    const pickerElement: HTMLDivElement =
       event.target.parentNode.parentNode.parentNode.parentNode;
     const pickerElementItems = Array.from(pickerElement.children);
     pickerElementItems.forEach(

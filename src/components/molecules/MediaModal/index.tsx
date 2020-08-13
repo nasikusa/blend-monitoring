@@ -16,22 +16,24 @@ import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Switch from '@material-ui/core/Switch';
 import { useDropzone } from 'react-dropzone';
 import Snackbar from '@material-ui/core/Snackbar';
-import MuiAlert from '@material-ui/lab/Alert';
+import MuiAlert, { AlertProps } from '@material-ui/lab/Alert';
 
 import getResiedImageData from '../../../utils/getResizedImageData';
 import { GlCollectionInterfaceArray } from '../../../stores/collectionData';
 import MediaModalContentsContainer from '../../../container/MediaModalContentsContainer';
 import createStoredMediaItemObject from '../../../utils/createStoredMediaItemObject';
 
+import { StoredMediaStateType } from '../../../stores/storedMedia';
+
 type Props = {
   collectionData: GlCollectionInterfaceArray;
-  storedMediaData: any;
+  storedMediaData: StoredMediaStateType;
   modalOpen: boolean;
   setModalOpen: any;
   addMediaData: any;
 };
 
-function Alert(props: any) {
+function Alert(props: AlertProps) {
   return <MuiAlert elevation={6} variant="filled" {...props} />;
 }
 

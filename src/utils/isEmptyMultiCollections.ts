@@ -3,6 +3,11 @@ import {
   GlCollectionInterface,
 } from '../stores/collectionData';
 
+/**
+ * 空要素を持つかどうかを判定するための関数
+ * @param multiCollectionData
+ * @return 空の要素を持つマルチコレクションであるかどうかを返す (空要素を持っていればfalse、空要素がなければtrueを返す)
+ */
 export default function isEmptyMultiCollections(
   multiCollectionData: GlCollectionInterfaceArray
 ): boolean {

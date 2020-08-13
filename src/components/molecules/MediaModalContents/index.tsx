@@ -9,6 +9,16 @@ import Tabs from '@material-ui/core/Tabs';
 import Tab from '@material-ui/core/Tab';
 import Button from '@material-ui/core/Button';
 
+import { StoredMediaStateType } from '../../../stores/storedMedia';
+import { GlCollectionInterface } from '../../../stores/collectionData';
+
+export type Props = {
+  storedMediaData: StoredMediaStateType;
+  collectionStateImageData: GlCollectionInterface['image'];
+  updateImages: any;
+  glCollectionOrderKey: number;
+};
+
 interface TabPanelProps {
   children?: React.ReactNode;
   index: any;
@@ -53,7 +63,7 @@ function TabPanel(props: TabPanelProps) {
   );
 }
 
-export default function MediaModalContents(props: any) {
+export default function MediaModalContents(props: Props) {
   const {
     storedMediaData,
     collectionStateImageData,
@@ -100,10 +110,11 @@ export default function MediaModalContents(props: any) {
           cols={imageBoxRowCount}
           css={gridListStyle}
         >
-          {Object.keys(storedMediaData).map((singleImageID: any) => {
-            const isIncludeSingleImageID = collectionStateImageData.includes(
-              singleImageID
-            );
+          {Object.keys(storedMediaData).map((singleImageID: string) => {
+            const isIncludeSingleImageID =
+              collectionStateImageData != null
+                ? collectionStateImageData.includes(singleImageID)
+                : '';
             return (
               <GridListTile
                 onClick={() => {

@@ -10,13 +10,13 @@ export const unsplashRawWidth = 2000;
 
 /**
  * sample画像のURLを取得する関数
- * @param itemOrder サンプル画像の順番
- * @param itemSize サンプル画像のサイズ
+ * @param itemOrder 順番
+ * @param itemSize nullならrawと判定
  */
 export default function getSampleImageURL(
   itemOrder: number,
   itemSize?: keyof baseImageSizeObjectType
-) {
+): string {
   if (itemSize == null) {
     return `${unsplashSampleImagesData[itemOrder].sourceBase}&w=${unsplashRawWidth}&q=${baseUnsplashImageQuority}`;
   }

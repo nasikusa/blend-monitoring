@@ -15,7 +15,6 @@ import { StoredMediaStateType } from '../../../stores/storedMedia';
 import isEmptyMultiCollections from '../../../utils/isEmptyMultiCollections';
 
 type Props = {
-  itemKey: number;
   glSettings: GlSettingsType;
   storedMediaState: StoredMediaStateType;
   multiCollectionData: GlCollectionInterfaceArray;
