@@ -3,7 +3,7 @@
  * 描画モードに関係したシェーダー文字列を格納している
  * @packageDocumentation
  * @see : https://github.com/jamieowen/glsl-blend
- * @todo : hsl系の描画モード、除算の描画モード、カラー比較(明・暗)の描画モードの追加
+ * @todo : hsl系の描画モード
  */
 
 /**
@@ -388,6 +388,62 @@ vec3 blendExclusion(vec3 base, vec3 blend, float opacity) {
 }
 `;
 
+export const hue = `
+vec3 blendHue(vec3 base, vec3 blend) {
+	vec3 baseHSL = rgb2hsl(base);
+	vec3 blendHSL = rgb2hsl(blend);
+	vec3 mixedHSL = vec3( blendHSL.x, baseHSL.y, baseHSL.z );
+	return hsl2rgb(mixedHSL);
+}
+
+//vec3 blendHue(vec3 base, vec3 blend, float opacity) {
+//	return (blendHue(base, blend) * opacity + base * (1.0 - opacity));
+//}
+
+vec3 blendHue(vec3 base, vec3 blend, float opacity) {
+	return blendHue(base, blend);
+}
+`;
+
+export const saturation = `
+vec3 blendSaturation(vec3 base, vec3 blend) {
+	vec3 baseHSL = rgb2hsl(base);
+	vec3 blendHSL = rgb2hsl(blend);
+	vec3 mixedHSL = vec3( baseHSL.x, blendHSL.y, baseHSL.z );
+	return hsl2rgb(mixedHSL);
+}
+
+vec3 blendSaturation(vec3 base, vec3 blend, float opacity) {
+	return (blendSaturation(base, blend) * opacity + base * (1.0 - opacity));
+}
+`;
+
+export const luminosity = `
+vec3 blendLuminosity(vec3 base, vec3 blend) {
+	vec3 baseHSL = rgb2hsl(base);
+	vec3 blendHSL = rgb2hsl(blend);
+	vec3 mixedHSL = vec3( baseHSL.x, baseHSL.y, blendHSL.z );
+	return hsl2rgb(mixedHSL);
+}
+
+vec3 blendLuminosity(vec3 base, vec3 blend, float opacity) {
+	return (blendLuminosity(base, blend) * opacity + base * (1.0 - opacity));
+}
+`;
+
+export const color = `
+vec3 blendColor(vec3 base, vec3 blend) {
+	vec3 baseHSL = rgb2hsl(base);
+	vec3 blendHSL = rgb2hsl(blend);
+	vec3 mixedHSL = vec3( blendHSL.x, blendHSL.y, baseHSL.z );
+	return hsl2rgb(mixedHSL);
+}
+
+vec3 blendColor(vec3 base, vec3 blend, float opacity) {
+	return (blendColor(base, blend) * opacity + base * (1.0 - opacity));
+}
+`;
+
 /**
  * all オール
  */
@@ -415,4 +471,8 @@ ${hardMix}
 ${darkerColor}
 ${lighterColor}
 ${divide}
+${hue}
+${saturation}
+${luminosity}
+${color}
 `;

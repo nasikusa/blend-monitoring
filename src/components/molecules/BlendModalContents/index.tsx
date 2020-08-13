@@ -77,6 +77,10 @@ const mathBlendMode = readyBlendModeArray.filter(
   (singleBlendModeData) => singleBlendModeData.type.base === `math`
 );
 
+// const hslBlendMode = readyBlendModeArray.filter(
+//   (singleBlendModeData) => singleBlendModeData.type.base === `hsl`
+// );
+
 /**
  * 描画モードモーダルの中のコンテンツのReactFC
  */
@@ -125,6 +129,11 @@ export default function BlendModalContents(props: Props) {
       name: 'math',
       flagState: canDisplayMathBlend,
     },
+    // {
+    //   data: hslBlendMode,
+    //   name: 'hsl',
+    //   flagState: true,
+    // },
   ];
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {

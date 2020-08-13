@@ -3,6 +3,7 @@ import {
   ShaderContainImageSize,
   ShaderCoverImageSize,
 } from '../shaders/ImageSize';
+import ShaderColorConvert from '../shaders/ColorConvert';
 
 /**
  * 関数シェーダーを吐き出す関数
@@ -10,6 +11,7 @@ import {
  */
 export default (): string => {
   return `
+    ${ShaderColorConvert}
     ${ShaderBlendAll}
     ${ShaderContainImageSize}
     ${ShaderCoverImageSize}
