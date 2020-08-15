@@ -2,12 +2,14 @@ import React, { useState } from 'react';
 
 // import Grid from '@material-ui/core/Grid';
 import { css } from '@emotion/core';
+import Typography from '@material-ui/core/Typography';
 import Box from '@material-ui/core/Box';
 import GridList from '@material-ui/core/GridList';
 import GridListTile from '@material-ui/core/GridListTile';
 import Tabs from '@material-ui/core/Tabs';
 import Tab from '@material-ui/core/Tab';
 import Button from '@material-ui/core/Button';
+import PublishIcon from '@material-ui/icons/Publish';
 
 import { StoredMediaStateType } from '../../../stores/storedMedia';
 import { ImageRelatedGlCollectionType } from '../../../stores/collectionData';
@@ -20,6 +22,7 @@ export type Props = {
   >['image'];
   updateImages: any;
   glCollectionOrderKey: number;
+  OpenFileWindowFunction: any;
 };
 
 interface TabPanelProps {
@@ -72,6 +75,7 @@ export default function MediaModalContents(props: Props) {
     collectionStateImageData,
     updateImages,
     glCollectionOrderKey,
+    OpenFileWindowFunction,
   } = props;
   const [imageBoxWidth] = useState<number>(600);
   const [imageBoxRowCount] = useState<number>(9);
@@ -92,7 +96,21 @@ export default function MediaModalContents(props: Props) {
 
   return (
     <Box width={imageBoxWidth}>
-      <Button>画像をアップロードする</Button>
+      <Box mb={1}>
+        <Button
+          onClick={OpenFileWindowFunction}
+          variant="contained"
+          color="primary"
+          startIcon={<PublishIcon />}
+        >
+          画像をアップロードする
+          <Box pl={1}>
+            <Typography variant="overline" display="block">
+              (サーバーには保存されません）
+            </Typography>
+          </Box>
+        </Button>
+      </Box>
       <Tabs
         css={tabsStyle}
         value={value}

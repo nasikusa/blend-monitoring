@@ -5,7 +5,7 @@ import { AppState } from '../stores/index';
 import { GlCollectionOrderContext } from '../components/molecules/Collections';
 import { updateImages as updateImagesAction } from '../stores/collectionData';
 
-export default () => {
+export default (props: any) => {
   const storedMediaData = useSelector((state: AppState) => state.storedMedia);
   const collectionData = useSelector((state: AppState) => state.collectionData);
   const glCollectionOrderKey = useContext(GlCollectionOrderContext);
@@ -38,6 +38,7 @@ export default () => {
     collectionStateImageData,
     updateImages,
     glCollectionOrderKey,
+    ...props,
   };
 
   return <MediaModalContents {...combineProps} />;

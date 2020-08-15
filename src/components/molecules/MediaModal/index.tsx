@@ -70,6 +70,8 @@ function PaperComponent(props: PaperProps) {
  */
 const modalBackStyle = css`
   pointer-events: none;
+  position: relative;
+  border: 3px solid transparent;
 `;
 
 const modalTitleStyle = css`
@@ -107,7 +109,6 @@ export default (props: Props) => {
     setOnDropSnackBarOpenFlag(true);
     setOnLoadMediaSnackBarOpenFlag(false);
     setOnErrorSnackBarOpenFlag(false);
-    console.log(acceptedFiles);
     if (acceptedFiles != null) {
       getResiedImageData(acceptedFiles)
         .then((result) => {
@@ -121,7 +122,6 @@ export default (props: Props) => {
               newMediaDataObject: resultStoredMediaItemObject,
             });
           }
-          console.log(result);
         })
         .catch(() => {
           setOnErrorSnackBarOpenFlag(true);
@@ -131,7 +131,7 @@ export default (props: Props) => {
         });
     }
   }, []);
-  const { getRootProps, getInputProps, isDragActive } = useDropzone({
+  const { getRootProps, getInputProps, isDragActive, open } = useDropzone({
     onDrop,
     noClick: true,
   });
@@ -197,18 +197,19 @@ export default (props: Props) => {
           style: { backgroundColor: 'rgba(0,0,0,0)', pointerEvents: 'none' },
         }}
         PaperProps={{
-          style: { backgroundColor: 'rgba(0,0,0,0.5)', pointerEvents: 'all' },
+          style: {
+            backgroundColor: 'rgba(0,0,0,0.5)',
+            pointerEvents: 'all',
+            border: isDragActive
+              ? '3px dashed #ffffff'
+              : '3px solid transparent',
+          },
         }}
         PaperComponent={PaperComponent}
-        css={modalMinifyFlag ? modalMinifyStyle : modalBackStyle}
+        css={modalBackStyle}
       >
         <div {...getRootProps()}>
           <input {...getInputProps()} />
-          {isDragActive ? (
-            <p>Drop the files here ...</p>
-          ) : (
-            <p>Drag n drop some files here, or click to select files</p>
-          )}
           <DialogTitle
             id="blend-draggable-dialog-title"
             style={{ cursor: 'move' }}
@@ -220,7 +221,7 @@ export default (props: Props) => {
             </IconButton>
           </DialogTitle>
           <DialogContent dividers>
-            <MediaModalContentsContainer />
+            <MediaModalContentsContainer OpenFileWindowFunction={open} />
           </DialogContent>
           <DialogActions>
             <FormGroup row>
