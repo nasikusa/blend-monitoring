@@ -1,6 +1,8 @@
 import React, { useContext } from 'react';
 import { Shaders, Node, GLSL } from 'gl-react';
 import { Surface } from 'gl-react-dom';
+import { css } from '@emotion/core';
+import Box from '@material-ui/core/Box';
 
 import CreateShaderVariables from './script/CreateShaderVariables';
 import CreateShaderUniforms from './script/CreateShaderUniforms';
@@ -19,6 +21,13 @@ type Props = {
   storedMediaState: StoredMediaStateType;
   multiCollectionData: GlCollectionTypeArray;
 };
+
+const surfaceBaseStyle = css`
+  > span {
+    display: block;
+    vertical-align: bottom;
+  }
+`;
 
 /**
  * 最終的に描画されるベースとなるカラー変数名
@@ -102,14 +111,14 @@ const GlView: React.FC<Props> = (props: Props) => {
   });
 
   return (
-    <div>
+    <Box css={surfaceBaseStyle}>
       <Surface
         width={glSettings.singleItemWidth}
         height={glSettings.singleItemWidth * glSettings.singleItemAspect}
       >
         <Node shader={shaders.firstGL} uniforms={shaderUniformValue} />
       </Surface>
-    </div>
+    </Box>
   );
 };
 
