@@ -79,6 +79,14 @@ const allCollectionTypeFunctionObject: collectionTypeFunctionType = {
     image: false,
     garbage: true,
   },
+  base: {
+    visibility: true,
+    opacity: true,
+    blendMode: true,
+    color: true,
+    image: false,
+    garbage: false,
+  },
 };
 
 export default allCollectionTypeFunctionObject;

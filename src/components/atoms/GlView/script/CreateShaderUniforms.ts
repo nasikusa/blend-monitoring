@@ -1,6 +1,6 @@
 import {
-  GlCollectionInterfaceArray,
-  GlCollectionInterface,
+  GlCollectionTypeArray,
+  GlCollectionType,
 } from '../../../../stores/collectionData';
 import ZeroOneFloatAdjust from '../../../../utils/ZeroOneFloatAdjust';
 import { StoredMediaStateType } from '../../../../stores/storedMedia';
@@ -14,7 +14,7 @@ type returnObjectType = { [key: string]: string };
  * @see: gl-reactのuniformsのdocs https://gl-react-cookbook.surge.sh/api#uniforms
  */
 export default (
-  multiCollectionData: GlCollectionInterfaceArray,
+  multiCollectionData: GlCollectionTypeArray,
   glItemOrderKey: number,
   storedMediaState: StoredMediaStateType
 ): returnObjectType => {
@@ -24,10 +24,10 @@ export default (
   const resultUniformsObject: returnObjectType = {};
   multiCollectionData.forEach(
     (
-      singleCollectionData: GlCollectionInterface,
+      singleCollectionData: GlCollectionType,
       collectionCurrentIndex: number
     ) => {
-      const { type, image, opacity, visibility } = singleCollectionData;
+      const { opacity, visibility } = singleCollectionData;
 
       let resultOpacityValue: string = '0.0';
       if (!visibility) {
@@ -41,20 +41,24 @@ export default (
         resultOpacityValue = ZeroOneFloatAdjust(opacity);
       }
 
-      switch (type) {
+      switch (singleCollectionData.type) {
         case `singleImage`:
-        case `singleImageMultiBlends`:
+        case `singleImageMultiBlends`: {
+          const { image } = singleCollectionData;
           if (image != null && typeof image === 'string') {
             resultUniformsObject[`layer${collectionCurrentIndex}`] =
               storedMediaState[image].resource.medium;
           }
           break;
-        case `multiImages`:
+        }
+        case `multiImages`: {
+          const { image } = singleCollectionData;
           if (image != null) {
             resultUniformsObject[`layer${collectionCurrentIndex}`] =
               storedMediaState[image[glItemOrderKey]].resource.medium;
           }
           break;
+        }
         case `singleColor`:
         case `singleColorMultiBlends`:
           break;

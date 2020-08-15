@@ -21,14 +21,17 @@ import FormGroup from '@material-ui/core/FormGroup';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Switch from '@material-ui/core/Switch';
 
-import { GlCollectionOrderContext } from '../Collections';
+import {
+  GlCollectionOrderContext,
+  GlCollectionOrderContextType,
+} from '../Collections';
 import BlendModalContentsContainer from '../../../container/BlendModalContentsContainer';
 import { readyBlendModeData } from '../../../utils/GetBlendModeData';
 
-import { GlCollectionInterfaceArray } from '../../../stores/collectionData';
+import { GlCollectionTypeArray } from '../../../stores/collectionData';
 
 type Props = {
-  collectionData: GlCollectionInterfaceArray;
+  collectionData: GlCollectionTypeArray;
   updateBlendMode: any;
   blendModeOrder: string[];
 };
@@ -128,7 +131,9 @@ export default (props: Props) => {
   const [canDisplayDarkerBlend, setCanDisplayDarkerBlend] = useState(true);
   const [canDisplayMathBlend, setCanDisplayMathBlend] = useState(true);
   const { collectionData, updateBlendMode, blendModeOrder } = props;
-  const glCollectionOrderKey = useContext(GlCollectionOrderContext);
+  const glCollectionOrderKey: GlCollectionOrderContextType = useContext(
+    GlCollectionOrderContext
+  );
   const globalBlendModeStateArray =
     collectionData[glCollectionOrderKey].blendMode;
   const blendModeSwitchBoolArray = [

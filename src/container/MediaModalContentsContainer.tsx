@@ -9,8 +9,11 @@ export default () => {
   const storedMediaData = useSelector((state: AppState) => state.storedMedia);
   const collectionData = useSelector((state: AppState) => state.collectionData);
   const glCollectionOrderKey = useContext(GlCollectionOrderContext);
-
-  let collectionStateImageData = collectionData[glCollectionOrderKey].image;
+  const currentSingleCollectionData = collectionData[glCollectionOrderKey];
+  let collectionStateImageData =
+    currentSingleCollectionData.roughType === 'image'
+      ? currentSingleCollectionData.image
+      : null;
   if (
     !Array.isArray(collectionStateImageData) &&
     collectionStateImageData != null

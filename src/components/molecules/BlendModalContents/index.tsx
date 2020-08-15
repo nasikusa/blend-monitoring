@@ -18,10 +18,10 @@ import {
   readyBlendModeData,
 } from '../../../utils/GetBlendModeData';
 import { GlCollectionOrderContext } from '../Collections';
-import { GlCollectionInterfaceArray } from '../../../stores/collectionData';
+import { GlCollectionTypeArray } from '../../../stores/collectionData';
 
 export type Props = {
-  collectionData: GlCollectionInterfaceArray;
+  collectionData: GlCollectionTypeArray;
   updateBlendMode: any;
   blendModeOrder: string[];
   canDisplayNormalBlend: boolean;

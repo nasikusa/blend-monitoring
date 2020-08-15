@@ -1,15 +1,15 @@
-import { GlCollectionInterfaceArray } from '../stores/collectionData';
+import { GlCollectionTypeArray } from '../stores/collectionData';
 
 /**
  * コレクションリスト配列から、最大の個数を持つ innerItemId の内容を返す関数
  * 主にloopしているReact要素でのkeyの設定に使用
  */
-export default (collectionData: GlCollectionInterfaceArray) => {
+export default (collectionData: GlCollectionTypeArray) => {
   /**
    * コレクションリストのコレクションから innerItemId のみを抽出した配列
    */
   const allInnerItemIdArray = collectionData.map((singleCollectionData) => {
-    return singleCollectionData.innerItemId;
+    return singleCollectionData.innerItemID;
   });
   /**
    * allInnerItemIdArray のなかに一つでも string[]型があるかどうかのbool

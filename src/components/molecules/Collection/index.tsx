@@ -21,7 +21,7 @@ import { GlCollectionOrderContext } from '../Collections';
 import ImagePanelContainer from '../../../container/ImagePanelContainer';
 
 import {
-  GlCollectionInterfaceArray,
+  GlCollectionTypeArray,
   CollectionTypeType,
 } from '../../../stores/collectionData';
 import allCollectionTypeFunctionObject, {
@@ -30,7 +30,7 @@ import allCollectionTypeFunctionObject, {
 import CollectionFunctionMenuButtonContainer from '../../../container/CollectionFunctionMenuButtonContainer';
 
 export type Props = {
-  collectionData: GlCollectionInterfaceArray;
+  collectionData: GlCollectionTypeArray;
   deleteSingleCollection: any;
   updateVisibility: any;
 };

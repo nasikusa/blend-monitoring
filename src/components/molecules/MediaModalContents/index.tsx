@@ -10,11 +10,14 @@ import Tab from '@material-ui/core/Tab';
 import Button from '@material-ui/core/Button';
 
 import { StoredMediaStateType } from '../../../stores/storedMedia';
-import { GlCollectionInterface } from '../../../stores/collectionData';
+import { ImageRelatedGlCollectionType } from '../../../stores/collectionData';
 
 export type Props = {
   storedMediaData: StoredMediaStateType;
-  collectionStateImageData: GlCollectionInterface['image'];
+  collectionStateImageData: Pick<
+    ImageRelatedGlCollectionType,
+    'image'
+  >['image'];
   updateImages: any;
   glCollectionOrderKey: number;
 };

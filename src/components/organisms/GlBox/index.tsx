@@ -5,14 +5,14 @@ import Snackbar from '@material-ui/core/Snackbar';
 import MuiAlert, { AlertProps } from '@material-ui/lab/Alert';
 
 import GlItem from '../../molecules/GlItem';
-import { GlCollectionInterface } from '../../../stores/collectionData';
+import { GlCollectionType } from '../../../stores/collectionData';
 import { maxCountOfGlItem } from '../../../constants/appConstantSettings';
 
 export const GlItemOrderContext = createContext(0);
 
 export type Props = {
   glItemCount: number;
-  glItemKeys: GlCollectionInterface['innerItemId'];
+  glItemKeys: Pick<GlCollectionType, 'innerItemID'>['innerItemID'];
   glBoxRowCount: number;
 };
 

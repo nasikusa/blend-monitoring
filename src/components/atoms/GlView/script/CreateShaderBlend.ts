@@ -1,6 +1,6 @@
 import firstStringUpperCase from '../../../../utils/fisrtStringUpperCase';
 
-import { GlCollectionInterface } from '../../../../stores/collectionData';
+import { GlCollectionType } from '../../../../stores/collectionData';
 
 /**
  * 描画モードに関連したシェーダー
@@ -9,8 +9,9 @@ import { GlCollectionInterface } from '../../../../stores/collectionData';
  * @param blendLayerName ブレンドするための変数の名前
  */
 export default (
-  blendMode: GlCollectionInterface['blendMode'],
-  opacity: GlCollectionInterface['opacity'],
+  // blendMode: GlCollectionType['blendMode'],
+  blendMode: Pick<GlCollectionType, 'blendMode'>['blendMode'],
+  opacity: Pick<GlCollectionType, 'opacity'>['opacity'],
   baseLayerName: string,
   blendLayerName: string,
   glItemOrderKey: number,

@@ -6,10 +6,14 @@ import { AppState } from '../stores/index';
 import {
   deleteSingleCollection as deleteSingleCollectionAction,
   updateVisibility as updateVisibilityAction,
+  GlCollectionTypeArray,
 } from '../stores/collectionData';
 
 export default () => {
-  const collectionData = useSelector((state: AppState) => state.collectionData);
+  const collectionData: GlCollectionTypeArray = useSelector<
+    AppState,
+    GlCollectionTypeArray
+  >((state) => state.collectionData);
   const dispatch = useDispatch();
 
   /**

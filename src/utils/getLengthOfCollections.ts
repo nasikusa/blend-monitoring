@@ -1,6 +1,5 @@
 import {
-  GlCollectionInterfaceArray,
-  GlCollectionInterface,
+  GlCollectionTypeArray,
   canCollectionMultiItemProps,
 } from '../stores/collectionData';
 
@@ -13,24 +12,27 @@ const aryMinFunctionForReduce = (a: number, b: number): number => {
 };
 
 /**
- * storeに保存されている GlCollectionInterfaceArray
+ * storeに保存されている GlCollectionTypeArray
  *  型のアイテムの中から最大/最小の配列の数を取得する関数
  * @param getType 取得するタイプ
  * @param isCountArrayOnly 配列データのみ計測する
  */
 export default (
-  collectionData: GlCollectionInterfaceArray = [],
+  collectionData: GlCollectionTypeArray = [],
   getType: 'min' | 'max' = 'max',
   isCountArrayOnly: boolean = false
 ) => {
-  const targetProps: (keyof GlCollectionInterface &
-    canCollectionMultiItemProps)[] = ['blendMode', 'color', 'image'];
+  const targetProps: canCollectionMultiItemProps[] = [
+    'blendMode',
+    'color',
+    'image',
+  ];
   const allCollectionLength = collectionData.length;
   /**
    * 最終的な最大のアイテム数
    */
   const resultLengthArray: number[] = targetProps.map(
-    (singleTargetProp: keyof GlCollectionInterface) => {
+    (singleTargetProp: canCollectionMultiItemProps) => {
       /**
        * 内部で使用されるlengthプロパティの値の配列
        */
@@ -39,7 +41,37 @@ export default (
         /**
          * 単一コレクションの単一プロパティの値
          */
-        const currentPropValue = collectionData[i][singleTargetProp];
+        const currentPropValue = (() => {
+          const currentOrderCollectionData = collectionData[i];
+          switch (currentOrderCollectionData.roughType) {
+            case 'color':
+              switch (singleTargetProp) {
+                case 'blendMode':
+                  return currentOrderCollectionData.blendMode;
+                case 'color':
+                  return currentOrderCollectionData.color;
+                case 'image':
+                  return null;
+                default:
+                  return null;
+              }
+            case 'image':
+              switch (singleTargetProp) {
+                case 'blendMode':
+                  return currentOrderCollectionData.blendMode;
+                case 'color':
+                  return null;
+                case 'image':
+                  return currentOrderCollectionData.image;
+                default:
+                  return null;
+              }
+            default:
+              return null;
+          }
+
+          // collectionData[i][singleTargetProp]
+        })();
         if (Array.isArray(currentPropValue)) {
           internalLengthArray.push(currentPropValue.length);
         }

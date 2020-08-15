@@ -8,7 +8,11 @@ export default () => {
   const storedMediaData = useSelector((state: AppState) => state.storedMedia);
   const collectionData = useSelector((state: AppState) => state.collectionData);
   const glCollectionOrderKey = useContext(GlCollectionOrderContext);
-  let globalStateImageData = collectionData[glCollectionOrderKey].image;
+  const currentSingleCollectionData = collectionData[glCollectionOrderKey];
+  let globalStateImageData =
+    currentSingleCollectionData.roughType === 'image'
+      ? currentSingleCollectionData.image
+      : null;
   if (!Array.isArray(globalStateImageData) && globalStateImageData != null) {
     globalStateImageData = [globalStateImageData];
   }

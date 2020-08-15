@@ -9,14 +9,14 @@ import Input from '@material-ui/core/Input';
 import OpacityIcon from '@material-ui/icons/Opacity';
 
 import {
-  GlCollectionInterfaceArray,
-  GlCollectionInterface,
+  GlCollectionTypeArray,
+  GlCollectionType,
 } from '../../../stores/collectionData';
 
 type Props = {
   updateOpacity: any;
-  collectionData: GlCollectionInterfaceArray;
-  globalStateOpacityData: GlCollectionInterface['opacity'];
+  collectionData: GlCollectionTypeArray;
+  globalStateOpacityData: GlCollectionType['opacity'];
   glCollectionOrderKey: number;
 };
 

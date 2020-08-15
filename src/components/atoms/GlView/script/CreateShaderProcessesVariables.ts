@@ -2,8 +2,8 @@ import chroma from 'chroma-js';
 import ZeroOneFloatAdjust from '../../../../utils/ZeroOneFloatAdjust';
 
 import {
-  GlCollectionInterface,
-  GlCollectionInterfaceArray,
+  GlCollectionType,
+  GlCollectionTypeArray,
 } from '../../../../stores/collectionData';
 import { GlSettingsType } from '../../../../stores/glSettings';
 import { StoredMediaStateType } from '../../../../stores/storedMedia';
@@ -17,7 +17,7 @@ import { StoredMediaStateType } from '../../../../stores/storedMedia';
  *
  */
 export default (
-  multiCollectionData: GlCollectionInterfaceArray,
+  multiCollectionData: GlCollectionTypeArray,
   glUVName: string,
   glSettings: GlSettingsType,
   glItemOrderKey: number,
@@ -28,19 +28,18 @@ export default (
    */
   const resultShaderArray: string[] = multiCollectionData.map(
     (
-      singleCollectionData: GlCollectionInterface,
+      singleCollectionData: GlCollectionType,
       collectionCurrentIndex: number
     ) => {
-      const { type, size, image } = singleCollectionData;
-
       /**
        * シェーダー文字列の変数
        */
       let shader: string = '';
-      switch (type) {
+      switch (singleCollectionData.type) {
         case `singleImage`:
         case `singleImageMultiBlends`:
         case `multiImages`: {
+          const { size, image } = singleCollectionData;
           if (image != null) {
             const imageWidth = Array.isArray(image)
               ? storedMediaState[image[glItemOrderKey]].rawWidth

@@ -13,7 +13,8 @@ export type CollectionTypeType =
   | `singleImage`
   | `singleImageMultiBlends`
   | `multiImages`
-  | `adjust`;
+  | `adjust`
+  | 'base';
 
 /**
  * 複数の値( = 配列 )を取りうる単一のコレクションのプロパティの名前
@@ -24,20 +25,118 @@ export type canCollectionMultiItemProps =
   | 'color'
   | 'image';
 
-/**
- * 単一のコレクションのinterface。
- */
-export interface GlCollectionInterface {
-  id: string;
-  innerItemId: string[] | string;
+export type collectionSizeValueType = 'cover' | 'normal' | 'contain';
+
+export type SingleColorGlCollectionType = {
+  readonly id: string;
+  readonly type: 'singleColor';
+  readonly roughType: 'color';
+  innerItemID: string;
   visibility: boolean;
-  type: CollectionTypeType;
   opacity: number | number[];
-  blendMode: BlendModesType | BlendModesType[];
-  color: null | string | string[];
-  image: null | string | string[];
-  size: null | 'normal' | 'cover' | 'contain';
-}
+  blendMode: BlendModesType;
+  color: string;
+};
+
+export type SingleColorMultiBlendsGlCollectionType = {
+  readonly id: string;
+  readonly type: 'singleColorMultiBlends';
+  readonly roughType: 'color';
+  innerItemID: string[];
+  visibility: boolean;
+  opacity: number | number[];
+  blendMode: BlendModesType[];
+  color: string;
+};
+
+export type MultiColorsGlCollectionType = {
+  readonly id: string;
+  readonly type: 'multiColors';
+  readonly roughType: 'color';
+  innerItemID: string[];
+  visibility: boolean;
+  opacity: number | number[];
+  blendMode: BlendModesType;
+  color: string[];
+};
+
+export type SingleImageGlCollectionType = {
+  readonly id: string;
+  readonly type: 'singleImage';
+  readonly roughType: 'image';
+  innerItemID: string;
+  visibility: boolean;
+  opacity: number | number[];
+  blendMode: BlendModesType;
+  image: string;
+  size: collectionSizeValueType;
+};
+
+export type SingleImageMultiBlendsGlCollectionType = {
+  readonly id: string;
+  readonly type: 'singleImageMultiBlends';
+  readonly roughType: 'image';
+  innerItemID: string[];
+  visibility: boolean;
+  opacity: number | number[];
+  blendMode: BlendModesType[];
+  image: string;
+  size: collectionSizeValueType;
+};
+
+export type MultiImagesGlCollectionType = {
+  readonly id: string;
+  readonly type: 'multiImages';
+  readonly roughType: 'image';
+  innerItemID: string[];
+  visibility: boolean;
+  opacity: number | number[];
+  blendMode: BlendModesType;
+  image: string[];
+  size: collectionSizeValueType;
+};
+
+export type BaseGlCollectionType = {
+  readonly id: string;
+  readonly type: 'base';
+  readonly roughType: 'color';
+  innerItemID: string;
+  visibility: true;
+  opacity: 1.0;
+  blendMode: 'normal';
+  color: string;
+};
+
+export type ColorRelatedGlCollectionType =
+  | SingleColorGlCollectionType
+  | SingleColorMultiBlendsGlCollectionType
+  | MultiColorsGlCollectionType;
+
+export type ImageRelatedGlCollectionType =
+  | SingleImageGlCollectionType
+  | SingleImageMultiBlendsGlCollectionType
+  | MultiImagesGlCollectionType;
+
+/**
+ * 単一のコレクションのtype。
+ */
+export type GlCollectionType =
+  | ColorRelatedGlCollectionType
+  | ImageRelatedGlCollectionType;
+
+// | BaseGlCollectionType;
+
+// export type GlCollectionType = {
+//   id: string;
+//   innerItemId: string[] | string;
+//   visibility: boolean;
+//   type: CollectionTypeType;
+//   opacity: number | number[];
+//   blendMode: BlendModesType | BlendModesType[];
+//   color: null | string | string[];
+//   image: null | string | string[];
+//   size: null | collectionSizeValueType;
+// };
 
 export type updateBlendModePayloadType = {
   blendMode: any;
@@ -49,9 +148,20 @@ export type updateBlendModePayloadType = {
 /**
  * 全コレクションのinterface。
  */
-export type GlCollectionInterfaceArray = GlCollectionInterface[];
+export type GlCollectionTypeArray = GlCollectionType[];
 
-const initialState: GlCollectionInterfaceArray = [];
+const initialState: GlCollectionTypeArray = [
+  // {
+  //   id: uuidv4(),
+  //   innerItemID: uuidv4(),
+  //   visibility: true,
+  //   type: 'singleColor',
+  //   roughType: 'color',
+  //   opacity: 1.0,
+  //   blendMode: 'normal',
+  //   color: '#000000',
+  // },
+];
 
 const slice = createSlice({
   name: 'collectionData',
@@ -124,7 +234,11 @@ const slice = createSlice({
     },
     updateImages: (state, action) => {
       const { imageID, glCollectionOrderKey, boolValue } = action.payload;
-      const stateImageData = state[glCollectionOrderKey].image;
+      const targetStateItemData = state[glCollectionOrderKey];
+      const stateImageData =
+        targetStateItemData.roughType === 'image'
+          ? targetStateItemData.image
+          : null;
       if (Array.isArray(stateImageData)) {
         /**
          * 新しい画像データIDの配列
@@ -208,7 +322,17 @@ const slice = createSlice({
     },
     updateColor: (state, action) => {
       const { colorValue, glCollectionOrderKey } = action.payload;
-      if (Array.isArray(colorValue)) {
+      const targetStateItemData = state[glCollectionOrderKey];
+      const stateColorData =
+        targetStateItemData.roughType === 'color'
+          ? targetStateItemData.color
+          : null;
+
+      if (
+        Array.isArray(colorValue) &&
+        Array.isArray(stateColorData) &&
+        targetStateItemData.type === 'multiColors'
+      ) {
         const resultCollectionData = state.map(
           (singleCollectionData, currentIndex) => {
             if (currentIndex === glCollectionOrderKey) {
@@ -223,7 +347,12 @@ const slice = createSlice({
         return resultCollectionData;
       }
 
-      if (typeof colorValue === 'string') {
+      if (
+        (typeof colorValue === 'string' &&
+          typeof stateColorData === 'string' &&
+          targetStateItemData.type === 'singleColor') ||
+        targetStateItemData.type === 'singleColorMultiBlends'
+      ) {
         const resultCollectionData = state.map(
           (singleCollectionData, currentIndex) => {
             if (currentIndex === glCollectionOrderKey) {

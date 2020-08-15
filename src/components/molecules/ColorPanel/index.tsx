@@ -20,11 +20,11 @@ import ZoomOutMapIcon from '@material-ui/icons/ZoomOutMap';
 import CustomTooltip from '../../atoms/CustomTooltip';
 import { GlCollectionOrderContext } from '../Collections';
 
-import { GlCollectionInterface } from '../../../stores/collectionData';
+import { ColorRelatedGlCollectionType } from '../../../stores/collectionData';
 
 type Props = {
   updateColor: any;
-  globalStateColorData: GlCollectionInterface['color'];
+  globalStateColorData?: Pick<ColorRelatedGlCollectionType, 'color'>['color'];
   stockedColorData: any;
   stockAddColor: any;
   stockRemoveColor: any;

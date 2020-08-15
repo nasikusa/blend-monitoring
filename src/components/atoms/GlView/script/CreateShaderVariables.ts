@@ -1,20 +1,17 @@
 import {
-  GlCollectionInterfaceArray,
-  GlCollectionInterface,
+  GlCollectionTypeArray,
+  GlCollectionType,
 } from '../../../../stores/collectionData';
 
 /**
  * シェーダーの変数定義文を生成する関数
  */
-export default (multiCollectionData: GlCollectionInterfaceArray): string => {
+export default (multiCollectionData: GlCollectionTypeArray): string => {
   /**
    * シェーダー文字列配列
    */
   const resultShaderArray: string[] = multiCollectionData.map(
-    (
-      singleLayerData: GlCollectionInterface,
-      collectionCurrentIndex: number
-    ) => {
+    (singleLayerData: GlCollectionType, collectionCurrentIndex: number) => {
       const { type } = singleLayerData;
 
       /**

@@ -18,7 +18,7 @@ export default () => {
   );
   const dispatch = useDispatch();
   const glCollectionOrderKey = useContext(GlCollectionOrderContext);
-  const globalStateColorData = collectionData[glCollectionOrderKey].color;
+  const currentSingleCollectionData = collectionData[glCollectionOrderKey];
 
   const updateColor = React.useCallback(
     (val) => {
@@ -39,7 +39,17 @@ export default () => {
   const combineProps = {
     themeSettings,
     updateColor,
-    globalStateColorData,
+    globalStateColorData: (() => {
+      if (
+        currentSingleCollectionData.type === 'singleColor' ||
+        currentSingleCollectionData.type === 'singleColorMultiBlends' ||
+        currentSingleCollectionData.type === 'multiColors'
+      ) {
+        const globalStateColorDataProp = currentSingleCollectionData.color;
+        return globalStateColorDataProp;
+      }
+      return undefined;
+    })(),
     stockedColorData,
     stockAddColor,
     stockRemoveColor,

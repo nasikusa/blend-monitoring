@@ -10,11 +10,11 @@ import GridListTile from '@material-ui/core/GridListTile';
 
 import MediaModalContainer from '../../../container/MediaModalContainer';
 import { StoredMediaStateType } from '../../../stores/storedMedia';
-import { GlCollectionInterface } from '../../../stores/collectionData';
+import { ImageRelatedGlCollectionType } from '../../../stores/collectionData';
 
 export type Props = {
   storedMediaData: StoredMediaStateType;
-  globalStateImageData: GlCollectionInterface['image'];
+  globalStateImageData: Pick<ImageRelatedGlCollectionType, 'image'>['image'];
 };
 
 const useStyles = makeStyles((theme: Theme) =>

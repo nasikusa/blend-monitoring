@@ -19,14 +19,14 @@ import Snackbar from '@material-ui/core/Snackbar';
 import MuiAlert, { AlertProps } from '@material-ui/lab/Alert';
 
 import getResiedImageData from '../../../utils/getResizedImageData';
-import { GlCollectionInterfaceArray } from '../../../stores/collectionData';
+import { GlCollectionTypeArray } from '../../../stores/collectionData';
 import MediaModalContentsContainer from '../../../container/MediaModalContentsContainer';
 import createStoredMediaItemObject from '../../../utils/createStoredMediaItemObject';
 
 import { StoredMediaStateType } from '../../../stores/storedMedia';
 
 type Props = {
-  collectionData: GlCollectionInterfaceArray;
+  collectionData: GlCollectionTypeArray;
   storedMediaData: StoredMediaStateType;
   modalOpen: boolean;
   setModalOpen: any;

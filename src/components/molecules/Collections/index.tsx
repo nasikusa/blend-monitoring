@@ -6,17 +6,24 @@ import Divider from '@material-ui/core/Divider';
 import CollectionContainer from '../../../container/CollectionContainer';
 
 import {
-  GlCollectionInterfaceArray,
-  GlCollectionInterface,
+  GlCollectionTypeArray,
+  GlCollectionType,
 } from '../../../stores/collectionData';
 import CreateCollectionPanelContainer from '../../../container/CreateCollectionPanelContainer';
 
 export type Props = {
-  collectionData: GlCollectionInterfaceArray;
+  collectionData: GlCollectionTypeArray;
   editPanelUpperMargin: string;
 };
 
-export const GlCollectionOrderContext = createContext(0);
+/**
+ * 現在のコレクションの順番を決定するためのcontextの型
+ */
+export type GlCollectionOrderContextType = number;
+
+export const GlCollectionOrderContext = createContext<
+  GlCollectionOrderContextType
+>(0);
 
 export default (props: Props) => {
   const { collectionData, editPanelUpperMargin } = props;
@@ -30,7 +37,7 @@ export default (props: Props) => {
    * コレクションの配列。操作上の理由から最後に反転させていることに注意してください。
    */
   const collectionItems = collectionData
-    .map((collectionDataItem: GlCollectionInterface, currentIndex: number) => {
+    .map((collectionDataItem: GlCollectionType, currentIndex: number) => {
       return (
         <GlCollectionOrderContext.Provider
           key={collectionDataItem.id}

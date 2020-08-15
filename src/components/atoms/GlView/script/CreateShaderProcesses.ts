@@ -1,8 +1,8 @@
 import CreateShaderBlend from './CreateShaderBlend';
 
 import {
-  GlCollectionInterfaceArray,
-  GlCollectionInterface,
+  GlCollectionTypeArray,
+  GlCollectionType,
 } from '../../../../stores/collectionData';
 
 /**
@@ -13,7 +13,7 @@ import {
  * @todo 透過度対応
  */
 export default (
-  multiCollectionData: GlCollectionInterfaceArray,
+  multiCollectionData: GlCollectionTypeArray,
   baseLayerName: string,
   glItemOrderKey: number
 ) => {
@@ -22,7 +22,7 @@ export default (
    */
   const resultShaderArray: string[] = multiCollectionData.map(
     (
-      singleCollectionData: GlCollectionInterface,
+      singleCollectionData: GlCollectionType,
       collectionCurrentIndex: number
     ) => {
       const { blendMode, opacity } = singleCollectionData;

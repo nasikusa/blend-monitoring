@@ -10,14 +10,14 @@ import CreateShaderProcessesVariables from './script/CreateShaderProcessesVariab
 import { GlItemOrderContext } from '../../organisms/GlBox';
 
 import { GlSettingsType } from '../../../stores/glSettings';
-import { GlCollectionInterfaceArray } from '../../../stores/collectionData';
+import { GlCollectionTypeArray } from '../../../stores/collectionData';
 import { StoredMediaStateType } from '../../../stores/storedMedia';
 import isEmptyMultiCollections from '../../../utils/isEmptyMultiCollections';
 
 type Props = {
   glSettings: GlSettingsType;
   storedMediaState: StoredMediaStateType;
-  multiCollectionData: GlCollectionInterfaceArray;
+  multiCollectionData: GlCollectionTypeArray;
 };
 
 /**
