@@ -39,18 +39,18 @@ export default (props: Props) => {
       color: null,
       size: null,
       image: null,
-      imageWidth: null,
-      imageHeight: null,
     };
     let multipleCollectionObject = {};
     switch (clickedTypeName) {
       case 'singleColor':
         multipleCollectionObject = {
+          roughType: 'color',
           color: '#000000',
         };
         break;
       case 'singleColorMultiBlends':
         multipleCollectionObject = {
+          roughType: 'color',
           color: '#000000',
           blendMode: ['normal'],
           innerItemId: [uuidv4()],
@@ -58,12 +58,14 @@ export default (props: Props) => {
         break;
       case 'multiColors':
         multipleCollectionObject = {
+          roughType: 'color',
           color: ['#000000'],
           innerItemId: [uuidv4()],
         };
         break;
       case 'singleImage':
         multipleCollectionObject = {
+          roughType: 'image',
           image: null,
           blendMode: 'normal',
           innerItemId: [uuidv4()],
@@ -72,6 +74,7 @@ export default (props: Props) => {
         break;
       case 'singleImageMultiBlends':
         multipleCollectionObject = {
+          roughType: 'image',
           image: null,
           blendMode: ['normal'],
           innerItemId: [uuidv4()],
@@ -80,6 +83,7 @@ export default (props: Props) => {
         break;
       case 'multiImages':
         multipleCollectionObject = {
+          roughType: 'image',
           image: [],
           innerItemId: [uuidv4()],
           size: 'cover',
