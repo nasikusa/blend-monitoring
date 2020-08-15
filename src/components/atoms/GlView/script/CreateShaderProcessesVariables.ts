@@ -64,7 +64,7 @@ layer${collectionCurrentIndex}ColorVec4.rgb;
   vec2 layer${collectionCurrentIndex}ColorUV = ShaderCoverImageSize(
   ${glUVName},
   vec2( ${glSettings.singleItemWidth.toFixed(1)},
-  ${glSettings.singleItemHeight.toFixed(1)} ) ,
+  ${(glSettings.singleItemWidth * glSettings.singleItemAspect).toFixed(1)} ) ,
   vec2( ${imageWidth.toFixed(1)} , ${imageHeight.toFixed(1)} ) );
 
   vec4 layer${collectionCurrentIndex}ColorVec4 =
@@ -83,7 +83,7 @@ layer${collectionCurrentIndex}ColorVec4.rgb;
   ShaderContainImageSize(
   ${glUVName},
   vec2( ${glSettings.singleItemWidth.toFixed(1)},
-  ${glSettings.singleItemHeight.toFixed(1)} ) ,
+  ${(glSettings.singleItemWidth * glSettings.singleItemAspect).toFixed(1)} ) ,
   vec2( ${imageWidth.toFixed(1)} ,
   ${imageHeight.toFixed(1)} ) );
 

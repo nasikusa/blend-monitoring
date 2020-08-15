@@ -1,6 +1,4 @@
-import React, { useState } from 'react';
-
-// import Grid from '@material-ui/core/Grid';
+import React, { useState, useEffect } from 'react';
 import { css } from '@emotion/core';
 import Typography from '@material-ui/core/Typography';
 import Box from '@material-ui/core/Box';
@@ -11,8 +9,12 @@ import Tab from '@material-ui/core/Tab';
 import Button from '@material-ui/core/Button';
 import PublishIcon from '@material-ui/icons/Publish';
 
+import getGlViewItemAspect from '../../../utils/getGlViewItemAspect';
 import { StoredMediaStateType } from '../../../stores/storedMedia';
-import { ImageRelatedGlCollectionType } from '../../../stores/collectionData';
+import {
+  ImageRelatedGlCollectionType,
+  GlCollectionTypeArray,
+} from '../../../stores/collectionData';
 
 export type Props = {
   storedMediaData: StoredMediaStateType;
@@ -23,6 +25,8 @@ export type Props = {
   updateImages: any;
   glCollectionOrderKey: number;
   OpenFileWindowFunction: any;
+  updateSingleItemAspect: any;
+  collectionData: GlCollectionTypeArray;
 };
 
 interface TabPanelProps {
@@ -76,9 +80,12 @@ export default function MediaModalContents(props: Props) {
     updateImages,
     glCollectionOrderKey,
     OpenFileWindowFunction,
+    updateSingleItemAspect,
+    collectionData,
   } = props;
   const [imageBoxWidth] = useState<number>(600);
   const [imageBoxRowCount] = useState<number>(9);
+  const [isImageChangeFlag, setIsImageChangeFlag] = useState(false);
 
   const [value, setValue] = React.useState(0);
 
@@ -92,7 +99,17 @@ export default function MediaModalContents(props: Props) {
       glCollectionOrderKey,
       boolValue: targetBoolValue,
     });
+    setIsImageChangeFlag(true);
   };
+
+  useEffect(() => {
+    if (!isImageChangeFlag) {
+      return;
+    }
+    const aspectValue = getGlViewItemAspect(collectionData, storedMediaData);
+    updateSingleItemAspect({ aspectValue });
+    setIsImageChangeFlag(false);
+  }, [isImageChangeFlag]);
 
   return (
     <Box width={imageBoxWidth}>

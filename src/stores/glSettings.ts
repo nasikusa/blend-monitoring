@@ -10,8 +10,8 @@ export type GlSettingsType = {
   rowCount: number;
   maxRowCount: number;
   minRowCount: number;
+  glItemsBoxWidth: number;
   singleItemWidth: number;
-  singleItemHeight: number;
   singleItemAspect: number;
   baseLayerDefaultColor: string;
   collectionDefaultColor: string;
@@ -30,8 +30,8 @@ const initialState: GlSettingsType = {
   rowCount: 3,
   maxRowCount: 6,
   minRowCount: 1,
+  glItemsBoxWidth: 600,
   singleItemWidth: 600,
-  singleItemHeight: 600,
   singleItemAspect: 1.0,
   baseLayerDefaultColor: '#000000',
   collectionDefaultColor: '#000000',
@@ -39,9 +39,6 @@ const initialState: GlSettingsType = {
   isShowDocArea: false,
   resizeProcessJpegQuality: 0.8,
 };
-
-initialState.singleItemAspect =
-  initialState.singleItemHeight / initialState.singleItemWidth;
 
 /**
  * toolkitを使用したスライス
@@ -52,12 +49,18 @@ export const glSettingsSlice = createSlice({
   reducers: {
     updateSingleItemSize: (state, action) => {
       const { glBoxClientWidth } = action.payload;
-      const singleItemWidth = Math.ceil(glBoxClientWidth / state.rowCount) - 1;
-      const singleItemHeight = singleItemWidth * state.singleItemAspect;
+      const singleItemWidth = Math.ceil(glBoxClientWidth / state.rowCount);
       return {
         ...state,
+        glItemsBoxWidth: glBoxClientWidth,
         singleItemWidth,
-        singleItemHeight,
+      };
+    },
+    updateSingleItemAspect: (state, action) => {
+      const { aspectValue } = action.payload;
+      return {
+        ...state,
+        singleItemAspect: aspectValue,
       };
     },
   },
@@ -65,4 +68,7 @@ export const glSettingsSlice = createSlice({
 
 export default glSettingsSlice.reducer;
 
-export const { updateSingleItemSize } = glSettingsSlice.actions;
+export const {
+  updateSingleItemSize,
+  updateSingleItemAspect,
+} = glSettingsSlice.actions;

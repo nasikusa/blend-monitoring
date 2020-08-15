@@ -28,7 +28,10 @@ export default () => {
     [dispatch]
   );
 
-  const combineProps = { createCollection, hasMultiItemCollection };
+  const combineProps = {
+    createCollection,
+    hasMultiItemCollection,
+  };
 
   return <CreateCollectionPanel {...combineProps} />;
 };

@@ -105,7 +105,7 @@ const GlView: React.FC<Props> = (props: Props) => {
     <div>
       <Surface
         width={glSettings.singleItemWidth}
-        height={glSettings.singleItemHeight}
+        height={glSettings.singleItemWidth * glSettings.singleItemAspect}
       >
         <Node shader={shaders.firstGL} uniforms={shaderUniformValue} />
       </Surface>

@@ -3,6 +3,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import MediaModalContents from '../components/molecules/MediaModalContents';
 import { AppState } from '../stores/index';
 import { GlCollectionOrderContext } from '../components/molecules/Collections';
+import { updateSingleItemAspect as updateSingleItemAspectAction } from '../stores/glSettings';
 import { updateImages as updateImagesAction } from '../stores/collectionData';
 
 export default (props: any) => {
@@ -33,11 +34,20 @@ export default (props: any) => {
     [dispatch]
   );
 
+  const updateSingleItemAspect = React.useCallback(
+    (val) => {
+      dispatch(updateSingleItemAspectAction(val));
+    },
+    [dispatch]
+  );
+
   const combineProps = {
     storedMediaData,
     collectionStateImageData,
     updateImages,
     glCollectionOrderKey,
+    updateSingleItemAspect,
+    collectionData,
     ...props,
   };
 
