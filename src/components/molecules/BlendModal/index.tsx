@@ -78,9 +78,9 @@ const modalTitleStyle = css`
     justify-content: space-between;
   }
   background-color: rgba(255, 255, 255, 0);
-  transition: background-color 0.2s ease;
+  transition: background-color 0.1s ease;
   :hover {
-    background-color: rgba(255, 255, 255, 0.2);
+    background-color: rgba(255, 255, 255, 0.05);
   }
 `;
 

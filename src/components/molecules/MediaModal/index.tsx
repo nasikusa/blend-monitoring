@@ -79,36 +79,9 @@ const modalTitleStyle = css`
     justify-content: space-between;
   }
   background-color: rgba(255, 255, 255, 0);
-  transition: background-color 0.2s ease;
+  transition: background-color 0.1s ease;
   :hover {
-    background-color: rgba(255, 255, 255, 0.2);
-  }
-`;
-
-/**
- * モーダルを小さいサイズにするスタイル
- * @todo かなり強制的に塗り替えてしまっているので、他の方法でできるならそれが良いと思う
- */
-const modalMinifyStyle = css`
-  ${modalBackStyle}
-  .MuiDialogTitle-root {
-    padding: 4px 10px;
-  }
-  .MuiDialogContent-root {
-    padding: 0px;
-  }
-  .MuiDialogContent-root .MuiFormControlLabel-root {
-    width: 130px !important;
-    padding-left: 0px !important;
-  }
-  .MuiFormControlLabel-root .MuiTypography-root {
-    font-size: 12px !important;
-  }
-  .MuiFormLabel-root {
-    padding-bottom: 0px !important;
-  }
-  .MuiDialogActions-root {
-    padding: 0px;
+    background-color: rgba(255, 255, 255, 0.05);
   }
 `;
 
