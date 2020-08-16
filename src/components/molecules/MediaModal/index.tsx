@@ -156,7 +156,6 @@ export default (props: Props) => {
 
   const handleBoxSizeFlag = () => {
     setIsBoxSmallFlag(!isBoxSmallFlag);
-    console.log(isBoxSmallFlag);
   };
 
   const handleImageSizeFlag = () => {
