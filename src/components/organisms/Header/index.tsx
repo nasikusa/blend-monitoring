@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
@@ -15,6 +15,7 @@ export type Props = {
 
 export default function (props: Props) {
   const { themeSettings } = props;
+  const [isShowHeaderInfos] = useState(false);
 
   const useStyles = makeStyles({
     root: {
@@ -36,7 +37,7 @@ export default function (props: Props) {
     <AppBar position="fixed" className={classes.root}>
       <Toolbar className={classes.root}>
         <Typography className={classes.logo}>{AppName}</Typography>
-        <HeaderInfos />
+        {isShowHeaderInfos && <HeaderInfos />}
       </Toolbar>
     </AppBar>
   );

@@ -130,6 +130,7 @@ export default (props: Props) => {
           setOnDropSnackBarOpenFlag(false);
         });
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
   const { getRootProps, getInputProps, isDragActive, open } = useDropzone({
     onDrop,

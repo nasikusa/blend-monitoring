@@ -109,6 +109,7 @@ export default function MediaModalContents(props: Props) {
     const aspectValue = getGlViewItemAspect(collectionData, storedMediaData);
     updateSingleItemAspect({ aspectValue });
     setIsImageChangeFlag(false);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isImageChangeFlag]);
 
   return (
