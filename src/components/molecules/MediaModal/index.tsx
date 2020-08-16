@@ -96,14 +96,14 @@ const modalTitleStyle = css`
 export default (props: Props) => {
   const classes = useStyles();
   const { modalOpen, setModalOpen, addMediaData } = props;
-  const [modalMinifyFlag, setModalMinifyFlag] = useState(false);
-  const [modalImageMinifyFlag, setModalImageMinifyFlag] = useState(false);
   const [onDropSnackBarOpenFlag, setOnDropSnackBarOpenFlag] = useState(false);
   const [
     onLoadMediaSnackBarOpenFlag,
     setOnLoadMediaSnackBarOpenFlag,
   ] = useState(false);
   const [onErrorSnackBarOpenFlag, setOnErrorSnackBarOpenFlag] = useState(false);
+  const [isBoxSmallFlag, setIsBoxSmallFlag] = useState(false);
+  const [isImageBigFlag, setIsImageBigFlag] = useState(false);
 
   const onDrop = useCallback((acceptedFiles) => {
     setOnDropSnackBarOpenFlag(true);
@@ -144,19 +144,6 @@ export default (props: Props) => {
     setModalOpen(false);
   };
 
-  /**
-   * モーダルサイズハンドル関数
-   */
-  const handleSwitchChangePanelSize = (): void => {
-    setModalMinifyFlag(!modalMinifyFlag);
-  };
-  /**
-   * モーダル画像サイズハンドル関数
-   */
-  const handleSwitchChangeImageSize = (): void => {
-    setModalImageMinifyFlag(!modalImageMinifyFlag);
-  };
-
   const handleDropSnackBarClose = (): void => {
     setOnDropSnackBarOpenFlag(false);
   };
@@ -167,21 +154,30 @@ export default (props: Props) => {
     setOnErrorSnackBarOpenFlag(false);
   };
 
+  const handleBoxSizeFlag = () => {
+    setIsBoxSmallFlag(!isBoxSmallFlag);
+    console.log(isBoxSmallFlag);
+  };
+
+  const handleImageSizeFlag = () => {
+    setIsImageBigFlag(!isImageBigFlag);
+  };
+
   /**
    * モーダルのスイッチコンポーネントの情報をまとめた配列
    */
   const modalSwitchParams = [
     {
       name: 'panelSmall',
-      onChange: handleSwitchChangePanelSize,
-      checked: modalMinifyFlag,
+      onChange: handleBoxSizeFlag,
+      checked: isBoxSmallFlag,
       label: 'パネルサイズを小さく',
     },
     {
       name: 'imageSmall',
-      onChange: handleSwitchChangeImageSize,
-      checked: modalImageMinifyFlag,
-      label: '画像を小さく',
+      onChange: handleImageSizeFlag,
+      checked: isImageBigFlag,
+      label: '画像を大きく',
     },
   ];
 
@@ -203,7 +199,7 @@ export default (props: Props) => {
             pointerEvents: 'all',
             border: isDragActive
               ? '3px dashed #ffffff'
-              : '3px solid transparent',
+              : '0px solid transparent',
           },
         }}
         PaperComponent={PaperComponent}
@@ -222,7 +218,11 @@ export default (props: Props) => {
             </IconButton>
           </DialogTitle>
           <DialogContent dividers>
-            <MediaModalContentsContainer OpenFileWindowFunction={open} />
+            <MediaModalContentsContainer
+              OpenFileWindowFunction={open}
+              isBoxSmallFlag={isBoxSmallFlag}
+              isImageBigFlag={isImageBigFlag}
+            />
           </DialogContent>
           <DialogActions>
             <FormGroup row>

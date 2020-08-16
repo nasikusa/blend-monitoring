@@ -27,6 +27,8 @@ export type Props = {
   OpenFileWindowFunction: any;
   updateSingleItemAspect: any;
   collectionData: GlCollectionTypeArray;
+  isBoxSmallFlag: boolean;
+  isImageBigFlag: boolean;
 };
 
 interface TabPanelProps {
@@ -82,9 +84,10 @@ export default function MediaModalContents(props: Props) {
     OpenFileWindowFunction,
     updateSingleItemAspect,
     collectionData,
+    isBoxSmallFlag,
+    isImageBigFlag,
   } = props;
-  const [imageBoxWidth] = useState<number>(600);
-  const [imageBoxRowCount] = useState<number>(9);
+
   const [isImageChangeFlag, setIsImageChangeFlag] = useState(false);
 
   const [value, setValue] = React.useState(0);
@@ -113,7 +116,7 @@ export default function MediaModalContents(props: Props) {
   }, [isImageChangeFlag]);
 
   return (
-    <Box width={imageBoxWidth}>
+    <Box width={isBoxSmallFlag ? 300 : 600}>
       <Box mb={1}>
         <Button
           onClick={OpenFileWindowFunction}
@@ -139,14 +142,14 @@ export default function MediaModalContents(props: Props) {
         variant="scrollable"
         scrollButtons="auto"
       >
-        <Tab label="フォルダ1" />
-        <Tab label="フォルダ2" />
-        <Tab label="フォルダ3" />
+        <Tab label="すべてのメディア" />
+        {/* <Tab label="フォルダ2" />
+        <Tab label="フォルダ3" /> */}
       </Tabs>
       <TabPanel value={value} index={0}>
         <GridList
-          cellHeight={imageBoxWidth / imageBoxRowCount}
-          cols={imageBoxRowCount}
+          cellHeight={(isBoxSmallFlag ? 300 : 600) / (isImageBigFlag ? 4 : 9)}
+          cols={isImageBigFlag ? 4 : 9}
           css={gridListStyle}
         >
           {Object.keys(storedMediaData).map((singleImageID: string) => {
@@ -179,8 +182,8 @@ export default function MediaModalContents(props: Props) {
       </TabPanel>
       <TabPanel value={value} index={1}>
         <GridList
-          cellHeight={imageBoxWidth / imageBoxRowCount}
-          cols={imageBoxRowCount}
+          cellHeight={(isBoxSmallFlag ? 300 : 600) / (isImageBigFlag ? 4 : 9)}
+          cols={isImageBigFlag ? 4 : 9}
           css={gridListStyle}
         >
           {Object.keys(storedMediaData)
@@ -204,8 +207,8 @@ export default function MediaModalContents(props: Props) {
       </TabPanel>
       <TabPanel value={value} index={2}>
         <GridList
-          cellHeight={imageBoxWidth / imageBoxRowCount}
-          cols={imageBoxRowCount}
+          cellHeight={(isBoxSmallFlag ? 300 : 600) / (isImageBigFlag ? 4 : 9)}
+          cols={isImageBigFlag ? 4 : 9}
           css={gridListStyle}
         >
           {Object.keys(storedMediaData).map((singleImageID: any) => {

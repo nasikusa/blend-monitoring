@@ -5,7 +5,7 @@ import Tab from '@material-ui/core/Tab';
 import Box from '@material-ui/core/Box';
 
 import LayersIcon from '@material-ui/icons/Layers';
-import BuildIcon from '@material-ui/icons/Build';
+// import BuildIcon from '@material-ui/icons/Build';
 
 import CollectionsContainer from '../../../container/CollectionsContainer';
 
@@ -68,14 +68,14 @@ export default (props: any) => {
         aria-label="タブパネル"
       >
         <Tab icon={<LayersIcon />} label="レイヤー" {...a11yProps(0)} />
-        <Tab icon={<BuildIcon />} label="設定" {...a11yProps(1)} />
+        {/* <Tab icon={<BuildIcon />} label="設定" {...a11yProps(1)} /> */}
       </Tabs>
       <TabPanel css={tabPanelStyle} value={value} index={0}>
         <CollectionsContainer />
       </TabPanel>
-      <TabPanel css={tabPanelStyle} value={value} index={1}>
+      {/* <TabPanel css={tabPanelStyle} value={value} index={1}>
         Item Two
-      </TabPanel>
+      </TabPanel> */}
     </div>
   );
 };
