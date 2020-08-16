@@ -9,7 +9,7 @@ import { DndProvider } from 'react-dnd';
 import { HTML5Backend } from 'react-dnd-html5-backend';
 import { ThemeProvider as EmotionThemeProvider } from 'emotion-theming';
 
-import Top from './components/pages/Top';
+// import Top from './components/pages/Top';
 import EditContainer from './container/EditContainer';
 import FoundationStyle from './styles/foundation';
 
@@ -57,7 +57,7 @@ function App() {
             <FoundationStyle />
             <BrowserRouter>
               <Switch>
-                <Route exact path="/" component={Top} />
+                <Route exact path="/" component={EditContainer} />
                 <Route path="/edit" component={EditContainer} />
               </Switch>
             </BrowserRouter>

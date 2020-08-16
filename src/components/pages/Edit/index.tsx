@@ -1,6 +1,7 @@
 import React, { useRef, useEffect, useState } from 'react';
 import EventListener from 'react-event-listener';
 import { RemoveScroll } from 'react-remove-scroll';
+import { Helmet } from 'react-helmet';
 
 import Grid from '@material-ui/core/Grid';
 import Box from '@material-ui/core/Box';
@@ -55,6 +56,38 @@ const Edit = (props: Props) => {
 
   const pageBody = (
     <RemoveScroll>
+      <Helmet>
+        <meta charSet="utf-8" />
+        <title>BlendMonitoring</title>
+        <meta
+          name="description"
+          content="BlendMonitoringは色の組み合わせをモニタリングできるwebツールです。"
+        />
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:site" content="@nakanasinokusa" />
+        <meta property="og:url" content="https://blend.nasikusa.net/" />
+        <meta property="og:title" content="BlendMonitoring" />
+        <meta
+          property="og:description"
+          content="BlendMonitoringは色の組み合わせをモニタリングできるwebツールです。"
+        />
+        <meta
+          property="og:image"
+          content="https://blend.nasikusa.net/assets/image/ogp/ogp.png"
+        />
+        <meta property="og:title" content="BlendMonitoring" />
+        <meta property="og:type" content="website" />
+        <meta property="og:url" content="https://blend.nasikusa.net/" />
+        <meta
+          property="og:image"
+          content="https://blend.nasikusa.net/assets/image/ogp/ogp.png"
+        />
+        <meta property="og:site_name" content="BlendMonitoring" />
+        <meta
+          property="og:description"
+          content="BlendMonitoringは色の組み合わせをモニタリングできるwebツールです。"
+        />
+      </Helmet>
       <Box>
         <Grid container>
           {isShowDocArea ? (
