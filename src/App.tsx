@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
 import {
   createMuiTheme,
@@ -23,6 +23,7 @@ const theme = createMuiTheme({
     },
     secondary: {
       main: '#F4FFB5',
+      // main: '#f4ff0b',
     },
   },
   typography: {
@@ -49,6 +50,15 @@ const emotionTheme = {
 };
 
 function App() {
+  useEffect(() => {
+    const beforeRenderingScreenElement = document.getElementById(
+      'beforeRenderingScreen'
+    );
+    if (beforeRenderingScreenElement != null) {
+      beforeRenderingScreenElement.style.display = 'none';
+    }
+  }, []);
+
   return (
     <div className="App">
       <MuiThemeProvider theme={theme}>

@@ -38,11 +38,16 @@
     content="BlendMonitoringは色の組み合わせをモニタリングできるwebツールです。"
   />
   <link rel="manifest" href="%PUBLIC_URL%/manifest.json" />
+  <link rel="stylesheet" href="./assets//css/beforeRenderScreen.css">
 </head>
 
 <body>
   <noscript>You need to enable JavaScript to run this app.</noscript>
-  <div id="root"></div>
+  <div id="beforeRenderingScreen">
+    <div class="beforeRenderingScreen__loader">Loading...</div>
+  </div>
+  <div id="root">
+  </div>
 </body>
 
 </html>
