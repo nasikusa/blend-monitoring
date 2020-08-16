@@ -105,6 +105,7 @@
     "react-remove-scroll": "^2.3.0",
     "react-rnd": "^10.2.1",
     "react-router-dom": "^5.2.0",
+    "react-share": "^4.2.1",
     "redux": "^4.0.5",
     "redux-immutable-state-invariant": "^2.1.0",
     "redux-logger": "^3.0.6",

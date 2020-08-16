@@ -1,30 +1,27 @@
 import React from 'react';
-import Link from '@material-ui/core/Link';
+import { TwitterShareButton, FacebookShareButton } from 'react-share';
+import Box from '@material-ui/core/Box';
+import Typography from '@material-ui/core/Typography';
 import IconButton from '@material-ui/core/IconButton';
-import GitHubIcon from '@material-ui/icons/GitHub';
 import TwitterIcon from '@material-ui/icons/Twitter';
+import FacebookIcon from '@material-ui/icons/Facebook';
+
+import { AppSiteInfo } from '../../../constants/appConstantSettings';
 
 export default () => {
   return (
-    <div>
-      <Link
-        href="https://github.com/nasikusa/blend-monitoring"
-        target="_blank"
-        rel="noopener noreferrer"
-      >
-        <IconButton aria-label="github" size="small">
-          <GitHubIcon fontSize="small" />
-        </IconButton>
-      </Link>
-      <Link
-        href="https://twitter.com/nakanasinokusa"
-        target="_blank"
-        rel="noopener noreferrer"
-      >
-        <IconButton aria-label="twitter" size="small">
+    <Box display="flex">
+      <Typography>share :</Typography>
+      <TwitterShareButton url={AppSiteInfo.url}>
+        <IconButton size="small">
           <TwitterIcon fontSize="small" />
         </IconButton>
-      </Link>
-    </div>
+      </TwitterShareButton>
+      <FacebookShareButton url={AppSiteInfo.url}>
+        <IconButton size="small">
+          <FacebookIcon fontSize="small" />
+        </IconButton>
+      </FacebookShareButton>
+    </Box>
   );
 };

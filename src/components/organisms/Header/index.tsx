@@ -15,7 +15,7 @@ export type Props = {
 
 export default function (props: Props) {
   const { themeSettings } = props;
-  const [isShowHeaderInfos] = useState(false);
+  const [isShowHeaderInfos] = useState(true);
 
   const useStyles = makeStyles({
     root: {
@@ -35,7 +35,7 @@ export default function (props: Props) {
 
   return (
     <AppBar position="fixed" className={classes.root}>
-      <Toolbar className={classes.root}>
+      <Toolbar className={classes.root} variant="dense">
         <Typography className={classes.logo}>{AppName}</Typography>
         {isShowHeaderInfos && <HeaderInfos />}
       </Toolbar>

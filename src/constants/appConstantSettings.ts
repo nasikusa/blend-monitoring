@@ -3,6 +3,10 @@
  */
 export const AppName = `BlendMonitoring`;
 
+export const AppSiteInfo = {
+  url: 'https://blend.nasikusa.net',
+};
+
 /**
  * 開発者情報
  */
