@@ -1,4 +1,6 @@
 import pica from 'pica';
+import ColorThief from 'colorthief';
+import chroma from 'chroma-js';
 import { StoredMediaStateItemType } from '../stores/storedMedia';
 import baseImageSizeObject, {
   baseImageSizeNames,
@@ -8,8 +10,8 @@ export type resultImageInfoObjectType = {
   imageWidth: StoredMediaStateItemType['rawWidth'];
   imageHeight: StoredMediaStateItemType['rawHeight'];
   imageRatio: StoredMediaStateItemType['aspectRatio'];
-  imageColor?: string;
-  imagePalette?: string[];
+  imageColor: string;
+  imagePalette: string[];
 };
 
 export type singleResizedImageDataType = {
@@ -17,8 +19,6 @@ export type singleResizedImageDataType = {
   resultDataURLSizeObject: StoredMediaStateItemType['fileSize'];
   resultImageInfoObject: resultImageInfoObjectType;
 };
-
-// const ColorThief = require('colorthief');
 
 /**
  * fileデータをdataURLに変換する
@@ -42,25 +42,29 @@ export function readAsDataURL(file: File): Promise<string> {
 
 function getRawImageData(
   rawSizeDataURL: string
-): Promise<[HTMLImageElement, number, number, number]> {
+): Promise<[HTMLImageElement, number, number, number, string, string[]]> {
   return new Promise((resolve) => {
     const imgElement = new Image();
-    // const colorThief = new ColorThief();
+    const colorThief: ColorThief = new ColorThief();
     imgElement.src = rawSizeDataURL;
     imgElement.onload = () => {
       const imageElement = imgElement;
       const imageWidth = imgElement.width;
       const imageHeight = imgElement.height;
       const imageRatio = imageHeight / imageWidth;
-      // const imageColor = colorThief.getColor(imgElement);
-      // const imagePalette = colorThief.getPalette(imgElement, 10);
+      const imageColor = chroma(colorThief.getColor(imgElement)).hex();
+      const imagePalette = colorThief
+        .getPalette(imgElement, 10)
+        .map((singlePaletteValue) => {
+          return chroma(singlePaletteValue).hex();
+        });
       resolve([
         imageElement,
         imageWidth,
         imageHeight,
         imageRatio,
-        // imageColor,
-        // imagePalette,
+        imageColor,
+        imagePalette,
       ]);
     };
   });
@@ -111,8 +115,8 @@ export async function getSingleResizedImageData(
     imageWidth,
     imageHeight,
     imageRatio,
-    // imageColor,
-    // imagePalette,
+    imageColor,
+    imagePalette,
   ] = await getRawImageData(rawSizeDataURL);
 
   const resizePromiseArray = [];
@@ -155,8 +159,8 @@ export async function getSingleResizedImageData(
     imageWidth,
     imageHeight,
     imageRatio,
-    // imageColor,
-    // imagePalette,
+    imageColor,
+    imagePalette,
   };
 
   return {

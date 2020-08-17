@@ -22,6 +22,10 @@ export default function createStoredMediaItemObject(
     aspectRatio: resultImageInfoObject.imageRatio,
     // createdAt: moment().toString(),
     mime: 'image/jpeg',
+    color: {
+      dominant: resultImageInfoObject.imageColor,
+      palette: resultImageInfoObject.imagePalette,
+    },
     fileSize: resultDataURLSizeObject,
     resource: resultDataURLObject,
     rawWidth: resultImageInfoObject.imageWidth,
