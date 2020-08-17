@@ -1,20 +1,19 @@
 /* eslint no-nested-ternary: 0 */
-
 import React, { useState, useCallback } from 'react';
-import { makeStyles, createStyles } from '@material-ui/core/styles';
+import Draggable from 'react-draggable';
+import { useDropzone } from 'react-dropzone';
 import { css } from '@emotion/core';
+import { makeStyles, createStyles } from '@material-ui/core/styles';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import Dialog from '@material-ui/core/Dialog';
 import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
 import IconButton from '@material-ui/core/IconButton';
 import Paper, { PaperProps } from '@material-ui/core/Paper';
-import Draggable from 'react-draggable';
 import CloseIcon from '@material-ui/icons/Close';
 import FormGroup from '@material-ui/core/FormGroup';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Switch from '@material-ui/core/Switch';
-import { useDropzone } from 'react-dropzone';
 import Snackbar from '@material-ui/core/Snackbar';
 import MuiAlert, { AlertProps } from '@material-ui/lab/Alert';
 
@@ -25,14 +24,18 @@ import createStoredMediaItemObject from '../../../utils/createStoredMediaItemObj
 
 import { StoredMediaStateType } from '../../../stores/storedMedia';
 
-type Props = {
+export type Props = {
   collectionData: GlCollectionTypeArray;
   storedMediaData: StoredMediaStateType;
   modalOpen: boolean;
-  setModalOpen: any;
+  setModalOpen: (modalOpenFlag: boolean) => void;
   addMediaData: any;
 };
 
+/**
+ * スナックバーコンポーネントのためにカスタマイズしたAlertコンポーネント
+ * @param props
+ */
 function Alert(props: AlertProps) {
   return <MuiAlert elevation={6} variant="filled" {...props} />;
 }
@@ -100,7 +103,7 @@ export default (props: Props) => {
   const [
     onLoadMediaSnackBarOpenFlag,
     setOnLoadMediaSnackBarOpenFlag,
-  ] = useState(false);
+  ] = useState<boolean>(false);
   const [onErrorSnackBarOpenFlag, setOnErrorSnackBarOpenFlag] = useState(false);
   const [isBoxSmallFlag, setIsBoxSmallFlag] = useState(false);
   const [isImageBigFlag, setIsImageBigFlag] = useState(false);

@@ -1,4 +1,4 @@
-import React, { createContext } from 'react';
+import React, { createContext, useRef, useState } from 'react';
 import { css } from '@emotion/core';
 import Box from '@material-ui/core/Box';
 import List from '@material-ui/core/List';
@@ -27,10 +27,15 @@ export const GlCollectionOrderContext = createContext<
 
 export default (props: Props) => {
   const { collectionData, editPanelUpperMargin } = props;
+  const collectionFixedMenuRef = useRef();
+  const [collectionFixedMenuHeight] = useState(0);
 
   const scrollStyle = css`
     overflow-y: scroll;
-    height: calc(100vh - ${editPanelUpperMargin});
+    overflow-x: hidden;
+    height: calc(
+      100vh - ${editPanelUpperMargin} - ${collectionFixedMenuHeight}px
+    );
   `;
 
   /**
@@ -51,7 +56,7 @@ export default (props: Props) => {
 
   return (
     <Box>
-      <CreateCollectionPanelContainer />
+      <CreateCollectionPanelContainer ref={collectionFixedMenuRef} />
       <Divider />
       <Box css={scrollStyle}>
         <List>{collectionItems}</List>

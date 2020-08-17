@@ -1,8 +1,11 @@
 /**
  * アプリ名
  */
-export const AppName = `BlendMonitoring`;
+export const AppName = `BlendMonitoring β`;
 
+/**
+ * サイト情報
+ */
 export const AppSiteInfo = {
   url: 'https://blend.nasikusa.net',
 };

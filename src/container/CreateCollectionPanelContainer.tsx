@@ -6,7 +6,7 @@ import CreateCollectionPanel from '../components/molecules/CreateCollectionPanel
 import canMultiItemCollectionName from '../constants/canMultiItemCollectionName';
 import { createCollection as createCollectionAction } from '../stores/collectionData';
 
-export default () => {
+export default (props: any) => {
   const dispatch = useDispatch();
   const multiCollectionData = useSelector(
     (state: AppState) => state.collectionData
@@ -31,6 +31,7 @@ export default () => {
   const combineProps = {
     createCollection,
     hasMultiItemCollection,
+    ...props,
   };
 
   return <CreateCollectionPanel {...combineProps} />;

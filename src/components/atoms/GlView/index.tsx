@@ -109,7 +109,6 @@ const GlView: React.FC<Props> = (props: Props) => {
             `,
     },
   });
-
   return (
     <Box css={surfaceBaseStyle}>
       <Surface

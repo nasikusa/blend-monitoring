@@ -9,6 +9,7 @@ export default () => {
 
   const editPanelUpperMargin = `${
     Number(themeSettings.header.appBarHeight.slice(0, -2)) +
+    Number(themeSettings.footer.appBarHeight.slice(0, -2)) +
     Number(themeSettings.glEdit.tabButtonHeight.slice(0, -2)) +
     Number(themeSettings.glEdit.createButtonHeight.slice(0, -2))
   }px`;

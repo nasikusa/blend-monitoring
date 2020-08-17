@@ -47,7 +47,7 @@ const useStyles = makeStyles((theme) => ({
     cursor: `default`,
   },
   nested: {
-    paddingLeft: theme.spacing(4),
+    paddingLeft: theme.spacing(6),
     backgroundColor: `transparent`,
     '&:hover': {
       backgroundColor: `transparent`,
@@ -314,8 +314,8 @@ export default (props: Props) => {
             <CustomSliderContainer />
           </ListItem>
         </List>
+        <Divider />
       </Collapse>
-      <Divider />
       <Collapse
         in={blendModeOpenFlag && collectionTypeFunctionObject.blendMode}
         timeout="auto"
@@ -327,8 +327,8 @@ export default (props: Props) => {
           </ListItem>
           <Divider />
         </List>
+        <Divider />
       </Collapse>
-      <Divider />
       <Collapse
         in={colorOpenFlag && collectionTypeFunctionObject.color}
         timeout="auto"
@@ -340,8 +340,8 @@ export default (props: Props) => {
           </ListItem>
           <Divider />
         </List>
+        <Divider />
       </Collapse>
-      <Divider />
       <Collapse
         in={imageOpenFlag && collectionTypeFunctionObject.image}
         timeout="auto"
@@ -353,8 +353,8 @@ export default (props: Props) => {
           </ListItem>
           <Divider />
         </List>
+        <Divider />
       </Collapse>
-      <Divider />
     </>
   );
 };

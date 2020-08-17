@@ -72,6 +72,7 @@ function getRawImageData(
 
 /**
  * @todo picaのリサイズ時の設定をコントロールしたいです
+ * @todo picaの処理を行わずにネイティブのcanvasのみでもリサイズできるようにしたいです。
  */
 export function getPicaResizedData(
   rawSizeDataURL: string,

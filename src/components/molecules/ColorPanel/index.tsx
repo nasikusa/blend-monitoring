@@ -43,6 +43,9 @@ const useStyles = makeStyles((theme: Theme) =>
     label: {
       fontSize: '12px',
     },
+    cirlcePicker: {
+      maxWidth: '300px',
+    },
   })
 );
 
@@ -281,6 +284,9 @@ const ColorPanel: React.FC<Props> = (props: Props) => {
       <Box ml={2}>
         <Grid container spacing={0}>
           <CirclePicker
+            className={classes.cirlcePicker}
+            circleSize={18}
+            circleSpacing={6}
             onChange={handleCirclePickerChange}
             color={colorValue}
             colors={[...cirlcePickerColors]}
