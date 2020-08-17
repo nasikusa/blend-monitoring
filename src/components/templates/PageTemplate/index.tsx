@@ -1,18 +1,15 @@
 import React from 'react';
-import { css } from '@emotion/core';
 import HeaderContainer from '../../../container/HeaderContainer';
+import Footer from '../../organisms/Footer';
 
 export default (props: any) => {
-  const { themeSettings, body } = props;
-
-  const styles = css`
-    padding-top: ${themeSettings.header.appBarHeight};
-  `;
+  const { body } = props;
 
   return (
-    <div css={styles}>
+    <div>
       <HeaderContainer />
       {body}
+      <Footer />
     </div>
   );
 };

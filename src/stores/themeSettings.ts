@@ -7,6 +7,9 @@ export type ThemeSettingsType = {
   header: {
     appBarHeight: string;
   };
+  footer: {
+    appBarHeight: string;
+  };
   glEdit: {
     tabButtonHeight: string;
     createButtonHeight: string;
@@ -23,9 +26,12 @@ const initialState: ThemeSettingsType = {
   header: {
     appBarHeight: `30px`,
   },
+  footer: {
+    appBarHeight: '20px',
+  },
   glEdit: {
-    tabButtonHeight: '72px',
-    createButtonHeight: '94px',
+    tabButtonHeight: '59px',
+    createButtonHeight: '60px',
   },
   tooltip: {
     defaultEntryDelay: 1500,
