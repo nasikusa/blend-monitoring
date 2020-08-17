@@ -5,7 +5,7 @@ import Grid from '@material-ui/core/Grid';
 import Box from '@material-ui/core/Box';
 import IconButton from '@material-ui/core/IconButton';
 import Typography from '@material-ui/core/Typography';
-import Button from '@material-ui/core/Button';
+// import Button from '@material-ui/core/Button';
 import { SketchPicker, CirclePicker, ColorResult } from 'react-color';
 import ColorLensIcon from '@material-ui/icons/ColorLens';
 import StarBorderIcon from '@material-ui/icons/StarBorder';
@@ -62,7 +62,7 @@ const ColorPanel: React.FC<Props> = (props: Props) => {
     stockAddColor,
     stockRemoveColor,
   } = props;
-  const [colorPickerOpen, setColorPickerOpen] = useState(false);
+  // const [colorPickerOpen, setColorPickerOpen] = useState(false);
   const [currentColorBoxKey, setCurrentColorBoxKey] = useState(0);
   const [isFillToScreenCurrentColor, setIsFillToScreenCurrentColor] = useState(
     false
@@ -153,9 +153,9 @@ const ColorPanel: React.FC<Props> = (props: Props) => {
   /**
    * カラーピッカーパネルの開閉フラグ用の関数
    */
-  const handleOpen = (): void => {
-    setColorPickerOpen(!colorPickerOpen);
-  };
+  // const handleOpen = (): void => {
+  //   setColorPickerOpen(!colorPickerOpen);
+  // };
 
   /**
    * カラーピッカーを選択し終えたとき、もしくはカラーが一定時間(0.5sくらい？)
@@ -420,18 +420,11 @@ const ColorPanel: React.FC<Props> = (props: Props) => {
             />
           </Box>
         </Grid>
-        <Grid item xs={12}>
+        {/* <Grid item xs={12}>
           <Box ml={4}>
-            <Button
-              size="small"
-              variant="contained"
-              color="primary"
-              onClick={handleOpen}
-            >
-              カラーパネルを開く
-            </Button>
+            <Button onClick={handleOpen}>カラーパネルを開く</Button>
           </Box>
-        </Grid>
+        </Grid> */}
       </Grid>
     </Box>
   );
