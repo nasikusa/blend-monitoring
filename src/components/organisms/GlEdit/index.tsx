@@ -54,6 +54,12 @@ export default (props: any) => {
     height: calc(100vh - ${editPanelUpperMargin});
   `;
 
+  const muiTabItemStyle = css`
+    .MuiTab-labelIcon {
+      min-height: 0px !important;
+    }
+  `;
+
   const handleChange = (event: React.ChangeEvent<{}>, newValue: number) => {
     setValue(newValue);
   };
@@ -66,6 +72,7 @@ export default (props: any) => {
         indicatorColor="secondary"
         textColor="secondary"
         aria-label="タブパネル"
+        css={muiTabItemStyle}
       >
         <Tab icon={<LayersIcon />} label="レイヤー" {...a11yProps(0)} />
         {/* <Tab icon={<BuildIcon />} label="設定" {...a11yProps(1)} /> */}
