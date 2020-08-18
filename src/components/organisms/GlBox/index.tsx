@@ -1,18 +1,13 @@
 import React, { createContext, useState } from 'react';
-import { css } from '@emotion/core';
 import Box from '@material-ui/core/Box';
-import Typography from '@material-ui/core/Typography';
-import Paper from '@material-ui/core/Paper';
-import Divider from '@material-ui/core/Divider';
 import Grid from '@material-ui/core/Grid';
-import Snackbar from '@material-ui/core/Snackbar';
-import MuiAlert, { AlertProps } from '@material-ui/lab/Alert';
-import { useTheme } from '@material-ui/core/styles';
 
 import GlItem from '../../molecules/GlItem';
 import DefaultWelcome from '../../molecules/DefaultWelcome';
 import { GlCollectionType } from '../../../stores/collectionData';
 import { maxCountOfGlItem } from '../../../constants/appConstantSettings';
+import CustomAlert from '../../atoms/CustomAlert';
+import NoticeSnackbar from '../../atoms/NoticeSnackbar';
 
 export const GlItemOrderContext = createContext(0);
 
@@ -21,40 +16,6 @@ export type Props = {
   glItemKeys: Pick<GlCollectionType, 'innerItemID'>['innerItemID'];
   glBoxRowCount: number;
 };
-
-/**
- * アラートコンポーネントのバツボタンを消すスタイル
- */
-const snackBarStyle = css`
-  .MuiAlert-action {
-    display: none;
-  }
-`;
-
-const fullStyle = css`
-  width: 100%;
-  height: calc(100vh - 50px);
-
-  @media (max-width: 1200px) {
-    display: none;
-  }
-`;
-
-const descriptionStyle = css`
-  line-height: 2;
-  letter-spacing: 2px;
-`;
-
-const logoImageBackStyle = css`
-  background-color: #232323;
-  border-radius: 50%;
-  padding: 20px;
-`;
-
-function Alert(props: AlertProps) {
-  return <MuiAlert elevation={6} variant="filled" {...props} />;
-}
-
 /**
  * glsl描画アイテムのラッパーコンポーネント
  * @todo 最大アイテム数以上のときに警告を表示する
@@ -63,7 +24,6 @@ export default function GlBox(props: Props) {
   const { glItemCount, glItemKeys, glBoxRowCount } = props;
   const [glItemDivideNumber] = useState(1 / glBoxRowCount);
   const [overItemNumberFlag, setOverItemNumberFlag] = useState(false);
-  const theme = useTheme();
 
   const handleClose = () => {
     setOverItemNumberFlag(false);
@@ -80,42 +40,39 @@ export default function GlBox(props: Props) {
     }
   }
 
-  const items = (() => {
-    const itemsArray = [];
-    for (let i = 0; i < resultGlItemCountValue; i += 1) {
-      itemsArray.push(
-        <GlItemOrderContext.Provider
-          key={Array.isArray(glItemKeys) ? glItemKeys[i] : glItemKeys}
-          value={i}
-        >
-          <Box width={glItemDivideNumber}>
-            <GlItem />
-          </Box>
-        </GlItemOrderContext.Provider>
-      );
-    }
-    return itemsArray;
-  })();
-
   return (
     <>
       <Grid container>
         {glItemCount > 0 ? (
-          items
+          (() => {
+            const itemsArray = [];
+            for (let i = 0; i < resultGlItemCountValue; i += 1) {
+              itemsArray.push(
+                <GlItemOrderContext.Provider
+                  key={Array.isArray(glItemKeys) ? glItemKeys[i] : glItemKeys}
+                  value={i}
+                >
+                  <Box width={glItemDivideNumber}>
+                    <GlItem />
+                  </Box>
+                </GlItemOrderContext.Provider>
+              );
+            }
+            return itemsArray;
+          })()
         ) : (
           <DefaultWelcome />
         )}
       </Grid>
-      <Snackbar
-        anchorOrigin={{ vertical: 'bottom', horizontal: 'left' }}
+      <NoticeSnackbar
         open={overItemNumberFlag}
         autoHideDuration={6000}
         onClose={handleClose}
       >
-        <Alert onClose={handleClose} severity="warning" css={snackBarStyle}>
+        <CustomAlert onClose={handleClose} severity="warning" disableClose>
           アイテムの数は最大で14個です。14個以下になるようにアイテムを減らしてください。
-        </Alert>
-      </Snackbar>
+        </CustomAlert>
+      </NoticeSnackbar>
     </>
   );
 }

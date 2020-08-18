@@ -15,12 +15,12 @@ import FormGroup from '@material-ui/core/FormGroup';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Switch from '@material-ui/core/Switch';
 import Snackbar from '@material-ui/core/Snackbar';
-import MuiAlert, { AlertProps } from '@material-ui/lab/Alert';
 
 import getResiedImageData from '../../../utils/getResizedImageData';
 import { GlCollectionTypeArray } from '../../../stores/collectionData';
 import MediaModalContentsContainer from '../../../container/MediaModalContentsContainer';
 import createStoredMediaItemObject from '../../../utils/createStoredMediaItemObject';
+import CustomAlert from '../../atoms/CustomAlert';
 
 import { StoredMediaStateType } from '../../../stores/storedMedia';
 
@@ -31,14 +31,6 @@ export type Props = {
   setModalOpen: (modalOpenFlag: boolean) => void;
   addMediaData: any;
 };
-
-/**
- * スナックバーコンポーネントのためにカスタマイズしたAlertコンポーネント
- * @param props
- */
-function Alert(props: AlertProps) {
-  return <MuiAlert elevation={6} variant="filled" {...props} />;
-}
 
 const useStyles = makeStyles(() =>
   createStyles({
@@ -253,9 +245,9 @@ export default (props: Props) => {
         autoHideDuration={12000}
         onClose={handleDropSnackBarClose}
       >
-        <Alert onClose={handleDropSnackBarClose} severity="info">
+        <CustomAlert onClose={handleDropSnackBarClose} severity="info">
           画像を読み込んでいます。しばらくお待ちください。
-        </Alert>
+        </CustomAlert>
       </Snackbar>
       <Snackbar
         anchorOrigin={{ vertical: 'bottom', horizontal: 'left' }}
@@ -263,9 +255,9 @@ export default (props: Props) => {
         autoHideDuration={12000}
         onClose={handleMediaLoadSnackBarClose}
       >
-        <Alert onClose={handleMediaLoadSnackBarClose} severity="success">
+        <CustomAlert onClose={handleMediaLoadSnackBarClose} severity="success">
           画像の読み込みが完了しました。
-        </Alert>
+        </CustomAlert>
       </Snackbar>
       <Snackbar
         anchorOrigin={{ vertical: 'bottom', horizontal: 'left' }}
@@ -273,9 +265,9 @@ export default (props: Props) => {
         autoHideDuration={12000}
         onClose={handleErrorSnackBarClose}
       >
-        <Alert onClose={handleErrorSnackBarClose} severity="error">
+        <CustomAlert onClose={handleErrorSnackBarClose} severity="error">
           画像の読み込み中にエラーが発生しました。
-        </Alert>
+        </CustomAlert>
       </Snackbar>
     </>
   );
