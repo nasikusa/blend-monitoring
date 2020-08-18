@@ -1,6 +1,6 @@
 import React from 'react';
 import HeaderContainer from '../../../container/HeaderContainer';
-import Footer from '../../organisms/Footer';
+import FooterContainer from '../../../container/FooterContainer';
 
 export default (props: any) => {
   const { body } = props;
@@ -9,7 +9,7 @@ export default (props: any) => {
     <div>
       <HeaderContainer />
       {body}
-      <Footer />
+      <FooterContainer />
     </div>
   );
 };
