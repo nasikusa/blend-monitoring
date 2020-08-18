@@ -6,6 +6,7 @@ import Grid from '@material-ui/core/Grid';
 import { makeStyles, useTheme } from '@material-ui/core/styles';
 
 import HeaderInfos from '../../molecules/HeaderInfos';
+import LogoImage from '../../atoms/LogoImage';
 import { AppName } from '../../../constants/appConstantSettings';
 
 import { ThemeSettingsType } from '../../../stores/themeSettings';
@@ -40,7 +41,7 @@ export default function (props: Props) {
         <Grid container justify="space-between" alignItems="center">
           <Grid item>
             <Grid container alignItems="center">
-              <img src="/logo192.png" alt="ロゴ画像" width="18px" />
+              <LogoImage size="icon" noBg noSpace />
               <Typography className={classes.logo}>{AppName}</Typography>
             </Grid>
           </Grid>

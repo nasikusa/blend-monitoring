@@ -10,6 +10,7 @@ import MuiAlert, { AlertProps } from '@material-ui/lab/Alert';
 import { useTheme } from '@material-ui/core/styles';
 
 import GlItem from '../../molecules/GlItem';
+import DefaultWelcome from '../../molecules/DefaultWelcome';
 import { GlCollectionType } from '../../../stores/collectionData';
 import { maxCountOfGlItem } from '../../../constants/appConstantSettings';
 
@@ -102,58 +103,7 @@ export default function GlBox(props: Props) {
         {glItemCount > 0 ? (
           items
         ) : (
-          <Grid container justify="center" alignItems="center" css={fullStyle}>
-            <Paper
-              elevation={14}
-              style={{
-                backgroundColor: '#ddd',
-                color: theme.palette.background.default,
-              }}
-            >
-              <Grid container alignItems="center">
-                <Box
-                  display="flex"
-                  justifyContent="center"
-                  pl={6}
-                  pr={4}
-                  py={6}
-                >
-                  <img
-                    css={logoImageBackStyle}
-                    src="/logo512.png"
-                    alt="ロゴ画像"
-                    width="180"
-                    height="180"
-                  />
-                </Box>
-                <Box ml={2} pr={10}>
-                  <Typography
-                    display="block"
-                    css={descriptionStyle}
-                    align="center"
-                    gutterBottom
-                  >
-                    BlendMonitoringは
-                    <br />
-                    画像やテクスチャ、カラー、描画モードなどの
-                    <br />
-                    複数の色の組み合わせを
-                    <br />
-                    一度に確認できる
-                    <br />
-                    カラーグレーディングツールです。
-                  </Typography>
-                  <Divider />
-                  <Typography display="block" variant="overline" align="center">
-                    バージョン : 0.1.0
-                  </Typography>
-                  <Typography display="block" variant="overline" align="center">
-                    2020 / 07 / 25 ~
-                  </Typography>
-                </Box>
-              </Grid>
-            </Paper>
-          </Grid>
+          <DefaultWelcome />
         )}
       </Grid>
       <Snackbar
