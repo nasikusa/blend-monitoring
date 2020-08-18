@@ -65,7 +65,7 @@ export default (props: any) => {
   };
 
   return (
-    <div>
+    <Box>
       <Tabs
         value={value}
         onChange={handleChange}
@@ -83,6 +83,6 @@ export default (props: any) => {
       {/* <TabPanel css={tabPanelStyle} value={value} index={1}>
         Item Two
       </TabPanel> */}
-    </div>
+    </Box>
   );
 };

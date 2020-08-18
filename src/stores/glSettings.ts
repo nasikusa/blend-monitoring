@@ -49,6 +49,11 @@ export const glSettingsSlice = createSlice({
   reducers: {
     updateSingleItemSize: (state, action) => {
       const { glBoxClientWidth } = action.payload;
+      if (glBoxClientWidth == null) {
+        return {
+          ...state,
+        };
+      }
       const singleItemWidth = Math.ceil(glBoxClientWidth / state.rowCount);
       return {
         ...state,

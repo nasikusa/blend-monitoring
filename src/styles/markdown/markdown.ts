@@ -10,8 +10,6 @@ const markdownStyle = css`
     -webkit-text-size-adjust: 100%;
     line-height: 1.5;
     color: #24292e;
-    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial,
-      sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol';
     font-size: 16px;
     line-height: 1.5;
     word-wrap: break-word;
@@ -539,6 +537,7 @@ const markdownStyle = css`
 
   li {
     word-wrap: break-all;
+    list-style-type: disc;
   }
 
   li > p {

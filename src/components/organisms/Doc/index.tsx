@@ -32,11 +32,11 @@ export default function Doc() {
     .join('\n\n');
 
   const input = `
-## テクスチャサイト
+### テクスチャサイト
 主にフリーのテクスチャサイトをまとめました。
 ${imageResouceSites}
 
-## 使わせていただいたライブラリ・フレームワーク
+### 使わせていただいたライブラリ・フレームワーク
 
 ${devListString}
 

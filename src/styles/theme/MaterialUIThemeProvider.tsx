@@ -76,6 +76,10 @@ const MaterialUIThemeProvider = (props: Props) => {
       MuiSvgIcon: {
         fontSize: 'small',
       },
+      MuiTabs: {
+        indicatorColor: 'secondary',
+        textColor: 'secondary',
+      },
       MuiTextField: {
         margin: 'dense',
       },

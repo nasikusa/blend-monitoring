@@ -135,8 +135,6 @@ export default function MediaModalContents(props: Props) {
       <Tabs
         css={tabsStyle}
         value={value}
-        indicatorColor="primary"
-        textColor="primary"
         onChange={handleTabChange}
         aria-label="フォルダタブ"
         variant="scrollable"
