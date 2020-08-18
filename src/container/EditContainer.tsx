@@ -11,6 +11,11 @@ export default () => {
   const { isShowDocArea } = appSettings;
   const dispatch = useDispatch();
 
+  const headerAndFooterElementHeight =
+    Number(themeSettings.header.appBarHeight.slice(0, -2)) +
+    Number(themeSettings.footer.appBarHeight.slice(0, -2));
+  const editAreaHeightvalue = `calc(100vh - ${headerAndFooterElementHeight}px)`;
+
   const updateSingleItemSize = React.useCallback(
     (val) => {
       dispatch(updateSingleItemSizeAction(val));
@@ -18,7 +23,11 @@ export default () => {
     [dispatch]
   );
 
-  const combineProps = { themeSettings, updateSingleItemSize, isShowDocArea };
+  const combineProps = {
+    updateSingleItemSize,
+    isShowDocArea,
+    editAreaHeightvalue,
+  };
 
   return <Edit {...combineProps} />;
 };
