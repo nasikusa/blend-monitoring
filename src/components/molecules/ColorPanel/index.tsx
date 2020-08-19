@@ -6,9 +6,7 @@ import Box from '@material-ui/core/Box';
 import IconButton from '@material-ui/core/IconButton';
 import Typography from '@material-ui/core/Typography';
 // import Button from '@material-ui/core/Button';
-import { SketchPicker, CirclePicker, ColorResult } from 'react-color';
-import ColorLensIcon from '@material-ui/icons/ColorLens';
-import StarBorderIcon from '@material-ui/icons/StarBorder';
+import { CirclePicker, ColorResult } from 'react-color';
 
 import DeleteIcon from '@material-ui/icons/Delete';
 import AddBoxIcon from '@material-ui/icons/AddBox';
@@ -19,6 +17,7 @@ import ZoomOutMapIcon from '@material-ui/icons/ZoomOutMap';
 
 import CustomTooltip from '../../atoms/CustomTooltip';
 import { GlCollectionOrderContext } from '../Collections';
+import CustomSketchPicker from '../../atoms/CustomSketchPicker';
 
 import { ColorRelatedGlCollectionType } from '../../../stores/collectionData';
 
@@ -90,75 +89,6 @@ const ColorPanel: React.FC<Props> = (props: Props) => {
    */
   const [colorValue, setColorValue] = useState(defaultColorValue);
   const glCollectionOrderKey = useContext(GlCollectionOrderContext);
-
-  const bigSketchPickerStyle = css`
-    max-width: initial !important;
-  `;
-
-  /**
-   * SketchPickerコンポーネントのスタイルを変更する。
-   */
-  const sketchPickerStyle = css`
-    width: 100% !important;
-    /* @todo カラーピッカーのサイズを変更できるようにしたいです */
-    max-width: 200px !important;
-    padding: 0px !important;
-    background: transparent !important;
-    border-radius: 0px !important;
-    box-shadow: none !important;
-    .flexbox-fix {
-      /* @todo 背景色は変数化したいです */
-      background: #484848 !important;
-    }
-    > div:nth-of-type(2) {
-      > div:nth-of-type(1) {
-        > div:nth-of-type(1) {
-          /* HUE変更用のバー */
-          height: 20px !important;
-          > div:nth-of-type(1) {
-            > div:nth-of-type(1) {
-              > div:nth-of-type(1) {
-                > div:nth-of-type(1) {
-                  /* HUEピッカーの白い選択バー */
-                  height: 18px !important;
-                }
-              }
-            }
-          }
-        }
-      }
-      > div:nth-of-type(2) {
-        /* 単色確認用の色パネル */
-        height: 20px !important;
-        > div:nth-of-type(2) {
-          /* 単色確認用のパネルのシャドー */
-          box-shadow: none !important;
-        }
-      }
-    }
-    > div:nth-of-type(3) {
-      > div {
-        > div {
-          > span {
-            /* hex / r / g / b の文字のところ */
-            padding-top: 7px !important;
-            padding-bottom: 8px !important;
-          }
-        }
-      }
-    }
-    span {
-      /* 文字色の変更 */
-      color: rgba(255, 255, 255, 1) !important;
-    }
-  `;
-
-  /**
-   * カラーピッカーパネルの開閉フラグ用の関数
-   */
-  // const handleOpen = (): void => {
-  //   setColorPickerOpen(!colorPickerOpen);
-  // };
 
   /**
    * カラーピッカーを選択し終えたとき、もしくはカラーが一定時間(0.5sくらい？)
@@ -412,17 +342,12 @@ const ColorPanel: React.FC<Props> = (props: Props) => {
         </Grid>
         <Grid item xs={12}>
           <Box ml={4}>
-            <SketchPicker
+            <CustomSketchPicker
               color={colorValue}
               onChangeComplete={handleColorChangeComplete}
               onChange={handleColorChange}
               disableAlpha
               presetColors={stockedColorData}
-              css={
-                isBigSketchPickerSize
-                  ? [sketchPickerStyle, bigSketchPickerStyle]
-                  : sketchPickerStyle
-              }
             />
           </Box>
         </Grid>
