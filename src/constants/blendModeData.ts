@@ -1,3 +1,10 @@
+export type BlendModeRoughTypeType =
+  | 'blendModeNormal'
+  | 'blendModeBrightnessMinus'
+  | 'blendModeBrightnessPlusMinus'
+  | 'blendModeBrightnessPlus'
+  | 'blendModeMath';
+
 export type BasicBlendModeType = 'normal';
 
 export type BrightnessPlusBlendModesType =

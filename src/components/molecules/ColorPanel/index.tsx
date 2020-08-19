@@ -7,19 +7,22 @@ import IconButton from '@material-ui/core/IconButton';
 import Typography from '@material-ui/core/Typography';
 // import Button from '@material-ui/core/Button';
 import { CirclePicker, ColorResult } from 'react-color';
-
-import DeleteIcon from '@material-ui/icons/Delete';
-import AddBoxIcon from '@material-ui/icons/AddBox';
-import SortIcon from '@material-ui/icons/Sort';
-import StarIcon from '@material-ui/icons/Star';
-import FormatColorFillIcon from '@material-ui/icons/FormatColorFill';
-import ZoomOutMapIcon from '@material-ui/icons/ZoomOutMap';
+import Icon from '../../atoms/Icon';
 
 import CustomTooltip from '../../atoms/CustomTooltip';
 import { GlCollectionOrderContext } from '../Collections';
 import CustomSketchPicker from '../../atoms/CustomSketchPicker';
 
 import { ColorRelatedGlCollectionType } from '../../../stores/collectionData';
+
+export type ColorPanelFunctionNames =
+  | 'colorPanelAdd'
+  | 'colorPanelDelete'
+  | 'colorPanelSort'
+  | 'colorPanelAddFav'
+  | 'colorPanelDeleteFav'
+  | 'colorPanelFill'
+  | 'colorPanelExpand';
 
 type Props = {
   updateColor: any;
@@ -238,24 +241,16 @@ const ColorPanel: React.FC<Props> = (props: Props) => {
           title="新しいカラーを追加"
           enterDelay={defaultEnterDelayTime}
         >
-          <IconButton
-            onClick={handleAddNewColor}
-            css={colorPanelButtonStyle}
-            size="small"
-          >
-            <AddBoxIcon fontSize="small" />
+          <IconButton onClick={handleAddNewColor} css={colorPanelButtonStyle}>
+            <Icon type="colorPanelAdd" />
           </IconButton>
         </CustomTooltip>
         <CustomTooltip
           title="選択しているカラーを削除"
           enterDelay={defaultEnterDelayTime}
         >
-          <IconButton
-            onClick={handlRemoveColor}
-            css={colorPanelButtonStyle}
-            size="small"
-          >
-            <DeleteIcon fontSize="small" />
+          <IconButton onClick={handlRemoveColor} css={colorPanelButtonStyle}>
+            <Icon type="colorPanelDelete" />
           </IconButton>
         </CustomTooltip>
         <CustomTooltip
@@ -263,19 +258,15 @@ const ColorPanel: React.FC<Props> = (props: Props) => {
           enterDelay={defaultEnterDelayTime}
         >
           <IconButton size="small" css={colorPanelButtonStyle}>
-            <SortIcon fontSize="small" />
+            <Icon type="colorPanelSort" />
           </IconButton>
         </CustomTooltip>
         <CustomTooltip
           title="カラーをストック"
           enterDelay={defaultEnterDelayTime}
         >
-          <IconButton
-            onClick={handleStockColor}
-            css={colorPanelButtonStyle}
-            size="small"
-          >
-            <StarIcon fontSize="small" />
+          <IconButton onClick={handleStockColor} css={colorPanelButtonStyle}>
+            <Icon type="colorPanelAddFav" />
           </IconButton>
         </CustomTooltip>
         <CustomTooltip
@@ -285,9 +276,8 @@ const ColorPanel: React.FC<Props> = (props: Props) => {
           <IconButton
             onClick={handleStockColorRemove}
             css={colorPanelButtonStyle}
-            size="small"
           >
-            <StarBorderIcon fontSize="small" />
+            <Icon type="colorPanelDeleteFav" />
           </IconButton>
         </CustomTooltip>
         <CustomTooltip
@@ -297,9 +287,8 @@ const ColorPanel: React.FC<Props> = (props: Props) => {
           <IconButton
             onClick={handleScreenFillColor}
             css={colorPanelButtonStyle}
-            size="small"
           >
-            <FormatColorFillIcon fontSize="small" />
+            <Icon type="colorPanelFill" />
           </IconButton>
         </CustomTooltip>
         <CustomTooltip
@@ -309,9 +298,8 @@ const ColorPanel: React.FC<Props> = (props: Props) => {
           <IconButton
             onClick={handleSketchPickerSize}
             css={colorPanelButtonStyle}
-            size="small"
           >
-            <ZoomOutMapIcon fontSize="small" />
+            <Icon type="colorPanelExpand" />
           </IconButton>
         </CustomTooltip>
       </Box>
@@ -333,7 +321,7 @@ const ColorPanel: React.FC<Props> = (props: Props) => {
       <Grid container spacing={1}>
         <Grid item xs={12}>
           <Box display="flex" mb={1}>
-            <ColorLensIcon />
+            <Icon type="colorPanel" />
             <ColorBoxes />
           </Box>
           <Box display="flex" mb={1}>

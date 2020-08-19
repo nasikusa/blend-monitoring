@@ -4,14 +4,10 @@ import { makeStyles, createStyles } from '@material-ui/core/styles';
 import FormControl from '@material-ui/core/FormControl';
 import FormGroup from '@material-ui/core/FormGroup';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
-import PanoramaFishEyeIcon from '@material-ui/icons/PanoramaFishEye';
 import FormLabel from '@material-ui/core/FormLabel';
 import Checkbox from '@material-ui/core/Checkbox';
 import Divider from '@material-ui/core/Divider';
-
-import Brightness3Icon from '@material-ui/icons/Brightness3';
-import WbSunnyIcon from '@material-ui/icons/WbSunny';
-import DialpadIcon from '@material-ui/icons/Dialpad';
+import Icon from '../../atoms/Icon';
 
 import {
   readyBlendModeArray,
@@ -211,22 +207,25 @@ export default function BlendModalContents(props: Props) {
           >
             {divideElement}
             <FormLabel css={iconCenterStyle} component="legend">
-              {currentIndex === 0 ? (
-                <PanoramaFishEyeIcon color="primary" />
+              {currentIndex === 0 ? <Icon type="blendModeNormal" /> : ''}
+              {currentIndex === 1 ? (
+                <Icon type="blendModeBrightnessMinus" />
               ) : (
                 ''
               )}
-              {currentIndex === 1 ? <Brightness3Icon color="primary" /> : ''}
               {currentIndex === 2 ? (
                 <>
-                  <Brightness3Icon color="primary" />
-                  <WbSunnyIcon color="primary" />
+                  <Icon type="blendModeBrightnessPlusMinus" />
                 </>
               ) : (
                 ''
               )}
-              {currentIndex === 3 ? <WbSunnyIcon color="primary" /> : ''}
-              {currentIndex === 4 ? <DialpadIcon color="primary" /> : ''}
+              {currentIndex === 3 ? (
+                <Icon type="blendModeBrightnessPlus" />
+              ) : (
+                ''
+              )}
+              {currentIndex === 4 ? <Icon type="blendModeMath" /> : ''}
             </FormLabel>
             <FormGroup>{oneCategoryLabels}</FormGroup>
           </FormControl>

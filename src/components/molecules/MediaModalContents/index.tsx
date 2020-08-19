@@ -7,7 +7,7 @@ import GridListTile from '@material-ui/core/GridListTile';
 import Tabs from '@material-ui/core/Tabs';
 import Tab from '@material-ui/core/Tab';
 import Button from '@material-ui/core/Button';
-import PublishIcon from '@material-ui/icons/Publish';
+import Icon from '../../atoms/Icon';
 
 import getGlViewItemAspect from '../../../utils/getGlViewItemAspect';
 import { StoredMediaStateType } from '../../../stores/storedMedia';
@@ -122,7 +122,7 @@ export default function MediaModalContents(props: Props) {
           onClick={OpenFileWindowFunction}
           variant="contained"
           color="primary"
-          startIcon={<PublishIcon />}
+          startIcon={<Icon type="functionUpload" />}
         >
           画像をアップロードする
           <Box pl={1}>

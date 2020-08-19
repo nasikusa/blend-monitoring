@@ -6,7 +6,7 @@ import Box from '@material-ui/core/Box';
 import Typography from '@material-ui/core/Typography';
 import Input from '@material-ui/core/Input';
 
-import OpacityIcon from '@material-ui/icons/Opacity';
+import Icon from '../../atoms/Icon';
 
 import {
   GlCollectionTypeArray,
@@ -154,7 +154,7 @@ const OpacitySlider: React.FC<Props> = (props: Props) => {
       </Typography>
       <Grid container spacing={2}>
         <Grid item>
-          <OpacityIcon />
+          <Icon type="opacityPanel" />
         </Grid>
         <Grid item xs>
           <Slider

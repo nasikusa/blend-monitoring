@@ -4,10 +4,10 @@ import { makeStyles, createStyles, Theme } from '@material-ui/core/styles';
 import Box from '@material-ui/core/Box';
 import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
-import TextureIcon from '@material-ui/icons/Texture';
 import GridList from '@material-ui/core/GridList';
 import GridListTile from '@material-ui/core/GridListTile';
 
+import Icon from '../../atoms/Icon';
 import MediaModalContainer from '../../../container/MediaModalContainer';
 import { StoredMediaStateType } from '../../../stores/storedMedia';
 import { ImageRelatedGlCollectionType } from '../../../stores/collectionData';
@@ -58,7 +58,7 @@ const ImagePanel: React.FC<Props> = (props: Props) => {
       <Grid container spacing={1}>
         <Grid item xs={12}>
           <Box display="flex" mb={1}>
-            <TextureIcon />
+            <Icon type="imagePanel" />
             <Box ml={2} width={imageBoxWidth}>
               <GridList
                 cellHeight={imageBoxWidth / imageBoxRowCount}

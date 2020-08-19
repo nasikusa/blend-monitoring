@@ -4,12 +4,8 @@ import { makeStyles } from '@material-ui/core/styles';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
-import Divider from '@material-ui/core/Divider';
 import IconButton from '@material-ui/core/IconButton';
-import List from '@material-ui/core/List';
-import Collapse from '@material-ui/core/Collapse';
-import ExpandLess from '@material-ui/icons/ExpandLess';
-import ExpandMore from '@material-ui/icons/ExpandMore';
+import Icon from '../../atoms/Icon';
 
 import CustomSliderContainer from '../../../container/CustomSliderContainer';
 import BlendModalContainer from '../../../container/BlendModalContainer';
@@ -218,7 +214,6 @@ export default (props: Props) => {
       isActiveFlag: visibilityOpenFlag,
       taretFunctionProp: 'visibility',
       currentCollectionType: singleCollectionType,
-      globalTooltopEnterDelayTime: 1000,
     },
     {
       labelTitleValue: '透過度パネルを開閉',
@@ -226,7 +221,6 @@ export default (props: Props) => {
       isActiveFlag: opacityOpenFlag,
       taretFunctionProp: 'opacity',
       currentCollectionType: singleCollectionType,
-      globalTooltopEnterDelayTime: 1000,
     },
     {
       labelTitleValue: '描画モードパネルを開閉',
@@ -234,7 +228,6 @@ export default (props: Props) => {
       isActiveFlag: blendModeOpenFlag,
       taretFunctionProp: 'blendMode',
       currentCollectionType: singleCollectionType,
-      globalTooltopEnterDelayTime: 1000,
     },
     {
       labelTitleValue: 'カラーパネルを開閉',
@@ -242,7 +235,6 @@ export default (props: Props) => {
       isActiveFlag: colorOpenFlag,
       taretFunctionProp: 'color',
       currentCollectionType: singleCollectionType,
-      globalTooltopEnterDelayTime: 1000,
     },
     {
       labelTitleValue: '画像パネルを開閉',
@@ -250,14 +242,12 @@ export default (props: Props) => {
       isActiveFlag: imageOpenFlag,
       taretFunctionProp: 'image',
       currentCollectionType: singleCollectionType,
-      globalTooltopEnterDelayTime: 1000,
     },
     {
       labelTitleValue: 'レイヤー・コレクションを削除',
       clickFunction: handleDeleteIconClick,
       taretFunctionProp: 'garbage',
       currentCollectionType: singleCollectionType,
-      globalTooltopEnterDelayTime: 1000,
     },
   ];
 
@@ -291,28 +281,32 @@ export default (props: Props) => {
           aria-label="開閉ボタン"
           onClick={handleExpandClick}
         >
-          {allOpenFlag ? <ExpandLess /> : <ExpandMore />}
+          {allOpenFlag ? (
+            <Icon type="functionExpandLess" fontSize="large" />
+          ) : (
+            <Icon type="functionExpandMore" fontSize="large" />
+          )}
         </IconButton>
       </ListItem>
       <ListItemWrap
         collapseIn={opacityOpenFlag && collectionTypeFunctionObject.opacity}
       >
-            <CustomSliderContainer />
+        <CustomSliderContainer />
       </ListItemWrap>
       <ListItemWrap
         collapseIn={blendModeOpenFlag && collectionTypeFunctionObject.blendMode}
       >
-            <BlendModalContainer />
+        <BlendModalContainer />
       </ListItemWrap>
       <ListItemWrap
         collapseIn={colorOpenFlag && collectionTypeFunctionObject.color}
       >
-            <ColorPanelContainer />
+        <ColorPanelContainer />
       </ListItemWrap>
       <ListItemWrap
         collapseIn={imageOpenFlag && collectionTypeFunctionObject.image}
       >
-            <ImagePanelContainer />
+        <ImagePanelContainer />
       </ListItemWrap>
     </>
   );

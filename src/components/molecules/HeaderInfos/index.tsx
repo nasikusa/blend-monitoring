@@ -7,9 +7,7 @@ import Divider from '@material-ui/core/Divider';
 import Typography from '@material-ui/core/Typography';
 import Link from '@material-ui/core/Link';
 import IconButton from '@material-ui/core/IconButton';
-import TwitterIcon from '@material-ui/icons/Twitter';
-import FacebookIcon from '@material-ui/icons/Facebook';
-import GitHubIcon from '@material-ui/icons/GitHub';
+import Icon from '../../atoms/Icon';
 
 import { AppSiteInfo } from '../../../constants/appConstantSettings';
 
@@ -27,12 +25,12 @@ export default () => {
         <Typography>share :</Typography>
         <TwitterShareButton url={AppSiteInfo.url}>
           <IconButton size="small">
-            <TwitterIcon fontSize="small" />
+            <Icon type="iconTwitter" />
           </IconButton>
         </TwitterShareButton>
         <FacebookShareButton url={AppSiteInfo.url}>
           <IconButton size="small">
-            <FacebookIcon fontSize="small" />
+            <Icon type="iconFacebook" />
           </IconButton>
         </FacebookShareButton>
       </Box>
@@ -56,7 +54,7 @@ export default () => {
           href="https://github.com/nasikusa"
         >
           <IconButton size="small">
-            <GitHubIcon fontSize="small" />
+            <Icon type="iconGithub" />
           </IconButton>
         </Link>
       </Box>

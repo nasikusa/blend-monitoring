@@ -10,12 +10,12 @@ import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
 import IconButton from '@material-ui/core/IconButton';
 import Paper, { PaperProps } from '@material-ui/core/Paper';
-import CloseIcon from '@material-ui/icons/Close';
 import FormGroup from '@material-ui/core/FormGroup';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Switch from '@material-ui/core/Switch';
 import Snackbar from '@material-ui/core/Snackbar';
 
+import Icon from '../../atoms/Icon';
 import getResiedImageData from '../../../utils/getResizedImageData';
 import { GlCollectionTypeArray } from '../../../stores/collectionData';
 import MediaModalContentsContainer from '../../../container/MediaModalContentsContainer';
@@ -208,7 +208,7 @@ export default (props: Props) => {
           >
             画像の設定パネル
             <IconButton aria-label="close" onClick={handleClose}>
-              <CloseIcon />
+              <Icon type="functionClose" fontSize="large" />
             </IconButton>
           </DialogTitle>
           <DialogContent dividers>

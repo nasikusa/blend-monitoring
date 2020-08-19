@@ -15,11 +15,10 @@ import IconButton from '@material-ui/core/IconButton';
 import Paper, { PaperProps } from '@material-ui/core/Paper';
 import Draggable from 'react-draggable';
 import Chip from '@material-ui/core/Chip';
-import PhotoLibraryIcon from '@material-ui/icons/PhotoLibrary';
-import CloseIcon from '@material-ui/icons/Close';
 import FormGroup from '@material-ui/core/FormGroup';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Switch from '@material-ui/core/Switch';
+import Icon from '../../atoms/Icon';
 
 import {
   GlCollectionOrderContext,
@@ -313,7 +312,7 @@ export default (props: Props) => {
       <Box mb={1}>
         <Grid container spacing={4} className={classes.grid}>
           <Grid item>
-            <PhotoLibraryIcon />
+            <Icon type="blendModePanel" />
           </Grid>
           <Grid item>
             <Button
@@ -385,7 +384,7 @@ export default (props: Props) => {
             ? '描画モード'
             : '描画モードの設定パネル'}
           <IconButton aria-label="close" onClick={handleClose}>
-            <CloseIcon />
+            <Icon type="functionClose" />
           </IconButton>
         </DialogTitle>
         <DialogContent dividers>
