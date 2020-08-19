@@ -21,6 +21,9 @@ export type Props = {
  */
 export type GlCollectionOrderContextType = number;
 
+/**
+ * 現在のコレクションの順番を判別するためのcontext
+ */
 export const GlCollectionOrderContext = createContext<
   GlCollectionOrderContextType
 >(0);
@@ -38,28 +41,27 @@ export default (props: Props) => {
     );
   `;
 
-  /**
-   * コレクションの配列。操作上の理由から最後に反転させていることに注意してください。
-   */
-  const collectionItems = collectionData
-    .map((collectionDataItem: GlCollectionType, currentIndex: number) => {
-      return (
-        <GlCollectionOrderContext.Provider
-          key={collectionDataItem.id}
-          value={currentIndex}
-        >
-          <CollectionContainer />
-        </GlCollectionOrderContext.Provider>
-      );
-    })
-    .reverse();
-
   return (
     <Box>
       <CreateCollectionPanelContainer ref={collectionFixedMenuRef} />
       <Divider />
       <Box css={scrollStyle}>
-        <List>{collectionItems}</List>
+        <List>
+          {collectionData
+            .map(
+              (collectionDataItem: GlCollectionType, currentIndex: number) => {
+                return (
+                  <GlCollectionOrderContext.Provider
+                    key={collectionDataItem.id}
+                    value={currentIndex}
+                  >
+                    <CollectionContainer />
+                  </GlCollectionOrderContext.Provider>
+                );
+              }
+            )
+            .reverse()}
+        </List>
       </Box>
     </Box>
   );
