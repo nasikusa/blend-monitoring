@@ -19,6 +19,7 @@ import CollectionMainIcon from '../../atoms/CollectionMainIcon';
 import GetCollectionsName from '../../../utils/GetCollectionsName';
 import { GlCollectionOrderContext } from '../Collections';
 import ImagePanelContainer from '../../../container/ImagePanelContainer';
+import ListItemWrap from '../ListItemWrap';
 
 import {
   GlCollectionTypeArray,
@@ -38,24 +39,13 @@ export type Props = {
 /**
  * Material UIのスタイル
  */
-const useStyles = makeStyles((theme) => ({
+const useStyles = makeStyles(() => ({
   main: {
     backgroundColor: `transparent`,
     '&:hover': {
       backgroundColor: `transparent`,
     },
     cursor: `default`,
-  },
-  nested: {
-    paddingLeft: theme.spacing(6),
-    backgroundColor: `transparent`,
-    '&:hover': {
-      backgroundColor: `transparent`,
-    },
-    cursor: `default`,
-  },
-  collapse: {
-    backgroundColor: `#484848`,
   },
 }));
 
@@ -284,7 +274,7 @@ export default (props: Props) => {
 
   return (
     <>
-      <ListItem button disableRipple className={classes.main}>
+      <ListItem className={classes.main}>
         <ListItemIcon>
           <CollectionMainIcon
             collectionType={collectionData[glCollectionOrderKey].type}
@@ -304,57 +294,26 @@ export default (props: Props) => {
           {allOpenFlag ? <ExpandLess /> : <ExpandMore />}
         </IconButton>
       </ListItem>
-      <Collapse
-        in={opacityOpenFlag && collectionTypeFunctionObject.opacity}
-        timeout="auto"
-        className={classes.collapse}
+      <ListItemWrap
+        collapseIn={opacityOpenFlag && collectionTypeFunctionObject.opacity}
       >
-        <List component="div" disablePadding>
-          <ListItem button className={classes.nested} disableRipple>
             <CustomSliderContainer />
-          </ListItem>
-        </List>
-        <Divider />
-      </Collapse>
-      <Collapse
-        in={blendModeOpenFlag && collectionTypeFunctionObject.blendMode}
-        timeout="auto"
-        className={classes.collapse}
+      </ListItemWrap>
+      <ListItemWrap
+        collapseIn={blendModeOpenFlag && collectionTypeFunctionObject.blendMode}
       >
-        <List component="div" disablePadding>
-          <ListItem button className={classes.nested} disableRipple>
             <BlendModalContainer />
-          </ListItem>
-          <Divider />
-        </List>
-        <Divider />
-      </Collapse>
-      <Collapse
-        in={colorOpenFlag && collectionTypeFunctionObject.color}
-        timeout="auto"
-        className={classes.collapse}
+      </ListItemWrap>
+      <ListItemWrap
+        collapseIn={colorOpenFlag && collectionTypeFunctionObject.color}
       >
-        <List component="div" disablePadding>
-          <ListItem button className={classes.nested} disableRipple>
             <ColorPanelContainer />
-          </ListItem>
-          <Divider />
-        </List>
-        <Divider />
-      </Collapse>
-      <Collapse
-        in={imageOpenFlag && collectionTypeFunctionObject.image}
-        timeout="auto"
-        className={classes.collapse}
+      </ListItemWrap>
+      <ListItemWrap
+        collapseIn={imageOpenFlag && collectionTypeFunctionObject.image}
       >
-        <List component="div" disablePadding>
-          <ListItem button className={classes.nested} disableRipple>
             <ImagePanelContainer />
-          </ListItem>
-          <Divider />
-        </List>
-        <Divider />
-      </Collapse>
+      </ListItemWrap>
     </>
   );
 };
