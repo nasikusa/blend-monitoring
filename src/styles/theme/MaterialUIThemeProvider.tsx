@@ -40,6 +40,7 @@ const MaterialUIThemeProvider = (props: Props) => {
     props: {
       MuiList: {
         dense: true,
+        disablePadding: true,
       },
       MuiButton: {
         size: 'small',
@@ -85,6 +86,10 @@ const MaterialUIThemeProvider = (props: Props) => {
       },
       MuiToolbar: {
         variant: 'dense',
+      },
+      MuiTooltip: {
+        enterDelay: 1500,
+        enterNextDelay: 1000,
       },
     },
   });
