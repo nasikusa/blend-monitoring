@@ -8,7 +8,7 @@ import { css } from '@emotion/core';
 
 type Props = {
   children: React.ReactElement;
-  collapseIn?: any;
+  collapseIn: any;
 };
 
 const ListItemWrap = (props: Props) => {
@@ -34,25 +34,23 @@ const ListItemWrap = (props: Props) => {
     `,
   };
 
-  const InnerListElement = () => {
-    return (
-      <List css={styles.fullWidthStyle} disablePadding>
-        <ListItem button css={styles.innerListItem} disableRipple>
-          {children}
-        </ListItem>
-      </List>
-    );
-  };
-
   return (
     <ListItem disableGutters css={styles.wrapperListItemStyle}>
       {collapseIn != null ? (
         <Collapse css={styles.fullWidthStyle} in={collapseIn} timeout="auto">
-          <InnerListElement />
+          <List css={styles.fullWidthStyle} disablePadding>
+            <ListItem button css={styles.innerListItem} disableRipple>
+              {children}
+            </ListItem>
+          </List>
           <Divider />
         </Collapse>
       ) : (
-        <InnerListElement />
+        <List css={styles.fullWidthStyle} disablePadding>
+          <ListItem button css={styles.innerListItem} disableRipple>
+            {children}
+          </ListItem>
+        </List>
       )}
     </ListItem>
   );
