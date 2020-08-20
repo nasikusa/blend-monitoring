@@ -130,6 +130,9 @@ export default (props: Props) => {
                     handleChange(currentIndex);
                   },
                 }}
+                buttonProps={{
+                  fullWidth: true,
+                }}
               >
                 {collectionTypeNameObject[singleCollectionType].ja}
               </CustomIconButton>

@@ -5,17 +5,17 @@ import ListItem from '@material-ui/core/ListItem';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
 import IconButton from '@material-ui/core/IconButton';
-import Icon from '../../atoms/Icon';
+import Icon, { IconTypeTypes } from '../../atoms/Icon';
 
 import CustomSliderContainer from '../../../container/CustomSliderContainer';
 import BlendModalContainer from '../../../container/BlendModalContainer';
 import ColorPanelContainer from '../../../container/ColorPanelContainer';
-import { Props as CollectionFunctionMenuButtonPropsType } from '../../atoms/CollectionFunctionMenuButton';
 import CollectionMainIcon from '../../atoms/CollectionMainIcon';
 import GetCollectionsName from '../../../utils/GetCollectionsName';
 import { GlCollectionOrderContext } from '../Collections';
 import ImagePanelContainer from '../../../container/ImagePanelContainer';
 import ListItemWrap from '../ListItemWrap';
+import CustomIconButton from '../CustomIconButton';
 
 import {
   GlCollectionTypeArray,
@@ -24,12 +24,20 @@ import {
 import allCollectionTypeFunctionObject, {
   collectionObjectFunctionType,
 } from './allCollectionTypeFunctionObject';
-import CollectionFunctionMenuButtonContainer from '../../../container/CollectionFunctionMenuButtonContainer';
 
 export type Props = {
   collectionData: GlCollectionTypeArray;
   deleteSingleCollection: any;
   updateVisibility: any;
+};
+
+export type secondaryAreaType = {
+  typeName: IconTypeTypes;
+  labelTitleValue: string;
+  clickFunction: any;
+  isActiveFlag?: boolean;
+  taretFunctionProp?: keyof collectionObjectFunctionType;
+  currentCollectionType: CollectionTypeType;
 };
 
 /**
@@ -207,8 +215,9 @@ export default (props: Props) => {
   /**
    * タイトル下のアイコン機能メニューのデータ一覧
    */
-  const secondaryAreaElementDataArray: CollectionFunctionMenuButtonPropsType[] = [
+  const secondaryAreaElementDataArray: secondaryAreaType[] = [
     {
+      typeName: 'functionVisibility',
       labelTitleValue: '一時的に非表示',
       clickFunction: handleVisibilityFlagClick,
       isActiveFlag: visibilityOpenFlag,
@@ -216,6 +225,7 @@ export default (props: Props) => {
       currentCollectionType: singleCollectionType,
     },
     {
+      typeName: 'opacityPanel',
       labelTitleValue: '透過度パネルを開閉',
       clickFunction: handleOpacityFlagClick,
       isActiveFlag: opacityOpenFlag,
@@ -223,6 +233,7 @@ export default (props: Props) => {
       currentCollectionType: singleCollectionType,
     },
     {
+      typeName: 'blendModePanel',
       labelTitleValue: '描画モードパネルを開閉',
       clickFunction: handleBlendModeFlagClick,
       isActiveFlag: blendModeOpenFlag,
@@ -230,6 +241,7 @@ export default (props: Props) => {
       currentCollectionType: singleCollectionType,
     },
     {
+      typeName: 'colorPanel',
       labelTitleValue: 'カラーパネルを開閉',
       clickFunction: handleColorFlagClick,
       isActiveFlag: colorOpenFlag,
@@ -237,6 +249,7 @@ export default (props: Props) => {
       currentCollectionType: singleCollectionType,
     },
     {
+      typeName: 'imagePanel',
       labelTitleValue: '画像パネルを開閉',
       clickFunction: handleImageFlagClick,
       isActiveFlag: imageOpenFlag,
@@ -244,6 +257,7 @@ export default (props: Props) => {
       currentCollectionType: singleCollectionType,
     },
     {
+      typeName: 'functionDelete',
       labelTitleValue: 'レイヤー・コレクションを削除',
       clickFunction: handleDeleteIconClick,
       taretFunctionProp: 'garbage',
@@ -257,7 +271,27 @@ export default (props: Props) => {
   const SecondaryAreaElement = (
     <>
       {secondaryAreaElementDataArray.map((singleSecondaryElemData) => (
-        <CollectionFunctionMenuButtonContainer {...singleSecondaryElemData} />
+        <CustomIconButton
+          type={singleSecondaryElemData.typeName}
+          labelTitle={singleSecondaryElemData.labelTitleValue}
+          buttonType="iconButton"
+          active={singleSecondaryElemData.isActiveFlag}
+          disable={
+            singleSecondaryElemData.taretFunctionProp != null
+              ? !collectionTypeFunctionObject[
+                  singleSecondaryElemData.taretFunctionProp
+                ]
+              : true
+          }
+          buttonGeneralProps={{
+            onClick: singleSecondaryElemData.clickFunction,
+          }}
+          buttonProps={{
+            fullWidth: true,
+          }}
+        >
+          {singleSecondaryElemData.labelTitleValue}
+        </CustomIconButton>
       ))}
     </>
   );
