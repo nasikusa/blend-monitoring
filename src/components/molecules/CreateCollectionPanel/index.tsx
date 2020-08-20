@@ -4,10 +4,8 @@ import { v4 as uuidv4 } from 'uuid';
 import Box from '@material-ui/core/Box';
 import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
-import IconButton from '@material-ui/core/IconButton';
-import CustomTooltip from '../../atoms/CustomTooltip';
+import CustomIconButton from '../CustomIconButton';
 
-import CollectionMainIcon from '../../atoms/CollectionMainIcon';
 import collectionTypesArray from '../../../constants/collectionTypesArray';
 import collectionTypeNameObject from '../../../constants/collectionTypeNameObject';
 import canMultiItemCollectionName from '../../../constants/canMultiItemCollectionName';
@@ -109,34 +107,33 @@ export default (props: Props) => {
       <Grid>
         {collectionTypesArray.map((singleCollectionType, currentIndex) => {
           return (
-            <CustomTooltip
-              enterDelay={750}
-              title={collectionTypeNameObject[singleCollectionType].ja}
-            >
-              <IconButton
-                onClick={() => {
-                  if (
-                    canMultiItemCollectionName.includes(singleCollectionType) &&
-                    hasMultiItemCollection
-                  ) {
-                    return;
-                  }
-                  handleChange(currentIndex);
-                }}
-              >
-                <CollectionMainIcon
-                  collectionType={singleCollectionType}
-                  iconProps={{
-                    color:
+            <>
+              <CustomIconButton
+                type={singleCollectionType}
+                buttonType="iconButton"
+                labelTitle={collectionTypeNameObject[singleCollectionType].ja}
+                active
+                disable={
+                  canMultiItemCollectionName.includes(singleCollectionType) &&
+                  hasMultiItemCollection
+                }
+                buttonGeneralProps={{
+                  onClick: () => {
+                    if (
                       canMultiItemCollectionName.includes(
                         singleCollectionType
-                      ) && hasMultiItemCollection
-                        ? 'disabled'
-                        : 'secondary',
-                  }}
-                />
-              </IconButton>
-            </CustomTooltip>
+                      ) &&
+                      hasMultiItemCollection
+                    ) {
+                      return;
+                    }
+                    handleChange(currentIndex);
+                  },
+                }}
+              >
+                {collectionTypeNameObject[singleCollectionType].ja}
+              </CustomIconButton>
+            </>
           );
         })}
       </Grid>

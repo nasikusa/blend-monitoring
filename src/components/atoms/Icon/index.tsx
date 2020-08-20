@@ -78,16 +78,18 @@ export type IconGeneralMeaningNames =
 
 export type IconBrandNames = 'iconTwitter' | 'iconFacebook' | 'iconGithub';
 
-type Props = {
-  type:
-    | 'layer'
-    | 'settings'
-    | CollectionTypeType
-    | IgnoreDupliCollectionPanelNamesType
-    | ColorPanelFunctionNames
-    | BlendModeRoughTypeType
-    | IconGeneralMeaningNames
-    | IconBrandNames;
+export type IconTypeTypes =
+  | 'layer'
+  | 'settings'
+  | CollectionTypeType
+  | IgnoreDupliCollectionPanelNamesType
+  | ColorPanelFunctionNames
+  | BlendModeRoughTypeType
+  | IconGeneralMeaningNames
+  | IconBrandNames;
+
+export type Props = {
+  type: IconTypeTypes;
 } & SvgIconProps;
 
 const Icon = (p: Props) => {
