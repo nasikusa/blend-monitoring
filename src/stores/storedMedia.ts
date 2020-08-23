@@ -8,7 +8,7 @@ export type DataTypesType = 'dataURL' | 'url' | 'objectURL' | 'blob' | 'file';
 
 export type StoredMediaStateItemType = {
   id: string;
-  name?: string;
+  name: string;
   mediaType: StoredMediaTypesType;
   dataType: DataTypesType;
   aspectRatio: number;

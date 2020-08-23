@@ -3,18 +3,27 @@ import { createSlice } from '@reduxjs/toolkit';
 import { BlendModesType } from '../constants/blendModeData';
 import getOrderdBlendModeArray from '../utils/getOrderdBlendModeArray';
 
+export type SingleItemCollectionTypeType =
+  | 'singleColor'
+  | 'singleImage'
+  | 'base'
+  | 'adjust';
+
+/**
+ * 複数アイテムを持つ可能性のあるコレクションの種類
+ */
+export type MultiItemCollectionTypeType =
+  | 'singleColorMultiBlends'
+  | 'multiColors'
+  | 'singleImageMultiBlends'
+  | 'multiImages';
+
 /**
  * コレクションの種類。
  */
 export type CollectionTypeType =
-  | `singleColor`
-  | `singleColorMultiBlends`
-  | `multiColors`
-  | `singleImage`
-  | `singleImageMultiBlends`
-  | `multiImages`
-  | `adjust`
-  | 'base';
+  | SingleItemCollectionTypeType
+  | MultiItemCollectionTypeType;
 
 /**
  * 複数の値( = 配列 )を取りうる単一のコレクションのプロパティの名前
@@ -27,6 +36,9 @@ export type canCollectionMultiItemProps =
 
 export type collectionSizeValueType = 'cover' | 'normal' | 'contain';
 
+/**
+ * singleColorコレクションの型
+ */
 export type SingleColorGlCollectionType = {
   readonly id: string;
   readonly type: 'singleColor';
@@ -38,6 +50,9 @@ export type SingleColorGlCollectionType = {
   color: string;
 };
 
+/**
+ * singleColorMultiBlendsコレクションの型
+ */
 export type SingleColorMultiBlendsGlCollectionType = {
   readonly id: string;
   readonly type: 'singleColorMultiBlends';
@@ -49,6 +64,9 @@ export type SingleColorMultiBlendsGlCollectionType = {
   color: string;
 };
 
+/**
+ * multiColorsコレクションの型
+ */
 export type MultiColorsGlCollectionType = {
   readonly id: string;
   readonly type: 'multiColors';
@@ -60,6 +78,9 @@ export type MultiColorsGlCollectionType = {
   color: string[];
 };
 
+/**
+ * singleImageコレクションの型
+ */
 export type SingleImageGlCollectionType = {
   readonly id: string;
   readonly type: 'singleImage';

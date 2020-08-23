@@ -8,12 +8,15 @@ import { singleResizedImageDataType } from './getResizedImageData';
  * @param resultSingleMediaObject
  */
 export default function createStoredMediaItemObject(
-  resultSingleMediaObject: singleResizedImageDataType
+  resultSingleMediaObject: singleResizedImageDataType & {
+    fileNameValue: string;
+  }
 ): StoredMediaStateItemType {
   const {
     resultDataURLObject,
     resultDataURLSizeObject,
     resultImageInfoObject,
+    fileNameValue,
   } = resultSingleMediaObject;
   const resultObject: StoredMediaStateItemType = {
     id: uuidv4(),
@@ -22,6 +25,7 @@ export default function createStoredMediaItemObject(
     aspectRatio: resultImageInfoObject.imageRatio,
     // createdAt: moment().toString(),
     mime: 'image/jpeg',
+    name: fileNameValue,
     color: {
       dominant: resultImageInfoObject.imageColor,
       palette: resultImageInfoObject.imagePalette,

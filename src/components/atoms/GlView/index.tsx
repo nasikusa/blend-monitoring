@@ -112,8 +112,8 @@ const GlView: React.FC<Props> = (props: Props) => {
   return (
     <Box css={surfaceBaseStyle}>
       <Surface
-        width={glSettings.singleItemWidth}
-        height={glSettings.singleItemWidth * glSettings.singleItemAspect}
+        width={glSettings.singleItemWidth - 32}
+        height={(glSettings.singleItemWidth - 32) * glSettings.singleItemAspect}
       >
         <Node shader={shaders.firstGL} uniforms={shaderUniformValue} />
       </Surface>

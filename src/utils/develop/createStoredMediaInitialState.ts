@@ -34,6 +34,7 @@ export const createStoredMediaSingleItemState = (
     id: resultID,
     mediaType: 'image',
     dataType: 'url',
+    name: 'sample',
     aspectRatio: getSampleImageAspect(inputItemOrder),
     resource: getSampleImageURLObject(inputItemOrder),
     rawWidth: unsplashRawWidth,
