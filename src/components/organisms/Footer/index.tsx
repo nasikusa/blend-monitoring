@@ -12,10 +12,11 @@ import { AppSiteInfo } from '../../../constants/appConstantSettings';
 type Props = {
   multiCollectionsLength: number;
   glViewItemLength: number;
+  storedMediaLength: number;
 };
 
 export default function (props: Props) {
-  const { multiCollectionsLength, glViewItemLength } = props;
+  const { multiCollectionsLength, glViewItemLength, storedMediaLength } = props;
 
   const useStyles = makeStyles({
     bar: {
@@ -46,6 +47,12 @@ export default function (props: Props) {
               <Box mx={2}>
                 <Typography variant="overline">
                   描画アイテム数 : {glViewItemLength}
+                </Typography>
+              </Box>
+              <Divider orientation="vertical" />
+              <Box mx={2}>
+                <Typography variant="overline">
+                  画像の数 : {storedMediaLength}
                 </Typography>
               </Box>
             </Grid>

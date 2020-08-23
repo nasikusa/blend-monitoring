@@ -9,9 +9,15 @@ import getLengthOfCollections from '../utils/getLengthOfCollections';
  */
 export default () => {
   const collectionData = useSelector((state: AppState) => state.collectionData);
+  const storedMediaData = useSelector((state: AppState) => state.storedMedia);
   const multiCollectionsLength = collectionData.length;
+  const storedMediaLength = Object.keys(storedMediaData).length;
   const glViewItemLength = getLengthOfCollections(collectionData);
-  const combineProps = { multiCollectionsLength, glViewItemLength };
+  const combineProps = {
+    multiCollectionsLength,
+    glViewItemLength,
+    storedMediaLength,
+  };
 
   return <Footer {...combineProps} />;
 };
