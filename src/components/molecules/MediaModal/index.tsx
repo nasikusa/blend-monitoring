@@ -8,14 +8,15 @@ import DialogTitle from '@material-ui/core/DialogTitle';
 import Dialog from '@material-ui/core/Dialog';
 import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
-import IconButton from '@material-ui/core/IconButton';
+// import IconButton from '@material-ui/core/IconButton';
+import Button from '@material-ui/core/Button';
 import Paper, { PaperProps } from '@material-ui/core/Paper';
 import FormGroup from '@material-ui/core/FormGroup';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Switch from '@material-ui/core/Switch';
 import Snackbar from '@material-ui/core/Snackbar';
 
-import Icon from '../../atoms/Icon';
+// import Icon from '../../atoms/Icon';
 import getResiedImageData from '../../../utils/getResizedImageData';
 import { GlCollectionTypeArray } from '../../../stores/collectionData';
 import MediaModalContentsContainer from '../../../container/MediaModalContentsContainer';
@@ -75,11 +76,7 @@ const modalTitleStyle = css`
     align-items: center;
     justify-content: space-between;
   }
-  background-color: rgba(255, 255, 255, 0);
   transition: background-color 0.1s ease;
-  :hover {
-    background-color: rgba(255, 255, 255, 0.05);
-  }
 `;
 
 /**
@@ -110,9 +107,11 @@ export default (props: Props) => {
           setOnLoadMediaSnackBarOpenFlag(true);
           for (let i = 0; i < result.length; i += 1) {
             const resultItem = result[i];
-            const resultStoredMediaItemObject = createStoredMediaItemObject(
-              resultItem
-            );
+            const fileNameValue = acceptedFiles[i].name;
+            const resultStoredMediaItemObject = createStoredMediaItemObject({
+              ...resultItem,
+              fileNameValue,
+            });
             addMediaData({
               newMediaDataObject: resultStoredMediaItemObject,
             });
@@ -130,13 +129,15 @@ export default (props: Props) => {
   const { getRootProps, getInputProps, isDragActive, open } = useDropzone({
     onDrop,
     noClick: true,
+    accept: 'image/*',
   });
 
   /**
    * モーダルの開閉stateをfalseにする関数
    */
   const handleClose = (): void => {
-    setModalOpen(false);
+    console.log('fire!');
+    setModalOpen(!modalOpen);
   };
 
   const handleDropSnackBarClose = (): void => {
@@ -189,7 +190,6 @@ export default (props: Props) => {
         }}
         PaperProps={{
           style: {
-            backgroundColor: 'rgba(0,0,0,0.5)',
             pointerEvents: 'all',
             border: isDragActive
               ? '3px dashed #ffffff'
@@ -207,9 +207,10 @@ export default (props: Props) => {
             css={modalTitleStyle}
           >
             画像の設定パネル
-            <IconButton aria-label="close" onClick={handleClose}>
+            <Button onClick={handleClose}>close</Button>
+            {/* <IconButton size="medium" aria-label="close" onClick={handleClose}>
               <Icon type="functionClose" fontSize="large" />
-            </IconButton>
+            </IconButton> */}
           </DialogTitle>
           <DialogContent dividers>
             <MediaModalContentsContainer
@@ -252,7 +253,6 @@ export default (props: Props) => {
       <Snackbar
         anchorOrigin={{ vertical: 'bottom', horizontal: 'left' }}
         open={onLoadMediaSnackBarOpenFlag}
-        autoHideDuration={12000}
         onClose={handleMediaLoadSnackBarClose}
       >
         <CustomAlert onClose={handleMediaLoadSnackBarClose} severity="success">

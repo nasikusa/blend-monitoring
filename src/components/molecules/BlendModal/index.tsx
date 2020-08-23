@@ -76,11 +76,6 @@ const modalTitleStyle = css`
     align-items: center;
     justify-content: space-between;
   }
-  background-color: rgba(255, 255, 255, 0);
-  transition: background-color 0.1s ease;
-  :hover {
-    background-color: rgba(255, 255, 255, 0.05);
-  }
 `;
 
 /**
@@ -366,9 +361,7 @@ export default (props: Props) => {
         }}
         PaperProps={{
           style: {
-            backgroundColor: modalTransparentFlag
-              ? 'rgba(0,0,0,0)'
-              : 'rgba(0,0,0,0.5)',
+            backgroundColor: modalTransparentFlag ? 'rgba(0,0,0,0)' : '',
             pointerEvents: 'all',
           },
         }}
@@ -383,8 +376,8 @@ export default (props: Props) => {
           {blendModeSwitchActiveCount <= 1
             ? '描画モード'
             : '描画モードの設定パネル'}
-          <IconButton aria-label="close" onClick={handleClose}>
-            <Icon type="functionClose" />
+          <IconButton size="medium" aria-label="close" onClick={handleClose}>
+            <Icon type="functionClose" fontSize="large" />
           </IconButton>
         </DialogTitle>
         <DialogContent dividers>

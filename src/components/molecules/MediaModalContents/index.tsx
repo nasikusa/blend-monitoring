@@ -39,7 +39,6 @@ interface TabPanelProps {
 
 const tabsStyle = css`
   margin-bottom: 8px;
-  background-color: #232323;
 `;
 
 const gridListStyle = css`
@@ -145,38 +144,44 @@ export default function MediaModalContents(props: Props) {
         <Tab label="フォルダ3" /> */}
       </Tabs>
       <TabPanel value={value} index={0}>
-        <GridList
-          cellHeight={(isBoxSmallFlag ? 300 : 600) / (isImageBigFlag ? 4 : 9)}
-          cols={isImageBigFlag ? 4 : 9}
-          css={gridListStyle}
-        >
-          {Object.keys(storedMediaData).map((singleImageID: string) => {
-            const isIncludeSingleImageID =
-              collectionStateImageData != null
-                ? collectionStateImageData.includes(singleImageID)
-                : '';
-            return (
-              <GridListTile
-                onClick={() => {
-                  handleImageChange(singleImageID, !isIncludeSingleImageID);
-                }}
-                css={
-                  isIncludeSingleImageID
-                    ? [gridListTileStyle, gridListTileStyleActive]
-                    : gridListTileStyle
-                }
-                key={singleImageID}
-                cols={1}
-                rows={1}
-              >
-                <img
-                  src={storedMediaData[singleImageID].resource.small}
-                  alt={singleImageID}
-                />
-              </GridListTile>
-            );
-          })}
-        </GridList>
+        {Object.keys(storedMediaData).length === 0 ? (
+          <Typography variant="overline" display="block">
+            画像をアップロードするとここに表示されます。
+          </Typography>
+        ) : (
+          <GridList
+            cellHeight={(isBoxSmallFlag ? 300 : 600) / (isImageBigFlag ? 4 : 9)}
+            cols={isImageBigFlag ? 4 : 9}
+            css={gridListStyle}
+          >
+            {Object.keys(storedMediaData).map((singleImageID: string) => {
+              const isIncludeSingleImageID =
+                collectionStateImageData != null
+                  ? collectionStateImageData.includes(singleImageID)
+                  : '';
+              return (
+                <GridListTile
+                  onClick={() => {
+                    handleImageChange(singleImageID, !isIncludeSingleImageID);
+                  }}
+                  css={
+                    isIncludeSingleImageID
+                      ? [gridListTileStyle, gridListTileStyleActive]
+                      : gridListTileStyle
+                  }
+                  key={singleImageID}
+                  cols={1}
+                  rows={1}
+                >
+                  <img
+                    src={storedMediaData[singleImageID].resource.small}
+                    alt={singleImageID}
+                  />
+                </GridListTile>
+              );
+            })}
+          </GridList>
+        )}
       </TabPanel>
       <TabPanel value={value} index={1}>
         <GridList
@@ -195,7 +200,7 @@ export default function MediaModalContents(props: Props) {
                 >
                   <img
                     src={storedMediaData[singleImageID].resource.small}
-                    alt="sample"
+                    alt={storedMediaData[singleImageID].name}
                   />
                 </GridListTile>
               );
