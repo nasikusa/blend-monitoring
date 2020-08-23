@@ -31,6 +31,9 @@ export type Props = {
   updateVisibility: any;
 };
 
+/**
+ * アイコンの並んでいる機能リストの型
+ */
 export type secondaryAreaType = {
   typeName: IconTypeTypes;
   labelTitleValue: string;
@@ -265,37 +268,6 @@ export default (props: Props) => {
     },
   ];
 
-  /**
-   * 単一コレクションのタイトル下のアイコンが並んでいる機能ボタンメニュー部分のReact要素
-   */
-  const SecondaryAreaElement = (
-    <>
-      {secondaryAreaElementDataArray.map((singleSecondaryElemData) => (
-        <CustomIconButton
-          type={singleSecondaryElemData.typeName}
-          labelTitle={singleSecondaryElemData.labelTitleValue}
-          buttonType="iconButton"
-          active={singleSecondaryElemData.isActiveFlag}
-          disable={
-            singleSecondaryElemData.taretFunctionProp != null
-              ? !collectionTypeFunctionObject[
-                  singleSecondaryElemData.taretFunctionProp
-                ]
-              : true
-          }
-          buttonGeneralProps={{
-            onClick: singleSecondaryElemData.clickFunction,
-          }}
-          buttonProps={{
-            fullWidth: true,
-          }}
-        >
-          {singleSecondaryElemData.labelTitleValue}
-        </CustomIconButton>
-      ))}
-    </>
-  );
-
   return (
     <>
       <ListItem className={classes.main}>
@@ -308,7 +280,33 @@ export default (props: Props) => {
           primary={GetCollectionsName(
             collectionData[glCollectionOrderKey].type
           )}
-          secondary={SecondaryAreaElement}
+          secondary={
+            <>
+              {secondaryAreaElementDataArray.map((singleSecondaryElemData) => (
+                <CustomIconButton
+                  type={singleSecondaryElemData.typeName}
+                  labelTitle={singleSecondaryElemData.labelTitleValue}
+                  buttonType="iconButton"
+                  active={singleSecondaryElemData.isActiveFlag}
+                  disable={
+                    singleSecondaryElemData.taretFunctionProp != null
+                      ? !collectionTypeFunctionObject[
+                          singleSecondaryElemData.taretFunctionProp
+                        ]
+                      : true
+                  }
+                  buttonGeneralProps={{
+                    onClick: singleSecondaryElemData.clickFunction,
+                  }}
+                  buttonProps={{
+                    fullWidth: true,
+                  }}
+                >
+                  {singleSecondaryElemData.labelTitleValue}
+                </CustomIconButton>
+              ))}
+            </>
+          }
         />
         <IconButton
           edge="end"
