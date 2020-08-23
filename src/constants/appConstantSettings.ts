@@ -8,8 +8,8 @@ export const AppName = `BlendMonitoring β`;
  */
 export const AppSiteInfo = {
   url: 'https://blend.nasikusa.net',
-  version: '0.1.1',
-  updatedAt: '2020 / 08 / 20',
+  version: '0.1.2',
+  updatedAt: '2020 / 08 / 23',
   createdAt: '2020 / 07 / 25',
 };
 

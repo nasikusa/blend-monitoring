@@ -136,7 +136,6 @@ export default (props: Props) => {
    * モーダルの開閉stateをfalseにする関数
    */
   const handleClose = (): void => {
-    console.log('fire!');
     setModalOpen(!modalOpen);
   };
 
