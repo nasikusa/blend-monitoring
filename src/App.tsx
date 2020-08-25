@@ -10,6 +10,8 @@ import FoundationStyle from './styles/foundation';
 import { beforeRenderingScreenID } from './constants/domNames';
 import MaterialUIThemeProvider from './styles/theme/MaterialUIThemeProvider';
 import EmotionTheme from './styles/theme/emotion';
+import { isSatisfied } from './constants/userEnv';
+import UnSatisfiedEnv from './components/pages/UnSatisfiedEnv';
 
 /**
  * アプリのルートとなるコンポーネント
@@ -25,7 +27,7 @@ function App() {
     }
   }, []);
 
-  return (
+  return isSatisfied ? (
     <Box className="App">
       <MaterialUIThemeProvider>
         <EmotionThemeProvider theme={EmotionTheme}>
@@ -39,6 +41,12 @@ function App() {
             </BrowserRouter>
           </DndProvider>
         </EmotionThemeProvider>
+      </MaterialUIThemeProvider>
+    </Box>
+  ) : (
+    <Box className="App">
+      <MaterialUIThemeProvider>
+        <UnSatisfiedEnv />
       </MaterialUIThemeProvider>
     </Box>
   );
