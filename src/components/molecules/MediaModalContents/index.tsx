@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import { css } from '@emotion/core';
 import Typography from '@material-ui/core/Typography';
 import Box from '@material-ui/core/Box';
@@ -87,8 +87,6 @@ export default function MediaModalContents(props: Props) {
     isImageBigFlag,
   } = props;
 
-  const [isImageChangeFlag, setIsImageChangeFlag] = useState(false);
-
   const [value, setValue] = React.useState(0);
 
   const handleTabChange = (event: React.ChangeEvent<{}>, newValue: number) => {
@@ -101,18 +99,13 @@ export default function MediaModalContents(props: Props) {
       glCollectionOrderKey,
       boolValue: targetBoolValue,
     });
-    setIsImageChangeFlag(true);
-  };
-
-  useEffect(() => {
-    if (!isImageChangeFlag) {
-      return;
-    }
-    const aspectValue = getGlViewItemAspect(collectionData, storedMediaData);
+    const aspectValue = getGlViewItemAspect(
+      collectionData,
+      storedMediaData,
+      targetImageID
+    );
     updateSingleItemAspect({ aspectValue });
-    setIsImageChangeFlag(false);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [isImageChangeFlag]);
+  };
 
   return (
     <Box width={isBoxSmallFlag ? 300 : 600}>

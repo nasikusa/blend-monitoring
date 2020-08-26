@@ -6,7 +6,8 @@ import { StoredMediaStateType } from '../stores/storedMedia';
 
 export default (
   collectionData: GlCollectionTypeArray,
-  storedMediaData: StoredMediaStateType
+  storedMediaData: StoredMediaStateType,
+  targetImageID?: string
 ): number => {
   const defaultAspectValue = 1.0;
   const resultAspectArray = collectionData.map(
@@ -19,7 +20,8 @@ export default (
           return defaultAspectValue;
         case 'singleImage':
         case 'singleImageMultiBlends': {
-          const collectionItemImageID = singleCollectionItemData.image;
+          const collectionItemImageID =
+            targetImageID || singleCollectionItemData.image;
           const aspectValue =
             collectionItemImageID !== null
               ? storedMediaData[collectionItemImageID].aspectRatio
