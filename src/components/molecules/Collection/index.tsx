@@ -8,7 +8,7 @@ import IconButton from '@material-ui/core/IconButton';
 import Icon, { IconTypeTypes } from '../../atoms/Icon';
 
 import CustomSliderContainer from '../../../container/CustomSliderContainer';
-import BlendModalContainer from '../../../container/BlendModalContainer';
+import BlendModePanelContainer from '../../../container/BlendModePanelContainer';
 import ColorPanelContainer from '../../../container/ColorPanelContainer';
 import CollectionMainIcon from '../../atoms/CollectionMainIcon';
 import GetCollectionsName from '../../../utils/GetCollectionsName';
@@ -328,7 +328,7 @@ export default (props: Props) => {
       <ListItemWrap
         collapseIn={blendModeOpenFlag && collectionTypeFunctionObject.blendMode}
       >
-        <BlendModalContainer />
+        <BlendModePanelContainer />
       </ListItemWrap>
       <ListItemWrap
         collapseIn={colorOpenFlag && collectionTypeFunctionObject.color}
