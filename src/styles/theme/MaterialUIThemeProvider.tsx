@@ -4,10 +4,13 @@ import {
   ThemeProvider as MuiThemeProvider,
 } from '@material-ui/core/styles';
 import teal from '@material-ui/core/colors/teal';
+import orange from '@material-ui/core/colors/orange';
 
 export type Props = {
   children: React.ReactNode;
 };
+
+// #F4FFB5
 
 const MaterialUIThemeProvider = (props: Props) => {
   const { children } = props;
@@ -16,11 +19,7 @@ const MaterialUIThemeProvider = (props: Props) => {
     palette: {
       type: 'dark',
       primary: teal,
-      secondary: {
-        dark: '#aab27e',
-        main: '#F4FFB5',
-        light: '#f6ffc3',
-      },
+      secondary: orange,
     },
     typography: {
       fontSize: 12,
