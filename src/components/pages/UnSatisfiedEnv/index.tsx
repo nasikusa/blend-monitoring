@@ -13,6 +13,10 @@ const UnSatisfiedEnv = () => {
     position: relative;
     max-width: 100%;
   `;
+
+  const descriptionStyle = css`
+    white-space: pre;
+  `;
   return (
     <Box p={4}>
       <Box mb={2} display="flex" justifyContent="center" alignItems="center">
@@ -21,16 +25,13 @@ const UnSatisfiedEnv = () => {
         </Typography>
       </Box>
       <Box mb={2}>
-        <Typography display="block" align="center" gutterBottom>
-          BlendMonitoringは
-          <br />
-          画像やテクスチャ、カラー、描画モードなどの
-          <br />
-          複数の色の組み合わせを
-          <br />
-          一度に確認できる
-          <br />
-          カラーグレーディングツールです。
+        <Typography
+          display="block"
+          align="center"
+          gutterBottom
+          css={descriptionStyle}
+        >
+          {AppSiteInfo.description}
         </Typography>
       </Box>
       <Box mb={2}>

@@ -22,6 +22,7 @@ const fullStyle = css`
 const descriptionStyle = css`
   line-height: 2;
   letter-spacing: 2px;
+  white-space: pre;
 `;
 
 const DefaultWelcome = () => {
@@ -46,15 +47,7 @@ const DefaultWelcome = () => {
               align="center"
               gutterBottom
             >
-              BlendMonitoringは
-              <br />
-              画像やテクスチャ、カラー、描画モードなどの
-              <br />
-              複数の色の組み合わせを
-              <br />
-              一度に確認できる
-              <br />
-              カラーグレーディングツールです。
+              {AppSiteInfo.description}
             </Typography>
             <Divider />
             <Typography display="block" variant="overline" align="center">
