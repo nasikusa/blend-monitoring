@@ -63,7 +63,7 @@ export default (props: any) => {
   };
 
   return (
-    <Box>
+    <Box style={{ height: '100%' }}>
       <Tabs
         value={value}
         onChange={handleChange}
@@ -72,7 +72,11 @@ export default (props: any) => {
         aria-label="タブパネル"
         css={muiTabItemStyle}
       >
-        <Tab icon={<Icon type="layer" />} label="レイヤー" {...a11yProps(0)} />
+        <Tab
+          icon={<Icon type="layer" />}
+          label="シーンコレクション"
+          {...a11yProps(0)}
+        />
         {/* <Tab icon={<BuildIcon />} label="設定" {...a11yProps(1)} /> */}
       </Tabs>
       <TabPanel css={tabPanelStyle} value={value} index={0}>
