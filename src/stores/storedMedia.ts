@@ -14,12 +14,12 @@ export type StoredMediaStateItemType = {
   aspectRatio: number;
   createdAt?: number;
   updatedAt?: number;
-  color?: {
+  color: {
     dominant: string;
     palette: string[];
   };
   mime: string;
-  fileSize?: {
+  fileSize: {
     raw: number;
     large: number;
     medium: number;
@@ -56,7 +56,15 @@ const slice = createSlice({
   name: 'storedMedia',
   initialState,
   reducers: {
-    addMediaData: (state, action) => {
+    addMediaData: (
+      state,
+      action: {
+        type: string;
+        payload: {
+          newMediaDataObject: StoredMediaStateItemType;
+        };
+      }
+    ) => {
       const { newMediaDataObject } = action.payload;
       const newMediaID = newMediaDataObject.id;
       return {
@@ -66,12 +74,55 @@ const slice = createSlice({
           resource: {
             ...newMediaDataObject.resource,
           },
+          fileSize: {
+            ...newMediaDataObject.fileSize,
+          },
+          color: {
+            ...newMediaDataObject.color,
+            palette: [...newMediaDataObject.color.palette],
+          },
         },
       };
+    },
+    replaceAll: (
+      state,
+      action: {
+        type: string;
+        payload: {
+          newState: StoredMediaStateType;
+        };
+      }
+    ) => {
+      const { newState } = action.payload;
+      const newStateKeys = Object.keys(newState);
+      let resultState = {};
+      newStateKeys.forEach((newMediaDataObjectKey) => {
+        const newMediaDataObject = newState[newMediaDataObjectKey];
+        const newMediaID = newMediaDataObject.id;
+        resultState = {
+          ...resultState,
+          ...{
+            [newMediaID]: {
+              ...newMediaDataObject,
+              resource: {
+                ...newMediaDataObject.resource,
+              },
+              fileSize: {
+                ...newMediaDataObject.fileSize,
+              },
+              color: {
+                ...newMediaDataObject.color,
+                palette: [...newMediaDataObject.color.palette],
+              },
+            },
+          },
+        };
+      });
+      return resultState;
     },
   },
 });
 
 export default slice.reducer;
 
-export const { addMediaData } = slice.actions;
+export const { addMediaData, replaceAll } = slice.actions;

@@ -1,7 +1,6 @@
 import React, { createContext, useState } from 'react';
 import Box from '@material-ui/core/Box';
 import Grid from '@material-ui/core/Grid';
-import { css } from '@emotion/core';
 
 import GlItemContainer from '../../../container/GlItemContainer';
 import DefaultWelcome from '../../molecules/DefaultWelcome';
@@ -30,12 +29,6 @@ export default function GlBox(props: Props) {
     setOverItemNumberFlag(false);
   };
 
-  const styles = {
-    spacing: css`
-      padding-top: 8px;
-    `,
-  };
-
   /**
    * 最大のglItem数を考慮した表示されるアイテム数
    */
@@ -49,7 +42,7 @@ export default function GlBox(props: Props) {
 
   return (
     <>
-      <Grid container css={styles.spacing}>
+      <Grid container>
         {glItemCount > 0 ? (
           (() => {
             const itemsArray = [];

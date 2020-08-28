@@ -47,6 +47,7 @@ import ZoomInIcon from '@material-ui/icons/ZoomIn';
 import ZoomOutIcon from '@material-ui/icons/ZoomOut';
 import BlockIcon from '@material-ui/icons/Block';
 import VisibilityIcon from '@material-ui/icons/Visibility';
+import SaveIcon from '@material-ui/icons/Save';
 // IconBrandNames
 import TwitterIcon from '@material-ui/icons/Twitter';
 import FacebookIcon from '@material-ui/icons/Facebook';
@@ -76,7 +77,8 @@ export type IconGeneralMeaningNames =
   | 'functionZoomIn'
   | 'functionZoomOut'
   | 'functionZoomExpand'
-  | 'functionVisibility';
+  | 'functionVisibility'
+  | 'functionSaveData';
 
 export type IconBrandNames = 'iconTwitter' | 'iconFacebook' | 'iconGithub';
 
@@ -194,6 +196,8 @@ const Icon = (p: Props) => {
         return <ZoomOutMapIcon {...p} />;
       case 'functionVisibility':
         return <VisibilityIcon {...p} />;
+      case 'functionSaveData':
+        return <SaveIcon {...p} />;
       // IconBrandNames
       case 'iconTwitter':
         return <TwitterIcon {...p} />;

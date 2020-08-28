@@ -44,7 +44,7 @@ export default (props: Props) => {
       padding: 8px;
     `,
     outerSpacing: css`
-      margin-bottom: 8px;
+      margin-top: 8px;
       margin-left: 4px;
       margin-right: 4px;
     `,

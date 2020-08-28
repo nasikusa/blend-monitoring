@@ -15,9 +15,13 @@ const slice = createSlice({
     stockRemoveColor: () => {
       return [];
     },
+    replaceAll: (state, action) => {
+      const { newState } = action.payload;
+      return [...newState];
+    },
   },
 });
 
 export default slice.reducer;
 
-export const { stockAddColor, stockRemoveColor } = slice.actions;
+export const { stockAddColor, stockRemoveColor, replaceAll } = slice.actions;
