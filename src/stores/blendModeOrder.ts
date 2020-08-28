@@ -22,10 +22,13 @@ const slice = createSlice({
   name: 'blendModeOrder',
   initialState,
   reducers: {
-    blendChange: () => {},
+    replaceAll: (state, action) => {
+      const { newState } = action.payload;
+      return [...newState];
+    },
   },
 });
 
 export default slice.reducer;
 
-// export const { blendChange } = slice.actions;
+export const { replaceAll } = slice.actions;

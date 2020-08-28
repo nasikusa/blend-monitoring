@@ -29,14 +29,28 @@ export const createStoredMediaSingleItemState = (
 
   /**
    * 結果となるオブジェクト
+   * @todo 一部プロパティがまだ一時の状態です
    */
   const resultObject: StoredMediaStateItemType = {
     id: resultID,
     mediaType: 'image',
     dataType: 'url',
     name: 'sample',
+    // temp
+    color: {
+      dominant: '#000000',
+      palette: [],
+    },
     aspectRatio: getSampleImageAspect(inputItemOrder),
     resource: getSampleImageURLObject(inputItemOrder),
+    // temp
+    fileSize: {
+      thumb: 0,
+      small: 0,
+      medium: 0,
+      large: 0,
+      raw: 0,
+    },
     rawWidth: unsplashRawWidth,
     rawHeight: unsplashRawWidth * getSampleImageAspect(inputItemOrder),
     mime: `image/jpeg`,

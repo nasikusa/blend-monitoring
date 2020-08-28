@@ -68,6 +68,12 @@ export const glSettingsSlice = createSlice({
         singleItemAspect: aspectValue,
       };
     },
+    replaceAll: (state, action) => {
+      const { newState } = action.payload;
+      return {
+        ...newState,
+      };
+    },
   },
 });
 
@@ -76,4 +82,5 @@ export default glSettingsSlice.reducer;
 export const {
   updateSingleItemSize,
   updateSingleItemAspect,
+  replaceAll,
 } = glSettingsSlice.actions;

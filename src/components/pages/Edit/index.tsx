@@ -1,16 +1,18 @@
-import React, { useRef, useEffect, useState } from 'react';
+import React, { useRef, useEffect } from 'react';
+import { css } from '@emotion/core';
 import EventListener from 'react-event-listener';
 import { RemoveScroll } from 'react-remove-scroll';
+import styled from '@emotion/styled';
 
-import Grid from '@material-ui/core/Grid';
+// import Grid from '@material-ui/core/Grid';
 import Box from '@material-ui/core/Box';
-import Divider from '@material-ui/core/Divider';
-import { makeStyles } from '@material-ui/core/styles';
+import { makeStyles, useTheme } from '@material-ui/core/styles';
 
 import GlEditContainer from '../../../container/GlEditContainer';
 import PageTemplateContainer from '../../../container/PageTemplateContainer';
 import GlBoxContainer from '../../../container/GlBoxContainer';
 import Doc from '../../organisms/Doc';
+import GeneralFunctionsListContainer from '../../../container/GeneralFunctionsListContainer';
 
 export type Props = {
   updateSingleItemSize: any;
@@ -20,12 +22,15 @@ export type Props = {
 
 type PanelWidthType = 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 | 11 | 12;
 
+const CustomEmotionBox = styled(Box)``;
+
 /**
  * Editページコンポーネント
  * @param props
  */
 const Edit = (props: Props) => {
   const { updateSingleItemSize, isShowDocArea, editAreaHeightvalue } = props;
+  const theme = useTheme();
   const useStyles = makeStyles(() => ({
     scrollable: {
       overflowY: `scroll`,
@@ -34,59 +39,69 @@ const Edit = (props: Props) => {
       maxHeight: editAreaHeightvalue,
     },
     heightSetting: {
+      height: editAreaHeightvalue,
       maxHeight: editAreaHeightvalue,
     },
   }));
+  const heightSettingStyle = css`
+    height: ${editAreaHeightvalue};
+    max-height: ${editAreaHeightvalue};
+  `;
   const classes = useStyles();
-  const containerRef = useRef<HTMLDivElement>(null);
-  const [docPanelWidth] = useState<PanelWidthType>(3);
-  const [editPanelWidth] = useState<PanelWidthType>(3);
-  const [viewPanelWidth] = useState<PanelWidthType>(isShowDocArea ? 6 : 9);
+  const containerRef = useRef(null);
   const handleResize = (ref: typeof containerRef) => {
     updateSingleItemSize({
+      // @ts-ignore
       glBoxClientWidth: ref.current?.clientWidth,
     });
   };
 
   useEffect(() => {
     updateSingleItemSize({
+      // @ts-ignore
       glBoxClientWidth: containerRef.current?.clientWidth,
     });
   }, [containerRef, updateSingleItemSize]);
 
   const pageBody = (
     <RemoveScroll>
-      <Box className={classes.heightSetting}>
-        <Grid container>
+      <Box width={1.0} className={classes.heightSetting}>
+        <Box width={1.0} display="flex">
           {isShowDocArea ? (
-            <Grid item xs={docPanelWidth}>
+            <Box>
               <Doc />
-            </Grid>
+            </Box>
           ) : (
             ''
           )}
-          <Grid
-            item
+          <Box
+            width="0.075"
+            className={classes.heightSetting}
+            style={{ backgroundColor: theme.palette.background.paper }}
+          >
+            <GeneralFunctionsListContainer css={heightSettingStyle} />
+          </Box>
+          <CustomEmotionBox
+            width="0.675"
             ref={containerRef}
-            xs={12}
-            sm={7}
-            md={8}
-            lg={viewPanelWidth}
             className={classes.scrollable}
           >
             <GlBoxContainer />
-            <Divider orientation="vertical" absolute />
-          </Grid>
-          <Grid item xs={12} sm={5} md={4} lg={editPanelWidth}>
-            <GlEditContainer />
-          </Grid>
+          </CustomEmotionBox>
+          <Box
+            width="0.25"
+            className={classes.heightSetting}
+            style={{ borderLeft: '1px solid rgba(255,255,255,0.2)' }}
+          >
+            <GlEditContainer css={heightSettingStyle} />
+          </Box>
           <EventListener
             target="window"
             onResize={() => {
               handleResize(containerRef);
             }}
           />
-        </Grid>
+        </Box>
       </Box>
     </RemoveScroll>
   );

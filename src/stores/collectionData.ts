@@ -432,6 +432,58 @@ const slice = createSlice({
         ...state.slice(adjustTargetCollectionOrder),
       ];
     },
+    // @ts-ignore
+    replaceAll: (
+      state,
+      action: {
+        type: string;
+        payload: {
+          newState: GlCollectionTypeArray;
+        };
+      }
+    ) => {
+      const { newState } = action.payload;
+      // eslint-disable-next-line
+      return newState.map((singleCollectionData) => {
+        switch (singleCollectionData.type) {
+          case 'singleColor':
+          case 'singleImage':
+            return {
+              ...singleCollectionData,
+              opacity: Array.isArray(singleCollectionData.opacity)
+                ? [...singleCollectionData.opacity]
+                : singleCollectionData.opacity,
+            };
+          case 'singleColorMultiBlends':
+          case 'singleImageMultiBlends':
+            return {
+              ...singleCollectionData,
+              blendMode: [...singleCollectionData.blendMode],
+              opacity: Array.isArray(singleCollectionData.opacity)
+                ? [...singleCollectionData.opacity]
+                : singleCollectionData.opacity,
+            };
+          case 'multiColors':
+            return {
+              ...singleCollectionData,
+              color: [...singleCollectionData.color],
+              opacity: Array.isArray(singleCollectionData.opacity)
+                ? [...singleCollectionData.opacity]
+                : singleCollectionData.opacity,
+            };
+          case 'multiImages':
+            return {
+              ...singleCollectionData,
+              image: [...singleCollectionData.image],
+              opacity: Array.isArray(singleCollectionData.opacity)
+                ? [...singleCollectionData.opacity]
+                : singleCollectionData.opacity,
+            };
+          default:
+            break;
+        }
+      });
+    },
   },
 });
 
@@ -445,4 +497,5 @@ export const {
   updateColor,
   createCollection,
   updateImages,
+  replaceAll,
 } = slice.actions;

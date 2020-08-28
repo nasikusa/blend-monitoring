@@ -30,8 +30,8 @@ const initialState: ThemeSettingsType = {
     appBarHeight: '20px',
   },
   glEdit: {
-    tabButtonHeight: '59px',
-    createButtonHeight: '60px',
+    tabButtonHeight: '60px',
+    createButtonHeight: '70px',
   },
   tooltip: {
     defaultEntryDelay: 1500,
@@ -41,9 +41,20 @@ const initialState: ThemeSettingsType = {
 const slice = createSlice({
   name: 'themeSettings',
   initialState,
-  reducers: {},
+  reducers: {
+    replaceAll: (state, action) => {
+      const { newState } = action.payload;
+      return {
+        general: { ...newState.general },
+        header: { ...newState.header },
+        footer: { ...newState.footer },
+        glEdit: { ...newState.glEdit },
+        tooltip: { ...newState.tooltip },
+      };
+    },
+  },
 });
 
 export default slice.reducer;
 
-// export const { blendChange } = slice.actions;
+export const { replaceAll } = slice.actions;
