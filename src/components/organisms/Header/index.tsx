@@ -7,7 +7,7 @@ import { makeStyles, useTheme } from '@material-ui/core/styles';
 
 import HeaderInfos from '../../molecules/HeaderInfos';
 import LogoImage from '../../atoms/LogoImage';
-import { AppName } from '../../../constants/appConstantSettings';
+import { AppNameHasAccent } from '../../../constants/appConstantSettings';
 
 import { ThemeSettingsType } from '../../../stores/themeSettings';
 
@@ -42,7 +42,9 @@ export default function (props: Props) {
           <Grid item>
             <Grid container alignItems="center">
               <LogoImage size="icon" noBg noSpace />
-              <Typography className={classes.logo}>{AppName}</Typography>
+              <Typography className={classes.logo}>
+                {AppNameHasAccent}
+              </Typography>
             </Grid>
           </Grid>
           <Grid item>{isShowHeaderInfos && <HeaderInfos />}</Grid>

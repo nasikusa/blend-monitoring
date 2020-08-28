@@ -1,7 +1,9 @@
 /**
  * アプリ名
  */
-export const AppName = `BlendMonitoring β`;
+export const AppName = `BlendMonitoring`;
+const isBeta = true;
+export const AppNameHasAccent = isBeta ? `${AppName} β` : `${AppName}`;
 
 /**
  * サイト情報
@@ -13,7 +15,7 @@ export const AppSiteInfo = {
   updatedAt: '2020 / 08 / 27',
   createdAt: '2020 / 07 / 25',
   description: `
-  BlendMonitoringは
+  ${AppName}は
   画像やテクスチャ、カラー、描画モードなどの
   複数の色の組み合わせを
   一度に確認できる
@@ -35,3 +37,7 @@ export const DeveloperInfo = {
  * 最大の追加できるglsl描画アイテムの数
  */
 export const maxCountOfGlItem = 14;
+
+export const appSaveDataInfo = {
+  extension: 'blmn',
+};
