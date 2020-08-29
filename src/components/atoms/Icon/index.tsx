@@ -48,10 +48,14 @@ import ZoomOutIcon from '@material-ui/icons/ZoomOut';
 import BlockIcon from '@material-ui/icons/Block';
 import VisibilityIcon from '@material-ui/icons/Visibility';
 import SaveIcon from '@material-ui/icons/Save';
+import ScheduleIcon from '@material-ui/icons/Schedule';
 // IconBrandNames
 import TwitterIcon from '@material-ui/icons/Twitter';
 import FacebookIcon from '@material-ui/icons/Facebook';
 import GitHubIcon from '@material-ui/icons/GitHub';
+// footerFunction
+import BrushIcon from '@material-ui/icons/Brush';
+import ShowChartIcon from '@material-ui/icons/ShowChart';
 
 // icon end =======================================
 
@@ -62,6 +66,7 @@ import { BlendModeRoughTypeType } from '../../../constants/blendModeData';
 
 export type IconGeneralMeaningNames =
   | 'functionAdd'
+  | 'functionAddBlock'
   | 'functionDelete'
   | 'functionReload'
   | 'functionClose'
@@ -78,9 +83,16 @@ export type IconGeneralMeaningNames =
   | 'functionZoomOut'
   | 'functionZoomExpand'
   | 'functionVisibility'
-  | 'functionSaveData';
+  | 'functionSaveData'
+  | 'functionImage'
+  | 'functionPalette'
+  | 'functionTime';
 
 export type IconBrandNames = 'iconTwitter' | 'iconFacebook' | 'iconGithub';
+
+export type FooterFunctionNames =
+  | 'footerFunctionDraw'
+  | 'footerFunctionVersion';
 
 export type IconTypeTypes =
   | 'layer'
@@ -90,7 +102,8 @@ export type IconTypeTypes =
   | ColorPanelFunctionNames
   | BlendModeRoughTypeType
   | IconGeneralMeaningNames
-  | IconBrandNames;
+  | IconBrandNames
+  | FooterFunctionNames;
 
 export type Props = {
   type: IconTypeTypes;
@@ -164,6 +177,8 @@ const Icon = (p: Props) => {
       // IconGeneralMeaningNames
       case 'functionAdd':
         return <AddIcon {...p} />;
+      case 'functionAddBlock':
+        return <AddBoxIcon {...p} />;
       case 'functionClose':
         return <CloseIcon {...p} />;
       case 'functionDelete':
@@ -198,6 +213,12 @@ const Icon = (p: Props) => {
         return <VisibilityIcon {...p} />;
       case 'functionSaveData':
         return <SaveIcon {...p} />;
+      case 'functionImage':
+        return <ImageIcon {...p} />;
+      case 'functionPalette':
+        return <ColorLensIcon {...p} />;
+      case 'functionTime':
+        return <ScheduleIcon {...p} />;
       // IconBrandNames
       case 'iconTwitter':
         return <TwitterIcon {...p} />;
@@ -205,6 +226,11 @@ const Icon = (p: Props) => {
         return <FacebookIcon {...p} />;
       case 'iconGithub':
         return <GitHubIcon {...p} />;
+      // footerFunction
+      case 'footerFunctionDraw':
+        return <BrushIcon {...p} />;
+      case 'footerFunctionVersion':
+        return <ShowChartIcon {...p} />;
       default:
         return <HelpIcon {...p} />;
     }
