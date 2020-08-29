@@ -1,13 +1,14 @@
 import React from 'react';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
-import Box from '@material-ui/core/Box';
-import Typography from '@material-ui/core/Typography';
 import Divider from '@material-ui/core/Divider';
 import Grid from '@material-ui/core/Grid';
 import { makeStyles } from '@material-ui/core/styles';
 
+import Icon from '../../atoms/Icon';
+import TextWithIcon from '../../molecules/TextWithIcon';
 import { AppSiteInfo } from '../../../constants/appConstantSettings';
+import getDefaultColorSpace from '../../../utils/getDefaultColorSpace';
 
 type Props = {
   multiCollectionsLength: number;
@@ -38,38 +39,32 @@ export default function (props: Props) {
         <Grid container justify="space-between" alignItems="center">
           <Grid item>
             <Grid container justify="flex-start" alignItems="center">
-              <Box mx={2}>
-                <Typography variant="overline">
-                  レイヤー・コレクション数 : {multiCollectionsLength}
-                </Typography>
-              </Box>
+              <TextWithIcon iconElement={<Icon type="layer" />}>
+                レイヤー・コレクション数 : {multiCollectionsLength}
+              </TextWithIcon>
               <Divider orientation="vertical" />
-              <Box mx={2}>
-                <Typography variant="overline">
-                  描画アイテム数 : {glViewItemLength}
-                </Typography>
-              </Box>
+              <TextWithIcon iconElement={<Icon type="footerFunctionDraw" />}>
+                描画アイテム数 : {glViewItemLength}
+              </TextWithIcon>
               <Divider orientation="vertical" />
-              <Box mx={2}>
-                <Typography variant="overline">
-                  画像の数 : {storedMediaLength}
-                </Typography>
-              </Box>
+              <TextWithIcon iconElement={<Icon type="functionImage" />}>
+                画像の数 : {storedMediaLength}
+              </TextWithIcon>
+              <Divider orientation="vertical" />
+              <TextWithIcon iconElement={<Icon type="functionPalette" />}>
+                カラースペース : {getDefaultColorSpace()}
+              </TextWithIcon>
             </Grid>
           </Grid>
           <Grid item>
             <Grid container justify="flex-start" alignItems="center">
-              <Box mx={2}>
-                <Typography variant="overline">
-                  バージョン : {AppSiteInfo.version}
-                </Typography>
-              </Box>
+              <TextWithIcon iconElement={<Icon type="footerFunctionVersion" />}>
+                バージョン : {AppSiteInfo.version}
+              </TextWithIcon>
               <Divider orientation="vertical" />
-              <Box mx={2}>
-                <Typography variant="overline">
-                  更新日時 : {AppSiteInfo.updatedAt}
-                </Typography>
-              </Box>
+              <TextWithIcon iconElement={<Icon type="functionTime" />}>
+                更新日時 : {AppSiteInfo.updatedAt}
+              </TextWithIcon>
             </Grid>
           </Grid>
         </Grid>
