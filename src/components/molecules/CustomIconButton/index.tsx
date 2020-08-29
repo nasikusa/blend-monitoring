@@ -50,8 +50,8 @@ const CustomIconButton = (props: Props) => {
       padding: ${theme.spacing(2)}px;
     `,
     buttonStyle: css`
-      margin-top: ${theme.spacing(1) / 2}px;
-      margin-bottom: ${theme.spacing(1) / 2}px;
+      margin-top: 0px;
+      margin-bottom: 0px;
       margin-left: ${theme.spacing(1)}px;
       margin-right: ${theme.spacing(1)}px;
     `,

@@ -25,6 +25,8 @@ type Props = {
 
 /**
  * glslでの描画するアイテム(glView)のラッパー。その他のinfoなど。
+ * @todo propsで渡される typeSpecialValue があいまいになってしまっているので
+ * 、 xxx | undefined的な感じでもいいので複数にしたいです。
  */
 export default (props: Props) => {
   const {
