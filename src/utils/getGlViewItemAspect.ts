@@ -21,9 +21,9 @@ export default (
         case 'singleImage':
         case 'singleImageMultiBlends': {
           const collectionItemImageID =
-            targetImageID || singleCollectionItemData.image;
+            singleCollectionItemData.image || targetImageID;
           const aspectValue =
-            collectionItemImageID !== null
+            collectionItemImageID != null
               ? storedMediaData[collectionItemImageID].aspectRatio
               : defaultAspectValue;
           return aspectValue;
