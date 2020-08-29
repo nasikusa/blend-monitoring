@@ -42,7 +42,11 @@ const CustomIconButton = (props: Props) => {
 
   const theme = useTheme();
 
-  const collectionFunctionButtonStyle = css`
+  const styles = {
+    toolTipInnerWrapper: css`
+      display: inline-flex;
+    `,
+    iconButtonStyle: css`
     padding: ${theme.spacing(2)}px;
   `;
 
@@ -107,8 +111,13 @@ const CustomIconButton = (props: Props) => {
   return disableTooltip ? (
     <ContentElement />
   ) : (
-    <CustomTooltip title={labelTitle || 'ラベルタイトル'} {...tooltipProps}>
+    <CustomTooltip
+      title={labelTitle || 'ツールチップタイトル'}
+      {...tooltipProps}
+    >
+      <div css={styles.toolTipInnerWrapper}>
       <ContentElement />
+      </div>
     </CustomTooltip>
   );
 };
