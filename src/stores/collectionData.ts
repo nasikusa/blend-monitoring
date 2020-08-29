@@ -421,7 +421,6 @@ const slice = createSlice({
       }
     ) => {
       const { newState } = action.payload;
-      console.log(newState);
       // eslint-disable-next-line
       return newState.map((singleCollectionData) => {
         switch (singleCollectionData.type) {

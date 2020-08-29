@@ -39,7 +39,7 @@ const useStyles = makeStyles((theme: Theme) =>
 const ImagePanel: React.FC<Props> = (props: Props) => {
   const classes = useStyles();
   const { storedMediaData, globalStateImageData } = props;
-  const [imagePanelOpen, setImagePanelOpen] = useState(true);
+  const [imagePanelOpen, setImagePanelOpen] = useState(false);
   const [imageBoxWidth] = useState<number>(250);
   const [imageBoxRowCount] = useState<number>(4);
 

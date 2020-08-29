@@ -9,7 +9,7 @@ import Dialog from '@material-ui/core/Dialog';
 import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
 import Button from '@material-ui/core/Button';
-import Paper, { PaperProps } from '@material-ui/core/Paper';
+import Paper from '@material-ui/core/Paper';
 import FormGroup from '@material-ui/core/FormGroup';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Switch from '@material-ui/core/Switch';
@@ -48,17 +48,6 @@ const useStyles = makeStyles(() =>
   })
 );
 
-function PaperComponent(props: PaperProps) {
-  return (
-    <Draggable
-      handle="#blend-draggable-dialog-title"
-      cancel={'[class*="MuiDialogContent-root"]'}
-    >
-      <Paper {...props} />
-    </Draggable>
-  );
-}
-
 /**
  * モーダルの背景要素をタッチ不能にして、モーダルの下の要素のクリックを可能にするためのCSS
  */
@@ -77,6 +66,17 @@ const modalTitleStyle = css`
   transition: background-color 0.1s ease;
 `;
 
+const DraggablePaperComponent = (paperProps: any) => {
+  return (
+    <Draggable
+      handle="#blend-draggable-dialog-title"
+      cancel={'[class*="MuiDialogContent-root"]'}
+    >
+      <Paper {...paperProps} />
+    </Draggable>
+  );
+};
+
 /**
  * 描画モードのモーダルを管理するコンポーネント。モーダルの中身に関しては、
  * 他コンポーネントを参照してください。
@@ -94,6 +94,7 @@ export default (props: Props) => {
   const [onErrorSnackBarOpenFlag, setOnErrorSnackBarOpenFlag] = useState(false);
   const [isBoxSmallFlag, setIsBoxSmallFlag] = useState(false);
   const [isImageBigFlag, setIsImageBigFlag] = useState(false);
+  const [transparentBackgroundFlag] = useState(true);
 
   const onDrop = useCallback((acceptedFiles) => {
     setOnDropSnackBarOpenFlag(true);
@@ -178,12 +179,14 @@ export default (props: Props) => {
       <Dialog
         className={classes.modal}
         onClose={handleClose}
-        aria-labelledby="描画モードのパネル"
+        aria-labelledby="描画モードパネル"
         open={modalOpen}
         maxWidth={false}
         disableEnforceFocus
         BackdropProps={{
-          style: { backgroundColor: 'rgba(0,0,0,0)', pointerEvents: 'none' },
+          style: transparentBackgroundFlag
+            ? { backgroundColor: 'rgba(0,0,0,0)', pointerEvents: 'all' }
+            : {},
         }}
         PaperProps={{
           style: {
@@ -193,7 +196,7 @@ export default (props: Props) => {
               : '0px solid transparent',
           },
         }}
-        PaperComponent={PaperComponent}
+        PaperComponent={DraggablePaperComponent}
         css={modalBackStyle}
       >
         <div {...getRootProps()}>
@@ -205,9 +208,6 @@ export default (props: Props) => {
           >
             画像の設定パネル
             <Button onClick={handleClose}>閉じる</Button>
-            {/* <IconButton size="medium" aria-label="close" onClick={handleClose}>
-              <Icon type="functionClose" fontSize="large" />
-            </IconButton> */}
           </DialogTitle>
           <DialogContent dividers>
             <MediaModalContentsContainer

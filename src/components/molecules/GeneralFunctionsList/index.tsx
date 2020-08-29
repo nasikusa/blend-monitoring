@@ -46,6 +46,7 @@ const GeneralFunctionsList = (props: Props) => {
       if (acceptedFiles.length === 1) {
         const targetFileObject = acceptedFiles[0];
         const result = await loadSaveData(targetFileObject);
+        // collectionDataを先に削除しておかないと、依存関係でエラーが出ます
         removeAllCollectionData();
         removeAllStoredMedia();
         replaceAllStoredMedia({ newState: result.storedMedia });
