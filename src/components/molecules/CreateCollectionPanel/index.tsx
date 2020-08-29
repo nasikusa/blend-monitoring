@@ -1,11 +1,13 @@
 import React from 'react';
 import { v4 as uuidv4 } from 'uuid';
-
 import Box from '@material-ui/core/Box';
 import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
-import CustomIconButton from '../CustomIconButton';
+import { useTheme } from '@material-ui/core/styles';
+import { css } from '@emotion/core';
 
+import CustomIconButton from '../CustomIconButton';
+import Icon from '../../atoms/Icon';
 import collectionTypesArray from '../../../constants/collectionTypesArray';
 import collectionTypeNameObject from '../../../constants/collectionTypeNameObject';
 import canMultiItemCollectionName from '../../../constants/canMultiItemCollectionName';
@@ -20,6 +22,7 @@ export type Props = {
  */
 export default (props: Props) => {
   const { createCollection, hasMultiItemCollection } = props;
+  const theme = useTheme();
 
   /**
    * 新しく追加するコレクションオブジェクトを生成して、reduxに送信している関数
@@ -103,16 +106,27 @@ export default (props: Props) => {
 
   return (
     <Box px={2} pb={1} pt={2}>
-      <Typography gutterBottom>レイヤー / コレクションを追加する</Typography>
+      <Box display="flex" alignItems="center">
+        <Icon type="functionAddBlock" />
+        <Typography
+          gutterBottom
+          css={css`
+            margin-left: ${theme.spacing(2)}px;
+          `}
+        >
+          レイヤー / コレクションを追加する
+        </Typography>
+      </Box>
       <Grid>
         {collectionTypesArray.map((singleCollectionType, currentIndex) => {
           return (
             <>
               <CustomIconButton
                 type={singleCollectionType}
-                buttonType="iconButton"
+                buttonType="buttonWithIcon"
                 labelTitle={collectionTypeNameObject[singleCollectionType].ja}
                 active
+                disableTooltip
                 disable={
                   canMultiItemCollectionName.includes(singleCollectionType) &&
                   hasMultiItemCollection
@@ -132,6 +146,7 @@ export default (props: Props) => {
                 }}
                 buttonProps={{
                   fullWidth: true,
+                  variant: 'outlined',
                 }}
               >
                 {collectionTypeNameObject[singleCollectionType].ja}

@@ -47,12 +47,15 @@ const CustomIconButton = (props: Props) => {
       display: inline-flex;
     `,
     iconButtonStyle: css`
-    padding: ${theme.spacing(2)}px;
-  `;
-
-  const buttonStyle = css`
-    margin: ${theme.spacing(1)}px;
-  `;
+      padding: ${theme.spacing(2)}px;
+    `,
+    buttonStyle: css`
+      margin-top: ${theme.spacing(1) / 2}px;
+      margin-bottom: ${theme.spacing(1) / 2}px;
+      margin-left: ${theme.spacing(1)}px;
+      margin-right: ${theme.spacing(1)}px;
+    `,
+  };
 
   /**
    * アイコンボタンコンポーネント
@@ -61,7 +64,7 @@ const CustomIconButton = (props: Props) => {
     return (
       <IconButton
         disabled={disable}
-        css={collectionFunctionButtonStyle}
+        css={styles.iconButtonStyle}
         {...iconButtonProps}
         {...buttonGeneralProps}
       >
@@ -81,7 +84,7 @@ const CustomIconButton = (props: Props) => {
   const ButtonElement = () => {
     return (
       <Button
-        css={buttonStyle}
+        css={styles.buttonStyle}
         startIcon={
           <Icon
             // @ts-ignore
@@ -116,7 +119,7 @@ const CustomIconButton = (props: Props) => {
       {...tooltipProps}
     >
       <div css={styles.toolTipInnerWrapper}>
-      <ContentElement />
+        <ContentElement />
       </div>
     </CustomTooltip>
   );
