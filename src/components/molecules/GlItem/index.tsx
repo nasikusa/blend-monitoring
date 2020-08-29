@@ -12,6 +12,7 @@ import CustomIconButton from '../CustomIconButton';
 import blendModeData, {
   BlendModesType,
 } from '../../../constants/blendModeData';
+import Icon from '../../atoms/Icon';
 
 import { CollectionTypeType } from '../../../stores/collectionData';
 import { StoredMediaStateItemType } from '../../../stores/storedMedia';
@@ -50,8 +51,6 @@ export default (props: Props) => {
     `,
   };
 
-  let blendModeHeadFirstString = '';
-
   /**
    * カードヘッドタイトルをここで設定している
    */
@@ -80,13 +79,13 @@ export default (props: Props) => {
           if (keyOfBlendModeData.includes(blendModeDataKey)) {
             // @ts-ignore
             const blendModeName = blendModeData[typeSpecialValue].name.ja;
-            blendModeHeadFirstString = blendModeName.charAt(0);
+            // blendModeHeadFirstString = blendModeName.charAt(0);
             return blendModeName;
           }
         }
         return null;
       default:
-        return 'アイテム';
+        return '描画アイテム';
     }
   })();
 
@@ -105,16 +104,59 @@ export default (props: Props) => {
     return undefined;
   })();
 
+  const AvatarSrcProp = (() => {
+    return glItemAvatarSrc ? { src: glItemAvatarSrc } : {};
+  })();
+
+  const BlendModeTypeIcon = (() => {
+    if (
+      (multiItemCollectionType === 'singleImageMultiBlends' ||
+        multiItemCollectionType === 'singleColorMultiBlends') &&
+      typeSpecialValue != null &&
+      typeof typeSpecialValue === 'string'
+    ) {
+      // @ts-ignore
+      const singleBlendModeData = blendModeData[typeSpecialValue];
+      if (singleBlendModeData.type.base === 'other') {
+        return <Icon type="blendModeNormal" color="action" />;
+      }
+      if (singleBlendModeData.type.base === 'math') {
+        return <Icon type="blendModeMath" color="action" />;
+      }
+
+      if (singleBlendModeData.type.base === 'normal') {
+        switch (singleBlendModeData.type.brightness) {
+          case '+':
+            return <Icon type="blendModeBrightnessPlus" color="action" />;
+          case '-':
+            return <Icon type="blendModeBrightnessMinus" color="action" />;
+          case '+-':
+            return <Icon type="blendModeBrightnessPlusMinus" color="action" />;
+          default:
+            return <Icon type="functionHelp" color="action" />;
+        }
+      }
+
+      return <Icon type="functionHelp" color="action" />;
+    }
+    return <Icon type="functionHelp" color="action" />;
+  })();
+
   return (
     <Card css={styles.outerSpacing}>
       <CardHeader
         avatar={
-          <Avatar aria-label="recipe" src={glItemAvatarSrc} css={styles.avatar}>
+          <Avatar
+            variant="rounded"
+            aria-label="recipe"
+            css={styles.avatar}
+            {...AvatarSrcProp}
+          >
             {(() => {
               switch (multiItemCollectionType) {
                 case 'singleColorMultiBlends':
                 case 'singleImageMultiBlends':
-                  return blendModeHeadFirstString;
+                  return BlendModeTypeIcon;
                 case 'multiColors':
                 case 'multiImages':
                   return <></>;
