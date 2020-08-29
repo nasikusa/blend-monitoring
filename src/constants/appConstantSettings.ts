@@ -11,8 +11,8 @@ export const AppNameHasAccent = isBeta ? `${AppName} β` : `${AppName}`;
 export const AppSiteInfo = {
   url: 'https://blend.nasikusa.net',
   shortenURL: 'https://bit.ly/33ZGL2i',
-  version: '0.1.4',
-  updatedAt: '2020 / 08 / 28',
+  version: '0.1.5',
+  updatedAt: '2020 / 08 / 29',
   createdAt: '2020 / 07 / 25',
   description: `
   ${AppName}は
