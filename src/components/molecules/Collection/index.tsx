@@ -330,16 +330,20 @@ export default (props: Props) => {
       >
         <BlendModePanelContainer />
       </ListItemWrap>
-      <ListItemWrap
-        collapseIn={colorOpenFlag && collectionTypeFunctionObject.color}
-      >
-        <ColorPanelContainer />
-      </ListItemWrap>
-      <ListItemWrap
-        collapseIn={imageOpenFlag && collectionTypeFunctionObject.image}
-      >
-        <ImagePanelContainer />
-      </ListItemWrap>
+      {singleCollectionData.roughType === 'color' && (
+        <ListItemWrap
+          collapseIn={colorOpenFlag && collectionTypeFunctionObject.color}
+        >
+          <ColorPanelContainer />
+        </ListItemWrap>
+      )}
+      {singleCollectionData.roughType === 'image' && (
+        <ListItemWrap
+          collapseIn={imageOpenFlag && collectionTypeFunctionObject.image}
+        >
+          <ImagePanelContainer />
+        </ListItemWrap>
+      )}
     </>
   );
 };
