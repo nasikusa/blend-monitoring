@@ -84,6 +84,11 @@ const slice = createSlice({
         },
       };
     },
+    removeAll: () => {
+      return {
+        ...initialState,
+      };
+    },
     replaceAll: (
       state,
       action: {
@@ -125,4 +130,4 @@ const slice = createSlice({
 
 export default slice.reducer;
 
-export const { addMediaData, replaceAll } = slice.actions;
+export const { addMediaData, replaceAll, removeAll } = slice.actions;

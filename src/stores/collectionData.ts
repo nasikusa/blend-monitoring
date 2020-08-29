@@ -145,20 +145,6 @@ export type GlCollectionType =
   | ColorRelatedGlCollectionType
   | ImageRelatedGlCollectionType;
 
-// | BaseGlCollectionType;
-
-// export type GlCollectionType = {
-//   id: string;
-//   innerItemId: string[] | string;
-//   visibility: boolean;
-//   type: CollectionTypeType;
-//   opacity: number | number[];
-//   blendMode: BlendModesType | BlendModesType[];
-//   color: null | string | string[];
-//   image: null | string | string[];
-//   size: null | collectionSizeValueType;
-// };
-
 export type updateBlendModePayloadType = {
   blendMode: any;
   glCollectionOrderKey: any;
@@ -171,18 +157,7 @@ export type updateBlendModePayloadType = {
  */
 export type GlCollectionTypeArray = GlCollectionType[];
 
-const initialState: GlCollectionTypeArray = [
-  // {
-  //   id: uuidv4(),
-  //   innerItemID: uuidv4(),
-  //   visibility: true,
-  //   type: 'singleColor',
-  //   roughType: 'color',
-  //   opacity: 1.0,
-  //   blendMode: 'normal',
-  //   color: '#000000',
-  // },
-];
+const initialState: GlCollectionTypeArray = [];
 
 const slice = createSlice({
   name: 'collectionData',
@@ -432,6 +407,9 @@ const slice = createSlice({
         ...state.slice(adjustTargetCollectionOrder),
       ];
     },
+    removeAll: () => {
+      return [...initialState];
+    },
     // @ts-ignore
     replaceAll: (
       state,
@@ -443,6 +421,7 @@ const slice = createSlice({
       }
     ) => {
       const { newState } = action.payload;
+      console.log(newState);
       // eslint-disable-next-line
       return newState.map((singleCollectionData) => {
         switch (singleCollectionData.type) {
@@ -498,4 +477,5 @@ export const {
   createCollection,
   updateImages,
   replaceAll,
+  removeAll,
 } = slice.actions;

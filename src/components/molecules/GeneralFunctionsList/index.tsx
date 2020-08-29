@@ -12,6 +12,8 @@ import { appSaveDataInfo } from '../../../constants/appConstantSettings';
 import loadSaveData from '../../../utils/getLoadedSaveData';
 
 type Props = {
+  removeAllStoredMedia: any;
+  removeAllCollectionData: any;
   replaceAllGlSettings: any;
   replaceAllStoredMedia: any;
   replaceAllCollectionData: any;
@@ -29,6 +31,8 @@ type GeneralFunctionsDataType = {
 
 const GeneralFunctionsList = (props: Props) => {
   const {
+    removeAllStoredMedia,
+    removeAllCollectionData,
     replaceAllGlSettings,
     replaceAllStoredMedia,
     replaceAllCollectionData,
@@ -42,15 +46,19 @@ const GeneralFunctionsList = (props: Props) => {
       if (acceptedFiles.length === 1) {
         const targetFileObject = acceptedFiles[0];
         const result = await loadSaveData(targetFileObject);
-        replaceAllThemeSettings({ newState: result.themeSettings });
+        removeAllCollectionData();
+        removeAllStoredMedia();
+        replaceAllStoredMedia({ newState: result.storedMedia });
         replaceAllBlendModeOrder({ newState: result.blendModeOrder });
         replaceAllStockedColors({ newState: result.stockedColors });
+        replaceAllThemeSettings({ newState: result.themeSettings });
         replaceAllGlSettings({ newState: result.glSettings });
-        replaceAllStoredMedia({ newState: result.storedMedia });
         replaceAllCollectionData({ newState: result.collectionData });
       }
     },
     [
+      removeAllStoredMedia,
+      removeAllCollectionData,
       replaceAllThemeSettings,
       replaceAllBlendModeOrder,
       replaceAllStockedColors,

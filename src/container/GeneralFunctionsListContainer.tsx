@@ -3,14 +3,31 @@ import { useDispatch } from 'react-redux';
 import GeneralFunctionsList from '../components/molecules/GeneralFunctionsList';
 
 import { replaceAll as replaceAllGlSettingsAction } from '../stores/glSettings';
-import { replaceAll as replaceAllStoredMediaAction } from '../stores/storedMedia';
-import { replaceAll as replaceAllCollectionDataAction } from '../stores/collectionData';
+import {
+  replaceAll as replaceAllStoredMediaAction,
+  removeAll as removeAllStoredMediaAction,
+} from '../stores/storedMedia';
+import {
+  replaceAll as replaceAllCollectionDataAction,
+  removeAll as removeAllCollectionDataAction,
+} from '../stores/collectionData';
 import { replaceAll as replaceAllThemeSettingsAction } from '../stores/themeSettings';
 import { replaceAll as replaceAllBlendModeOrderAction } from '../stores/blendModeOrder';
 import { replaceAll as replaceAllStockedColorsAction } from '../stores/stockedColors';
 
 export default () => {
   const dispatch = useDispatch();
+
+  const removeAllStoredMedia = React.useCallback(() => {
+    dispatch(removeAllStoredMediaAction());
+  }, [dispatch]);
+
+  const removeAllCollectionData = React.useCallback(
+    (val) => {
+      dispatch(removeAllCollectionDataAction(val));
+    },
+    [dispatch]
+  );
 
   const replaceAllGlSettings = React.useCallback(
     (val) => {
@@ -50,6 +67,8 @@ export default () => {
   );
 
   const combineProps = {
+    removeAllStoredMedia,
+    removeAllCollectionData,
     replaceAllGlSettings,
     replaceAllStoredMedia,
     replaceAllCollectionData,
