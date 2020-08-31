@@ -2,7 +2,10 @@ import React from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import Edit from '../components/pages/Edit';
 
-import { updateSingleItemSize as updateSingleItemSizeAction } from '../stores/glSettings';
+import {
+  updateSingleItemSize as updateSingleItemSizeAction,
+  updateRowCount as updateRowCountAction,
+} from '../stores/glSettings';
 import { AppState } from '../stores/index';
 
 export default () => {
@@ -23,8 +26,16 @@ export default () => {
     [dispatch]
   );
 
+  const updateRowCount = React.useCallback(
+    (val) => {
+      dispatch(updateRowCountAction(val));
+    },
+    [dispatch]
+  );
+
   const combineProps = {
     updateSingleItemSize,
+    updateRowCount,
     isShowDocArea,
     editAreaHeightvalue,
   };

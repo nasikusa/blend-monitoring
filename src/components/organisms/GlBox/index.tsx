@@ -22,7 +22,6 @@ export type Props = {
  */
 export default function GlBox(props: Props) {
   const { glItemCount, glItemKeys, glBoxRowCount } = props;
-  const [glItemDivideNumber] = useState(1 / glBoxRowCount);
   const [overItemNumberFlag, setOverItemNumberFlag] = useState(false);
 
   const handleClose = () => {
@@ -52,7 +51,7 @@ export default function GlBox(props: Props) {
                   key={Array.isArray(glItemKeys) ? glItemKeys[i] : glItemKeys}
                   value={i}
                 >
-                  <Box width={glItemDivideNumber}>
+                  <Box width={1 / glBoxRowCount}>
                     <GlItemContainer />
                   </Box>
                 </GlItemOrderContext.Provider>

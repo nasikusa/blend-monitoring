@@ -3,6 +3,7 @@ import { css } from '@emotion/core';
 import EventListener from 'react-event-listener';
 import { RemoveScroll } from 'react-remove-scroll';
 import styled from '@emotion/styled';
+import { GlobalHotKeys } from 'react-hotkeys';
 
 // import Grid from '@material-ui/core/Grid';
 import Box from '@material-ui/core/Box';
@@ -16,6 +17,7 @@ import GeneralFunctionsListContainer from '../../../container/GeneralFunctionsLi
 
 export type Props = {
   updateSingleItemSize: any;
+  updateRowCount: any;
   isShowDocArea: boolean;
   editAreaHeightvalue: string;
 };
@@ -29,8 +31,68 @@ const CustomEmotionBox = styled(Box)``;
  * @param props
  */
 const Edit = (props: Props) => {
-  const { updateSingleItemSize, isShowDocArea, editAreaHeightvalue } = props;
+  const {
+    updateSingleItemSize,
+    updateRowCount,
+    isShowDocArea,
+    editAreaHeightvalue,
+  } = props;
+  const containerRef = useRef(null);
   const theme = useTheme();
+  const HotkeyMap = {
+    FUNCTION_KEY_1: '1',
+    FUNCTION_KEY_2: '2',
+    FUNCTION_KEY_3: '3',
+    FUNCTION_KEY_4: '4',
+    FUNCTION_KEY_5: '5',
+    FUNCTION_KEY_6: '6',
+  };
+
+  const HotKeyhandlers = {
+    FUNCTION_KEY_1: () => {
+      updateRowCount({ newRowCountValue: 1 });
+      updateSingleItemSize({
+        // @ts-ignore
+        glBoxClientWidth: containerRef.current?.clientWidth,
+      });
+    },
+    FUNCTION_KEY_2: () => {
+      updateRowCount({ newRowCountValue: 2 });
+      updateSingleItemSize({
+        // @ts-ignore
+        glBoxClientWidth: containerRef.current?.clientWidth,
+      });
+    },
+    FUNCTION_KEY_3: () => {
+      updateRowCount({ newRowCountValue: 3 });
+      updateSingleItemSize({
+        // @ts-ignore
+        glBoxClientWidth: containerRef.current?.clientWidth,
+      });
+    },
+    FUNCTION_KEY_4: () => {
+      updateRowCount({ newRowCountValue: 4 });
+      updateSingleItemSize({
+        // @ts-ignore
+        glBoxClientWidth: containerRef.current?.clientWidth,
+      });
+    },
+    FUNCTION_KEY_5: () => {
+      updateRowCount({ newRowCountValue: 5 });
+      updateSingleItemSize({
+        // @ts-ignore
+        glBoxClientWidth: containerRef.current?.clientWidth,
+      });
+    },
+    FUNCTION_KEY_6: () => {
+      updateRowCount({ newRowCountValue: 6 });
+      updateSingleItemSize({
+        // @ts-ignore
+        glBoxClientWidth: containerRef.current?.clientWidth,
+      });
+    },
+  };
+
   const useStyles = makeStyles(() => ({
     scrollable: {
       overflowY: `scroll`,
@@ -48,7 +110,7 @@ const Edit = (props: Props) => {
     max-height: ${editAreaHeightvalue};
   `;
   const classes = useStyles();
-  const containerRef = useRef(null);
+
   const handleResize = (ref: typeof containerRef) => {
     updateSingleItemSize({
       // @ts-ignore
@@ -65,6 +127,7 @@ const Edit = (props: Props) => {
 
   const pageBody = (
     <RemoveScroll>
+      <GlobalHotKeys keyMap={HotkeyMap} handlers={HotKeyhandlers} />
       <Box width={1.0} className={classes.heightSetting}>
         <Box width={1.0} display="flex">
           {isShowDocArea ? (

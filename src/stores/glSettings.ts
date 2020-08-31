@@ -61,6 +61,13 @@ export const glSettingsSlice = createSlice({
         singleItemWidth,
       };
     },
+    updateRowCount: (state, action) => {
+      const { newRowCountValue } = action.payload;
+      return {
+        ...state,
+        rowCount: newRowCountValue,
+      };
+    },
     updateSingleItemAspect: (state, action) => {
       const { aspectValue } = action.payload;
       return {
@@ -82,5 +89,6 @@ export default glSettingsSlice.reducer;
 export const {
   updateSingleItemSize,
   updateSingleItemAspect,
+  updateRowCount,
   replaceAll,
 } = glSettingsSlice.actions;
