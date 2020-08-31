@@ -39,6 +39,7 @@ export type secondaryAreaType = {
   labelTitleValue: string;
   clickFunction: any;
   isActiveFlag?: boolean;
+  isDangerFlag?: boolean;
   taretFunctionProp?: keyof collectionObjectFunctionType;
   currentCollectionType: CollectionTypeType;
 };
@@ -263,6 +264,7 @@ export default (props: Props) => {
       typeName: 'functionDelete',
       labelTitleValue: 'レイヤー・コレクションを削除',
       clickFunction: handleDeleteIconClick,
+      isDangerFlag: true,
       taretFunctionProp: 'garbage',
       currentCollectionType: singleCollectionType,
     },
@@ -288,6 +290,7 @@ export default (props: Props) => {
                   labelTitle={singleSecondaryElemData.labelTitleValue}
                   buttonType="iconButton"
                   active={singleSecondaryElemData.isActiveFlag}
+                  danger={singleSecondaryElemData.isDangerFlag}
                   disable={
                     singleSecondaryElemData.taretFunctionProp != null
                       ? !collectionTypeFunctionObject[

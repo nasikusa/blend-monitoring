@@ -15,6 +15,7 @@ type Props = {
   labelTitle?: string;
   disable?: boolean;
   active?: boolean;
+  danger?: boolean;
   disableTooltip?: boolean;
   iconProps?: SvgIconProps;
   iconButtonProps?: IconButtonProps;
@@ -37,6 +38,7 @@ const CustomIconButton = (props: Props) => {
     disableTooltip,
     disable,
     active,
+    danger,
     labelTitle,
   } = props;
 
@@ -71,7 +73,15 @@ const CustomIconButton = (props: Props) => {
         <Icon
           // @ts-ignore
           type={type != null ? type : 'functionHelp'}
-          color={!disable ? (active ? 'secondary' : 'inherit') : 'disabled'}
+          color={
+            danger
+              ? 'error'
+              : !disable
+              ? active
+                ? 'secondary'
+                : 'inherit'
+              : 'disabled'
+          }
           {...iconProps}
         />
       </IconButton>
