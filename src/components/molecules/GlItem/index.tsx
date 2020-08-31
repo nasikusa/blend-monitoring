@@ -147,39 +147,39 @@ export default (props: Props) => {
 
   return (
     <Fade in>
-    <Card css={styles.outerSpacing}>
-      <CardHeader
-        avatar={
-          <Avatar
-            variant="rounded"
-            aria-label="recipe"
-            css={styles.avatar}
-            {...AvatarSrcProp}
-          >
-            {(() => {
-              switch (multiItemCollectionType) {
-                case 'singleColorMultiBlends':
-                case 'singleImageMultiBlends':
-                  return BlendModeTypeIcon;
-                case 'multiColors':
-                case 'multiImages':
-                  return <></>;
-                default:
-                  return <></>;
-              }
-            })()}
-          </Avatar>
-        }
-        title={cardHeaderTitleValue}
-        css={styles.innerSpacing}
-      />
-      <CardContent css={styles.innerSpacing}>
-        <GlViewContainer />
-      </CardContent>
-      <CardActions disableSpacing css={styles.innerSpacing}>
-        <CustomIconButton />
-      </CardActions>
-    </Card>
+      <Card css={styles.outerSpacing}>
+        <CardHeader
+          avatar={
+            <Avatar
+              variant="rounded"
+              aria-label="recipe"
+              css={styles.avatar}
+              {...AvatarSrcProp}
+            >
+              {(() => {
+                switch (multiItemCollectionType) {
+                  case 'singleColorMultiBlends':
+                  case 'singleImageMultiBlends':
+                    return BlendModeTypeIcon;
+                  case 'multiColors':
+                  case 'multiImages':
+                    return <></>;
+                  default:
+                    return <></>;
+                }
+              })()}
+            </Avatar>
+          }
+          title={cardHeaderTitleValue}
+          css={styles.innerSpacing}
+        />
+        <CardContent css={styles.innerSpacing}>
+          <GlViewContainer />
+        </CardContent>
+        <CardActions disableSpacing css={styles.innerSpacing}>
+          <CustomIconButton />
+        </CardActions>
+      </Card>
     </Fade>
   );
 };
