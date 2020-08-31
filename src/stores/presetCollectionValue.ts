@@ -1,6 +1,4 @@
 import { createSlice } from '@reduxjs/toolkit';
-import amber from '@material-ui/core/colors/amber';
-// import chroma from 'chroma-js';
 
 import {
   SingleColorGlCollectionType,
@@ -10,6 +8,8 @@ import {
   SingleImageMultiBlendsGlCollectionType,
   MultiImagesGlCollectionType,
 } from './collectionData';
+
+// const hues = [15, 45, 80, 115, 140, 175, 200, 235, 270, 315, 340];
 
 export type presetCollectionValueType = {
   singleColor: Partial<SingleColorGlCollectionType>;
@@ -30,7 +30,7 @@ const initialState: presetCollectionValueType = {
     blendMode: [],
   },
   multiColors: {
-    color: [...Object.values(amber)],
+    color: ['#000000'],
     blendMode: 'normal',
   },
   singleImage: {
