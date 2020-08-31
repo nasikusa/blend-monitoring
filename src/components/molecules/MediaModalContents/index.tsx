@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { css } from '@emotion/core';
 import Typography from '@material-ui/core/Typography';
 import Box from '@material-ui/core/Box';
@@ -47,6 +47,7 @@ const gridListStyle = css`
 
 const gridListTileStyle = css`
   padding: 1px !important;
+  cursor: pointer;
   .MuiGridListTile-tile {
     border: 1px solid rgba(255, 255, 255, 0);
   }
@@ -88,6 +89,7 @@ export default function MediaModalContents(props: Props) {
   } = props;
 
   const [value, setValue] = React.useState(0);
+  const [isImageChangeFlag, setIsImageChangeFlag] = useState(false);
 
   const handleTabChange = (event: React.ChangeEvent<{}>, newValue: number) => {
     setValue(newValue);
@@ -99,13 +101,23 @@ export default function MediaModalContents(props: Props) {
       glCollectionOrderKey,
       boolValue: targetBoolValue,
     });
-    const aspectValue = getGlViewItemAspect(
-      collectionData,
-      storedMediaData,
-      targetImageID
-    );
-    updateSingleItemAspect({ aspectValue });
+    setIsImageChangeFlag(true);
   };
+
+  useEffect(() => {
+    if (!isImageChangeFlag) {
+      return;
+    }
+    const aspectValue = getGlViewItemAspect(collectionData, storedMediaData);
+    updateSingleItemAspect({ aspectValue });
+    setIsImageChangeFlag(false);
+  }, [
+    storedMediaData,
+    isImageChangeFlag,
+    collectionData,
+    updateSingleItemAspect,
+    setIsImageChangeFlag,
+  ]);
 
   return (
     <Box width={isBoxSmallFlag ? 300 : 600}>

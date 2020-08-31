@@ -4,11 +4,17 @@ import {
 } from '../stores/collectionData';
 import { StoredMediaStateType } from '../stores/storedMedia';
 
+/**
+ * 現在の表示アイテムのアスペクトを計算して返す関数
+ */
 export default (
   collectionData: GlCollectionTypeArray,
-  storedMediaData: StoredMediaStateType,
-  targetImageID?: string
+  storedMediaData: StoredMediaStateType
+  // targetImageID?: string
 ): number => {
+  /**
+   * デフォルトの画像のアスペクト設定
+   */
   const defaultAspectValue = 1.0;
   const resultAspectArray = collectionData.map(
     (singleCollectionItemData: GlCollectionType): number => {
@@ -20,8 +26,7 @@ export default (
           return defaultAspectValue;
         case 'singleImage':
         case 'singleImageMultiBlends': {
-          const collectionItemImageID =
-            singleCollectionItemData.image || targetImageID;
+          const collectionItemImageID = singleCollectionItemData.image;
           const aspectValue =
             collectionItemImageID != null
               ? storedMediaData[collectionItemImageID].aspectRatio
