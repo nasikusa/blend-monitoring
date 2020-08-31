@@ -272,7 +272,10 @@ export default (props: Props) => {
 
   return (
     <>
-      <ListItem className={classes.main}>
+      <ListItem
+        className={classes.main}
+        id={collectionData[glCollectionOrderKey].id}
+      >
         <ListItemIcon>
           <CollectionMainIcon
             collectionType={collectionData[glCollectionOrderKey].type}
