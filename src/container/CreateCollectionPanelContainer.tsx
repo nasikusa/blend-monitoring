@@ -11,6 +11,9 @@ export default (props: any) => {
   const multiCollectionData = useSelector(
     (state: AppState) => state.collectionData
   );
+  const presetCollectionValue = useSelector(
+    (state: AppState) => state.presetCollectionValue
+  );
 
   const hasMultiItemCollection = multiCollectionData.some(
     (singleCollectionData) => {
@@ -31,6 +34,7 @@ export default (props: any) => {
   const combineProps = {
     createCollection,
     hasMultiItemCollection,
+    presetCollectionValue,
     ...props,
   };
 

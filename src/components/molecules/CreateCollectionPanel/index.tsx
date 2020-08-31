@@ -11,9 +11,11 @@ import Icon from '../../atoms/Icon';
 import collectionTypesArray from '../../../constants/collectionTypesArray';
 import collectionTypeNameObject from '../../../constants/collectionTypeNameObject';
 import canMultiItemCollectionName from '../../../constants/canMultiItemCollectionName';
+import { presetCollectionValueType } from '../../../stores/presetCollectionValue';
 
 export type Props = {
   createCollection: any;
+  presetCollectionValue: presetCollectionValueType;
   hasMultiItemCollection: boolean;
 };
 
@@ -21,7 +23,11 @@ export type Props = {
  * レイヤー / コレクションを追加するメニューのコンポーネント
  */
 export default (props: Props) => {
-  const { createCollection, hasMultiItemCollection } = props;
+  const {
+    createCollection,
+    hasMultiItemCollection,
+    presetCollectionValue,
+  } = props;
   const theme = useTheme();
 
   /**
@@ -47,14 +53,16 @@ export default (props: Props) => {
         multipleCollectionObject = {
           roughType: 'color',
           color: '#000000',
+          ...presetCollectionValue.singleColor,
         };
         break;
       case 'singleColorMultiBlends':
         multipleCollectionObject = {
           roughType: 'color',
           color: '#000000',
-          blendMode: ['normal'],
-          innerItemId: [uuidv4()],
+          blendMode: [],
+          innerItemId: [],
+          ...presetCollectionValue.singleColorMultiBlends,
         };
         break;
       case 'multiColors':
@@ -62,6 +70,7 @@ export default (props: Props) => {
           roughType: 'color',
           color: ['#000000'],
           innerItemId: [uuidv4()],
+          ...presetCollectionValue.multiColors,
         };
         break;
       case 'singleImage':
@@ -71,23 +80,26 @@ export default (props: Props) => {
           blendMode: 'normal',
           innerItemId: [uuidv4()],
           size: 'cover',
+          ...presetCollectionValue.singleImage,
         };
         break;
       case 'singleImageMultiBlends':
         multipleCollectionObject = {
           roughType: 'image',
           image: null,
-          blendMode: ['normal'],
-          innerItemId: [uuidv4()],
+          blendMode: [],
+          innerItemId: [],
           size: 'cover',
+          ...presetCollectionValue.singleImagesMultiBlends,
         };
         break;
       case 'multiImages':
         multipleCollectionObject = {
           roughType: 'image',
           image: [],
-          innerItemId: [uuidv4()],
+          innerItemId: [],
           size: 'cover',
+          ...presetCollectionValue.multiImages,
         };
         break;
       default:
