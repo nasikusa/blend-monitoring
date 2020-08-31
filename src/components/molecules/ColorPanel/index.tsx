@@ -3,6 +3,7 @@ import { css } from '@emotion/core';
 import { makeStyles, createStyles, Theme } from '@material-ui/core/styles';
 import Grid from '@material-ui/core/Grid';
 import Box from '@material-ui/core/Box';
+import Button from '@material-ui/core/Button';
 import IconButton from '@material-ui/core/IconButton';
 import Typography from '@material-ui/core/Typography';
 // import Button from '@material-ui/core/Button';
@@ -12,6 +13,7 @@ import Icon from '../../atoms/Icon';
 import CustomTooltip from '../../atoms/CustomTooltip';
 import { GlCollectionOrderContext } from '../Collections';
 import CustomSketchPicker from '../../atoms/CustomSketchPicker';
+import ColorModalContainer from '../../../container/ColorModalContainer';
 
 import { ColorRelatedGlCollectionType } from '../../../stores/collectionData';
 
@@ -68,6 +70,7 @@ const ColorPanel: React.FC<Props> = (props: Props) => {
     stockRemoveColor,
   } = props;
   // const [colorPickerOpen, setColorPickerOpen] = useState(false);
+  const [openColorPanelFlag, setOpenColorPanelFlag] = useState(false);
   const [currentColorBoxKey, setCurrentColorBoxKey] = useState(0);
   const [isFillToScreenCurrentColor, setIsFillToScreenCurrentColor] = useState(
     false
@@ -92,6 +95,13 @@ const ColorPanel: React.FC<Props> = (props: Props) => {
    */
   const [colorValue, setColorValue] = useState(defaultColorValue);
   const glCollectionOrderKey = useContext(GlCollectionOrderContext);
+
+  /**
+   * カラーパネルを開くハンドル関数
+   */
+  const handleColorPanelOpen = () => {
+    setOpenColorPanelFlag(!openColorPanelFlag);
+  };
 
   /**
    * カラーピッカーを選択し終えたとき、もしくはカラーが一定時間(0.5sくらい？)
@@ -307,45 +317,51 @@ const ColorPanel: React.FC<Props> = (props: Props) => {
   };
 
   return (
-    <Box
-      width={1}
-      style={{
-        backgroundColor: isFillToScreenCurrentColor
-          ? colorValue
-          : 'transparent',
-      }}
-    >
-      <Typography gutterBottom className={classes.label}>
-        カラー
-      </Typography>
-      <Grid container spacing={1}>
-        <Grid item xs={12}>
-          <Box display="flex" mb={1}>
-            <Icon type="colorPanel" />
-            <ColorBoxes />
-          </Box>
-          <Box display="flex" mb={1}>
-            <ColorBoxFunctions />
-          </Box>
+    <>
+      <Box
+        width={1}
+        style={{
+          backgroundColor: isFillToScreenCurrentColor
+            ? colorValue
+            : 'transparent',
+        }}
+      >
+        <Typography gutterBottom className={classes.label}>
+          カラー
+        </Typography>
+        <Grid container spacing={1}>
+          <Grid item xs={12}>
+            <Box display="flex" mb={1}>
+              <Icon type="colorPanel" />
+              <ColorBoxes />
+            </Box>
+            <Box display="flex" mb={1}>
+              <ColorBoxFunctions />
+            </Box>
+          </Grid>
+          <Grid item xs={12}>
+            <Box ml={4}>
+              <CustomSketchPicker
+                color={colorValue}
+                onChangeComplete={handleColorChangeComplete}
+                onChange={handleColorChange}
+                disableAlpha
+                presetColors={stockedColorData}
+              />
+            </Box>
+          </Grid>
+          <Grid item xs={12}>
+            <Box ml={4}>
+              <Button onClick={handleColorPanelOpen}>カラーパネルを開く</Button>
+            </Box>
+          </Grid>
         </Grid>
-        <Grid item xs={12}>
-          <Box ml={4}>
-            <CustomSketchPicker
-              color={colorValue}
-              onChangeComplete={handleColorChangeComplete}
-              onChange={handleColorChange}
-              disableAlpha
-              presetColors={stockedColorData}
-            />
-          </Box>
-        </Grid>
-        {/* <Grid item xs={12}>
-          <Box ml={4}>
-            <Button onClick={handleOpen}>カラーパネルを開く</Button>
-          </Box>
-        </Grid> */}
-      </Grid>
-    </Box>
+      </Box>
+      <ColorModalContainer
+        modalOpen={openColorPanelFlag}
+        setModalOpen={setOpenColorPanelFlag}
+      />
+    </>
   );
 };
 
