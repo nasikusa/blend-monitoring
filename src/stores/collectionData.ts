@@ -93,6 +93,9 @@ export type SingleImageGlCollectionType = {
   size: collectionSizeValueType;
 };
 
+/**
+ * singleImageMultiBlendsのコレクションの型
+ */
 export type SingleImageMultiBlendsGlCollectionType = {
   readonly id: string;
   readonly type: 'singleImageMultiBlends';
