@@ -3,6 +3,7 @@ import { css } from '@emotion/core';
 import chroma from 'chroma-js';
 import Avatar from '@material-ui/core/Avatar';
 import Card from '@material-ui/core/Card';
+import Fade from '@material-ui/core/Fade';
 import CardHeader from '@material-ui/core/CardHeader';
 import { useTheme } from '@material-ui/core/styles';
 import CardContent from '@material-ui/core/CardContent';
@@ -145,6 +146,7 @@ export default (props: Props) => {
   })();
 
   return (
+    <Fade in>
     <Card css={styles.outerSpacing}>
       <CardHeader
         avatar={
@@ -178,5 +180,6 @@ export default (props: Props) => {
         <CustomIconButton />
       </CardActions>
     </Card>
+    </Fade>
   );
 };
