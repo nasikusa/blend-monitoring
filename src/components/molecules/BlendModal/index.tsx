@@ -9,8 +9,6 @@ import DialogContent from '@material-ui/core/DialogContent';
 import Paper, { PaperProps } from '@material-ui/core/Paper';
 import Draggable from 'react-draggable';
 import FormGroup from '@material-ui/core/FormGroup';
-// import FormControlLabel from '@material-ui/core/FormControlLabel';
-// import Switch from '@material-ui/core/Switch';
 import Button from '@material-ui/core/Button';
 
 import CustomIconButton from '../CustomIconButton';
@@ -226,49 +224,49 @@ export default (props: Props) => {
       type: 'functionOpacity',
       onChange: handleSwitchChangeModalOpacity,
       checked: modalTransparentFlag,
-      label: blendModeSwitchActiveCount <= 1 ? '透過' : 'パネルを透過',
+      label: 'パネルを透過',
     },
     {
       name: 'small',
       type: 'functionZoomOut',
       onChange: handleSwitchChangeSize,
       checked: modalMinifyFlag,
-      label: blendModeSwitchActiveCount <= 1 ? '小' : 'サイズを小さく',
+      label: 'パネルサイズを小さく',
     },
     {
       name: 'normal',
       type: 'blendModeNormal',
       onChange: handleSwitchChangeNormalBlend,
       checked: canDisplayNormalBlend,
-      label: '通常',
+      label: '通常の描画モードを非表示',
     },
     {
       name: 'darker',
       type: 'blendModeBrightnessMinus',
       onChange: handleSwitchChangeDarkerBlend,
       checked: canDisplayDarkerBlend,
-      label: blendModeSwitchActiveCount <= 1 ? '暗' : '暗く',
+      label: '暗くなる描画モードを非表示',
     },
     {
       name: 'lighterAndDarker',
       type: 'blendModeBrightnessPlusMinus',
       onChange: handleSwitchChangeLighterAndDarkerBlend,
       checked: canDisplayLighterAndDarkerBlend,
-      label: blendModeSwitchActiveCount <= 1 ? '明暗' : '明暗を強化',
+      label: '明暗を強化する描画モードを非表示',
     },
     {
       name: 'lighter',
       type: 'blendModeBrightnessPlus',
       onChange: handleSwitchChangeLighterBlend,
       checked: canDispalyLighterBlend,
-      label: blendModeSwitchActiveCount <= 1 ? '明' : '明るく',
+      label: '明るくなる描画モードを非表示',
     },
     {
       name: 'math',
       type: 'blendModeMath',
       onChange: handleSwitchChangeMathBlend,
       checked: canDisplayMathBlend,
-      label: blendModeSwitchActiveCount <= 1 ? '他' : 'その他',
+      label: 'その他の描画モードを非表示',
     },
   ];
 
@@ -325,18 +323,8 @@ export default (props: Props) => {
                 buttonGeneralProps={{
                   onClick: singleSwitchParam.onChange,
                 }}
+                labelTitle={singleSwitchParam.label}
               />
-              // <FormControlLabel
-              //   control={
-              //     <Switch
-              //       size="small"
-              //       checked={singleSwitchParam.checked}
-              //       onChange={singleSwitchParam.onChange}
-              //       name={singleSwitchParam.name}
-              //     />
-              //   }
-              //   label={singleSwitchParam.label}
-              // />
             );
           })}
         </FormGroup>
