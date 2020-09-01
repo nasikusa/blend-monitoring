@@ -1,4 +1,5 @@
 import React from 'react';
+import Draggable from 'react-draggable';
 import { css } from '@emotion/core';
 import chroma from 'chroma-js';
 import Avatar from '@material-ui/core/Avatar';
@@ -8,6 +9,7 @@ import CardHeader from '@material-ui/core/CardHeader';
 import { useTheme } from '@material-ui/core/styles';
 import CardContent from '@material-ui/core/CardContent';
 import CardActions from '@material-ui/core/CardActions';
+
 import GlViewContainer from '../../../container/GlViewContainer';
 import CustomIconButton from '../CustomIconButton';
 import blendModeData, {
@@ -35,6 +37,7 @@ export default (props: Props) => {
     hasMultiItemCollectionBoolean,
     multiItemCollectionType,
   } = props;
+  // const [isDragActive] = useState(false)
   const theme = useTheme();
   const styles = {
     avatar: css`
@@ -51,6 +54,10 @@ export default (props: Props) => {
       margin-top: 8px;
       margin-left: 4px;
       margin-right: 4px;
+    `,
+    draggableZIndex: css`
+      position: relative;
+      z-index: 1;
     `,
   };
 
@@ -147,39 +154,41 @@ export default (props: Props) => {
 
   return (
     <Fade in>
-      <Card css={styles.outerSpacing}>
-        <CardHeader
-          avatar={
-            <Avatar
-              variant="rounded"
-              aria-label="recipe"
-              css={styles.avatar}
-              {...AvatarSrcProp}
-            >
-              {(() => {
-                switch (multiItemCollectionType) {
-                  case 'singleColorMultiBlends':
-                  case 'singleImageMultiBlends':
-                    return BlendModeTypeIcon;
-                  case 'multiColors':
-                  case 'multiImages':
-                    return <></>;
-                  default:
-                    return <></>;
-                }
-              })()}
-            </Avatar>
-          }
-          title={cardHeaderTitleValue}
-          css={styles.innerSpacing}
-        />
-        <CardContent css={styles.innerSpacing}>
-          <GlViewContainer />
-        </CardContent>
-        <CardActions disableSpacing css={styles.innerSpacing}>
-          <CustomIconButton />
-        </CardActions>
-      </Card>
+      <Draggable disabled>
+        <Card css={styles.outerSpacing}>
+          <CardHeader
+            avatar={
+              <Avatar
+                variant="rounded"
+                aria-label="recipe"
+                css={styles.avatar}
+                {...AvatarSrcProp}
+              >
+                {(() => {
+                  switch (multiItemCollectionType) {
+                    case 'singleColorMultiBlends':
+                    case 'singleImageMultiBlends':
+                      return BlendModeTypeIcon;
+                    case 'multiColors':
+                    case 'multiImages':
+                      return <></>;
+                    default:
+                      return <></>;
+                  }
+                })()}
+              </Avatar>
+            }
+            title={cardHeaderTitleValue}
+            css={styles.innerSpacing}
+          />
+          <CardContent css={styles.innerSpacing}>
+            <GlViewContainer />
+          </CardContent>
+          <CardActions disableSpacing css={styles.innerSpacing}>
+            <CustomIconButton />
+          </CardActions>
+        </Card>
+      </Draggable>
     </Fade>
   );
 };
