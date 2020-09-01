@@ -1,8 +1,9 @@
-import React, { useRef, useEffect } from 'react';
+import React, { useRef, useEffect, useState } from 'react';
 import { css } from '@emotion/core';
 import EventListener from 'react-event-listener';
 import { RemoveScroll } from 'react-remove-scroll';
 import styled from '@emotion/styled';
+// import { Resizable } from 're-resizable';
 import { GlobalHotKeys } from 'react-hotkeys';
 
 // import Grid from '@material-ui/core/Grid';
@@ -37,8 +38,15 @@ const Edit = (props: Props) => {
     isShowDocArea,
     editAreaHeightvalue,
   } = props;
+  const [generalFunctionListWidth] = useState(180);
+  const [glBoxWidth] = useState(0.75);
+  const [glEditWidth] = useState(0.25);
   const containerRef = useRef(null);
   const theme = useTheme();
+
+  /**
+   * ショートカットのキーマップオブジェクト
+   */
   const HotkeyMap = {
     FUNCTION_KEY_1: '1',
     FUNCTION_KEY_2: '2',
@@ -48,6 +56,9 @@ const Edit = (props: Props) => {
     FUNCTION_KEY_6: '6',
   };
 
+  /**
+   * ショートカットのキーが押された際の挙動のオブジェクト
+   */
   const HotKeyhandlers = {
     FUNCTION_KEY_1: () => {
       updateRowCount({ newRowCountValue: 1 });
@@ -138,25 +149,48 @@ const Edit = (props: Props) => {
             ''
           )}
           <Box
-            width="0.075"
+            width={generalFunctionListWidth}
             className={classes.heightSetting}
             style={{ backgroundColor: theme.palette.background.paper }}
           >
             <GeneralFunctionsListContainer css={heightSettingStyle} />
           </Box>
-          <CustomEmotionBox
-            width="0.675"
-            ref={containerRef}
-            className={classes.scrollable}
-          >
-            <GlBoxContainer />
-          </CustomEmotionBox>
           <Box
-            width="0.25"
-            className={classes.heightSetting}
-            style={{ borderLeft: '1px solid rgba(255,255,255,0.2)' }}
+            display="flex"
+            width={window.innerWidth - generalFunctionListWidth}
           >
-            <GlEditContainer css={heightSettingStyle} />
+            <CustomEmotionBox
+              width={glBoxWidth}
+              ref={containerRef}
+              className={classes.scrollable}
+            >
+              <GlBoxContainer />
+            </CustomEmotionBox>
+            {/* <Resizable
+              enable={{
+                top: false,
+                right: true,
+                bottom: false,
+                left: false,
+                topRight: false,
+                bottomRight: false,
+                bottomLeft: false,
+                topLeft: false,
+              }}
+              defaultSize={{
+                width:
+                  (window.innerWidth - generalFunctionListWidth) * glEditWidth,
+                height: Number(editAreaHeightvalue.slice(0, -2)),
+              }}
+            > */}
+            <Box
+              width={glEditWidth}
+              className={classes.heightSetting}
+              style={{ borderLeft: '1px solid rgba(255,255,255,0.2)' }}
+            >
+              <GlEditContainer css={heightSettingStyle} />
+            </Box>
+            {/* </Resizable> */}
           </Box>
           <EventListener
             target="window"
