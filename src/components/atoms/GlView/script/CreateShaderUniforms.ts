@@ -2,7 +2,7 @@ import {
   GlCollectionTypeArray,
   GlCollectionType,
 } from '../../../../stores/collectionData';
-import ZeroOneFloatAdjust from '../../../../utils/ZeroOneFloatAdjust';
+import getFloatAdjustedString4GLSL from '../../../../utils/getFloatAdjustedString4GLSL';
 import { StoredMediaStateType } from '../../../../stores/storedMedia';
 
 type returnObjectType = { [key: string]: string };
@@ -34,11 +34,11 @@ export default (
         // opacity = 0 で非表示と同義になる。もしくは他の方法でもいいのかも。
         resultOpacityValue = '0.0';
       } else if (Array.isArray(opacity)) {
-        resultOpacityValue = ZeroOneFloatAdjust(
+        resultOpacityValue = getFloatAdjustedString4GLSL(
           opacity[collectionCurrentIndex]
         );
       } else if (typeof opacity === 'number') {
-        resultOpacityValue = ZeroOneFloatAdjust(opacity);
+        resultOpacityValue = getFloatAdjustedString4GLSL(opacity);
       }
 
       switch (singleCollectionData.type) {

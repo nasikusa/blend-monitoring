@@ -7,7 +7,7 @@ import Button from '@material-ui/core/Button';
 import Chip from '@material-ui/core/Chip';
 
 import Icon from '../../atoms/Icon';
-import { readyBlendModeData } from '../../../utils/GetBlendModeData';
+import { readyBlendModeData } from '../../../utils/getBlendModeData';
 import {
   GlCollectionOrderContext,
   GlCollectionOrderContextType,

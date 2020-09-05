@@ -1,5 +1,5 @@
 import chroma from 'chroma-js';
-import ZeroOneFloatAdjust from '../../../../utils/ZeroOneFloatAdjust';
+import getFloatAdjustedString4GLSL from '../../../../utils/getFloatAdjustedString4GLSL';
 
 import {
   GlCollectionType,
@@ -73,11 +73,13 @@ layer${collectionCurrentIndex}ColorVec4.rgb;
           const [glRedColor, glGreenColor, glBlueColor, glAlphaColor] = glColor;
 
           shader = `
-                vec4 layer${collectionCurrentIndex}ColorVec4 = vec4( ${ZeroOneFloatAdjust(
+                vec4 layer${collectionCurrentIndex}ColorVec4 = vec4( ${getFloatAdjustedString4GLSL(
             glRedColor
-          )} , ${ZeroOneFloatAdjust(glGreenColor)} , ${ZeroOneFloatAdjust(
+          )} , ${getFloatAdjustedString4GLSL(
+            glGreenColor
+          )} , ${getFloatAdjustedString4GLSL(
             glBlueColor
-          )} , ${ZeroOneFloatAdjust(glAlphaColor)} );
+          )} , ${getFloatAdjustedString4GLSL(glAlphaColor)} );
                 vec3 layer${collectionCurrentIndex}ColorVec3 = layer${collectionCurrentIndex}ColorVec4.rgb;
                 `;
           break;
@@ -95,11 +97,13 @@ layer${collectionCurrentIndex}ColorVec4.rgb;
             ] = glColor;
 
             shader = `
-                  vec4 layer${collectionCurrentIndex}ColorVec4 = vec4( ${ZeroOneFloatAdjust(
+                  vec4 layer${collectionCurrentIndex}ColorVec4 = vec4( ${getFloatAdjustedString4GLSL(
               glRedColor
-            )} , ${ZeroOneFloatAdjust(glGreenColor)} , ${ZeroOneFloatAdjust(
+            )} , ${getFloatAdjustedString4GLSL(
+              glGreenColor
+            )} , ${getFloatAdjustedString4GLSL(
               glBlueColor
-            )} , ${ZeroOneFloatAdjust(glAlphaColor)} );
+            )} , ${getFloatAdjustedString4GLSL(glAlphaColor)} );
                   vec3 layer${collectionCurrentIndex}ColorVec3 = layer${collectionCurrentIndex}ColorVec4.rgb;
                   `;
           }

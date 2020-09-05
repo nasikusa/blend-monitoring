@@ -11,7 +11,7 @@ import CustomSliderContainer from '../../../container/CustomSliderContainer';
 import BlendModePanelContainer from '../../../container/BlendModePanelContainer';
 import ColorPanelContainer from '../../../container/ColorPanelContainer';
 import CollectionMainIcon from '../../atoms/CollectionMainIcon';
-import GetCollectionsName from '../../../utils/GetCollectionsName';
+import getCollectionsName from '../../../utils/getCollectionsName';
 import { GlCollectionOrderContext } from '../Collections';
 import ImagePanelContainer from '../../../container/ImagePanelContainer';
 import ListItemWrap from '../ListItemWrap';
@@ -285,7 +285,7 @@ export default (props: Props) => {
           />
         </ListItemIcon>
         <ListItemText
-          primary={GetCollectionsName(
+          primary={getCollectionsName(
             collectionData[glCollectionOrderKey].type
           )}
           secondary={
