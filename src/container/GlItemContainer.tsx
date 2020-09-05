@@ -6,10 +6,12 @@ import hasMultiItemCollection from '../utils/collection/hasMultiItemCollection';
 import { GlItemOrderContext } from '../components/organisms/GlBox';
 import { CollectionTypeType } from '../stores/collectionData';
 import { StoredMediaStateItemType } from '../stores/storedMedia';
+import useCurrentSceneCollection from '../hooks/collection/useCurrentSceneCollection';
 
 export default () => {
   const glItemOrder = useContext(GlItemOrderContext);
-  const collectionData = useSelector((state: AppState) => state.collectionData);
+  // const collectionData = useSelector((state: AppState) => state.collectionData);
+  const collectionData = useCurrentSceneCollection();
   const storedMediaData = useSelector((state: AppState) => state.storedMedia);
   const [
     hasMultiItemCollectionBoolean,

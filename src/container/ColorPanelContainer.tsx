@@ -9,10 +9,12 @@ import {
 } from '../stores/stockedColors';
 import { AppState } from '../stores/index';
 import { GlCollectionOrderContext } from '../components/molecules/Collections';
+import useCurrentSceneCollection from '../hooks/collection/useCurrentSceneCollection';
 
 export default () => {
   const themeSettings = useSelector((state: AppState) => state.themeSettings);
-  const collectionData = useSelector((state: AppState) => state.collectionData);
+  // const collectionData = useSelector((state: AppState) => state.collectionData);
+  const collectionData = useCurrentSceneCollection();
   const stockedColorData = useSelector(
     (state: AppState) => state.stockedColors
   );

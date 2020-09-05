@@ -1,19 +1,16 @@
 import React, { useCallback } from 'react';
-import { useSelector, useDispatch } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import Collection from '../components/molecules/Collection';
+import useCurrentSceneCollection from '../hooks/collection/useCurrentSceneCollection';
 
-import { AppState } from '../stores/index';
-import {
-  deleteSingleCollection as deleteSingleCollectionAction,
-  // updateVisibility as updateVisibilityAction,
-  GlCollectionTypeArray,
-} from '../stores/collectionData';
+import { deleteSingleCollection as deleteSingleCollectionAction } from '../stores/collectionData';
 
 export default () => {
-  const collectionData: GlCollectionTypeArray = useSelector<
-    AppState,
-    GlCollectionTypeArray
-  >((state) => state.collectionData);
+  // const collectionData: GlCollectionTypeArray = useSelector<
+  //   AppState,
+  //   GlCollectionTypeArray
+  // >((state) => state.collectionData);
+  const collectionData = useCurrentSceneCollection();
   const dispatch = useDispatch();
 
   /**

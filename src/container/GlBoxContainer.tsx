@@ -4,9 +4,11 @@ import GlBox from '../components/organisms/GlBox';
 import getLengthOfCollections from '../utils/collection/getLengthOfCollections';
 import getMaxLengthInnerItemId from '../utils/collection/getMaxLengthInnerItemId';
 import { AppState } from '../stores/index';
+import useCurrentSceneCollection from '../hooks/collection/useCurrentSceneCollection';
 
 export default () => {
-  const collectionData = useSelector((state: AppState) => state.collectionData);
+  // const collectionData = useSelector((state: AppState) => state.collectionData);
+  const collectionData = useCurrentSceneCollection();
   const glSettingsData = useSelector((state: AppState) => state.glSettings);
   /**
    * コレクションリストのなかで最大の要素数の配列のlengthを格納している変数

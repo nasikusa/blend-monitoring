@@ -4,9 +4,11 @@ import BlendModalContents from '../components/molecules/BlendModalContents';
 
 import { updateBlendMode as updateBlendModeAction } from '../stores/collectionData';
 import { AppState } from '../stores/index';
+import useCurrentSceneCollection from '../hooks/collection/useCurrentSceneCollection';
 
 export default (props: any) => {
-  const collectionData = useSelector((state: AppState) => state.collectionData);
+  // const collectionData = useSelector((state: AppState) => state.collectionData);
+  const collectionData = useCurrentSceneCollection();
   const blendModeOrder = useSelector((state: AppState) => state.blendModeOrder);
   const dispatch = useDispatch();
 
