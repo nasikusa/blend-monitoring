@@ -10,7 +10,7 @@ import {
   DenormalizedColorCollectionItemType,
   DenormalizedImageCollectionItemType,
   DenormalizedCollectionItemType,
-} from '../utils/denormalizeCollectionItem';
+} from '../utils/denormalize/denormalizeCollectionItem';
 
 /**
  * コレクションアイテムの値の方のunion
