@@ -39,7 +39,7 @@ export default (
         case `singleImage`:
         case `singleImageMultiBlends`:
         case `multiImages`: {
-          const { size, image } = singleCollectionData;
+          const { image } = singleCollectionData;
           if (image != null) {
             const imageWidth = Array.isArray(image)
               ? storedMediaState[image[glItemOrderKey]].rawWidth
@@ -48,55 +48,21 @@ export default (
               ? storedMediaState[image[glItemOrderKey]].rawHeight
               : storedMediaState[image].rawHeight;
 
-            switch (size) {
-              case `normal`:
-                shader = `
+            if (imageWidth != null && imageHeight != null) {
+              shader = `
+// background-size: coverのような感じでUV座標を取得し、vec2型の変数に入れる
+vec2 layer${collectionCurrentIndex}ColorUV = ShaderCoverImageSize(
+${glUVName},
+vec2( ${glSettings.singleItemWidth.toFixed(1)},
+${(glSettings.singleItemWidth * glSettings.singleItemAspect).toFixed(1)} ) ,
+vec2( ${imageWidth.toFixed(1)} , ${imageHeight.toFixed(1)} ) );
+
 vec4 layer${collectionCurrentIndex}ColorVec4 =
-texture2D( layer${collectionCurrentIndex} , ${glUVName} );
+texture2D( layer${collectionCurrentIndex} , layer${collectionCurrentIndex}ColorUV );
+
 vec3 layer${collectionCurrentIndex}ColorVec3 =
 layer${collectionCurrentIndex}ColorVec4.rgb;
 `;
-                break;
-              case `cover`:
-                if (imageWidth != null && imageHeight != null) {
-                  shader = `
-  // background-size: coverのような感じでUV座標を取得し、vec2型の変数に入れる
-  vec2 layer${collectionCurrentIndex}ColorUV = ShaderCoverImageSize(
-  ${glUVName},
-  vec2( ${glSettings.singleItemWidth.toFixed(1)},
-  ${(glSettings.singleItemWidth * glSettings.singleItemAspect).toFixed(1)} ) ,
-  vec2( ${imageWidth.toFixed(1)} , ${imageHeight.toFixed(1)} ) );
-
-  vec4 layer${collectionCurrentIndex}ColorVec4 =
-  texture2D( layer${collectionCurrentIndex} , layer${collectionCurrentIndex}ColorUV );
-
-  vec3 layer${collectionCurrentIndex}ColorVec3 =
-  layer${collectionCurrentIndex}ColorVec4.rgb;
-  `;
-                }
-                break;
-              case `contain`:
-                // not working
-                if (imageWidth != null && imageHeight != null) {
-                  shader = `
-  vec2 layer${collectionCurrentIndex}ColorUV =
-  ShaderContainImageSize(
-  ${glUVName},
-  vec2( ${glSettings.singleItemWidth.toFixed(1)},
-  ${(glSettings.singleItemWidth * glSettings.singleItemAspect).toFixed(1)} ) ,
-  vec2( ${imageWidth.toFixed(1)} ,
-  ${imageHeight.toFixed(1)} ) );
-
-  vec4 layer${collectionCurrentIndex}ColorVec4 =
-  texture2D( layer${collectionCurrentIndex} , layer${collectionCurrentIndex}ColorUV );
-
-  vec3 layer${collectionCurrentIndex}ColorVec3 =
-   layer${collectionCurrentIndex}ColorVec4.rgb;
-  `;
-                }
-                break;
-              default:
-                break;
             }
           }
           break;

@@ -28,7 +28,7 @@ import allCollectionTypeFunctionObject, {
 export type Props = {
   collectionData: GlCollectionTypeArray;
   deleteSingleCollection: any;
-  updateVisibility: any;
+  // updateVisibility: any;
 };
 
 /**
@@ -61,7 +61,10 @@ const useStyles = makeStyles(() => ({
  * 単一のコレクションコンポーネント
  */
 export default (props: Props) => {
-  const { collectionData, deleteSingleCollection, updateVisibility } = props;
+  const {
+    collectionData,
+    deleteSingleCollection /* ,updateVisibility */,
+  } = props;
   const classes = useStyles();
   const glCollectionOrderKey = useContext(GlCollectionOrderContext);
 
@@ -173,10 +176,10 @@ export default (props: Props) => {
   const handleVisibilityFlagClick = (): void => {
     const invertBoolValue = !visibilityOpenFlag;
     setVisibilityOpenFlag(invertBoolValue);
-    updateVisibility({
-      visibilityBoolValue: invertBoolValue,
-      glCollectionOrderKey,
-    });
+    // updateVisibility({
+    //   visibilityBoolValue: invertBoolValue,
+    //   glCollectionOrderKey,
+    // });
   };
 
   /**

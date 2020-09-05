@@ -381,27 +381,27 @@ const slice = createSlice({
         return null;
       });
     },
-    updateVisibility: (
-      state,
-      action: {
-        type: string;
-        payload: {
-          visibilityBoolValue: boolean;
-          glCollectionOrderKey: number;
-        };
-      }
-    ) => {
-      const { visibilityBoolValue, glCollectionOrderKey } = action.payload;
-      return state.map((singleCollectionData, currentIndex) => {
-        if (currentIndex === glCollectionOrderKey) {
-          return {
-            ...singleCollectionData,
-            visibility: visibilityBoolValue,
-          };
-        }
-        return singleCollectionData;
-      });
-    },
+    // updateVisibility: (
+    //   state,
+    //   action: {
+    //     type: string;
+    //     payload: {
+    //       visibilityBoolValue: boolean;
+    //       glCollectionOrderKey: number;
+    //     };
+    //   }
+    // ) => {
+    //   const { visibilityBoolValue, glCollectionOrderKey } = action.payload;
+    //   return state.map((singleCollectionData, currentIndex) => {
+    //     if (currentIndex === glCollectionOrderKey) {
+    //       return {
+    //         ...singleCollectionData,
+    //         visibility: visibilityBoolValue,
+    //       };
+    //     }
+    //     return singleCollectionData;
+    //   });
+    // },
     updateColor: (state, action) => {
       const { colorValue, glCollectionOrderKey } = action.payload;
       const targetStateItemData = state[glCollectionOrderKey];
@@ -557,7 +557,7 @@ export const {
   updateBlendMode,
   updateOpacity,
   deleteSingleCollection,
-  updateVisibility,
+  // updateVisibility,
   updateColor,
   createCollection,
   updateImages,

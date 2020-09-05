@@ -5,7 +5,7 @@ import Collection from '../components/molecules/Collection';
 import { AppState } from '../stores/index';
 import {
   deleteSingleCollection as deleteSingleCollectionAction,
-  updateVisibility as updateVisibilityAction,
+  // updateVisibility as updateVisibilityAction,
   GlCollectionTypeArray,
 } from '../stores/collectionData';
 
@@ -29,17 +29,17 @@ export default () => {
   /**
    * 単一のコレクションのvisibilityを更新する関数
    */
-  const updateVisibility = useCallback(
-    (value) => {
-      dispatch(updateVisibilityAction(value));
-    },
-    [dispatch]
-  );
+  // const updateVisibility = useCallback(
+  //   (value) => {
+  //     dispatch(updateVisibilityAction(value));
+  //   },
+  //   [dispatch]
+  // );
 
   const combineProps = {
     collectionData,
     deleteSingleCollection,
-    updateVisibility,
+    // updateVisibility,
   };
 
   return <Collection {...combineProps} />;

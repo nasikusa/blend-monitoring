@@ -24,12 +24,20 @@ export default (
         case 'multiColors':
         case 'multiImages':
           return defaultAspectValue;
-        case 'singleImage':
-        case 'singleImageMultiBlends': {
+        case 'singleImage': {
           const collectionItemImageID = singleCollectionItemData.image;
           const aspectValue =
             collectionItemImageID != null
               ? storedMediaData[collectionItemImageID].aspectRatio
+              : defaultAspectValue;
+          return aspectValue;
+        }
+        case 'singleImageMultiBlends': {
+          const collectionItemImageID = singleCollectionItemData.image;
+          // @todo [0]で取得しているのは危険なのであとで修正したい。
+          const aspectValue =
+            collectionItemImageID != null && collectionItemImageID[0] != null
+              ? storedMediaData[collectionItemImageID[0]].aspectRatio
               : defaultAspectValue;
           return aspectValue;
         }

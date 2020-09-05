@@ -26,12 +26,12 @@ const initialState: presetCollectionValueType = {
     blendMode: 'normal',
   },
   singleColorMultiBlends: {
-    color: '#000000',
+    color: ['#000000'],
     blendMode: [],
   },
   multiColors: {
     color: ['#000000'],
-    blendMode: 'normal',
+    blendMode: ['normal'],
   },
   singleImage: {
     blendMode: 'normal',
@@ -40,7 +40,7 @@ const initialState: presetCollectionValueType = {
     blendMode: [],
   },
   multiImages: {
-    blendMode: 'normal',
+    blendMode: ['normal'],
   },
 };
 
