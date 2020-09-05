@@ -14,6 +14,8 @@ const getReduxStoreState = (
   if (!storeKeyName) {
     resultState = allState;
   } else if (typeof storeKeyName === 'string') {
+    // @todo 後で必ず直す
+    // @ts-ignore
     resultState = allState[storeKeyName];
   } else if (Array.isArray(storeKeyName)) {
     resultState = {

@@ -1,6 +1,6 @@
 import {
   GlCollectionTypeArray,
-  canCollectionMultiItemProps,
+  CanCollectionMultiItemProps,
 } from '../stores/collectionData';
 
 const aryMaxFunctionForReduce = (a: number, b: number): number => {
@@ -22,7 +22,7 @@ export default (
   getType: 'min' | 'max' = 'max',
   isCountArrayOnly: boolean = false
 ) => {
-  const targetProps: canCollectionMultiItemProps[] = [
+  const targetProps: CanCollectionMultiItemProps[] = [
     'blendMode',
     'color',
     'image',
@@ -32,7 +32,7 @@ export default (
    * 最終的な最大のアイテム数
    */
   const resultLengthArray: number[] = targetProps.map(
-    (singleTargetProp: canCollectionMultiItemProps) => {
+    (singleTargetProp: CanCollectionMultiItemProps) => {
       /**
        * 内部で使用されるlengthプロパティの値の配列
        */
