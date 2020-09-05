@@ -1,6 +1,6 @@
-import firstStringUpperCase from '../../../../utils/general/getFisrtString2UpperCase';
+import firstStringUpperCase from '../general/getFisrtString2UpperCase';
 
-import { GlCollectionType } from '../../../../stores/collectionData';
+import { GlCollectionType } from '../../stores/collectionData';
 
 /**
  * 描画モードに関連したシェーダー

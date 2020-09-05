@@ -1,7 +1,7 @@
 import {
   GlCollectionTypeArray,
   GlCollectionType,
-} from '../../../../stores/collectionData';
+} from '../../stores/collectionData';
 
 /**
  * シェーダーの変数定義文を生成する関数

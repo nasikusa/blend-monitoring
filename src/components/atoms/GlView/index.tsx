@@ -4,11 +4,11 @@ import { Surface } from 'gl-react-dom';
 import { css } from '@emotion/core';
 import Box from '@material-ui/core/Box';
 
-import CreateShaderVariables from './script/CreateShaderVariables';
-import CreateShaderUniforms from './script/CreateShaderUniforms';
-import CreateShaderFunctions from './script/CreateShaderFunctions';
-import CreateShaderProcesses from './script/CreateShaderProcesses';
-import CreateShaderProcessesVariables from './script/CreateShaderProcessesVariables';
+import CreateShaderVariables from '../../../utils/shader/CreateShaderVariables';
+import CreateShaderUniforms from '../../../utils/shader/CreateShaderUniforms';
+import CreateShaderFunctions from '../../../utils/shader/CreateShaderFunctions';
+import CreateShaderProcesses from '../../../utils/shader/CreateShaderProcesses';
+import CreateShaderProcessesVariables from '../../../utils/shader/CreateShaderProcessesVariables';
 import { GlItemOrderContext } from '../../organisms/GlBox';
 
 import { GlSettingsType } from '../../../stores/glSettings';

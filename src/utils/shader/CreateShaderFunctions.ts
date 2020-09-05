@@ -1,9 +1,9 @@
-import { ShaderBlendAll } from '../shaders/Blend';
+import { ShaderBlendAll } from '../../constants/shader/Blend';
 import {
   ShaderContainImageSize,
   ShaderCoverImageSize,
-} from '../shaders/ImageSize';
-import ShaderColorConvert from '../shaders/ColorConvert';
+} from '../../constants/shader/ImageSize';
+import ShaderColorConvert from '../../constants/shader/ColorConvert';
 
 /**
  * 関数シェーダーを吐き出す関数
