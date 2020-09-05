@@ -67,9 +67,26 @@ layer${collectionCurrentIndex}ColorVec4.rgb;
           }
           break;
         }
-        case `singleColor`:
-        case `singleColorMultiBlends`: {
+        case `singleColor`: {
           const glColor = chroma(`${singleCollectionData.color}`).gl();
+          const [glRedColor, glGreenColor, glBlueColor, glAlphaColor] = glColor;
+
+          shader = `
+                vec4 layer${collectionCurrentIndex}ColorVec4 = vec4( ${getFloatAdjustedString4GLSL(
+            glRedColor
+          )} , ${getFloatAdjustedString4GLSL(
+            glGreenColor
+          )} , ${getFloatAdjustedString4GLSL(
+            glBlueColor
+          )} , ${getFloatAdjustedString4GLSL(glAlphaColor)} );
+                vec3 layer${collectionCurrentIndex}ColorVec3 = layer${collectionCurrentIndex}ColorVec4.rgb;
+                `;
+          break;
+        }
+        case `singleColorMultiBlends`: {
+          const glColor = chroma(
+            `${singleCollectionData.color[glItemOrderKey]}`
+          ).gl();
           const [glRedColor, glGreenColor, glBlueColor, glAlphaColor] = glColor;
 
           shader = `
