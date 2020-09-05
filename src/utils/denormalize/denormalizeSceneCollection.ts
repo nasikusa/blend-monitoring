@@ -1,15 +1,15 @@
 import { validate as uuidValidate } from 'uuid';
 
-import errorMessageText from '../constants/errorMessageText';
+import errorMessageText from '../../constants/errorMessageText';
 // collectionData
-import { IdType, GlCollectionType } from '../stores/collectionData';
-import { sceneCollectionsDictionaryType } from '../stores/sceneCollection';
+import { IdType, GlCollectionType } from '../../stores/collectionData';
+import { sceneCollectionsDictionaryType } from '../../stores/sceneCollection';
 import {
   DenormalizedCollectionArgsObjectType,
   getDenormalizedCollection,
 } from './denormalizeCollection';
-import { collectionItemValueImageDictionaryType } from '../stores/collectionValueImage';
-import { collectionItemValueColorDictionaryType } from '../stores/collectionValueColor';
+import { collectionItemValueImageDictionaryType } from '../../stores/collectionValueImage';
+import { collectionItemValueColorDictionaryType } from '../../stores/collectionValueColor';
 
 export type DenormalizedSceneCollectionArgsObjectType = DenormalizedCollectionArgsObjectType & {
   sceneCollection: sceneCollectionsDictionaryType;

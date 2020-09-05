@@ -1,27 +1,27 @@
 import { validate as uuidValidate } from 'uuid';
 
-import errorMessageText from '../constants/errorMessageText';
+import errorMessageText from '../../constants/errorMessageText';
 // collectionValue
 import {
   collectionItemValueOpacityDictionaryType,
   collectionItemValueOpacityType,
-} from '../stores/collectionValueOpacity';
+} from '../../stores/collectionValueOpacity';
 import {
   collectionItemValueColorDictionaryType,
   collectionItemValueColorType,
-} from '../stores/collectionValueColor';
+} from '../../stores/collectionValueColor';
 import {
   collectionItemValueImageDictionaryType,
   collectionItemValueImageType,
-} from '../stores/collectionValueImage';
+} from '../../stores/collectionValueImage';
 import {
   collectionItemValueVisibilityDictionaryType,
   collectionItemValueVisibilityType,
-} from '../stores/collectionValueVisibility';
+} from '../../stores/collectionValueVisibility';
 import {
   collectionItemValueBlendModeDictionaryType,
   collectionItemValueBlendModeType,
-} from '../stores/collectionValueBlendMode';
+} from '../../stores/collectionValueBlendMode';
 // collectionValue
 import {
   getDenormalizedOpacityValue,
@@ -31,9 +31,9 @@ import {
   getDenormalizedBlendModeValue,
 } from './denormalizeCollectionValue';
 // collectionItem
-import { collectionItemDictionaryType } from '../stores/collectionItem';
+import { collectionItemDictionaryType } from '../../stores/collectionItem';
 // collectionData
-import { IdType } from '../stores/collectionData';
+import { IdType } from '../../stores/collectionData';
 
 /**
  * コレクションアイテム取得関数のベースとなる必須引数オブジェクトの型(引数)

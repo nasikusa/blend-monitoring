@@ -1,14 +1,14 @@
 import { validate as uuidValidate } from 'uuid';
 
-import errorMessageText from '../constants/errorMessageText';
+import errorMessageText from '../../constants/errorMessageText';
 // collectionValue
-import { collectionItemValueOpacityDictionaryType } from '../stores/collectionValueOpacity';
-import { collectionItemValueColorDictionaryType } from '../stores/collectionValueColor';
-import { collectionItemValueImageDictionaryType } from '../stores/collectionValueImage';
-import { collectionItemValueVisibilityDictionaryType } from '../stores/collectionValueVisibility';
-import { collectionItemValueBlendModeDictionaryType } from '../stores/collectionValueBlendMode';
+import { collectionItemValueOpacityDictionaryType } from '../../stores/collectionValueOpacity';
+import { collectionItemValueColorDictionaryType } from '../../stores/collectionValueColor';
+import { collectionItemValueImageDictionaryType } from '../../stores/collectionValueImage';
+import { collectionItemValueVisibilityDictionaryType } from '../../stores/collectionValueVisibility';
+import { collectionItemValueBlendModeDictionaryType } from '../../stores/collectionValueBlendMode';
 // collectionData
-import { IdType } from '../stores/collectionData';
+import { IdType } from '../../stores/collectionData';
 
 // collectionValue系ストア用の非正規化関数
 /**

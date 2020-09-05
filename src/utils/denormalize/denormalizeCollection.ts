@@ -1,8 +1,8 @@
 import { validate as uuidValidate } from 'uuid';
 
-import errorMessageText from '../constants/errorMessageText';
+import errorMessageText from '../../constants/errorMessageText';
 // collection
-import { GlCollectionDictionaryType } from '../stores/collection';
+import { GlCollectionDictionaryType } from '../../stores/collection';
 // collectionItem
 import {
   getDenormalizedColorValueCollectionItem,
@@ -23,7 +23,7 @@ import {
   SingleImageGlCollectionType,
   SingleImageMultiBlendsGlCollectionType,
   MultiImagesGlCollectionType,
-} from '../stores/collectionData';
+} from '../../stores/collectionData';
 
 /**
  * カラータイプのコレクション取得用の関数の引数objectの型
