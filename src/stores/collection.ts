@@ -120,7 +120,23 @@ export type GlCollectionDictionaryType = {
   [key: string]: CollectionCategoryType;
 };
 
-const initialState: GlCollectionDictionaryType = {};
+const initialState: GlCollectionDictionaryType = {
+  '96b04eec-b025-421b-aabc-2f08a629949c': {
+    id: '96b04eec-b025-421b-aabc-2f08a629949c',
+    type: 'singleColor',
+    roughType: 'color',
+    innerItemID: '6157939d-befc-4d1e-b3b2-24ce096919c1',
+  },
+  'af31d35d-2144-43de-8108-855e493805c9': {
+    id: 'af31d35d-2144-43de-8108-855e493805c9',
+    type: 'singleColorMultiBlends',
+    roughType: 'color',
+    innerItemID: [
+      '5c5f4f06-9466-40b8-bf78-75c3dcca1a8a',
+      '49c32a24-3c3d-4202-97b5-8e7b5a2f5774',
+    ],
+  },
+};
 
 const slice = createSlice({
   name: 'collection',
