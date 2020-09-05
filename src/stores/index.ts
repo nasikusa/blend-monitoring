@@ -9,6 +9,15 @@ import blendModeOrderReducer from './blendModeOrder';
 import storedMediaReducer from './storedMedia';
 import stockedColorsReducer from './stockedColors';
 import presetCollectionValueReducer from './presetCollectionValue';
+import collectionReducer from './collection';
+import collectionItemReducer from './collectionItem';
+import collectionItemValueOpacityReducer from './collectionValueOpacity';
+import collectionItemValueImageReducer from './collectionValueImage';
+import collectionItemValueColorReducer from './collectionValueColor';
+import collectionItemValueVisibilityReducer from './collectionValueVisibility';
+import collectionItemValueBlendModeReducer from './collectionValueBlendMode';
+import sceneCollectionReducer from './sceneCollection';
+import currentSceneCollectionReducer from './currentSceneCollection';
 
 const reducer = combineReducers({
   glSettings: glSettingsReducer,
@@ -18,6 +27,15 @@ const reducer = combineReducers({
   storedMedia: storedMediaReducer,
   stockedColors: stockedColorsReducer,
   presetCollectionValue: presetCollectionValueReducer,
+  collection: collectionReducer,
+  collectionItem: collectionItemReducer,
+  collectionItemValueOpacity: collectionItemValueOpacityReducer,
+  collectionItemValueImage: collectionItemValueImageReducer,
+  collectionItemValueColor: collectionItemValueColorReducer,
+  collectionItemValueVisibility: collectionItemValueVisibilityReducer,
+  collectionItemValueBlendMode: collectionItemValueBlendModeReducer,
+  sceneCollection: sceneCollectionReducer,
+  currentSceneCollection: currentSceneCollectionReducer,
 });
 
 const store = configureStore({ reducer });

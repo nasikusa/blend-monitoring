@@ -1,8 +1,35 @@
 import { createSlice } from '@reduxjs/toolkit';
 
-import { BlendModesType } from '../constants/blendModeData';
 import getOrderdBlendModeArray from '../utils/getOrderdBlendModeArray';
+import { collectionItemValueOpacityDictionaryType } from './collectionValueOpacity';
+import { collectionItemValueImageDictionaryType } from './collectionValueImage';
+import { collectionItemValueColorDictionaryType } from './collectionValueColor';
+import { collectionItemValueVisibilityDictionaryType } from './collectionValueVisibility';
+import { collectionItemValueBlendModeDictionaryType } from './collectionValueBlendMode';
+import {
+  DenormalizedColorCollectionItemType,
+  DenormalizedImageCollectionItemType,
+  DenormalizedCollectionItemType,
+} from '../utils/denormalizeCollectionItem';
 
+/**
+ * コレクションアイテムの値の方のunion
+ */
+export type collectionItemValueDictionaryType =
+  | collectionItemValueOpacityDictionaryType
+  | collectionItemValueImageDictionaryType
+  | collectionItemValueColorDictionaryType
+  | collectionItemValueVisibilityDictionaryType
+  | collectionItemValueBlendModeDictionaryType;
+
+/**
+ * コレクションデータのIDの値の型
+ */
+export type IdType = string;
+
+/**
+ * 単一アイテムのコレクションの種類
+ */
 export type SingleItemCollectionTypeType =
   | 'singleColor'
   | 'singleImage'
@@ -25,124 +52,180 @@ export type CollectionTypeType =
   | SingleItemCollectionTypeType
   | MultiItemCollectionTypeType;
 
+export type CollectionRoughTypeType = 'color' | 'image';
+
 /**
  * 複数の値( = 配列 )を取りうる単一のコレクションのプロパティの名前
  */
-export type canCollectionMultiItemProps =
+export type CanCollectionMultiItemProps =
   | 'opacity'
   | 'blendMode'
   | 'color'
   | 'image';
 
-export type collectionSizeValueType = 'cover' | 'normal' | 'contain';
+/**
+ * 画像の描画アイテムとのサイズ合わせの設定
+ */
+export type CollectionSizeValueType = 'cover' | 'normal' | 'contain';
+
+/**
+ * collectionItemからcollectionデータを作成する際に、collectionItemから引き継がないプロパティの設定
+ */
+export type IgnoreCollectionItemType = 'id' | 'type';
+
+/**
+ * innerItemIdを一つのみ持つコレクションデータのコレクションアイテムから来るデータを正規化したデータの型
+ * Uの箇所で不要なプロパティを弾いている。(id,typeなど)
+ */
+export type SingleChildGlCollectionInnerItemType<
+  T extends DenormalizedCollectionItemType,
+  U extends keyof T
+> = {
+  [K in keyof Omit<T, U>]: Omit<T, U>[K];
+};
+/**
+ * innerItemIdを複数持つ可能性のあるコレクションデータのコレクションアイテムから来るデータを正規化したデータの型
+ * Uの箇所で不要なプロパティを弾いている。(id,typeなど)
+ */
+export type MultipleChildGlCollectionInnerItemType<
+  T extends DenormalizedCollectionItemType,
+  U extends keyof T
+> = {
+  [K in keyof Omit<T, U>]: Omit<T, U>[K][];
+};
+
+export type RootGlCollectionType = {
+  readonly id: string;
+  readonly type: CollectionTypeType;
+  readonly roughType: CollectionRoughTypeType;
+  innerItemID: IdType | IdType[];
+};
 
 /**
  * singleColorコレクションの型
  */
-export type SingleColorGlCollectionType = {
-  readonly id: string;
+export type SingleColorGlCollectionType = RootGlCollectionType & {
   readonly type: 'singleColor';
   readonly roughType: 'color';
-  innerItemID: string;
-  visibility: boolean;
-  opacity: number | number[];
-  blendMode: BlendModesType;
-  color: string;
-};
+  innerItemID: IdType;
+} & SingleChildGlCollectionInnerItemType<
+    DenormalizedColorCollectionItemType,
+    IgnoreCollectionItemType
+  >;
 
 /**
  * singleColorMultiBlendsコレクションの型
  */
-export type SingleColorMultiBlendsGlCollectionType = {
+export type SingleColorMultiBlendsGlCollectionType = RootGlCollectionType & {
   readonly id: string;
   readonly type: 'singleColorMultiBlends';
   readonly roughType: 'color';
   innerItemID: string[];
-  visibility: boolean;
-  opacity: number | number[];
-  blendMode: BlendModesType[];
-  color: string;
-};
+} & MultipleChildGlCollectionInnerItemType<
+    DenormalizedColorCollectionItemType,
+    IgnoreCollectionItemType
+  >;
 
 /**
  * multiColorsコレクションの型
  */
-export type MultiColorsGlCollectionType = {
+export type MultiColorsGlCollectionType = RootGlCollectionType & {
   readonly id: string;
   readonly type: 'multiColors';
   readonly roughType: 'color';
   innerItemID: string[];
-  visibility: boolean;
-  opacity: number | number[];
-  blendMode: BlendModesType;
-  color: string[];
-};
+} & MultipleChildGlCollectionInnerItemType<
+    DenormalizedColorCollectionItemType,
+    IgnoreCollectionItemType
+  >;
 
 /**
  * singleImageコレクションの型
  */
-export type SingleImageGlCollectionType = {
-  readonly id: string;
+export type SingleImageGlCollectionType = RootGlCollectionType & {
   readonly type: 'singleImage';
   readonly roughType: 'image';
-  innerItemID: string;
-  visibility: boolean;
-  opacity: number | number[];
-  blendMode: BlendModesType;
-  image: string;
-  size: collectionSizeValueType;
-};
+  innerItemID: IdType;
+} & SingleChildGlCollectionInnerItemType<
+    DenormalizedImageCollectionItemType,
+    IgnoreCollectionItemType
+  >;
 
 /**
  * singleImageMultiBlendsのコレクションの型
  */
-export type SingleImageMultiBlendsGlCollectionType = {
+export type SingleImageMultiBlendsGlCollectionType = RootGlCollectionType & {
   readonly id: string;
   readonly type: 'singleImageMultiBlends';
   readonly roughType: 'image';
   innerItemID: string[];
-  visibility: boolean;
-  opacity: number | number[];
-  blendMode: BlendModesType[];
-  image: string;
-  size: collectionSizeValueType;
-};
+} & MultipleChildGlCollectionInnerItemType<
+    DenormalizedImageCollectionItemType,
+    IgnoreCollectionItemType
+  >;
 
-export type MultiImagesGlCollectionType = {
+/**
+ * multiImagesのコレクションの型
+ */
+export type MultiImagesGlCollectionType = RootGlCollectionType & {
   readonly id: string;
   readonly type: 'multiImages';
   readonly roughType: 'image';
   innerItemID: string[];
-  visibility: boolean;
-  opacity: number | number[];
-  blendMode: BlendModesType;
-  image: string[];
-  size: collectionSizeValueType;
-};
+} & MultipleChildGlCollectionInnerItemType<
+    DenormalizedImageCollectionItemType,
+    IgnoreCollectionItemType
+  >;
 
-export type BaseGlCollectionType = {
-  readonly id: string;
+/**
+ * baseのコレクションの型
+ */
+export type BaseGlCollectionType = RootGlCollectionType & {
   readonly type: 'base';
   readonly roughType: 'color';
-  innerItemID: string;
-  visibility: true;
-  opacity: 1.0;
-  blendMode: 'normal';
-  color: string;
-};
+  innerItemID: IdType;
+} & SingleChildGlCollectionInnerItemType<
+    DenormalizedColorCollectionItemType,
+    IgnoreCollectionItemType
+  > & {
+    opacity: 1.0;
+    blendMode: 'normal';
+    visibility: true;
+  };
 
+/**
+ * カラーに関係したコレクションの型
+ */
 export type ColorRelatedGlCollectionType =
   | SingleColorGlCollectionType
   | SingleColorMultiBlendsGlCollectionType
   | MultiColorsGlCollectionType;
 
+/**
+ * 画像に関係したコレクションの型
+ */
 export type ImageRelatedGlCollectionType =
   | SingleImageGlCollectionType
   | SingleImageMultiBlendsGlCollectionType
   | MultiImagesGlCollectionType;
 
 /**
- * 単一のコレクションのtype。
+ * innerIdが一つのみのコレクションの型
+ */
+export type SingleChildGlCollectionType =
+  | SingleColorGlCollectionType
+  | SingleImageGlCollectionType;
+/**
+ * innerIdが複数あるコレクションの型
+ */
+export type MultipleChildGlCollectionType =
+  | SingleColorMultiBlendsGlCollectionType
+  | MultiColorsGlCollectionType
+  | SingleImageMultiBlendsGlCollectionType
+  | MultiImagesGlCollectionType;
+
+/**
+ * 単一のコレクションの型
  */
 export type GlCollectionType =
   | ColorRelatedGlCollectionType
