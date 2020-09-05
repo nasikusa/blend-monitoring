@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { AppState } from '../stores/index';
 import CreateCollectionPanel from '../components/molecules/CreateCollectionPanel';
 
-import canMultiItemCollectionName from '../constants/canMultiItemCollectionName';
+import canMultiItemCollectionName from '../constants/collection/canMultiItemCollectionName';
 import { createCollection as createCollectionAction } from '../stores/collectionData';
 
 export default (props: any) => {

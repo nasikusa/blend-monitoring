@@ -1,4 +1,4 @@
-import { CollectionTypeType } from '../stores/collectionData';
+import { CollectionTypeType } from '../../stores/collectionData';
 
 const collectionTypesArray: CollectionTypeType[] = [
   'singleImage',

@@ -4,7 +4,7 @@ import chroma from 'chroma-js';
 import { StoredMediaStateItemType } from '../stores/storedMedia';
 import baseImageSizeObject, {
   baseImageSizeNames,
-} from '../constants/baseImageSize';
+} from '../constants/image/baseImageSize';
 
 export type resultImageInfoObjectType = {
   imageWidth: StoredMediaStateItemType['rawWidth'];

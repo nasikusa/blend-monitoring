@@ -1,5 +1,5 @@
 import moment from 'moment';
-import { appSaveDataInfo } from '../constants/appConstantSettings';
+import { appSaveDataInfo } from '../constants/general/appConstantSettings';
 import store, { AppState } from '../stores/index';
 
 type AppStateKeyType = keyof AppState;

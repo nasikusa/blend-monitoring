@@ -9,7 +9,7 @@ import Link from '@material-ui/core/Link';
 import IconButton from '@material-ui/core/IconButton';
 import Icon from '../../atoms/Icon';
 
-import { AppSiteInfo } from '../../../constants/appConstantSettings';
+import { AppSiteInfo } from '../../../constants/general/appConstantSettings';
 
 export default () => {
   const theme = useTheme();

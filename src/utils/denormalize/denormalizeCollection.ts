@@ -1,6 +1,6 @@
 import { validate as uuidValidate } from 'uuid';
 
-import errorMessageText from '../../constants/errorMessageText';
+import errorMessageText from '../../constants/develop/errorMessageText';
 // collection
 import { GlCollectionDictionaryType } from '../../stores/collection';
 // collectionItem

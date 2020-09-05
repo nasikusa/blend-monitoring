@@ -62,7 +62,7 @@ import ShowChartIcon from '@material-ui/icons/ShowChart';
 import { CollectionTypeType } from '../../../stores/collectionData';
 import { IgnoreDupliCollectionPanelNamesType } from '../../../types/CollectionPanelNames';
 import { ColorPanelFunctionNames } from '../../molecules/ColorPanel';
-import { BlendModeRoughTypeType } from '../../../constants/blendModeData';
+import { BlendModeRoughTypeType } from '../../../constants/blendMode/blendModeData';
 
 export type IconGeneralMeaningNames =
   | 'functionAdd'

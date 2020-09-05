@@ -5,7 +5,10 @@ import Typography from '@material-ui/core/Typography';
 import { css } from '@emotion/core';
 import CopyToClipboard from 'react-copy-to-clipboard';
 
-import { AppSiteInfo, AppName } from '../../../constants/appConstantSettings';
+import {
+  AppSiteInfo,
+  AppName,
+} from '../../../constants/general/appConstantSettings';
 // import LogoImage from '../../atoms/LogoImage';
 
 const UnSatisfiedEnv = () => {

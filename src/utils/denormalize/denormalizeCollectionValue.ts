@@ -1,6 +1,6 @@
 import { validate as uuidValidate } from 'uuid';
 
-import errorMessageText from '../../constants/errorMessageText';
+import errorMessageText from '../../constants/develop/errorMessageText';
 // collectionValue
 import { collectionItemValueOpacityDictionaryType } from '../../stores/collectionValueOpacity';
 import { collectionItemValueColorDictionaryType } from '../../stores/collectionValueColor';

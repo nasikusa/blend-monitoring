@@ -7,7 +7,7 @@ import { makeStyles, useTheme } from '@material-ui/core/styles';
 
 import HeaderInfos from '../../molecules/HeaderInfos';
 import LogoImage from '../../atoms/LogoImage';
-import { AppNameHasAccent } from '../../../constants/appConstantSettings';
+import { AppNameHasAccent } from '../../../constants/general/appConstantSettings';
 
 import { ThemeSettingsType } from '../../../stores/themeSettings';
 

@@ -7,7 +7,7 @@ import Box from '@material-ui/core/Box';
 import Typography from '@material-ui/core/Typography';
 import { useTheme } from '@material-ui/core/styles';
 
-import { AppSiteInfo } from '../../../constants/appConstantSettings';
+import { AppSiteInfo } from '../../../constants/general/appConstantSettings';
 import LogoImage from '../../atoms/LogoImage';
 
 const fullStyle = css`

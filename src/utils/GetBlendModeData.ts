@@ -4,7 +4,7 @@ import BlendModeData, {
   PartialBlendModeDataType,
   BlendModeDataItemType,
   BlendModeDataType,
-} from '../constants/blendModeData';
+} from '../constants/blendMode/blendModeData';
 
 // @todo
 // 配列 <=> オブジェクト
