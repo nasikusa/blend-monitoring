@@ -2,7 +2,7 @@ import React from 'react';
 import { useSelector } from 'react-redux';
 import Footer from '../components/organisms/Footer';
 import { AppState } from '../stores/index';
-import getLengthOfCollections from '../utils/getLengthOfCollections';
+import getLengthOfCollections from '../utils/collection/getLengthOfCollections';
 
 /**
  * フッターコンポーネントのcontainer

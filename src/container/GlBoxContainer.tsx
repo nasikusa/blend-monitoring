@@ -1,8 +1,8 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
 import GlBox from '../components/organisms/GlBox';
-import getLengthOfCollections from '../utils/getLengthOfCollections';
-import getMaxLengthInnerItemId from '../utils/getMaxLengthInnerItemId';
+import getLengthOfCollections from '../utils/collection/getLengthOfCollections';
+import getMaxLengthInnerItemId from '../utils/collection/getMaxLengthInnerItemId';
 import { AppState } from '../stores/index';
 
 export default () => {

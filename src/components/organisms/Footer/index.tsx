@@ -8,7 +8,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import Icon from '../../atoms/Icon';
 import TextWithIcon from '../../molecules/TextWithIcon';
 import { AppSiteInfo } from '../../../constants/general/appConstantSettings';
-import getDefaultColorSpace from '../../../utils/getDefaultColorSpace';
+import getDefaultColorSpace from '../../../utils/color/getDefaultColorSpace';
 
 type Props = {
   multiCollectionsLength: number;

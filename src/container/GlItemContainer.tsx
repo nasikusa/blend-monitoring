@@ -2,7 +2,7 @@ import React, { useContext } from 'react';
 import { useSelector } from 'react-redux';
 import GlItem from '../components/molecules/GlItem';
 import { AppState } from '../stores/index';
-import hasMultiItemCollection from '../utils/hasMultiItemCollection';
+import hasMultiItemCollection from '../utils/collection/hasMultiItemCollection';
 import { GlItemOrderContext } from '../components/organisms/GlBox';
 import { CollectionTypeType } from '../stores/collectionData';
 import { StoredMediaStateItemType } from '../stores/storedMedia';

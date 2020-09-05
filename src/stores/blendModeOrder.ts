@@ -1,5 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { readyBlendModeArray } from '../utils/getBlendModeData';
+import { readyBlendModeArray } from '../utils/blendMode/getBlendModeData';
 import { BlendModesType } from '../constants/blendMode/blendModeData';
 
 const initialState: BlendModesType[] = [

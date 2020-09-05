@@ -12,7 +12,7 @@ import Icon from '../../atoms/Icon';
 import {
   readyBlendModeArray,
   readyBlendModeData,
-} from '../../../utils/getBlendModeData';
+} from '../../../utils/blendMode/getBlendModeData';
 import { GlCollectionOrderContext } from '../Collections';
 import { GlCollectionTypeArray } from '../../../stores/collectionData';
 

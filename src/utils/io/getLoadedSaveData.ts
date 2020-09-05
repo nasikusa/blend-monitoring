@@ -1,4 +1,4 @@
-import { AppState } from '../stores/index';
+import { AppState } from '../../stores/index';
 
 /**
  * fileデータをtextに変換する

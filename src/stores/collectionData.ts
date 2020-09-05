@@ -1,6 +1,6 @@
 import { createSlice } from '@reduxjs/toolkit';
 
-import getOrderdBlendModeArray from '../utils/getOrderdBlendModeArray';
+import getOrderdBlendModeArray from '../utils/blendMode/getOrderdBlendModeArray';
 import { collectionItemValueOpacityDictionaryType } from './collectionValueOpacity';
 import { collectionItemValueImageDictionaryType } from './collectionValueImage';
 import { collectionItemValueColorDictionaryType } from './collectionValueColor';

@@ -1,4 +1,4 @@
-import defaultBlendModeOrder from '../constants/blendMode/defaultBlendModeOrder';
+import defaultBlendModeOrder from '../../constants/blendMode/defaultBlendModeOrder';
 
 /**
  * 入力された描画モードの順序の配列に応じて、順番を変えた描画モードの新しい配列を返す

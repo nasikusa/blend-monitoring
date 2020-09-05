@@ -1,4 +1,4 @@
-import firstStringUpperCase from '../../../../utils/getFisrtString2UpperCase';
+import firstStringUpperCase from '../../../../utils/general/getFisrtString2UpperCase';
 
 import { GlCollectionType } from '../../../../stores/collectionData';
 

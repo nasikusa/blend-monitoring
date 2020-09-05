@@ -1,5 +1,5 @@
 import chroma from 'chroma-js';
-import getFloatAdjustedString4GLSL from '../../../../utils/getFloatAdjustedString4GLSL';
+import getFloatAdjustedString4GLSL from '../../../../utils/shader/getFloatAdjustedString4GLSL';
 
 import {
   GlCollectionType,

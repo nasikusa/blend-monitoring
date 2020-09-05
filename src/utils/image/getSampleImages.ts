@@ -2,9 +2,9 @@ import {
   unsplashSampleImagesData,
   baseUnsplashImageQuority,
   baseImageSizeObjectType,
-} from '../constants/image/unsplashSampleImages';
+} from '../../constants/image/unsplashSampleImages';
 
-import baseImageSizeObject from '../constants/image/baseImageSize';
+import baseImageSizeObject from '../../constants/image/baseImageSize';
 
 export const unsplashRawWidth = 2000;
 

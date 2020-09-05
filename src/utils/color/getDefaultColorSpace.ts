@@ -1,4 +1,4 @@
-import userEnvBrowser from '../constants/general/userEnv';
+import userEnvBrowser from '../../constants/general/userEnv';
 
 const getDefaultColorSpace = () => {
   const userEnv = userEnvBrowser;

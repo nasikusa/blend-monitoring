@@ -4,7 +4,7 @@ import {
   getSampleImageURLObject,
   getSampleImageAspect,
   unsplashRawWidth,
-} from '../getSampleImages';
+} from '../image/getSampleImages';
 
 import {
   StoredMediaStateItemType,

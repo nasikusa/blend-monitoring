@@ -9,7 +9,7 @@ import Tab from '@material-ui/core/Tab';
 import Button from '@material-ui/core/Button';
 import Icon from '../../atoms/Icon';
 
-import getGlViewItemAspect from '../../../utils/getGlViewItemAspect';
+import getGlViewItemAspect from '../../../utils/image/getGlViewItemAspect';
 import { StoredMediaStateType } from '../../../stores/storedMedia';
 import {
   ImageRelatedGlCollectionType,

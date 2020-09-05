@@ -14,7 +14,7 @@ import { GlItemOrderContext } from '../../organisms/GlBox';
 import { GlSettingsType } from '../../../stores/glSettings';
 import { GlCollectionTypeArray } from '../../../stores/collectionData';
 import { StoredMediaStateType } from '../../../stores/storedMedia';
-import isEmptyMultiCollections from '../../../utils/isEmptyMultiCollections';
+import isEmptyMultiCollections from '../../../utils/collection/isEmptyMultiCollections';
 
 type Props = {
   glSettings: GlSettingsType;
