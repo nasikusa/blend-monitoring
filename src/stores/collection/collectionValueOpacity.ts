@@ -1,18 +1,32 @@
 import { createSlice } from '@reduxjs/toolkit';
+import { baseCollectionValueType } from '../../types/collection/collectionValueType';
 
-export type collectionItemValueOpacityType = number;
+export type collectionValueOpacityValueType = number;
 
-export type collectionItemValueOpacityDictionaryType = {
-  [key: string]: collectionItemValueOpacityType;
+export type collectionValueOpacityType = {
+  value: collectionValueOpacityValueType;
+  readonly type: 'opacity';
 };
 
-const initialState: collectionItemValueOpacityDictionaryType = {
-  '40818509-da04-44fd-baf2-af23312c7e36': 0.25,
-  'bef45475-7567-42c3-b8ee-0901b7470134': 1.0,
+export type collectionValueOpacityDictionaryType = {
+  [key: string]: baseCollectionValueType & collectionValueOpacityType;
+};
+
+const initialState: collectionValueOpacityDictionaryType = {
+  '40818509-da04-44fd-baf2-af23312c7e36': {
+    id: '40818509-da04-44fd-baf2-af23312c7e36',
+    value: 0.25,
+    type: 'opacity',
+  },
+  'bef45475-7567-42c3-b8ee-0901b7470134': {
+    id: 'bef45475-7567-42c3-b8ee-0901b7470134',
+    value: 1.0,
+    type: 'opacity',
+  },
 };
 
 const slice = createSlice({
-  name: 'collectionItemValueOpacity',
+  name: 'collectionValueOpacity',
   initialState,
   reducers: {},
 });

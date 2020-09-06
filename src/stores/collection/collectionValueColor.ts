@@ -1,18 +1,32 @@
 import { createSlice } from '@reduxjs/toolkit';
+import { baseCollectionValueType } from '../../types/collection/collectionValueType';
 
-export type collectionItemValueColorType = string;
+export type collectionValueColorValueType = string;
 
-export type collectionItemValueColorDictionaryType = {
-  [key: string]: collectionItemValueColorType;
+export type collectionValueColorType = {
+  value: collectionValueColorValueType;
+  readonly type: 'color';
 };
 
-const initialState: collectionItemValueColorDictionaryType = {
-  '82ceb1d9-1f61-4797-9838-738988d46054': '#000000',
-  'cdc0644b-a77a-4e2a-8abc-d77ed88b108e': '#ff0000',
+export type collectionValueColorDictionaryType = {
+  [key: string]: baseCollectionValueType & collectionValueColorType;
+};
+
+const initialState: collectionValueColorDictionaryType = {
+  '82ceb1d9-1f61-4797-9838-738988d46054': {
+    id: '82ceb1d9-1f61-4797-9838-738988d46054',
+    value: '#000000',
+    type: 'color',
+  },
+  'cdc0644b-a77a-4e2a-8abc-d77ed88b108e': {
+    id: 'cdc0644b-a77a-4e2a-8abc-d77ed88b108e',
+    value: '#ff0000',
+    type: 'color',
+  },
 };
 
 const slice = createSlice({
-  name: 'collectionItemValueColor',
+  name: 'collectionValueColor',
   initialState,
   reducers: {},
 });

@@ -1,15 +1,21 @@
 import { createSlice } from '@reduxjs/toolkit';
+import { baseCollectionValueType } from '../../types/collection/collectionValueType';
 
-export type collectionItemValueImageType = string;
+export type collectionValueImageValueType = string;
 
-export type collectionItemValueImageDictionaryType = {
-  [key: string]: collectionItemValueImageType;
+export type collectionValueImageType = {
+  value: collectionValueImageValueType;
+  readonly type: 'image';
 };
 
-const initialState: collectionItemValueImageDictionaryType = {};
+export type collectionValueImageDictionaryType = {
+  [key: string]: baseCollectionValueType & collectionValueImageType;
+};
+
+const initialState: collectionValueImageDictionaryType = {};
 
 const slice = createSlice({
-  name: 'collectionItemValueImage',
+  name: 'collectionValueImage',
   initialState,
   reducers: {},
 });
