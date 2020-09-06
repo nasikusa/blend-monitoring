@@ -14,7 +14,7 @@ import { StoredMediaStateType } from '../../../stores/image/storedMedia';
 import {
   ImageRelatedGlCollectionType,
   GlCollectionTypeArray,
-} from '../../../stores/collection/collectionData';
+} from '../../../types/collection/collectionData';
 
 export type Props = {
   storedMediaData: StoredMediaStateType;

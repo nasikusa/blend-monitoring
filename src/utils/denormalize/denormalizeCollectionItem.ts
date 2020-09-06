@@ -3,24 +3,24 @@ import { validate as uuidValidate } from 'uuid';
 import errorMessageText from '../../constants/develop/errorMessageText';
 // collectionValue
 import {
-  collectionItemValueOpacityDictionaryType,
-  collectionItemValueOpacityType,
+  collectionValueOpacityDictionaryType,
+  collectionValueOpacityType,
 } from '../../stores/collection/collectionValueOpacity';
 import {
-  collectionItemValueColorDictionaryType,
-  collectionItemValueColorType,
+  collectionValueColorDictionaryType,
+  collectionValueColorValueType,
 } from '../../stores/collection/collectionValueColor';
 import {
-  collectionItemValueImageDictionaryType,
-  collectionItemValueImageType,
+  collectionValueImageDictionaryType,
+  collectionValueImageType,
 } from '../../stores/collection/collectionValueImage';
 import {
-  collectionItemValueVisibilityDictionaryType,
-  collectionItemValueVisibilityType,
+  collectionValueVisibilityDictionaryType,
+  collectionValueVisibilityType,
 } from '../../stores/collection/collectionValueVisibility';
 import {
-  collectionItemValueBlendModeDictionaryType,
-  collectionItemValueBlendModeType,
+  collectionValueBlendModeDictionaryType,
+  collectionValueBlendModeType,
 } from '../../stores/collection/collectionValueBlendMode';
 // collectionValue
 import {
@@ -33,28 +33,28 @@ import {
 // collectionItem
 import { collectionItemDictionaryType } from '../../stores/collection/collectionItem';
 // collectionData
-import { IdType } from '../../stores/collection/collectionData';
+import { IdType } from '../../types/collection/collectionData';
 
 /**
  * コレクションアイテム取得関数のベースとなる必須引数オブジェクトの型(引数)
  */
 export type DenormalizeBaseCollectionItemArgType = {
   readonly collectionItem: collectionItemDictionaryType;
-  readonly collectionValueOpacity: collectionItemValueOpacityDictionaryType;
-  readonly collectionValueBlendMode: collectionItemValueBlendModeDictionaryType;
-  readonly collectionValueVisibility: collectionItemValueVisibilityDictionaryType;
+  readonly collectionValueOpacity: collectionValueOpacityDictionaryType;
+  readonly collectionValueBlendMode: collectionValueBlendModeDictionaryType;
+  readonly collectionValueVisibility: collectionValueVisibilityDictionaryType;
 };
 /**
  * カラータイプのコレクションアイテム取得関数の引数オブジェクトの型(引数)
  */
 export type DenormalizeColorCollectionItemArgType = DenormalizeBaseCollectionItemArgType & {
-  readonly collectionValueColor: collectionItemValueColorDictionaryType;
+  readonly collectionValueColor: collectionValueColorDictionaryType;
 };
 /**
  * 画像タイプのコレクションアイテム取得関数の引数オブジェクトの型(引数)
  */
 export type DenormalizeImageCollectionItemArgType = DenormalizeBaseCollectionItemArgType & {
-  readonly collectionValueImage: collectionItemValueImageDictionaryType;
+  readonly collectionValueImage: collectionValueImageDictionaryType;
 };
 /**
  * すべてのコレクションアイテム取得用の関数の引数objectの型(引数)
@@ -69,10 +69,10 @@ export type DenormalizeCollectionItemArgType =
 export type DenormalizedColorCollectionItemType = {
   id: string;
   type: 'color';
-  blendMode: collectionItemValueBlendModeType;
-  opacity: collectionItemValueOpacityType;
-  color: collectionItemValueColorType;
-  visibility: collectionItemValueVisibilityType;
+  blendMode: collectionValueBlendModeType;
+  opacity: collectionValueOpacityType;
+  color: collectionValueColorValueType;
+  visibility: collectionValueVisibilityType;
 };
 /**
  * typeがimageのコレクションアイテムの型(返り値)
@@ -80,10 +80,10 @@ export type DenormalizedColorCollectionItemType = {
 export type DenormalizedImageCollectionItemType = {
   id: string;
   type: 'image';
-  blendMode: collectionItemValueBlendModeType;
-  opacity: collectionItemValueOpacityType;
-  image: collectionItemValueImageType;
-  visibility: collectionItemValueVisibilityType;
+  blendMode: collectionValueBlendModeType;
+  opacity: collectionValueOpacityType;
+  image: collectionValueImageType;
+  visibility: collectionValueVisibilityType;
 };
 /**
  * コレクションアイテムの型(返り値)

@@ -2,7 +2,7 @@ import React from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import BlendModalContents from '../components/molecules/BlendModalContents';
 
-import { updateBlendMode as updateBlendModeAction } from '../stores/collection/collectionData';
+import { updateBlendMode as updateBlendModeAction } from '../types/collection/collectionData';
 import { AppState } from '../stores/index';
 import useCurrentSceneCollection from '../hooks/collection/useCurrentSceneCollection';
 

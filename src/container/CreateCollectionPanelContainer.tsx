@@ -4,7 +4,7 @@ import { AppState } from '../stores/index';
 import CreateCollectionPanel from '../components/molecules/CreateCollectionPanel';
 
 import canMultiItemCollectionName from '../constants/collection/canMultiItemCollectionName';
-import { createCollection as createCollectionAction } from '../stores/collection/collectionData';
+import { createCollection as createCollectionAction } from '../types/collection/collectionData';
 import useCurrentSceneCollection from '../hooks/collection/useCurrentSceneCollection';
 
 export default (props: any) => {

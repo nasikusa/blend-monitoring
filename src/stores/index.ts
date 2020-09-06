@@ -3,7 +3,7 @@ import { configureStore } from '@reduxjs/toolkit';
 // import undoable from 'redux-undo';
 
 import glSettingsReducer from './general/glSettings';
-import collectionDataReducer from './collection/collectionData';
+import collectionDataReducer from '../types/collection/collectionData';
 import themeSettingsReducer from './general/themeSettings';
 import blendModeOrderReducer from './blendMode/blendModeOrder';
 import storedMediaReducer from './image/storedMedia';

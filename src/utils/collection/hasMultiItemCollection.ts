@@ -2,7 +2,7 @@ import {
   GlCollectionTypeArray,
   CollectionTypeType,
   GlCollectionType,
-} from '../../stores/collection/collectionData';
+} from '../../types/collection/collectionData';
 
 /**
  * すべてのコレクションデータのうち、マルチアイテムになるものがあるかどうかを返すと同時に

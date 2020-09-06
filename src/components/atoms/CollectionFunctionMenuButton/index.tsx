@@ -17,7 +17,7 @@ import CustomTooltip from '../CustomTooltip';
 import collectionTypeFunctionObject, {
   collectionObjectFunctionType,
 } from '../../molecules/Collection/allCollectionTypeFunctionObject';
-import { CollectionTypeType } from '../../../stores/collection/collectionData';
+import { CollectionTypeType } from '../../../types/collection/collectionData';
 
 export type Props = {
   labelTitleValue: string;

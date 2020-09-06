@@ -10,7 +10,7 @@ import GridListTile from '@material-ui/core/GridListTile';
 import Icon from '../../atoms/Icon';
 import MediaModalContainer from '../../../container/MediaModalContainer';
 import { StoredMediaStateType } from '../../../stores/image/storedMedia';
-import { ImageRelatedGlCollectionType } from '../../../stores/collection/collectionData';
+import { ImageRelatedGlCollectionType } from '../../../types/collection/collectionData';
 
 export type Props = {
   storedMediaData: StoredMediaStateType;

@@ -16,7 +16,7 @@ import Switch from '@material-ui/core/Switch';
 import Snackbar from '@material-ui/core/Snackbar';
 
 import getResiedImageData from '../../../utils/image/getResizedImageData';
-import { GlCollectionTypeArray } from '../../../stores/collection/collectionData';
+import { GlCollectionTypeArray } from '../../../types/collection/collectionData';
 import MediaModalContentsContainer from '../../../container/MediaModalContentsContainer';
 import createStoredMediaItemObject from '../../../utils/image/createStoredMediaItemObject';
 import CustomAlert from '../../atoms/CustomAlert';

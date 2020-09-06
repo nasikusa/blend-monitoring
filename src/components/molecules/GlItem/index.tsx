@@ -17,7 +17,7 @@ import blendModeData, {
 } from '../../../constants/blendMode/blendModeData';
 import Icon from '../../atoms/Icon';
 
-import { CollectionTypeType } from '../../../stores/collection/collectionData';
+import { CollectionTypeType } from '../../../types/collection/collectionData';
 import { StoredMediaStateItemType } from '../../../stores/image/storedMedia';
 
 type Props = {

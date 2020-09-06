@@ -23,7 +23,7 @@ import {
   SingleImageGlCollectionType,
   SingleImageMultiBlendsGlCollectionType,
   MultiImagesGlCollectionType,
-} from '../../stores/collection/collectionData';
+} from '../../types/collection/collectionData';
 
 /**
  * カラータイプのコレクション取得用の関数の引数objectの型

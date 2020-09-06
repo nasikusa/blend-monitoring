@@ -4,7 +4,7 @@ import GlItem from '../components/molecules/GlItem';
 import { AppState } from '../stores/index';
 import hasMultiItemCollection from '../utils/collection/hasMultiItemCollection';
 import { GlItemOrderContext } from '../components/organisms/GlBox';
-import { CollectionTypeType } from '../stores/collection/collectionData';
+import { CollectionTypeType } from '../types/collection/collectionData';
 import { StoredMediaStateItemType } from '../stores/image/storedMedia';
 import useCurrentSceneCollection from '../hooks/collection/useCurrentSceneCollection';
 

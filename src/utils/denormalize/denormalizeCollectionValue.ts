@@ -2,13 +2,13 @@ import { validate as uuidValidate } from 'uuid';
 
 import errorMessageText from '../../constants/develop/errorMessageText';
 // collectionValue
-import { collectionItemValueOpacityDictionaryType } from '../../stores/collection/collectionValueOpacity';
-import { collectionItemValueColorDictionaryType } from '../../stores/collection/collectionValueColor';
-import { collectionItemValueImageDictionaryType } from '../../stores/collection/collectionValueImage';
-import { collectionItemValueVisibilityDictionaryType } from '../../stores/collection/collectionValueVisibility';
-import { collectionItemValueBlendModeDictionaryType } from '../../stores/collection/collectionValueBlendMode';
+import { collectionValueOpacityDictionaryType } from '../../stores/collection/collectionValueOpacity';
+import { collectionValueColorDictionaryType } from '../../stores/collection/collectionValueColor';
+import { collectionValueImageDictionaryType } from '../../stores/collection/collectionValueImage';
+import { collectionValueVisibilityDictionaryType } from '../../stores/collection/collectionValueVisibility';
+import { collectionValueBlendModeDictionaryType } from '../../stores/collection/collectionValueBlendMode';
 // collectionData
-import { IdType } from '../../stores/collection/collectionData';
+import { IdType } from '../../types/collection/collectionData';
 
 // collectionValue系ストア用の非正規化関数
 /**
@@ -16,7 +16,7 @@ import { IdType } from '../../stores/collection/collectionData';
  */
 export const getDenormalizedOpacityValue = (
   argumentCollectionValueId: IdType,
-  argumentDataObject: collectionItemValueOpacityDictionaryType
+  argumentDataObject: collectionValueOpacityDictionaryType
 ) => {
   if (!uuidValidate(argumentCollectionValueId)) {
     throw new Error(errorMessageText.notValidUUID);
@@ -28,7 +28,7 @@ export const getDenormalizedOpacityValue = (
  */
 export const getDenormalizedColorValue = (
   argumentCollectionValueId: IdType,
-  argumentDataObject: collectionItemValueColorDictionaryType
+  argumentDataObject: collectionValueColorDictionaryType
 ) => {
   if (!uuidValidate(argumentCollectionValueId)) {
     throw new Error(errorMessageText.notValidUUID);
@@ -40,7 +40,7 @@ export const getDenormalizedColorValue = (
  */
 export const getDenormalizedImageValue = (
   argumentCollectionValueId: IdType,
-  argumentDataObject: collectionItemValueImageDictionaryType
+  argumentDataObject: collectionValueImageDictionaryType
 ) => {
   if (!uuidValidate(argumentCollectionValueId)) {
     throw new Error(errorMessageText.notValidUUID);
@@ -52,7 +52,7 @@ export const getDenormalizedImageValue = (
  */
 export const getDenormalizedVisibilityValue = (
   argumentCollectionValueId: IdType,
-  argumentDataObject: collectionItemValueVisibilityDictionaryType
+  argumentDataObject: collectionValueVisibilityDictionaryType
 ) => {
   if (!uuidValidate(argumentCollectionValueId)) {
     throw new Error(errorMessageText.notValidUUID);
@@ -64,7 +64,7 @@ export const getDenormalizedVisibilityValue = (
  */
 export const getDenormalizedBlendModeValue = (
   argumentCollectionValueId: IdType,
-  argumentDataObject: collectionItemValueBlendModeDictionaryType
+  argumentDataObject: collectionValueBlendModeDictionaryType
 ) => {
   if (!uuidValidate(argumentCollectionValueId)) {
     throw new Error(errorMessageText.notValidUUID);

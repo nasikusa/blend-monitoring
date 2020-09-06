@@ -4,7 +4,7 @@ import getFloatAdjustedString4GLSL from './getFloatAdjustedString4GLSL';
 import {
   GlCollectionType,
   GlCollectionTypeArray,
-} from '../../stores/collection/collectionData';
+} from '../../types/collection/collectionData';
 import { GlSettingsType } from '../../stores/general/glSettings';
 import { StoredMediaStateType } from '../../stores/image/storedMedia';
 

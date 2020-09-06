@@ -1,11 +1,11 @@
 import { createSlice } from '@reduxjs/toolkit';
 
 import getOrderdBlendModeArray from '../../utils/blendMode/getOrderdBlendModeArray';
-import { collectionItemValueOpacityDictionaryType } from './collectionValueOpacity';
-import { collectionItemValueImageDictionaryType } from './collectionValueImage';
-import { collectionItemValueColorDictionaryType } from './collectionValueColor';
-import { collectionItemValueVisibilityDictionaryType } from './collectionValueVisibility';
-import { collectionItemValueBlendModeDictionaryType } from './collectionValueBlendMode';
+import { collectionValueOpacityDictionaryType } from '../../stores/collection/collectionValueOpacity';
+import { collectionValueImageDictionaryType } from '../../stores/collection/collectionValueImage';
+import { collectionValueColorDictionaryType } from '../../stores/collection/collectionValueColor';
+import { collectionValueVisibilityDictionaryType } from '../../stores/collection/collectionValueVisibility';
+import { collectionValueBlendModeDictionaryType } from '../../stores/collection/collectionValueBlendMode';
 import {
   DenormalizedColorCollectionItemType,
   DenormalizedImageCollectionItemType,
@@ -16,11 +16,11 @@ import {
  * コレクションアイテムの値の方のunion
  */
 export type collectionItemValueDictionaryType =
-  | collectionItemValueOpacityDictionaryType
-  | collectionItemValueImageDictionaryType
-  | collectionItemValueColorDictionaryType
-  | collectionItemValueVisibilityDictionaryType
-  | collectionItemValueBlendModeDictionaryType;
+  | collectionValueOpacityDictionaryType
+  | collectionValueImageDictionaryType
+  | collectionValueColorDictionaryType
+  | collectionValueVisibilityDictionaryType
+  | collectionValueBlendModeDictionaryType;
 
 /**
  * コレクションデータのIDの値の型

@@ -2,7 +2,7 @@ import React, { useContext } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import ColorPanel from '../components/molecules/ColorPanel';
 
-import { updateColor as updateColorAction } from '../stores/collection/collectionData';
+import { updateColor as updateColorAction } from '../types/collection/collectionData';
 import {
   stockAddColor as atockAddColorAction,
   stockRemoveColor as stockRemoveColorAction,

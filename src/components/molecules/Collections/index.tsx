@@ -8,7 +8,7 @@ import CollectionContainer from '../../../container/CollectionContainer';
 import {
   GlCollectionTypeArray,
   GlCollectionType,
-} from '../../../stores/collection/collectionData';
+} from '../../../types/collection/collectionData';
 import CreateCollectionPanelContainer from '../../../container/CreateCollectionPanelContainer';
 
 export type Props = {

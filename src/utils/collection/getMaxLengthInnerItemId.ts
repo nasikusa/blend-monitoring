@@ -1,4 +1,4 @@
-import { GlCollectionTypeArray } from '../../stores/collection/collectionData';
+import { GlCollectionTypeArray } from '../../types/collection/collectionData';
 
 /**
  * コレクションリスト配列から、最大の個数を持つ innerItemId の内容を返す関数

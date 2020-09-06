@@ -1,7 +1,7 @@
 import {
   GlCollectionTypeArray,
   CanCollectionMultiItemProps,
-} from '../../stores/collection/collectionData';
+} from '../../types/collection/collectionData';
 
 const aryMaxFunctionForReduce = (a: number, b: number): number => {
   return Math.max(a, b);

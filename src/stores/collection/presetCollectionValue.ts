@@ -7,7 +7,7 @@ import {
   SingleImageGlCollectionType,
   SingleImageMultiBlendsGlCollectionType,
   MultiImagesGlCollectionType,
-} from './collectionData';
+} from '../../types/collection/collectionData';
 
 // const hues = [15, 45, 80, 115, 140, 175, 200, 235, 270, 315, 340];
 

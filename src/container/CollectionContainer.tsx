@@ -3,7 +3,7 @@ import { useDispatch } from 'react-redux';
 import Collection from '../components/molecules/Collection';
 import useCurrentSceneCollection from '../hooks/collection/useCurrentSceneCollection';
 
-import { deleteSingleCollection as deleteSingleCollectionAction } from '../stores/collection/collectionData';
+import { deleteSingleCollection as deleteSingleCollectionAction } from '../types/collection/collectionData';
 
 export default () => {
   // const collectionData: GlCollectionTypeArray = useSelector<

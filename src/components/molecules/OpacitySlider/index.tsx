@@ -11,7 +11,7 @@ import Icon from '../../atoms/Icon';
 import {
   GlCollectionTypeArray,
   GlCollectionType,
-} from '../../../stores/collection/collectionData';
+} from '../../../types/collection/collectionData';
 
 type Props = {
   updateOpacity: any;

@@ -10,7 +10,7 @@ import {
 import {
   replaceAll as replaceAllCollectionDataAction,
   removeAll as removeAllCollectionDataAction,
-} from '../stores/collection/collectionData';
+} from '../types/collection/collectionData';
 import { replaceAll as replaceAllThemeSettingsAction } from '../stores/general/themeSettings';
 import { replaceAll as replaceAllBlendModeOrderAction } from '../stores/blendMode/blendModeOrder';
 import { replaceAll as replaceAllStockedColorsAction } from '../stores/color/stockedColors';

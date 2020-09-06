@@ -20,7 +20,7 @@ import CustomIconButton from '../CustomIconButton';
 import {
   GlCollectionTypeArray,
   CollectionTypeType,
-} from '../../../stores/collection/collectionData';
+} from '../../../types/collection/collectionData';
 import allCollectionTypeFunctionObject, {
   collectionObjectFunctionType,
 } from './allCollectionTypeFunctionObject';

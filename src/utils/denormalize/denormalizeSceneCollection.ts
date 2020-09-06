@@ -5,19 +5,19 @@ import errorMessageText from '../../constants/develop/errorMessageText';
 import {
   IdType,
   GlCollectionType,
-} from '../../stores/collection/collectionData';
+} from '../../types/collection/collectionData';
 import { sceneCollectionsDictionaryType } from '../../stores/collection/sceneCollection';
 import {
   DenormalizedCollectionArgsObjectType,
   getDenormalizedCollection,
 } from './denormalizeCollection';
-import { collectionItemValueImageDictionaryType } from '../../stores/collection/collectionValueImage';
-import { collectionItemValueColorDictionaryType } from '../../stores/collection/collectionValueColor';
+import { collectionValueImageDictionaryType } from '../../stores/collection/collectionValueImage';
+import { collectionValueColorDictionaryType } from '../../stores/collection/collectionValueColor';
 
 export type DenormalizedSceneCollectionArgsObjectType = DenormalizedCollectionArgsObjectType & {
   sceneCollection: sceneCollectionsDictionaryType;
-  collectionValueImage: collectionItemValueImageDictionaryType;
-  collectionValueColor: collectionItemValueColorDictionaryType;
+  collectionValueImage: collectionValueImageDictionaryType;
+  collectionValueColor: collectionValueColorDictionaryType;
 };
 
 /**

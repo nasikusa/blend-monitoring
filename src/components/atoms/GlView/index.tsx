@@ -12,7 +12,7 @@ import CreateShaderProcessesVariables from '../../../utils/shader/CreateShaderPr
 import { GlItemOrderContext } from '../../organisms/GlBox';
 
 import { GlSettingsType } from '../../../stores/general/glSettings';
-import { GlCollectionTypeArray } from '../../../stores/collection/collectionData';
+import { GlCollectionTypeArray } from '../../../types/collection/collectionData';
 import { StoredMediaStateType } from '../../../stores/image/storedMedia';
 import isEmptyMultiCollections from '../../../utils/collection/isEmptyMultiCollections';
 

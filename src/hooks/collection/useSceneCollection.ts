@@ -2,7 +2,7 @@ import { useSelector } from 'react-redux';
 
 import { AppState } from '../../stores/index';
 import { denormalizeSceneCollection } from '../../utils/denormalize';
-import { IdType } from '../../stores/collection/collectionData';
+import { IdType } from '../../types/collection/collectionData';
 
 const useSceneCollection = (
   argumentSceneCollectionId: IdType

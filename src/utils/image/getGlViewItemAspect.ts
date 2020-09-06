@@ -1,7 +1,7 @@
 import {
   GlCollectionTypeArray,
   GlCollectionType,
-} from '../../stores/collection/collectionData';
+} from '../../types/collection/collectionData';
 import { StoredMediaStateType } from '../../stores/image/storedMedia';
 
 /**
