@@ -4,9 +4,9 @@ import getFloatAdjustedString4GLSL from './getFloatAdjustedString4GLSL';
 import {
   GlCollectionType,
   GlCollectionTypeArray,
-} from '../../stores/collectionData';
-import { GlSettingsType } from '../../stores/glSettings';
-import { StoredMediaStateType } from '../../stores/storedMedia';
+} from '../../stores/collection/collectionData';
+import { GlSettingsType } from '../../stores/general/glSettings';
+import { StoredMediaStateType } from '../../stores/image/storedMedia';
 
 /**
  * main関数内で使用する変数を定義する

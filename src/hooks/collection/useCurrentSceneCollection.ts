@@ -2,7 +2,7 @@ import { useSelector } from 'react-redux';
 
 import { AppState } from '../../stores/index';
 import useSceneCollection from './useSceneCollection';
-import { GlCollectionType } from '../../stores/collectionData';
+import { GlCollectionType } from '../../stores/collection/collectionData';
 
 /**
  * @todo asを使用しているため注意。 はやめに対策したいです。

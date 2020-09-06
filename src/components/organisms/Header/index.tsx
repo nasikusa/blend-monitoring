@@ -9,7 +9,7 @@ import HeaderInfos from '../../molecules/HeaderInfos';
 import LogoImage from '../../atoms/LogoImage';
 import { AppNameHasAccent } from '../../../constants/general/appConstantSettings';
 
-import { ThemeSettingsType } from '../../../stores/themeSettings';
+import { ThemeSettingsType } from '../../../stores/general/themeSettings';
 
 export type Props = {
   themeSettings: ThemeSettingsType;

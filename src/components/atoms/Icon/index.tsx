@@ -59,7 +59,7 @@ import ShowChartIcon from '@material-ui/icons/ShowChart';
 
 // icon end =======================================
 
-import { CollectionTypeType } from '../../../stores/collectionData';
+import { CollectionTypeType } from '../../../stores/collection/collectionData';
 import { IgnoreDupliCollectionPanelNamesType } from '../../../types/CollectionPanelNames';
 import { ColorPanelFunctionNames } from '../../molecules/ColorPanel';
 import { BlendModeRoughTypeType } from '../../../constants/blendMode/blendModeData';

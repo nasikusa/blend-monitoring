@@ -16,12 +16,12 @@ import Switch from '@material-ui/core/Switch';
 import Snackbar from '@material-ui/core/Snackbar';
 
 import getResiedImageData from '../../../utils/image/getResizedImageData';
-import { GlCollectionTypeArray } from '../../../stores/collectionData';
+import { GlCollectionTypeArray } from '../../../stores/collection/collectionData';
 import MediaModalContentsContainer from '../../../container/MediaModalContentsContainer';
 import createStoredMediaItemObject from '../../../utils/image/createStoredMediaItemObject';
 import CustomAlert from '../../atoms/CustomAlert';
 
-import { StoredMediaStateType } from '../../../stores/storedMedia';
+import { StoredMediaStateType } from '../../../stores/image/storedMedia';
 
 export type Props = {
   collectionData: GlCollectionTypeArray;

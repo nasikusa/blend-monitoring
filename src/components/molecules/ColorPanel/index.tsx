@@ -15,7 +15,7 @@ import { GlCollectionOrderContext } from '../Collections';
 import CustomSketchPicker from '../../atoms/CustomSketchPicker';
 import ColorModalContainer from '../../../container/ColorModalContainer';
 
-import { ColorRelatedGlCollectionType } from '../../../stores/collectionData';
+import { ColorRelatedGlCollectionType } from '../../../stores/collection/collectionData';
 
 export type ColorPanelFunctionNames =
   | 'colorPanelAdd'

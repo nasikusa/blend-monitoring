@@ -1,6 +1,6 @@
 import { createSlice } from '@reduxjs/toolkit';
 
-import getOrderdBlendModeArray from '../utils/blendMode/getOrderdBlendModeArray';
+import getOrderdBlendModeArray from '../../utils/blendMode/getOrderdBlendModeArray';
 import { collectionItemValueOpacityDictionaryType } from './collectionValueOpacity';
 import { collectionItemValueImageDictionaryType } from './collectionValueImage';
 import { collectionItemValueColorDictionaryType } from './collectionValueColor';
@@ -10,7 +10,7 @@ import {
   DenormalizedColorCollectionItemType,
   DenormalizedImageCollectionItemType,
   DenormalizedCollectionItemType,
-} from '../utils/denormalize/denormalizeCollectionItem';
+} from '../../utils/denormalize/denormalizeCollectionItem';
 
 /**
  * コレクションアイテムの値の方のunion

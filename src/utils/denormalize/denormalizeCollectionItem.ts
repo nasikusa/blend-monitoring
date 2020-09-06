@@ -5,23 +5,23 @@ import errorMessageText from '../../constants/develop/errorMessageText';
 import {
   collectionItemValueOpacityDictionaryType,
   collectionItemValueOpacityType,
-} from '../../stores/collectionValueOpacity';
+} from '../../stores/collection/collectionValueOpacity';
 import {
   collectionItemValueColorDictionaryType,
   collectionItemValueColorType,
-} from '../../stores/collectionValueColor';
+} from '../../stores/collection/collectionValueColor';
 import {
   collectionItemValueImageDictionaryType,
   collectionItemValueImageType,
-} from '../../stores/collectionValueImage';
+} from '../../stores/collection/collectionValueImage';
 import {
   collectionItemValueVisibilityDictionaryType,
   collectionItemValueVisibilityType,
-} from '../../stores/collectionValueVisibility';
+} from '../../stores/collection/collectionValueVisibility';
 import {
   collectionItemValueBlendModeDictionaryType,
   collectionItemValueBlendModeType,
-} from '../../stores/collectionValueBlendMode';
+} from '../../stores/collection/collectionValueBlendMode';
 // collectionValue
 import {
   getDenormalizedOpacityValue,
@@ -31,9 +31,9 @@ import {
   getDenormalizedBlendModeValue,
 } from './denormalizeCollectionValue';
 // collectionItem
-import { collectionItemDictionaryType } from '../../stores/collectionItem';
+import { collectionItemDictionaryType } from '../../stores/collection/collectionItem';
 // collectionData
-import { IdType } from '../../stores/collectionData';
+import { IdType } from '../../stores/collection/collectionData';
 
 /**
  * コレクションアイテム取得関数のベースとなる必須引数オブジェクトの型(引数)

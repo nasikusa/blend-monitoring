@@ -1,4 +1,4 @@
-import { CollectionTypeType } from '../../stores/collectionData';
+import { CollectionTypeType } from '../../stores/collection/collectionData';
 
 export default (type: CollectionTypeType): string => {
   switch (type) {

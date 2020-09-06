@@ -2,7 +2,7 @@ import React from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import MediaModal from '../components/molecules/MediaModal';
 import { AppState } from '../stores/index';
-import { addMediaData as addMediaDataAction } from '../stores/storedMedia';
+import { addMediaData as addMediaDataAction } from '../stores/image/storedMedia';
 import useCurrentSceneCollection from '../hooks/collection/useCurrentSceneCollection';
 
 export default (props: any) => {

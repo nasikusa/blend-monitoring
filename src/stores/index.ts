@@ -2,22 +2,22 @@ import { combineReducers } from 'redux';
 import { configureStore } from '@reduxjs/toolkit';
 // import undoable from 'redux-undo';
 
-import glSettingsReducer from './glSettings';
-import collectionDataReducer from './collectionData';
-import themeSettingsReducer from './themeSettings';
-import blendModeOrderReducer from './blendModeOrder';
-import storedMediaReducer from './storedMedia';
-import stockedColorsReducer from './stockedColors';
-import presetCollectionValueReducer from './presetCollectionValue';
-import collectionReducer from './collection';
-import collectionItemReducer from './collectionItem';
-import collectionItemValueOpacityReducer from './collectionValueOpacity';
-import collectionItemValueImageReducer from './collectionValueImage';
-import collectionItemValueColorReducer from './collectionValueColor';
-import collectionItemValueVisibilityReducer from './collectionValueVisibility';
-import collectionItemValueBlendModeReducer from './collectionValueBlendMode';
-import sceneCollectionReducer from './sceneCollection';
-import currentSceneCollectionReducer from './currentSceneCollection';
+import glSettingsReducer from './general/glSettings';
+import collectionDataReducer from './collection/collectionData';
+import themeSettingsReducer from './general/themeSettings';
+import blendModeOrderReducer from './blendMode/blendModeOrder';
+import storedMediaReducer from './image/storedMedia';
+import stockedColorsReducer from './color/stockedColors';
+import presetCollectionValueReducer from './collection/presetCollectionValue';
+import collectionReducer from './collection/collection';
+import collectionItemReducer from './collection/collectionItem';
+import collectionItemValueOpacityReducer from './collection/collectionValueOpacity';
+import collectionItemValueImageReducer from './collection/collectionValueImage';
+import collectionItemValueColorReducer from './collection/collectionValueColor';
+import collectionItemValueVisibilityReducer from './collection/collectionValueVisibility';
+import collectionItemValueBlendModeReducer from './collection/collectionValueBlendMode';
+import sceneCollectionReducer from './collection/sceneCollection';
+import currentSceneCollectionReducer from './collection/currentSceneCollection';
 
 const reducer = combineReducers({
   glSettings: glSettingsReducer,

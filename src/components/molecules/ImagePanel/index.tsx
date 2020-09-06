@@ -9,8 +9,8 @@ import GridListTile from '@material-ui/core/GridListTile';
 
 import Icon from '../../atoms/Icon';
 import MediaModalContainer from '../../../container/MediaModalContainer';
-import { StoredMediaStateType } from '../../../stores/storedMedia';
-import { ImageRelatedGlCollectionType } from '../../../stores/collectionData';
+import { StoredMediaStateType } from '../../../stores/image/storedMedia';
+import { ImageRelatedGlCollectionType } from '../../../stores/collection/collectionData';
 
 export type Props = {
   storedMediaData: StoredMediaStateType;

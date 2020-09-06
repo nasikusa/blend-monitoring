@@ -11,9 +11,9 @@ import CreateShaderProcesses from '../../../utils/shader/CreateShaderProcesses';
 import CreateShaderProcessesVariables from '../../../utils/shader/CreateShaderProcessesVariables';
 import { GlItemOrderContext } from '../../organisms/GlBox';
 
-import { GlSettingsType } from '../../../stores/glSettings';
-import { GlCollectionTypeArray } from '../../../stores/collectionData';
-import { StoredMediaStateType } from '../../../stores/storedMedia';
+import { GlSettingsType } from '../../../stores/general/glSettings';
+import { GlCollectionTypeArray } from '../../../stores/collection/collectionData';
+import { StoredMediaStateType } from '../../../stores/image/storedMedia';
 import isEmptyMultiCollections from '../../../utils/collection/isEmptyMultiCollections';
 
 type Props = {

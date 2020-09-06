@@ -2,7 +2,7 @@ import { validate as uuidValidate } from 'uuid';
 
 import errorMessageText from '../../constants/develop/errorMessageText';
 // collection
-import { GlCollectionDictionaryType } from '../../stores/collection';
+import { GlCollectionDictionaryType } from '../../stores/collection/collection';
 // collectionItem
 import {
   getDenormalizedColorValueCollectionItem,
@@ -23,7 +23,7 @@ import {
   SingleImageGlCollectionType,
   SingleImageMultiBlendsGlCollectionType,
   MultiImagesGlCollectionType,
-} from '../../stores/collectionData';
+} from '../../stores/collection/collectionData';
 
 /**
  * カラータイプのコレクション取得用の関数の引数objectの型

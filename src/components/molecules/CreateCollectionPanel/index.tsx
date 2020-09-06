@@ -11,7 +11,7 @@ import Icon from '../../atoms/Icon';
 import collectionTypesArray from '../../../constants/collection/collectionTypesArray';
 import collectionTypeNameObject from '../../../constants/collection/collectionTypeNameObject';
 import canMultiItemCollectionName from '../../../constants/collection/canMultiItemCollectionName';
-import { presetCollectionValueType } from '../../../stores/presetCollectionValue';
+import { presetCollectionValueType } from '../../../stores/collection/presetCollectionValue';
 
 export type Props = {
   createCollection: any;

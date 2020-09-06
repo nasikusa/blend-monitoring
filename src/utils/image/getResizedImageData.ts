@@ -1,7 +1,7 @@
 import pica from 'pica';
 import ColorThief from 'colorthief';
 import chroma from 'chroma-js';
-import { StoredMediaStateItemType } from '../../stores/storedMedia';
+import { StoredMediaStateItemType } from '../../stores/image/storedMedia';
 import baseImageSizeObject, {
   baseImageSizeNames,
 } from '../../constants/image/baseImageSize';

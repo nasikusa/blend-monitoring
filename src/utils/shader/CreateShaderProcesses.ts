@@ -3,7 +3,7 @@ import CreateShaderBlend from './CreateShaderBlend';
 import {
   GlCollectionTypeArray,
   GlCollectionType,
-} from '../../stores/collectionData';
+} from '../../stores/collection/collectionData';
 
 /**
  * ベースとなるカラーに色を追加する処理プロセス - main関数内で実行される

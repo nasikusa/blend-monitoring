@@ -2,13 +2,13 @@ import { validate as uuidValidate } from 'uuid';
 
 import errorMessageText from '../../constants/develop/errorMessageText';
 // collectionValue
-import { collectionItemValueOpacityDictionaryType } from '../../stores/collectionValueOpacity';
-import { collectionItemValueColorDictionaryType } from '../../stores/collectionValueColor';
-import { collectionItemValueImageDictionaryType } from '../../stores/collectionValueImage';
-import { collectionItemValueVisibilityDictionaryType } from '../../stores/collectionValueVisibility';
-import { collectionItemValueBlendModeDictionaryType } from '../../stores/collectionValueBlendMode';
+import { collectionItemValueOpacityDictionaryType } from '../../stores/collection/collectionValueOpacity';
+import { collectionItemValueColorDictionaryType } from '../../stores/collection/collectionValueColor';
+import { collectionItemValueImageDictionaryType } from '../../stores/collection/collectionValueImage';
+import { collectionItemValueVisibilityDictionaryType } from '../../stores/collection/collectionValueVisibility';
+import { collectionItemValueBlendModeDictionaryType } from '../../stores/collection/collectionValueBlendMode';
 // collectionData
-import { IdType } from '../../stores/collectionData';
+import { IdType } from '../../stores/collection/collectionData';
 
 // collectionValue系ストア用の非正規化関数
 /**

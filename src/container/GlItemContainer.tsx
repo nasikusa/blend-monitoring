@@ -4,8 +4,8 @@ import GlItem from '../components/molecules/GlItem';
 import { AppState } from '../stores/index';
 import hasMultiItemCollection from '../utils/collection/hasMultiItemCollection';
 import { GlItemOrderContext } from '../components/organisms/GlBox';
-import { CollectionTypeType } from '../stores/collectionData';
-import { StoredMediaStateItemType } from '../stores/storedMedia';
+import { CollectionTypeType } from '../stores/collection/collectionData';
+import { StoredMediaStateItemType } from '../stores/image/storedMedia';
 import useCurrentSceneCollection from '../hooks/collection/useCurrentSceneCollection';
 
 export default () => {

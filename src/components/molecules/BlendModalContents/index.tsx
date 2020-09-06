@@ -14,7 +14,7 @@ import {
   readyBlendModeData,
 } from '../../../utils/blendMode/getBlendModeData';
 import { GlCollectionOrderContext } from '../Collections';
-import { GlCollectionTypeArray } from '../../../stores/collectionData';
+import { GlCollectionTypeArray } from '../../../stores/collection/collectionData';
 
 export type Props = {
   collectionData: GlCollectionTypeArray;

@@ -1,6 +1,6 @@
 import { v4 as uuidv4 } from 'uuid';
 // import moment from 'moment';
-import { StoredMediaStateItemType } from '../../stores/storedMedia';
+import { StoredMediaStateItemType } from '../../stores/image/storedMedia';
 import { singleResizedImageDataType } from './getResizedImageData';
 
 /**

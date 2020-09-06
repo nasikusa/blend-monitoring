@@ -3,7 +3,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import {
   updateBlendMode as updateBlendModeAction,
   // GlCollectionTypeArray,
-} from '../stores/collectionData';
+} from '../stores/collection/collectionData';
 import { AppState } from '../stores/index';
 import BlendModePanel from '../components/molecules/BlendModePanel';
 import useCurrentSceneCollection from '../hooks/collection/useCurrentSceneCollection';

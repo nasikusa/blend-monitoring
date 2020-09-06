@@ -14,7 +14,7 @@ import {
 } from '../Collections';
 import BlendModalContainer from '../../../container/BlendModalContainer';
 
-import { GlCollectionTypeArray } from '../../../stores/collectionData';
+import { GlCollectionTypeArray } from '../../../stores/collection/collectionData';
 
 type Props = {
   collectionData: GlCollectionTypeArray;

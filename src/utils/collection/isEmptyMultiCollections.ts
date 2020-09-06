@@ -1,7 +1,7 @@
 import {
   GlCollectionTypeArray,
   GlCollectionType,
-} from '../../stores/collectionData';
+} from '../../stores/collection/collectionData';
 
 /**
  * 空要素を持つかどうかを判定するための関数

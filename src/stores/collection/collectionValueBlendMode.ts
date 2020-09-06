@@ -1,5 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { BlendModesType } from '../constants/blendMode/blendModeData';
+import { BlendModesType } from '../../constants/blendMode/blendModeData';
 
 export type collectionItemValueBlendModeType = BlendModesType;
 

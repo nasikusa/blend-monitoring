@@ -1,9 +1,9 @@
 import {
   GlCollectionTypeArray,
   GlCollectionType,
-} from '../../stores/collectionData';
+} from '../../stores/collection/collectionData';
 import getFloatAdjustedString4GLSL from './getFloatAdjustedString4GLSL';
-import { StoredMediaStateType } from '../../stores/storedMedia';
+import { StoredMediaStateType } from '../../stores/image/storedMedia';
 
 type returnObjectType = { [key: string]: string };
 

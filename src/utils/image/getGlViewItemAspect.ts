@@ -1,8 +1,8 @@
 import {
   GlCollectionTypeArray,
   GlCollectionType,
-} from '../../stores/collectionData';
-import { StoredMediaStateType } from '../../stores/storedMedia';
+} from '../../stores/collection/collectionData';
+import { StoredMediaStateType } from '../../stores/image/storedMedia';
 
 /**
  * 現在の表示アイテムのアスペクトを計算して返す関数

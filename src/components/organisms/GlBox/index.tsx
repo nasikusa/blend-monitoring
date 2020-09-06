@@ -4,7 +4,7 @@ import Grid from '@material-ui/core/Grid';
 
 import GlItemContainer from '../../../container/GlItemContainer';
 import DefaultWelcome from '../../molecules/DefaultWelcome';
-import { GlCollectionType } from '../../../stores/collectionData';
+import { GlCollectionType } from '../../../stores/collection/collectionData';
 import { maxCountOfGlItem } from '../../../constants/general/appConstantSettings';
 import CustomAlert from '../../atoms/CustomAlert';
 import NoticeSnackbar from '../../atoms/NoticeSnackbar';
