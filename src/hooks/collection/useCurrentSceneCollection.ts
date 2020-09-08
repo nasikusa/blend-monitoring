@@ -8,7 +8,7 @@ const useCurrentSceneCollection = (): GlCollectionType[] => {
   const currentSceneCollection = useSelector(
     (state: AppState) => state.currentSceneCollection
   );
-  const resultObject = useSceneCollection(currentSceneCollection);
+  const resultObject = useSceneCollection(currentSceneCollection.currentId);
   return resultObject;
 };
 

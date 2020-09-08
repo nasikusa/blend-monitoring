@@ -43,7 +43,7 @@ export const denormalizeSceneCollection = (
     throw new Error(errorMessageText.notFoundSceneCollection);
   }
 
-  const resultSceneCollectionArray = targetIdSceneCollection.map(
+  const resultSceneCollectionArray = targetIdSceneCollection.innerCollectionId.map(
     (singleCollectionId: string) => {
       const targetIdCollection = collection[singleCollectionId];
       switch (targetIdCollection.type) {
