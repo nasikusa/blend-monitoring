@@ -1,9 +1,11 @@
 import { createSlice } from '@reduxjs/toolkit';
+import { IdType } from '../../types/collection/collectionData';
 import { baseCollectionValueType } from '../../types/collection/collectionValueType';
 
 export type collectionValueImageValueType = string;
 
 export type collectionValueImageType = {
+  readonly id: IdType;
   value: collectionValueImageValueType;
   readonly type: 'image';
 };

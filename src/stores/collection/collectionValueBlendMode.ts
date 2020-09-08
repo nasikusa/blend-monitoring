@@ -1,10 +1,12 @@
 import { createSlice } from '@reduxjs/toolkit';
 import { BlendModesType } from '../../constants/blendMode/blendModeData';
+import { IdType } from '../../types/collection/collectionData';
 import { baseCollectionValueType } from '../../types/collection/collectionValueType';
 
 export type collectionValueBlendModeValueType = BlendModesType;
 
 export type collectionValueBlendModeType = {
+  readonly id: IdType;
   value: collectionValueBlendModeValueType;
   readonly type: 'blendMode';
 };

@@ -10,8 +10,6 @@ import {
   DenormalizeColorCollectionItemArgType,
   DenormalizeImageCollectionItemArgType,
   DenormalizeCollectionItemArgType,
-  DenormalizedColorCollectionItemType,
-  DenormalizedImageCollectionItemType,
 } from './denormalizeCollectionItem';
 // collectionData
 import {
@@ -45,19 +43,6 @@ export type DenormalizedCollectionArgsObjectType = DenormalizeCollectionItemArgT
 };
 
 /**
- * undefined[]の型を弾くためのタイプガード関数
- */
-export function isNonNullableCollectionItemArray<T>(
-  collectionItemArray: (T | undefined)[]
-): collectionItemArray is T[] {
-  const isNotNullableArray = collectionItemArray != null;
-  const isNotNullableCollectionItems = collectionItemArray.every(
-    (singleCollectionItem) => singleCollectionItem != null
-  );
-  return isNotNullableArray && isNotNullableCollectionItems;
-}
-
-/**
  * 非正規化されたcollectionデータを取得する
  * @todo inで型を識別しているところの型判別を強化するか、もし違う値ならエラーを出したいです。
  */
@@ -66,7 +51,7 @@ export const getDenormalizedCollection = (
   argumentMultipleDataObject:
     | DenormalizedColorCollectionArgsObjectType
     | DenormalizedImageCollectionArgsObjectType
-): GlCollectionType | undefined => {
+): GlCollectionType => {
   if (!uuidValidate(argumentCollectionId)) {
     throw new Error(errorMessageText.notValidUUID);
   }
@@ -98,20 +83,17 @@ export const getDenormalizedCollection = (
         collectionValueBlendMode,
       }
     );
-    if (denormalizedTargetIdCollectionItem != null) {
-      const {
-        id: _notUsedIdData_,
-        type: _notUsedTypeData_,
-        ...omitedDenormalizedTargetIdCollectionItem
-      } = denormalizedTargetIdCollectionItem;
+    const {
+      id: _notUsedIdData_,
+      type: _notUsedTypeData_,
+      ...omitedDenormalizedTargetIdCollectionItem
+    } = denormalizedTargetIdCollectionItem;
 
-      const resultObject = {
-        ...targetIdCollection,
-        ...omitedDenormalizedTargetIdCollectionItem,
-      };
-      return resultObject;
-    }
-    return undefined;
+    const resultObject = {
+      ...targetIdCollection,
+      ...omitedDenormalizedTargetIdCollectionItem,
+    };
+    return resultObject;
   }
 
   // singleImage
@@ -130,20 +112,17 @@ export const getDenormalizedCollection = (
         collectionValueBlendMode,
       }
     );
-    if (denormalizedTargetIdCollectionItem != null) {
-      const {
-        id: _notUsedIdData_,
-        type: _notUsedTypeData_,
-        ...omitedDenormalizedTargetIdCollectionItem
-      } = denormalizedTargetIdCollectionItem;
+    const {
+      id: _notUsedIdData_,
+      type: _notUsedTypeData_,
+      ...omitedDenormalizedTargetIdCollectionItem
+    } = denormalizedTargetIdCollectionItem;
 
-      const resultObject = {
-        ...targetIdCollection,
-        ...omitedDenormalizedTargetIdCollectionItem,
-      };
-      return resultObject;
-    }
-    return undefined;
+    const resultObject = {
+      ...targetIdCollection,
+      ...omitedDenormalizedTargetIdCollectionItem,
+    };
+    return resultObject;
   }
 
   // singleColorMultiBlends || multiColors
@@ -163,29 +142,22 @@ export const getDenormalizedCollection = (
           collectionValueBlendMode,
         })
     );
-    if (
-      isNonNullableCollectionItemArray<DenormalizedColorCollectionItemType>(
-        denormalizedTargetIdCollectionItemArray
-      )
-    ) {
-      const resultObject = {
-        ...targetIdCollection,
-        opacity: denormalizedTargetIdCollectionItemArray.map(
-          (singleCollectionItem) => singleCollectionItem.opacity
-        ),
-        blendMode: denormalizedTargetIdCollectionItemArray.map(
-          (singleCollectionItem) => singleCollectionItem.blendMode
-        ),
-        color: denormalizedTargetIdCollectionItemArray.map(
-          (singleCollectionItem) => singleCollectionItem.color
-        ),
-        visibility: denormalizedTargetIdCollectionItemArray.map(
-          (singleCollectionItem) => singleCollectionItem.visibility
-        ),
-      };
-      return resultObject;
-    }
-    return undefined;
+    const resultObject = {
+      ...targetIdCollection,
+      opacity: denormalizedTargetIdCollectionItemArray.map(
+        (singleCollectionItem) => singleCollectionItem.opacity
+      ),
+      blendMode: denormalizedTargetIdCollectionItemArray.map(
+        (singleCollectionItem) => singleCollectionItem.blendMode
+      ),
+      color: denormalizedTargetIdCollectionItemArray.map(
+        (singleCollectionItem) => singleCollectionItem.color
+      ),
+      visibility: denormalizedTargetIdCollectionItemArray.map(
+        (singleCollectionItem) => singleCollectionItem.visibility
+      ),
+    };
+    return resultObject;
   }
 
   // singleImageMultiBlends || multiImages
@@ -205,113 +177,106 @@ export const getDenormalizedCollection = (
           collectionValueBlendMode,
         })
     );
-    if (
-      isNonNullableCollectionItemArray<DenormalizedImageCollectionItemType>(
-        denormalizedTargetIdCollectionItemArray
-      )
-    ) {
-      const resultObject = {
-        ...targetIdCollection,
-        opacity: denormalizedTargetIdCollectionItemArray.map(
-          (singleCollectionItem) => singleCollectionItem.opacity
-        ),
-        blendMode: denormalizedTargetIdCollectionItemArray.map(
-          (singleCollectionItem) => singleCollectionItem.blendMode
-        ),
-        image: denormalizedTargetIdCollectionItemArray.map(
-          (singleCollectionItem) => singleCollectionItem.image
-        ),
-        visibility: denormalizedTargetIdCollectionItemArray.map(
-          (singleCollectionItem) => singleCollectionItem.visibility
-        ),
-      };
-      return resultObject;
-    }
-    return undefined;
+    const resultObject = {
+      ...targetIdCollection,
+      opacity: denormalizedTargetIdCollectionItemArray.map(
+        (singleCollectionItem) => singleCollectionItem.opacity
+      ),
+      blendMode: denormalizedTargetIdCollectionItemArray.map(
+        (singleCollectionItem) => singleCollectionItem.blendMode
+      ),
+      image: denormalizedTargetIdCollectionItemArray.map(
+        (singleCollectionItem) => singleCollectionItem.image
+      ),
+      visibility: denormalizedTargetIdCollectionItemArray.map(
+        (singleCollectionItem) => singleCollectionItem.visibility
+      ),
+    };
+    return resultObject;
   }
-  return undefined;
+  throw new Error('not reachable error');
 };
 
 export const getDenormalizedSingleColorCollection = (
   argumentCollectionId: IdType,
   argumentMultipleDataObject: DenormalizedColorCollectionArgsObjectType
-): SingleColorGlCollectionType | undefined => {
+): SingleColorGlCollectionType => {
   const collectionData = getDenormalizedCollection(
     argumentCollectionId,
     argumentMultipleDataObject
   );
-  if (collectionData?.type === 'singleColor') {
+  if (collectionData.type === 'singleColor') {
     return collectionData;
   }
-  return undefined;
+  throw new Error('not reachable');
 };
 
 export const getDenormalizedSingleColorMultiBlendsCollection = (
   argumentCollectionId: IdType,
   argumentMultipleDataObject: DenormalizedColorCollectionArgsObjectType
-): SingleColorMultiBlendsGlCollectionType | undefined => {
+): SingleColorMultiBlendsGlCollectionType => {
   const collectionData = getDenormalizedCollection(
     argumentCollectionId,
     argumentMultipleDataObject
   );
-  if (collectionData?.type === 'singleColorMultiBlends') {
+  if (collectionData.type === 'singleColorMultiBlends') {
     return collectionData;
   }
-  return undefined;
+  throw new Error('not reachable');
 };
 
 export const getDenormalizedMultiColorCollection = (
   argumentCollectionId: IdType,
   argumentMultipleDataObject: DenormalizedColorCollectionArgsObjectType
-): MultiColorsGlCollectionType | undefined => {
+): MultiColorsGlCollectionType => {
   const collectionData = getDenormalizedCollection(
     argumentCollectionId,
     argumentMultipleDataObject
   );
-  if (collectionData?.type === 'multiColors') {
+  if (collectionData.type === 'multiColors') {
     return collectionData;
   }
-  return undefined;
+  throw new Error('not reachable');
 };
 
 export const getDenormalizedSingleImageCollection = (
   argumentCollectionId: IdType,
   argumentMultipleDataObject: DenormalizedImageCollectionArgsObjectType
-): SingleImageGlCollectionType | undefined => {
+): SingleImageGlCollectionType => {
   const collectionData = getDenormalizedCollection(
     argumentCollectionId,
     argumentMultipleDataObject
   );
-  if (collectionData?.type === 'singleImage') {
+  if (collectionData.type === 'singleImage') {
     return collectionData;
   }
-  return undefined;
+  throw new Error('not reachable');
 };
 
 export const getDenormalizedSingleImageMultiBlendsCollection = (
   argumentCollectionId: IdType,
   argumentMultipleDataObject: DenormalizedImageCollectionArgsObjectType
-): SingleImageMultiBlendsGlCollectionType | undefined => {
+): SingleImageMultiBlendsGlCollectionType => {
   const collectionData = getDenormalizedCollection(
     argumentCollectionId,
     argumentMultipleDataObject
   );
-  if (collectionData?.type === 'singleImageMultiBlends') {
+  if (collectionData.type === 'singleImageMultiBlends') {
     return collectionData;
   }
-  return undefined;
+  throw new Error('not reachable');
 };
 
 export const getDenormalizedMultiImageCollection = (
   argumentCollectionId: IdType,
   argumentMultipleDataObject: DenormalizedImageCollectionArgsObjectType
-): MultiImagesGlCollectionType | undefined => {
+): MultiImagesGlCollectionType => {
   const collectionData = getDenormalizedCollection(
     argumentCollectionId,
     argumentMultipleDataObject
   );
-  if (collectionData?.type === 'multiImages') {
+  if (collectionData.type === 'multiImages') {
     return collectionData;
   }
-  return undefined;
+  throw new Error('not reachable');
 };

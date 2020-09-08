@@ -20,23 +20,10 @@ export type DenormalizedSceneCollectionArgsObjectType = DenormalizedCollectionAr
   collectionValueColor: collectionValueColorDictionaryType;
 };
 
-/**
- * undefined[]の型を弾くためのタイプガード関数
- */
-export function isNonNullableCollectionArray<T>(
-  collectionItemArray: (T | undefined)[]
-): collectionItemArray is T[] {
-  const isNotNullableArray = collectionItemArray != null;
-  const isNotNullableCollectionItems = collectionItemArray.every(
-    (singleCollectionItem) => singleCollectionItem != null
-  );
-  return isNotNullableArray && isNotNullableCollectionItems;
-}
-
 export const denormalizeSceneCollection = (
   argumentSceneCollectionId: IdType,
   argumentMultipleDataObject: DenormalizedSceneCollectionArgsObjectType
-): GlCollectionType[] | undefined[] => {
+): GlCollectionType[] => {
   if (!uuidValidate(argumentSceneCollectionId)) {
     throw new Error(errorMessageText.notValidUUID);
   }
@@ -93,17 +80,11 @@ export const denormalizeSceneCollection = (
           return denormalizedTargetIdCollection;
         }
         default:
-          return undefined;
+          throw new Error('not reachable');
       }
     }
   );
-
-  if (
-    isNonNullableCollectionArray<GlCollectionType>(resultSceneCollectionArray)
-  ) {
-    return resultSceneCollectionArray;
-  }
-  return [];
+  return resultSceneCollectionArray;
 };
 
 export default denormalizeSceneCollection;

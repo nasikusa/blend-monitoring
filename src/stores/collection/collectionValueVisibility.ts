@@ -1,9 +1,11 @@
 import { createSlice } from '@reduxjs/toolkit';
+import { IdType } from '../../types/collection/collectionData';
 import { baseCollectionValueType } from '../../types/collection/collectionValueType';
 
 export type collectionValueVisibilityValueType = boolean;
 
 export type collectionValueVisibilityType = {
+  readonly id: IdType;
   value: collectionValueVisibilityValueType;
   readonly type: 'visibility';
 };

@@ -1,9 +1,11 @@
 import { createSlice } from '@reduxjs/toolkit';
+import { IdType } from '../../types/collection/collectionData';
 import { baseCollectionValueType } from '../../types/collection/collectionValueType';
 
 export type collectionValueOpacityValueType = number;
 
 export type collectionValueOpacityType = {
+  readonly id: IdType;
   value: collectionValueOpacityValueType;
   readonly type: 'opacity';
 };

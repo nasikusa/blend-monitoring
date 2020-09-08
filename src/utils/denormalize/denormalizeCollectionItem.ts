@@ -4,7 +4,7 @@ import errorMessageText from '../../constants/develop/errorMessageText';
 // collectionValue
 import {
   collectionValueOpacityDictionaryType,
-  collectionValueOpacityType,
+  collectionValueOpacityValueType,
 } from '../../stores/collection/collectionValueOpacity';
 import {
   collectionValueColorDictionaryType,
@@ -12,24 +12,18 @@ import {
 } from '../../stores/collection/collectionValueColor';
 import {
   collectionValueImageDictionaryType,
-  collectionValueImageType,
+  collectionValueImageValueType,
 } from '../../stores/collection/collectionValueImage';
 import {
   collectionValueVisibilityDictionaryType,
-  collectionValueVisibilityType,
+  collectionValueVisibilityValueType,
 } from '../../stores/collection/collectionValueVisibility';
 import {
   collectionValueBlendModeDictionaryType,
-  collectionValueBlendModeType,
+  collectionValueBlendModeValueType,
 } from '../../stores/collection/collectionValueBlendMode';
 // collectionValue
-import {
-  getDenormalizedOpacityValue,
-  getDenormalizedColorValue,
-  getDenormalizedImageValue,
-  getDenormalizedVisibilityValue,
-  getDenormalizedBlendModeValue,
-} from './denormalizeCollectionValue';
+import { getDenormalizedValue } from './denormalizeCollectionValue';
 // collectionItem
 import { collectionItemDictionaryType } from '../../stores/collection/collectionItem';
 // collectionData
@@ -69,10 +63,10 @@ export type DenormalizeCollectionItemArgType =
 export type DenormalizedColorCollectionItemType = {
   id: string;
   type: 'color';
-  blendMode: collectionValueBlendModeType;
-  opacity: collectionValueOpacityType;
+  blendMode: collectionValueBlendModeValueType;
+  opacity: collectionValueOpacityValueType;
   color: collectionValueColorValueType;
-  visibility: collectionValueVisibilityType;
+  visibility: collectionValueVisibilityValueType;
 };
 /**
  * typeがimageのコレクションアイテムの型(返り値)
@@ -80,10 +74,10 @@ export type DenormalizedColorCollectionItemType = {
 export type DenormalizedImageCollectionItemType = {
   id: string;
   type: 'image';
-  blendMode: collectionValueBlendModeType;
-  opacity: collectionValueOpacityType;
-  image: collectionValueImageType;
-  visibility: collectionValueVisibilityType;
+  blendMode: collectionValueBlendModeValueType;
+  opacity: collectionValueOpacityValueType;
+  image: collectionValueImageValueType;
+  visibility: collectionValueVisibilityValueType;
 };
 /**
  * コレクションアイテムの型(返り値)
@@ -99,7 +93,7 @@ export type DenormalizedCollectionItemType =
 export const getDenormalizedCollectionItem = (
   argumentCollectionItemId: IdType,
   argumentMultipleDataObject: DenormalizeCollectionItemArgType
-): DenormalizedCollectionItemType | undefined => {
+): DenormalizedCollectionItemType => {
   if (!uuidValidate(argumentCollectionItemId)) {
     throw new Error(errorMessageText.notValidUUID);
   }
@@ -118,53 +112,53 @@ export const getDenormalizedCollectionItem = (
    * 最終結果オブジェクトのベースとなるオブジェクト
    */
   const baseObject = {
-    blendMode: getDenormalizedBlendModeValue(
+    blendMode: getDenormalizedValue(
       targetIdCollectionItem.blendMode,
       collectionValueBlendMode
-    ),
-    opacity: getDenormalizedOpacityValue(
+    ).value,
+    opacity: getDenormalizedValue(
       targetIdCollectionItem.opacity,
       collectionValueOpacity
-    ),
-    visibility: getDenormalizedVisibilityValue(
+    ).value,
+    visibility: getDenormalizedValue(
       targetIdCollectionItem.visibility,
       collectionValueVisibility
-    ),
+    ).value,
   };
 
-  switch (targetIdCollectionItem.type) {
-    case 'color': {
-      if ('collectionValueColor' in argumentMultipleDataObject) {
-        const { collectionValueColor } = argumentMultipleDataObject;
-        return {
-          id: targetIdCollectionItem.id,
-          type: targetIdCollectionItem.type,
-          color: getDenormalizedColorValue(
-            targetIdCollectionItem.color,
-            collectionValueColor
-          ),
-          ...baseObject,
-        };
-      }
-      return undefined;
-    }
-    case 'image':
-      if ('collectionValueImage' in argumentMultipleDataObject) {
-        const { collectionValueImage } = argumentMultipleDataObject;
-        return {
-          id: targetIdCollectionItem.id,
-          type: targetIdCollectionItem.type,
-          image: getDenormalizedImageValue(
-            targetIdCollectionItem.image,
-            collectionValueImage
-          ),
-          ...baseObject,
-        };
-      }
-      return undefined;
-    default:
-      return undefined;
+  if (
+    targetIdCollectionItem.type === 'color' &&
+    'collectionValueColor' in argumentMultipleDataObject
+  ) {
+    const { collectionValueColor } = argumentMultipleDataObject;
+    return {
+      id: targetIdCollectionItem.id,
+      type: targetIdCollectionItem.type,
+      color: getDenormalizedValue(
+        targetIdCollectionItem.color,
+        collectionValueColor
+      ).value,
+      ...baseObject,
+    };
   }
+
+  if (
+    targetIdCollectionItem.type === 'image' &&
+    'collectionValueImage' in argumentMultipleDataObject
+  ) {
+    const { collectionValueImage } = argumentMultipleDataObject;
+    return {
+      id: targetIdCollectionItem.id,
+      type: targetIdCollectionItem.type,
+      image: getDenormalizedValue(
+        targetIdCollectionItem.image,
+        collectionValueImage
+      ).value,
+      ...baseObject,
+    };
+  }
+
+  throw new Error('not correct data structure');
 };
 
 /**
@@ -173,15 +167,15 @@ export const getDenormalizedCollectionItem = (
 export const getDenormalizedColorValueCollectionItem = (
   argumentCollectionItemId: IdType,
   argumentMultipleDataObject: DenormalizeColorCollectionItemArgType
-): DenormalizedColorCollectionItemType | undefined => {
+): DenormalizedColorCollectionItemType => {
   const resultObject = getDenormalizedCollectionItem(
     argumentCollectionItemId,
     argumentMultipleDataObject
   );
-  if (resultObject?.type === 'color') {
+  if (resultObject.type === 'color') {
     return resultObject;
   }
-  return undefined;
+  throw new Error('not correct result type');
 };
 
 /**
@@ -190,13 +184,13 @@ export const getDenormalizedColorValueCollectionItem = (
 export const getDenormalizedImageValueCollectionItem = (
   argumentCollectionItemId: IdType,
   argumentMultipleDataObject: DenormalizeImageCollectionItemArgType
-): DenormalizedImageCollectionItemType | undefined => {
+): DenormalizedImageCollectionItemType => {
   const resultObject = getDenormalizedCollectionItem(
     argumentCollectionItemId,
     argumentMultipleDataObject
   );
-  if (resultObject?.type === 'image') {
+  if (resultObject.type === 'image') {
     return resultObject;
   }
-  return undefined;
+  throw new Error('not correct result type');
 };
