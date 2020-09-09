@@ -5,15 +5,15 @@ import List from '@material-ui/core/List';
 import Divider from '@material-ui/core/Divider';
 import CollectionContainer from '../../../container/CollectionContainer';
 
-import {
-  GlCollectionTypeArray,
-  GlCollectionType,
-} from '../../../types/collection/collectionData';
+import { GlCollectionTypeArray } from '../../../types/collection/collectionData';
 import CreateCollectionPanelContainer from '../../../container/CreateCollectionPanelContainer';
+import { sceneCollectionsType } from '../../../stores/collection/sceneCollection';
+import { ArrayElement } from '../../../types/utils/ArrayElement';
 
 export type Props = {
   collectionData: GlCollectionTypeArray;
   calcedOtherAreaHeight: string;
+  currentCollectionsId: sceneCollectionsType;
 };
 
 /**
@@ -27,9 +27,16 @@ export type GlCollectionOrderContextType = number;
 export const GlCollectionOrderContext = createContext<
   GlCollectionOrderContextType
 >(0);
+export const CollectionIdContext = createContext<{
+  collectionId: ArrayElement<sceneCollectionsType>;
+  collectionOrder: GlCollectionOrderContextType;
+}>({
+  collectionId: '',
+  collectionOrder: -1,
+});
 
 export default (props: Props) => {
-  const { collectionData, calcedOtherAreaHeight } = props;
+  const { calcedOtherAreaHeight, currentCollectionsId } = props;
   const collectionFixedMenuRef = useRef();
 
   const scrollStyle = css`
@@ -44,16 +51,25 @@ export default (props: Props) => {
       <Divider />
       <Box css={scrollStyle}>
         <List>
-          {collectionData
+          {currentCollectionsId
             .map(
-              (collectionDataItem: GlCollectionType, currentIndex: number) => {
+              (
+                currentCollectionId: ArrayElement<sceneCollectionsType>,
+                currentIndex: number
+              ) => {
                 return (
-                  <GlCollectionOrderContext.Provider
-                    key={collectionDataItem.id}
-                    value={currentIndex}
+                  <CollectionIdContext.Provider
+                    value={{
+                      collectionId: currentCollectionId,
+                      collectionOrder: currentIndex,
+                    }}
+                    key={currentCollectionId}
                   >
-                    <CollectionContainer />
-                  </GlCollectionOrderContext.Provider>
+                    {/* // @deprecated */}
+                    <GlCollectionOrderContext.Provider value={currentIndex}>
+                      <CollectionContainer collectionId={currentCollectionId} />
+                    </GlCollectionOrderContext.Provider>
+                  </CollectionIdContext.Provider>
                 );
               }
             )
