@@ -17,7 +17,7 @@ export type collectionValueColorDictionaryType = {
 const initialState: collectionValueColorDictionaryType = {
   '82ceb1d9-1f61-4797-9838-738988d46054': {
     id: '82ceb1d9-1f61-4797-9838-738988d46054',
-    value: '#000000',
+    value: '#0000ff',
     type: 'color',
   },
   'cdc0644b-a77a-4e2a-8abc-d77ed88b108e': {
