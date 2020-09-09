@@ -1,15 +1,20 @@
 import React, { useCallback } from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import Collection from '../components/molecules/Collection';
 import useCurrentSceneCollection from '../hooks/collection/useCurrentSceneCollection';
 
 import { deleteSingleCollection as deleteSingleCollectionAction } from '../types/collection/collectionData';
+import { AppState } from '../stores';
 
-export default () => {
-  // const collectionData: GlCollectionTypeArray = useSelector<
-  //   AppState,
-  //   GlCollectionTypeArray
-  // >((state) => state.collectionData);
+type Props = {
+  collectionId: string;
+};
+
+const CollectionContainer = (props: Props) => {
+  const { collectionId } = props;
+  const rawCollectionData = useSelector(
+    (state: AppState) => state.collection[collectionId]
+  );
   const collectionData = useCurrentSceneCollection();
   const dispatch = useDispatch();
 
@@ -36,8 +41,11 @@ export default () => {
   const combineProps = {
     collectionData,
     deleteSingleCollection,
+    rawCollectionData,
     // updateVisibility,
   };
 
   return <Collection {...combineProps} />;
 };
+
+export default CollectionContainer;

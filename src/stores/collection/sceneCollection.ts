@@ -7,7 +7,7 @@ export type sceneCollectionsType = string[];
 export type sceneCollectionsDictionaryType = {
   [key: string]: {
     readonly id: IdType;
-    innerCollectionId: string[];
+    innerCollectionId: IdType[];
     createdAt?: string;
   };
 };

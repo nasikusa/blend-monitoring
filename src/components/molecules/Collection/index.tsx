@@ -24,10 +24,12 @@ import {
 import allCollectionTypeFunctionObject, {
   collectionObjectFunctionType,
 } from './allCollectionTypeFunctionObject';
+import { CollectionCategoryType } from '../../../stores/collection/collection';
 
 export type Props = {
   collectionData: GlCollectionTypeArray;
   deleteSingleCollection: any;
+  rawCollectionData: CollectionCategoryType;
   // updateVisibility: any;
 };
 
@@ -64,6 +66,7 @@ export default (props: Props) => {
   const {
     collectionData,
     deleteSingleCollection /* ,updateVisibility */,
+    rawCollectionData,
   } = props;
   const classes = useStyles();
   const glCollectionOrderKey = useContext(GlCollectionOrderContext);
@@ -332,7 +335,7 @@ export default (props: Props) => {
       <ListItemWrap
         collapseIn={opacityOpenFlag && collectionTypeFunctionObject.opacity}
       >
-        <CustomSliderContainer />
+        <CustomSliderContainer rawCollectionData={rawCollectionData} />
       </ListItemWrap>
       <ListItemWrap
         collapseIn={blendModeOpenFlag && collectionTypeFunctionObject.blendMode}
