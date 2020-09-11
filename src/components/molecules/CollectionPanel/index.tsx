@@ -3,6 +3,7 @@ import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
 import { useTheme } from '@material-ui/core/styles';
 import Collapse from '@material-ui/core/Collapse';
+import Box from '@material-ui/core/Box';
 import Divider from '@material-ui/core/Divider';
 import { css } from '@emotion/core';
 
@@ -40,7 +41,7 @@ const CollectionPanel = (props: Props) => {
         <Collapse css={styles.fullWidthStyle} in={collapseIn} timeout="auto">
           <List css={styles.fullWidthStyle} disablePadding>
             <ListItem button css={styles.innerListItem} disableRipple>
-              {children}
+              <Box width={1}>{children}</Box>
             </ListItem>
           </List>
           <Divider />
@@ -48,7 +49,7 @@ const CollectionPanel = (props: Props) => {
       ) : (
         <List css={styles.fullWidthStyle} disablePadding>
           <ListItem button css={styles.innerListItem} disableRipple>
-            {children}
+            <Box width={1}>{children}</Box>
           </ListItem>
         </List>
       )}
