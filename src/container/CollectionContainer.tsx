@@ -1,7 +1,6 @@
 import React, { useCallback } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import Collection from '../components/molecules/Collection';
-import useCurrentSceneCollection from '../hooks/collection/useCurrentSceneCollection';
 
 import { deleteSingleCollection as deleteSingleCollectionAction } from '../types/collection/collectionData';
 import { AppState } from '../stores';
@@ -15,7 +14,7 @@ const CollectionContainer = (props: Props) => {
   const rawCollectionData = useSelector(
     (state: AppState) => state.collection[collectionId]
   );
-  const collectionData = useCurrentSceneCollection();
+
   const dispatch = useDispatch();
 
   /**
@@ -39,7 +38,6 @@ const CollectionContainer = (props: Props) => {
   // );
 
   const combineProps = {
-    collectionData,
     deleteSingleCollection,
     rawCollectionData,
     // updateVisibility,

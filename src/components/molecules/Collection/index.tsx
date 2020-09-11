@@ -1,5 +1,5 @@
 /* eslint no-nested-ternary: 0 */
-import React, { useContext, useState, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
@@ -12,15 +12,11 @@ import BlendModePanelContainer from '../../../container/BlendModePanelContainer'
 import ColorPanelContainer from '../../../container/ColorPanelContainer';
 import CollectionMainIcon from '../../atoms/CollectionMainIcon';
 import getCollectionsName from '../../../utils/collection/getCollectionsName';
-import { GlCollectionOrderContext } from '../CollectionList';
 import ImagePanelContainer from '../../../container/ImagePanelContainer';
 import CollectionPanel from '../CollectionPanel';
 import CustomIconButton from '../CustomIconButton';
 
-import {
-  GlCollectionTypeArray,
-  CollectionTypeType,
-} from '../../../types/collection/collectionData';
+import { CollectionTypeType } from '../../../types/collection/collectionData';
 import allCollectionTypeFunctionObject, {
   collectionObjectFunctionType,
 } from './allCollectionTypeFunctionObject';
@@ -29,7 +25,6 @@ import CollectionPanelTitle from '../../atoms/CollectionPanelTitle';
 import CollectionPanelContent from '../CollectionPanelContent';
 
 export type Props = {
-  collectionData: GlCollectionTypeArray;
   deleteSingleCollection: any;
   rawCollectionData: CollectionCategoryType;
   // updateVisibility: any;
@@ -66,28 +61,16 @@ const useStyles = makeStyles(() => ({
  */
 export default (props: Props) => {
   const {
-    collectionData,
-    deleteSingleCollection /* ,updateVisibility */,
+    /* ,updateVisibility */
     rawCollectionData,
   } = props;
   const classes = useStyles();
-  const glCollectionOrderKey = useContext(GlCollectionOrderContext);
-
-  /**
-   * 現在使用しているコレクション
-   */
-  const singleCollectionData = collectionData[glCollectionOrderKey];
-
-  /**
-   * 現在使用しているコレクションのタイプ
-   */
-  const singleCollectionType: CollectionTypeType = singleCollectionData.type;
 
   /**
    * 現在使用している単一のcollectionの機能の可能、不可能についてのobject
    */
   const collectionTypeFunctionObject =
-    allCollectionTypeFunctionObject[singleCollectionType];
+    allCollectionTypeFunctionObject[rawCollectionData.type];
 
   /**
    * すべての機能ボタンが有効になっているかどうかのフラグ
@@ -219,9 +202,9 @@ export default (props: Props) => {
    * 単一コレクションのdeleteボタンを押した際に発火する関数
    */
   const handleDeleteIconClick = (): void => {
-    deleteSingleCollection({
-      deleteCollectionNumber: glCollectionOrderKey,
-    });
+    // deleteSingleCollection({
+    //   deleteCollectionNumber: glCollectionOrderKey,
+    // });
   };
 
   /**
@@ -234,7 +217,7 @@ export default (props: Props) => {
       clickFunction: handleVisibilityFlagClick,
       isActiveFlag: visibilityOpenFlag,
       taretFunctionProp: 'visibility',
-      currentCollectionType: singleCollectionType,
+      currentCollectionType: rawCollectionData.type,
     },
     {
       typeName: 'opacityPanel',
@@ -242,7 +225,7 @@ export default (props: Props) => {
       clickFunction: handleOpacityFlagClick,
       isActiveFlag: opacityOpenFlag,
       taretFunctionProp: 'opacity',
-      currentCollectionType: singleCollectionType,
+      currentCollectionType: rawCollectionData.type,
     },
     {
       typeName: 'blendModePanel',
@@ -250,7 +233,7 @@ export default (props: Props) => {
       clickFunction: handleBlendModeFlagClick,
       isActiveFlag: blendModeOpenFlag,
       taretFunctionProp: 'blendMode',
-      currentCollectionType: singleCollectionType,
+      currentCollectionType: rawCollectionData.type,
     },
     {
       typeName: 'colorPanel',
@@ -258,7 +241,7 @@ export default (props: Props) => {
       clickFunction: handleColorFlagClick,
       isActiveFlag: colorOpenFlag,
       taretFunctionProp: 'color',
-      currentCollectionType: singleCollectionType,
+      currentCollectionType: rawCollectionData.type,
     },
     {
       typeName: 'imagePanel',
@@ -266,7 +249,7 @@ export default (props: Props) => {
       clickFunction: handleImageFlagClick,
       isActiveFlag: imageOpenFlag,
       taretFunctionProp: 'image',
-      currentCollectionType: singleCollectionType,
+      currentCollectionType: rawCollectionData.type,
     },
     {
       typeName: 'functionDelete',
@@ -274,25 +257,18 @@ export default (props: Props) => {
       clickFunction: handleDeleteIconClick,
       isDangerFlag: true,
       taretFunctionProp: 'garbage',
-      currentCollectionType: singleCollectionType,
+      currentCollectionType: rawCollectionData.type,
     },
   ];
 
   return (
     <>
-      <ListItem
-        className={classes.main}
-        id={collectionData[glCollectionOrderKey].id}
-      >
+      <ListItem className={classes.main} id={rawCollectionData.id}>
         <ListItemIcon>
-          <CollectionMainIcon
-            collectionType={collectionData[glCollectionOrderKey].type}
-          />
+          <CollectionMainIcon collectionType={rawCollectionData.type} />
         </ListItemIcon>
         <ListItemText
-          primary={getCollectionsName(
-            collectionData[glCollectionOrderKey].type
-          )}
+          primary={getCollectionsName(rawCollectionData.type)}
           secondary={
             <>
               {secondaryAreaElementDataArray.map((singleSecondaryElemData) => (
@@ -358,7 +334,7 @@ export default (props: Props) => {
           </CollectionPanelContent>
         </>
       </CollectionPanel>
-      {singleCollectionData.roughType === 'color' && (
+      {rawCollectionData.roughType === 'color' && (
         <CollectionPanel
           collapseIn={colorOpenFlag && collectionTypeFunctionObject.color}
         >
@@ -372,7 +348,7 @@ export default (props: Props) => {
           </>
         </CollectionPanel>
       )}
-      {singleCollectionData.roughType === 'image' && (
+      {rawCollectionData.roughType === 'image' && (
         <CollectionPanel
           collapseIn={imageOpenFlag && collectionTypeFunctionObject.image}
         >
