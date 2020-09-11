@@ -153,7 +153,9 @@
     "clean": "eslint src/** --fix",
     "gendoc": "typedoc --out ./docs ./src",
     "resizeImage": "node scripts/createResizedImages.js",
-    "analyze": "webpack-bundle-analyzer build/bundle-stats.json"
+    "analyze": "webpack-bundle-analyzer build/bundle-stats.json",
+    "storybook": "start-storybook -p 6006 -s public",
+    "build-storybook": "build-storybook -s public"
   },
   "eslintConfig": {
     "extends": [
@@ -189,6 +191,8 @@
       "react/jsx-props-no-spreading": [
         "off"
       ],
+      "no-nested-ternary": 0,
+      "react/prop-types": 0,
       "react/jsx-filename-extension": [
         1,
         {
@@ -274,5 +278,14 @@
       "react-app",
       "@emotion/babel-preset-css-prop"
     ]
+  },
+  "devDependencies": {
+    "@storybook/addon-actions": "^6.0.21",
+    "@storybook/addon-essentials": "^6.0.21",
+    "@storybook/addon-links": "^6.0.21",
+    "@storybook/node-logger": "^6.0.21",
+    "@storybook/preset-create-react-app": "^3.1.4",
+    "@storybook/react": "^6.0.21",
+    "react-is": "^16.13.1"
   }
 }
