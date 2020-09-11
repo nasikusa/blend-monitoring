@@ -3,18 +3,17 @@ import { css } from '@emotion/core';
 import { makeStyles } from '@material-ui/core/styles';
 import Slider from '@material-ui/core/Slider';
 import Grid from '@material-ui/core/Grid';
-import Box from '@material-ui/core/Box';
-import Typography from '@material-ui/core/Typography';
 import Input from '@material-ui/core/Input';
 
 import Icon from '../../atoms/Icon';
+import { collectionValueOpacityType } from '../../../stores/collection/collectionValueOpacity';
 
 type Props = {
-  storeUpdateOpacityValue: any;
-  targetOpacityValueId: string | string[];
-  storedOpacityValue: any;
+  storeUpdateOpacityValue?: any;
+  targetOpacityValueId?: string | string[];
+  storedOpacityValue: collectionValueOpacityType | collectionValueOpacityType[];
   isShowInputArea?: boolean;
-  isArrayStoredData: boolean;
+  isArrayStoredData?: boolean;
   isShowBeforeIcon?: boolean;
   sliderStopCheckTime?: number | null;
   sliderMaxWidth?: number;
@@ -105,10 +104,12 @@ const OpacitySlider: React.FC<Props> = (props: Props) => {
    * @todo 配列データが入ってきた際の対応(opacityが複数のパターンがある場合)
    */
   const handleChangeCommitted = () => {
-    storeUpdateOpacityValue({
-      targetId: targetOpacityValueId,
-      targetIdNewValue: opacityState * 0.01,
-    });
+    if (storeUpdateOpacityValue != null) {
+      storeUpdateOpacityValue({
+        targetId: targetOpacityValueId,
+        targetIdNewValue: opacityState * 0.01,
+      });
+    }
     setTempOnChangeCommitState(true);
     setTempOnChangeState(false);
   };
@@ -119,11 +120,13 @@ const OpacitySlider: React.FC<Props> = (props: Props) => {
    */
   const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setOpacityState(event.target.value === '' ? 0 : Number(event.target.value));
-    storeUpdateOpacityValue({
-      targetId: targetOpacityValueId,
-      targetIdNewValue:
-        event.target.value === '' ? '' : Number(event.target.value) * 0.01,
-    });
+    if (storeUpdateOpacityValue != null) {
+      storeUpdateOpacityValue({
+        targetId: targetOpacityValueId,
+        targetIdNewValue:
+          event.target.value === '' ? '' : Number(event.target.value) * 0.01,
+      });
+    }
   };
 
   /**
@@ -132,15 +135,19 @@ const OpacitySlider: React.FC<Props> = (props: Props) => {
   const handleBlur = () => {
     if (!Array.isArray(storedOpacityValue)) {
       if (storedOpacityValue.value < 0) {
-        storeUpdateOpacityValue({
-          targetId: targetOpacityValueId,
-          targetIdNewValue: 0.0,
-        });
+        if (storeUpdateOpacityValue != null) {
+          storeUpdateOpacityValue({
+            targetId: targetOpacityValueId,
+            targetIdNewValue: 0.0,
+          });
+        }
       } else if (storedOpacityValue.value > 100) {
-        storeUpdateOpacityValue({
-          targetId: targetOpacityValueId,
-          targetIdNewValue: 1.0,
-        });
+        if (storeUpdateOpacityValue != null) {
+          storeUpdateOpacityValue({
+            targetId: targetOpacityValueId,
+            targetIdNewValue: 1.0,
+          });
+        }
       }
     }
   };
@@ -152,10 +159,12 @@ const OpacitySlider: React.FC<Props> = (props: Props) => {
     if (sliderStopCheckTime !== null && sliderStopCheckTime !== undefined) {
       const timer = setTimeout(() => {
         if (tempOnChangeState === true && tempOnChangeCommitState === false) {
-          storeUpdateOpacityValue({
-            targetId: targetOpacityValueId,
-            targetIdNewValue: opacityState * 0.01,
-          });
+          if (storeUpdateOpacityValue != null) {
+            storeUpdateOpacityValue({
+              targetId: targetOpacityValueId,
+              targetIdNewValue: opacityState * 0.01,
+            });
+          }
         }
       }, sliderStopCheckTime);
       return () => clearTimeout(timer);
@@ -171,50 +180,50 @@ const OpacitySlider: React.FC<Props> = (props: Props) => {
   ]);
 
   return (
-    <Box width={1}>
-      <Typography gutterBottom className={classes.label}>
-        透過度
-      </Typography>
-      <Grid container spacing={2}>
-        {isShowBeforeIcon && (
-          <Grid item>
-            <Icon type="opacityPanel" />
-          </Grid>
-        )}
-        <Grid item xs>
-          <Slider
+    <Grid container spacing={2}>
+      {isShowBeforeIcon && (
+        <Grid item>
+          <Icon type="opacityPanel" />
+        </Grid>
+      )}
+      <Grid item xs>
+        <Slider
+          value={opacityState}
+          min={0}
+          max={100}
+          defaultValue={100}
+          valueLabelDisplay="auto"
+          onChange={handleChange}
+          onChangeCommitted={handleChangeCommitted}
+          aria-labelledby="opacity-slider"
+          css={sliderMaxWidth && styles.sliderMaxWidth}
+        />
+      </Grid>
+      {isShowInputArea && (
+        <Grid item>
+          <Input
+            className={classes.input}
             value={opacityState}
-            min={0}
-            max={100}
-            defaultValue={100}
-            valueLabelDisplay="auto"
-            onChange={handleChange}
-            onChangeCommitted={handleChangeCommitted}
-            aria-labelledby="opacity-slider"
-            css={sliderMaxWidth && styles.sliderMaxWidth}
+            margin="dense"
+            onChange={handleInputChange}
+            onBlur={handleBlur}
+            inputProps={{
+              step: 10,
+              min: 0,
+              max: 100,
+              type: 'number',
+              'aria-labelledby': 'input-slider',
+            }}
           />
         </Grid>
-        {isShowInputArea && (
-          <Grid item>
-            <Input
-              className={classes.input}
-              value={opacityState}
-              margin="dense"
-              onChange={handleInputChange}
-              onBlur={handleBlur}
-              inputProps={{
-                step: 10,
-                min: 0,
-                max: 100,
-                type: 'number',
-                'aria-labelledby': 'input-slider',
-              }}
-            />
-          </Grid>
-        )}
-      </Grid>
-    </Box>
+      )}
+    </Grid>
   );
+};
+
+OpacitySlider.defaultProps = {
+  isShowBeforeIcon: false,
+  sliderMaxWidth: 500,
 };
 
 export default OpacitySlider;

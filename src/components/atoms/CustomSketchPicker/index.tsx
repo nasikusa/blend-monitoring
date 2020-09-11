@@ -145,6 +145,7 @@ const CustomSketchPicker = (props: Props) => {
 };
 
 CustomSketchPicker.defaultProps = {
+  disableAlpha: true,
   disableBoxShadow: true,
   bgColor: 'transparent',
 };

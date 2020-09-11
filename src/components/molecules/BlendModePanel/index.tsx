@@ -2,11 +2,9 @@ import React, { useState, useContext } from 'react';
 import { makeStyles, createStyles } from '@material-ui/core/styles';
 import Grid from '@material-ui/core/Grid';
 import Box from '@material-ui/core/Box';
-import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
 import Chip from '@material-ui/core/Chip';
 
-import Icon from '../../atoms/Icon';
 import { readyBlendModeData } from '../../../utils/blendMode/getBlendModeData';
 import {
   GlCollectionOrderContext,
@@ -82,56 +80,47 @@ const BlendModePanel = (props: Props) => {
 
   return (
     <>
-      <Box width={1}>
-        <Typography gutterBottom className={classes.label}>
-          描画モード
-        </Typography>
-        <Box mb={1}>
-          <Grid container spacing={4} className={classes.grid}>
-            <Grid item>
-              <Icon type="blendModePanel" />
-            </Grid>
-            <Grid item>
-              <Button
-                size="small"
-                variant="contained"
-                color="primary"
-                onClick={handleOpen}
-              >
-                {getBlendModeNameMenuView}
-              </Button>
-            </Grid>
+      <Box mb={1}>
+        <Grid container spacing={4} className={classes.grid}>
+          <Grid item>
+            <Button
+              size="small"
+              variant="contained"
+              color="primary"
+              onClick={handleOpen}
+            >
+              {getBlendModeNameMenuView}
+            </Button>
           </Grid>
-        </Box>
-        <Box ml={4}>
-          {Array.isArray(globalBlendModeStateArray) ? (
-            <Grid container spacing={1}>
-              {globalBlendModeStateArray.map((singleBlendModeData) => {
-                const chipLabelName = (() => {
-                  const singleBlendData =
-                    readyBlendModeData[singleBlendModeData];
-                  if (singleBlendData != null) {
-                    return singleBlendData.name.ja;
-                  }
-                  return '';
-                })();
-                return (
-                  <Grid item key={singleBlendModeData}>
-                    <Chip
-                      size="small"
-                      onDelete={() => {
-                        handleChipClickClose(singleBlendModeData);
-                      }}
-                      label={chipLabelName}
-                    />
-                  </Grid>
-                );
-              })}
-            </Grid>
-          ) : (
-            ''
-          )}
-        </Box>
+        </Grid>
+      </Box>
+      <Box ml={4}>
+        {Array.isArray(globalBlendModeStateArray) ? (
+          <Grid container spacing={1}>
+            {globalBlendModeStateArray.map((singleBlendModeData) => {
+              const chipLabelName = (() => {
+                const singleBlendData = readyBlendModeData[singleBlendModeData];
+                if (singleBlendData != null) {
+                  return singleBlendData.name.ja;
+                }
+                return '';
+              })();
+              return (
+                <Grid item key={singleBlendModeData}>
+                  <Chip
+                    size="small"
+                    onDelete={() => {
+                      handleChipClickClose(singleBlendModeData);
+                    }}
+                    label={chipLabelName}
+                  />
+                </Grid>
+              );
+            })}
+          </Grid>
+        ) : (
+          ''
+        )}
       </Box>
       <BlendModalContainer modalOpen={open} setModalOpen={setOpen} />
     </>

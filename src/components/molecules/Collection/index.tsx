@@ -5,6 +5,7 @@ import ListItem from '@material-ui/core/ListItem';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
 import IconButton from '@material-ui/core/IconButton';
+import Box from '@material-ui/core/Box';
 import Icon, { IconTypeTypes } from '../../atoms/Icon';
 
 import CustomSliderContainer from '../../../container/CustomSliderContainer';
@@ -14,7 +15,7 @@ import CollectionMainIcon from '../../atoms/CollectionMainIcon';
 import getCollectionsName from '../../../utils/collection/getCollectionsName';
 import { GlCollectionOrderContext } from '../Collections';
 import ImagePanelContainer from '../../../container/ImagePanelContainer';
-import ListItemWrap from '../ListItemWrap';
+import CollectionPanel from '../CollectionPanel';
 import CustomIconButton from '../CustomIconButton';
 
 import {
@@ -25,6 +26,7 @@ import allCollectionTypeFunctionObject, {
   collectionObjectFunctionType,
 } from './allCollectionTypeFunctionObject';
 import { CollectionCategoryType } from '../../../stores/collection/collection';
+import CollectionPanelTitle from '../../atoms/CollectionPanelTitle';
 
 export type Props = {
   collectionData: GlCollectionTypeArray;
@@ -332,29 +334,49 @@ export default (props: Props) => {
           )}
         </IconButton>
       </ListItem>
-      <ListItemWrap
+      <CollectionPanel
         collapseIn={opacityOpenFlag && collectionTypeFunctionObject.opacity}
       >
-        <CustomSliderContainer rawCollectionData={rawCollectionData} />
-      </ListItemWrap>
-      <ListItemWrap
+        <Box width={1}>
+          <CollectionPanelTitle beforeIcon={<Icon type="opacityPanel" />}>
+            透過度パネル
+          </CollectionPanelTitle>
+          <CustomSliderContainer rawCollectionData={rawCollectionData} />
+        </Box>
+      </CollectionPanel>
+      <CollectionPanel
         collapseIn={blendModeOpenFlag && collectionTypeFunctionObject.blendMode}
       >
-        <BlendModePanelContainer />
-      </ListItemWrap>
+        <Box width={1}>
+          <CollectionPanelTitle beforeIcon={<Icon type="blendModePanel" />}>
+            描画モードパネル
+          </CollectionPanelTitle>
+          <BlendModePanelContainer />
+        </Box>
+      </CollectionPanel>
       {singleCollectionData.roughType === 'color' && (
-        <ListItemWrap
+        <CollectionPanel
           collapseIn={colorOpenFlag && collectionTypeFunctionObject.color}
         >
-          <ColorPanelContainer />
-        </ListItemWrap>
+          <Box width={1}>
+            <CollectionPanelTitle beforeIcon={<Icon type="colorPanel" />}>
+              カラーパネル
+            </CollectionPanelTitle>
+            <ColorPanelContainer />
+          </Box>
+        </CollectionPanel>
       )}
       {singleCollectionData.roughType === 'image' && (
-        <ListItemWrap
+        <CollectionPanel
           collapseIn={imageOpenFlag && collectionTypeFunctionObject.image}
         >
-          <ImagePanelContainer />
-        </ListItemWrap>
+          <Box width={1}>
+            <CollectionPanelTitle beforeIcon={<Icon type="imagePanel" />}>
+              画像パネル
+            </CollectionPanelTitle>
+            <ImagePanelContainer />
+          </Box>
+        </CollectionPanel>
       )}
     </>
   );

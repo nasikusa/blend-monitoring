@@ -5,7 +5,6 @@ import Grid from '@material-ui/core/Grid';
 import Box from '@material-ui/core/Box';
 import Button from '@material-ui/core/Button';
 import IconButton from '@material-ui/core/IconButton';
-import Typography from '@material-ui/core/Typography';
 // import Button from '@material-ui/core/Button';
 import { CirclePicker, ColorResult } from 'react-color';
 import Icon from '../../atoms/Icon';
@@ -326,13 +325,9 @@ const ColorPanel: React.FC<Props> = (props: Props) => {
             : 'transparent',
         }}
       >
-        <Typography gutterBottom className={classes.label}>
-          カラー
-        </Typography>
         <Grid container spacing={1}>
           <Grid item xs={12}>
             <Box display="flex" mb={1}>
-              <Icon type="colorPanel" />
               <ColorBoxes />
             </Box>
             <Box display="flex" mb={1}>

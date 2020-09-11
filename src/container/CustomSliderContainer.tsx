@@ -2,9 +2,14 @@ import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import OpacitySlider from '../components/molecules/OpacitySlider';
 
-import { updateValue } from '../stores/collection/collectionValueOpacity';
+import {
+  updateValue,
+  collectionValueOpacityType,
+  UpdateValuePayloadType,
+} from '../stores/collection/collectionValueOpacity';
 import { CollectionCategoryType } from '../stores/collection/collection';
 import { AppState } from '../stores';
+import { IdType } from '../types/collection/collectionData';
 
 type Props = {
   rawCollectionData: CollectionCategoryType;
@@ -20,16 +25,26 @@ const CustomSliderContianer: React.FC<Props> = (props: Props) => {
 
   const innerItemIdData = rawCollectionData.innerItemID;
 
-  const targetOpacityValueId = useSelector((state: AppState) => {
-    if (Array.isArray(innerItemIdData)) {
-      return innerItemIdData.map((singleInnerItemIdData) => {
-        return state.collectionItem[singleInnerItemIdData].opacity;
-      });
+  /**
+   * 対象となる透過度パラメータのID
+   */
+  const targetOpacityValueId: IdType | IdType[] = useSelector(
+    (state: AppState) => {
+      if (Array.isArray(innerItemIdData)) {
+        return innerItemIdData.map((singleInnerItemIdData) => {
+          return state.collectionItem[singleInnerItemIdData].opacity;
+        });
+      }
+      return state.collectionItem[innerItemIdData].opacity;
     }
-    return state.collectionItem[innerItemIdData].opacity;
-  });
+  );
 
-  const storedOpacityValue = useSelector((state: AppState) => {
+  /**
+   * 対象となる透過度valueオブジェクト
+   */
+  const storedOpacityValue:
+    | collectionValueOpacityType
+    | collectionValueOpacityType[] = useSelector((state: AppState) => {
     if (Array.isArray(targetOpacityValueId)) {
       return targetOpacityValueId.map((singleTargetOpacityValueId) => {
         return state.collectionValueOpacity[singleTargetOpacityValueId];
@@ -39,7 +54,7 @@ const CustomSliderContianer: React.FC<Props> = (props: Props) => {
   });
 
   const storeUpdateOpacityValue = React.useCallback(
-    (payload) => {
+    (payload: UpdateValuePayloadType) => {
       dispatch(updateValue(payload));
     },
     [dispatch]
@@ -63,7 +78,7 @@ const CustomSliderContianer: React.FC<Props> = (props: Props) => {
 
 CustomSliderContianer.defaultProps = {
   isShowInputArea: true,
-  isShowBeforeIcon: true,
+  isShowBeforeIcon: false,
   sliderStopCheckTime: 300,
 };
 

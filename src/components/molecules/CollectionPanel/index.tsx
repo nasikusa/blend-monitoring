@@ -11,7 +11,7 @@ type Props = {
   collapseIn: any;
 };
 
-const ListItemWrap = (props: Props) => {
+const CollectionPanel = (props: Props) => {
   const { children, collapseIn } = props;
   const theme = useTheme();
 
@@ -56,4 +56,4 @@ const ListItemWrap = (props: Props) => {
   );
 };
 
-export default ListItemWrap;
+export default CollectionPanel;

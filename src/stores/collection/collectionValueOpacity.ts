@@ -10,10 +10,10 @@ export type collectionValueOpacityType = {
   readonly id: IdType;
   value: collectionValueOpacityValueType;
   readonly type: 'opacity';
-};
+} & baseCollectionValueType;
 
 export type collectionValueOpacityDictionaryType = {
-  [key: string]: baseCollectionValueType & collectionValueOpacityType;
+  [key: string]: collectionValueOpacityType;
 };
 
 export type UpdateValuePayloadType = {
