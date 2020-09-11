@@ -8,7 +8,7 @@ import {
   stockRemoveColor as stockRemoveColorAction,
 } from '../stores/color/stockedColors';
 import { AppState } from '../stores/index';
-import { GlCollectionOrderContext } from '../components/molecules/Collections';
+import { GlCollectionOrderContext } from '../components/molecules/CollectionList';
 import useCurrentSceneCollection from '../hooks/collection/useCurrentSceneCollection';
 
 export default () => {

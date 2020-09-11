@@ -10,7 +10,7 @@ import { CirclePicker, ColorResult } from 'react-color';
 import Icon from '../../atoms/Icon';
 
 import CustomTooltip from '../../atoms/CustomTooltip';
-import { GlCollectionOrderContext } from '../Collections';
+import { GlCollectionOrderContext } from '../CollectionList';
 import CustomSketchPicker from '../../atoms/CustomSketchPicker';
 import ColorModalContainer from '../../../container/ColorModalContainer';
 

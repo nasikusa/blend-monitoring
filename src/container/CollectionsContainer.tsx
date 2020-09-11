@@ -1,6 +1,6 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
-import Collections from '../components/molecules/Collections';
+import Collections from '../components/molecules/CollectionList';
 import { AppState } from '../stores/index';
 import useCurrentSceneCollection from '../hooks/collection/useCurrentSceneCollection';
 

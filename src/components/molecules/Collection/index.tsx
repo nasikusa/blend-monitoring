@@ -12,7 +12,7 @@ import BlendModePanelContainer from '../../../container/BlendModePanelContainer'
 import ColorPanelContainer from '../../../container/ColorPanelContainer';
 import CollectionMainIcon from '../../atoms/CollectionMainIcon';
 import getCollectionsName from '../../../utils/collection/getCollectionsName';
-import { GlCollectionOrderContext } from '../Collections';
+import { GlCollectionOrderContext } from '../CollectionList';
 import ImagePanelContainer from '../../../container/ImagePanelContainer';
 import CollectionPanel from '../CollectionPanel';
 import CustomIconButton from '../CustomIconButton';

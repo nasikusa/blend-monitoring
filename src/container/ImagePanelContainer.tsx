@@ -2,7 +2,7 @@ import React, { useContext } from 'react';
 import { useSelector } from 'react-redux';
 import ImagePanel from '../components/molecules/ImagePanel';
 import { AppState } from '../stores/index';
-import { GlCollectionOrderContext } from '../components/molecules/Collections';
+import { GlCollectionOrderContext } from '../components/molecules/CollectionList';
 import useCurrentSceneCollection from '../hooks/collection/useCurrentSceneCollection';
 
 export default () => {

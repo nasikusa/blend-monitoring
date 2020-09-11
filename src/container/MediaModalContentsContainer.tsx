@@ -2,7 +2,7 @@ import React, { useContext } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import MediaModalContents from '../components/molecules/MediaModalContents';
 import { AppState } from '../stores/index';
-import { GlCollectionOrderContext } from '../components/molecules/Collections';
+import { GlCollectionOrderContext } from '../components/molecules/CollectionList';
 import { updateSingleItemAspect as updateSingleItemAspectAction } from '../stores/general/glSettings';
 import { updateImages as updateImagesAction } from '../types/collection/collectionData';
 import useCurrentSceneCollection from '../hooks/collection/useCurrentSceneCollection';

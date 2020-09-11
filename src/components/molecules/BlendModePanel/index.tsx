@@ -9,7 +9,7 @@ import { readyBlendModeData } from '../../../utils/blendMode/getBlendModeData';
 import {
   GlCollectionOrderContext,
   GlCollectionOrderContextType,
-} from '../Collections';
+} from '../CollectionList';
 import BlendModalContainer from '../../../container/BlendModalContainer';
 
 import { GlCollectionTypeArray } from '../../../types/collection/collectionData';

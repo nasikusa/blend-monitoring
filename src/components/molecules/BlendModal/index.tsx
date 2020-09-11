@@ -16,7 +16,7 @@ import CustomIconButton from '../CustomIconButton';
 import {
   GlCollectionOrderContext,
   GlCollectionOrderContextType,
-} from '../Collections';
+} from '../CollectionList';
 import { IconTypeTypes } from '../../atoms/Icon';
 import BlendModalContentsContainer from '../../../container/BlendModalContentsContainer';
 

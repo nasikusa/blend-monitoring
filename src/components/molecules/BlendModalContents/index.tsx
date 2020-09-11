@@ -13,7 +13,7 @@ import {
   readyBlendModeArray,
   readyBlendModeData,
 } from '../../../utils/blendMode/getBlendModeData';
-import { GlCollectionOrderContext } from '../Collections';
+import { GlCollectionOrderContext } from '../CollectionList';
 import { GlCollectionTypeArray } from '../../../types/collection/collectionData';
 
 export type Props = {
