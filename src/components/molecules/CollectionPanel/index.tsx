@@ -1,5 +1,4 @@
 import React from 'react';
-import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
 import { useTheme } from '@material-ui/core/styles';
 import Collapse from '@material-ui/core/Collapse';
@@ -9,7 +8,7 @@ import { css } from '@emotion/core';
 
 type Props = {
   children: React.ReactElement;
-  collapseIn: any;
+  collapseIn: boolean;
 };
 
 const CollectionPanel = (props: Props) => {
@@ -17,18 +16,13 @@ const CollectionPanel = (props: Props) => {
   const theme = useTheme();
 
   const styles = {
-    innerListItem: css`
-      padding-left: ${theme.spacing(6)};
-      background-color: transparent;
-      &:hover {
-        background-color: transparent;
-      }
-      cursor: default;
-    `,
     wrapperListItemStyle: css`
       background-color: ${theme.palette.background.paper};
+      padding-left: ${theme.spacing(2)}px;
+      padding-right: ${theme.spacing(2)}px;
       padding-top: 0px;
       padding-bottom: 0px;
+      cursor: default;
     `,
     fullWidthStyle: css`
       width: 100%;
@@ -37,24 +31,18 @@ const CollectionPanel = (props: Props) => {
 
   return (
     <ListItem disableGutters css={styles.wrapperListItemStyle}>
-      {collapseIn != null ? (
-        <Collapse css={styles.fullWidthStyle} in={collapseIn} timeout="auto">
-          <List css={styles.fullWidthStyle} disablePadding>
-            <ListItem button css={styles.innerListItem} disableRipple>
-              <Box width={1}>{children}</Box>
-            </ListItem>
-          </List>
-          <Divider />
-        </Collapse>
-      ) : (
-        <List css={styles.fullWidthStyle} disablePadding>
-          <ListItem button css={styles.innerListItem} disableRipple>
-            <Box width={1}>{children}</Box>
-          </ListItem>
-        </List>
-      )}
+      <Collapse css={styles.fullWidthStyle} in={collapseIn} timeout="auto">
+        <Box width={1} mb={2}>
+          {children}
+        </Box>
+        <Divider />
+      </Collapse>
     </ListItem>
   );
+};
+
+CollectionPanel.defaultProps = {
+  collapseIn: true,
 };
 
 export default CollectionPanel;
