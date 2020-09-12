@@ -26,7 +26,8 @@ import CollectionPanelTitle from '../../atoms/CollectionPanelTitle';
 import CollectionPanelContent from '../CollectionPanelContent';
 
 export type Props = {
-  deleteSingleCollection: any;
+  storeDeleteSceneCollectionInnerItem: any;
+  currentSceneCollectionData: any;
   rawCollectionData: CollectionCategoryType;
   // updateVisibility: any;
 };
@@ -77,6 +78,9 @@ const Collection: React.FC<Props> = (props: Props) => {
   const {
     /* ,updateVisibility */
     rawCollectionData,
+    currentSceneCollectionData,
+    // storeDeleteCollection,
+    storeDeleteSceneCollectionInnerItem,
   } = props;
   const classes = useStyles();
 
@@ -216,9 +220,10 @@ const Collection: React.FC<Props> = (props: Props) => {
    * 単一コレクションのdeleteボタンを押した際に発火する関数
    */
   const handleDeleteIconClick = (): void => {
-    // deleteSingleCollection({
-    //   deleteCollectionNumber: glCollectionOrderKey,
-    // });
+    storeDeleteSceneCollectionInnerItem({
+      targetId: currentSceneCollectionData.currentId,
+      targetInnerId: rawCollectionData.id,
+    });
   };
 
   /**

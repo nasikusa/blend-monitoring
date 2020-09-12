@@ -144,6 +144,10 @@ const slice = createSlice({
   name: 'collection',
   initialState,
   reducers: {
+    deleteCollection: (state, action) => {
+      const { targetId } = action.payload;
+      delete state[targetId];
+    },
     deleteCollectionInnerItem: (state, action) => {
       const { targetId, targetInnerId } = action.payload;
       const innerItemIDValue = state[targetId].innerItemID;
@@ -159,4 +163,4 @@ const slice = createSlice({
 
 export default slice.reducer;
 
-export const { deleteCollectionInnerItem } = slice.actions;
+export const { deleteCollection, deleteCollectionInnerItem } = slice.actions;

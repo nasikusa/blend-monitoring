@@ -23,11 +23,22 @@ const initialState: sceneCollectionsDictionaryType = {
 };
 
 const slice = createSlice({
-  name: 'sceneCollections',
+  name: 'sceneCollection',
   initialState,
-  reducers: {},
+  reducers: {
+    deleteSceneCollectionInnerItem: (state, action) => {
+      const { targetId, targetInnerId } = action.payload;
+      const innerItemIDValue = state[targetId].innerCollectionId;
+      if (Array.isArray(innerItemIDValue)) {
+        const index = innerItemIDValue.findIndex(
+          (singleInnerItemID) => singleInnerItemID === targetInnerId
+        );
+        if (index !== -1) innerItemIDValue.splice(index, 1);
+      }
+    },
+  },
 });
 
 export default slice.reducer;
 
-// export const { stockAddColor, stockRemoveColor, replaceAll } = slice.actions;
+export const { deleteSceneCollectionInnerItem } = slice.actions;

@@ -1,8 +1,7 @@
 import React, { useCallback } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import Collection from '../components/molecules/Collection';
-
-import { deleteSingleCollection as deleteSingleCollectionAction } from '../types/collection/collectionData';
+import { deleteSceneCollectionInnerItem } from '../stores/collection/sceneCollection';
 import { AppState } from '../stores';
 
 type Props = {
@@ -14,15 +13,15 @@ const CollectionContainer = (props: Props) => {
   const rawCollectionData = useSelector(
     (state: AppState) => state.collection[collectionId]
   );
+  const currentSceneCollectionData = useSelector(
+    (state: AppState) => state.currentSceneCollection
+  );
 
   const dispatch = useDispatch();
 
-  /**
-   * コレクションリストの単一のコレクションを削除する関数
-   */
-  const deleteSingleCollection = useCallback(
-    (value) => {
-      dispatch(deleteSingleCollectionAction(value));
+  const storeDeleteSceneCollectionInnerItem = useCallback(
+    (payload) => {
+      dispatch(deleteSceneCollectionInnerItem(payload));
     },
     [dispatch]
   );
@@ -38,7 +37,8 @@ const CollectionContainer = (props: Props) => {
   // );
 
   const combineProps = {
-    deleteSingleCollection,
+    storeDeleteSceneCollectionInnerItem,
+    currentSceneCollectionData,
     rawCollectionData,
     // updateVisibility,
   };
