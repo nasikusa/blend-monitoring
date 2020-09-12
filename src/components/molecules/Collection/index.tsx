@@ -5,8 +5,9 @@ import ListItem from '@material-ui/core/ListItem';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
 import IconButton from '@material-ui/core/IconButton';
-import Icon, { IconTypeTypes } from '../../atoms/Icon';
+import { Typography } from '@material-ui/core';
 
+import Icon, { IconTypeTypes } from '../../atoms/Icon';
 import CustomSliderContainer from '../../../container/CustomSliderContainer';
 import BlendModePanelContainer from '../../../container/BlendModePanelContainer';
 import ColorPanelContainer from '../../../container/ColorPanelContainer';
@@ -72,7 +73,7 @@ export const RawCollectionDataContext = React.createContext<
 /**
  * 単一のコレクションコンポーネント
  */
-export default (props: Props) => {
+const Collection: React.FC<Props> = (props: Props) => {
   const {
     /* ,updateVisibility */
     rawCollectionData,
@@ -281,7 +282,11 @@ export default (props: Props) => {
           <CollectionMainIcon collectionType={rawCollectionData.type} />
         </ListItemIcon>
         <ListItemText
-          primary={getCollectionsName(rawCollectionData.type)}
+          primary={
+            <Typography>
+              {getCollectionsName(rawCollectionData.type)}
+            </Typography>
+          }
           secondary={
             <>
               {secondaryAreaElementDataArray.map((singleSecondaryElemData) => (
@@ -343,7 +348,7 @@ export default (props: Props) => {
             描画モードパネル
           </CollectionPanelTitle>
           <CollectionPanelContent>
-            <BlendModePanelContainer />
+            <BlendModePanelContainer rawCollectionData={rawCollectionData} />
           </CollectionPanelContent>
         </>
       </CollectionPanel>
@@ -378,3 +383,5 @@ export default (props: Props) => {
     </RawCollectionDataContext.Provider>
   );
 };
+
+export default Collection;
