@@ -61,7 +61,6 @@ const CustomSliderContianer: React.FC<Props> = (props: Props) => {
   );
 
   const combineProps = {
-    targetOpacityValueId,
     storeUpdateOpacityValue,
     storedOpacityValue,
     isArrayStoredData: Array.isArray(storedOpacityValue),

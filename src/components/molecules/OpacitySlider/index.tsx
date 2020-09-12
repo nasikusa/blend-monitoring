@@ -10,7 +10,6 @@ import { collectionValueOpacityType } from '../../../stores/collection/collectio
 
 type Props = {
   storeUpdateOpacityValue?: any;
-  targetOpacityValueId?: string | string[];
   storedOpacityValue: collectionValueOpacityType | collectionValueOpacityType[];
   isShowInputArea?: boolean;
   isArrayStoredData?: boolean;
@@ -47,7 +46,6 @@ const OpacitySlider: React.FC<Props> = (props: Props) => {
   const classes = useStyles();
   const {
     storeUpdateOpacityValue,
-    targetOpacityValueId,
     isShowInputArea,
     isShowBeforeIcon,
     sliderStopCheckTime,
@@ -60,6 +58,20 @@ const OpacitySlider: React.FC<Props> = (props: Props) => {
       max-width: ${sliderMaxWidth}px;
     `,
   };
+
+  /**
+   * storedOpacityValueのデータからidのデータのみを抽出したデータ
+   */
+  const targetOpacityValueId:
+    | collectionValueOpacityType['id']
+    | collectionValueOpacityType['id'][] = (() => {
+    if (Array.isArray(storedOpacityValue)) {
+      return storedOpacityValue.map(
+        (singleStoredOpacityValue) => singleStoredOpacityValue.id
+      );
+    }
+    return storedOpacityValue.id;
+  })();
 
   /**
    * デフォルトのカラーをグローバルのstateから取得する
