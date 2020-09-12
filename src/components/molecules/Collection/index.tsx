@@ -57,6 +57,19 @@ const useStyles = makeStyles(() => ({
 }));
 
 /**
+ * collectionデータ用のコンテクスト
+ * @todo デフォルトを null かもしくは、サンプルデータにしたい
+ */
+export const RawCollectionDataContext = React.createContext<
+  CollectionCategoryType
+>({
+  id: '96b04eec-b025-421b-aabc-2f08a629949c',
+  type: 'singleColor',
+  roughType: 'color',
+  innerItemID: '6157939d-befc-4d1e-b3b2-24ce096919c1',
+});
+
+/**
  * 単一のコレクションコンポーネント
  */
 export default (props: Props) => {
@@ -262,7 +275,7 @@ export default (props: Props) => {
   ];
 
   return (
-    <>
+    <RawCollectionDataContext.Provider value={rawCollectionData}>
       <ListItem className={classes.main} id={rawCollectionData.id}>
         <ListItemIcon>
           <CollectionMainIcon collectionType={rawCollectionData.type} />
@@ -362,6 +375,6 @@ export default (props: Props) => {
           </>
         </CollectionPanel>
       )}
-    </>
+    </RawCollectionDataContext.Provider>
   );
 };
