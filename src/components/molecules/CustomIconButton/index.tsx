@@ -9,21 +9,21 @@ import { useTheme } from '@material-ui/core/styles';
 import Icon, { IconTypeTypes } from '../../atoms/Icon';
 import CustomTooltip from '../../atoms/CustomTooltip';
 
-type Props = {
-  type?: IconTypeTypes;
-  buttonType?: 'iconButton' | 'buttonWithIcon';
-  labelTitle?: string;
-  disable?: boolean;
-  active?: boolean;
-  danger?: boolean;
-  disableTooltip?: boolean;
-  iconProps?: SvgIconProps;
-  iconButtonProps?: IconButtonProps;
-  buttonProps?: ButtonProps;
-  buttonGeneralProps?: IconButtonProps & ButtonProps;
-  tooltipProps?: Omit<TooltipProps, 'children'>;
-  children?: React.ReactElement | string;
-};
+type Props = Partial<{
+  type: IconTypeTypes;
+  buttonType: 'iconButton' | 'buttonWithIcon';
+  labelTitle: string;
+  disable: boolean;
+  active: boolean;
+  danger: boolean;
+  disableTooltip: boolean;
+  iconProps: SvgIconProps;
+  iconButtonProps: IconButtonProps;
+  buttonProps: ButtonProps;
+  buttonGeneralProps: IconButtonProps & ButtonProps;
+  tooltipProps: Omit<TooltipProps, 'children'>;
+  children: React.ReactElement | string;
+}>;
 
 const CustomIconButton = (props: Props) => {
   const {
