@@ -1,3 +1,5 @@
+/* eslint-disable no-param-reassign */
+
 import { createSlice } from '@reduxjs/toolkit';
 
 export type SingleItemCollectionTypeType =
@@ -141,9 +143,20 @@ const initialState: GlCollectionDictionaryType = {
 const slice = createSlice({
   name: 'collection',
   initialState,
-  reducers: {},
+  reducers: {
+    deleteCollectionInnerItem: (state, action) => {
+      const { targetId, targetInnerId } = action.payload;
+      const innerItemIDValue = state[targetId].innerItemID;
+      if (Array.isArray(innerItemIDValue)) {
+        const index = innerItemIDValue.findIndex(
+          (singleInnerItemID) => singleInnerItemID === targetInnerId
+        );
+        if (index !== -1) innerItemIDValue.splice(index, 1);
+      }
+    },
+  },
 });
 
 export default slice.reducer;
 
-// export const { stockAddColor, stockRemoveColor, replaceAll } = slice.actions;
+export const { deleteCollectionInnerItem } = slice.actions;

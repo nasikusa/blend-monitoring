@@ -1,3 +1,5 @@
+/* eslint-disable no-param-reassign */
+
 import { createSlice } from '@reduxjs/toolkit';
 import { BlendModesType } from '../../constants/blendMode/blendModeData';
 import { IdType } from '../../types/collection/collectionData';
@@ -9,10 +11,10 @@ export type collectionValueBlendModeType = {
   readonly id: IdType;
   value: collectionValueBlendModeValueType;
   readonly type: 'blendMode';
-};
+} & baseCollectionValueType;
 
 export type collectionValueBlendModeDictionaryType = {
-  [key: string]: baseCollectionValueType & collectionValueBlendModeType;
+  [key: string]: collectionValueBlendModeType;
 };
 
 const initialState: collectionValueBlendModeDictionaryType = {
@@ -36,9 +38,14 @@ const initialState: collectionValueBlendModeDictionaryType = {
 const slice = createSlice({
   name: 'collectionItemValueBlendMode',
   initialState,
-  reducers: {},
+  reducers: {
+    deleteValue: (state, action) => {
+      const { targetId } = action.payload;
+      delete state[targetId];
+    },
+  },
 });
 
 export default slice.reducer;
 
-// export const { stockAddColor, stockRemoveColor, replaceAll } = slice.actions;
+export const { deleteValue } = slice.actions;
