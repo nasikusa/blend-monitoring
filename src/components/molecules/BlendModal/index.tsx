@@ -1,5 +1,5 @@
 /* eslint no-nested-ternary: 0 */
-import React, { useContext, useState } from 'react';
+import React, { useState, useContext } from 'react';
 import { makeStyles, createStyles } from '@material-ui/core/styles';
 import { css, SerializedStyles } from '@emotion/core';
 import DialogTitle from '@material-ui/core/DialogTitle';
@@ -12,13 +12,9 @@ import FormGroup from '@material-ui/core/FormGroup';
 import Button from '@material-ui/core/Button';
 
 import CustomIconButton from '../CustomIconButton';
-
-import {
-  GlCollectionOrderContext,
-  GlCollectionOrderContextType,
-} from '../CollectionList';
 import { IconTypeTypes } from '../../atoms/Icon';
 import BlendModalContentsContainer from '../../../container/BlendModalContentsContainer';
+import { RawCollectionDataContext } from '../Collection';
 
 type Props = {
   modalOpen: boolean;
@@ -27,17 +23,10 @@ type Props = {
 
 const useStyles = makeStyles(() =>
   createStyles({
-    label: {
-      fontSize: `12px`,
-    },
     modal: {
       display: `flex`,
       alignItems: `center`,
       justifyContent: `center`,
-    },
-    grid: {
-      // display: `flex`,
-      // alignItems: `center`,
     },
   })
 );
@@ -95,6 +84,14 @@ const modalMinifyStyle = css`
   }
 `;
 
+export const BlendModalOpenContext = React.createContext<{
+  modalOpen: Props['modalOpen'];
+  setModalOpen: Props['setModalOpen'];
+}>({
+  modalOpen: false,
+  setModalOpen: () => {},
+});
+
 /**
  * 描画モードのモーダルを管理するコンポーネント。モーダルの中身に関しては、
  * 他コンポーネントを参照してください。
@@ -114,9 +111,6 @@ export default (props: Props) => {
   ] = useState(true);
   const [canDisplayDarkerBlend, setCanDisplayDarkerBlend] = useState(true);
   const [canDisplayMathBlend, setCanDisplayMathBlend] = useState(true);
-  const glCollectionOrderKey: GlCollectionOrderContextType = useContext(
-    GlCollectionOrderContext
-  );
   const blendModeSwitchBoolArray = [
     canDisplayNormalBlend,
     canDispalyLighterBlend,
@@ -124,6 +118,8 @@ export default (props: Props) => {
     canDisplayDarkerBlend,
     canDisplayMathBlend,
   ];
+
+  const rawCollectionDataContextValue = useContext(RawCollectionDataContext);
 
   /**
    * 描画モードの表示のオンオフスイッチの有効数
@@ -343,64 +339,67 @@ export default (props: Props) => {
   ];
 
   return (
-    <Dialog
-      className={classes.modal}
-      onClose={handleClose}
-      aria-labelledby="描画モードのパネル"
-      open={modalOpen}
-      maxWidth={false}
-      disableEnforceFocus
-      BackdropProps={{
-        style: { backgroundColor: 'rgba(0,0,0,0)', pointerEvents: 'none' },
-      }}
-      PaperProps={{
-        style: {
-          backgroundColor: modalTransparentFlag ? 'rgba(0,0,0,0)' : '',
-          pointerEvents: 'all',
-        },
-      }}
-      PaperComponent={PaperComponent}
-      css={modalMinifyFlag ? modalMinifyStyle : modalBackStyle}
-    >
-      <DialogTitle
-        id="blend-draggable-dialog-title"
-        style={{ cursor: 'move' }}
-        css={modalTitleStyle}
+    <BlendModalOpenContext.Provider value={{ modalOpen, setModalOpen }}>
+      <Dialog
+        className={classes.modal}
+        onClose={handleClose}
+        aria-labelledby="描画モードのパネル"
+        open={modalOpen}
+        maxWidth={false}
+        disableEnforceFocus
+        BackdropProps={{
+          style: { backgroundColor: 'rgba(0,0,0,0)', pointerEvents: 'none' },
+        }}
+        PaperProps={{
+          style: {
+            backgroundColor: modalTransparentFlag ? 'rgba(0,0,0,0)' : '',
+            pointerEvents: 'all',
+          },
+        }}
+        PaperComponent={PaperComponent}
+        css={modalMinifyFlag ? modalMinifyStyle : modalBackStyle}
       >
-        {blendModeSwitchActiveCount <= 1
-          ? '描画モード'
-          : '描画モードの設定パネル'}
-        <Button onClick={handleClose}>閉じる</Button>
-        {/* <IconButton size="small" aria-label="close" onClick={handleClose}>
-          <Icon type="functionClose" fontSize="large" />
-        </IconButton> */}
-      </DialogTitle>
-      <DialogContent dividers>
-        <BlendModalContentsContainer
-          glCollectionOrderKey={glCollectionOrderKey}
-          canDisplayNormalBlend={canDisplayNormalBlend}
-          canDispalyLighterBlend={canDispalyLighterBlend}
-          canDisplayLighterAndDarkerBlend={canDisplayLighterAndDarkerBlend}
-          canDisplayDarkerBlend={canDisplayDarkerBlend}
-          canDisplayMathBlend={canDisplayMathBlend}
-        />
-      </DialogContent>
-      <DialogActions>
-        <FormGroup row css={modalMaxWidthStyle}>
-          {modalSwitchParams.map((singleSwitchParam) => {
-            return (
-              <CustomIconButton
-                type={singleSwitchParam.type}
-                active={singleSwitchParam.checked}
-                buttonGeneralProps={{
-                  onClick: singleSwitchParam.onChange,
-                }}
-                labelTitle={singleSwitchParam.label}
-              />
-            );
-          })}
-        </FormGroup>
-      </DialogActions>
-    </Dialog>
+        <DialogTitle
+          id="blend-draggable-dialog-title"
+          style={{ cursor: 'move' }}
+          css={modalTitleStyle}
+        >
+          {blendModeSwitchActiveCount <= 1
+            ? '描画モード'
+            : '描画モードの設定パネル'}
+          <Button onClick={handleClose}>閉じる</Button>
+        </DialogTitle>
+        <DialogContent dividers>
+          <BlendModalContentsContainer
+            blendModalMode={
+              Array.isArray(rawCollectionDataContextValue.innerItemID)
+                ? 'multi'
+                : 'single'
+            }
+            canDisplayNormalBlend={canDisplayNormalBlend}
+            canDispalyLighterBlend={canDispalyLighterBlend}
+            canDisplayLighterAndDarkerBlend={canDisplayLighterAndDarkerBlend}
+            canDisplayDarkerBlend={canDisplayDarkerBlend}
+            canDisplayMathBlend={canDisplayMathBlend}
+          />
+        </DialogContent>
+        <DialogActions>
+          <FormGroup row css={modalMaxWidthStyle}>
+            {modalSwitchParams.map((singleSwitchParam) => {
+              return (
+                <CustomIconButton
+                  type={singleSwitchParam.type}
+                  active={singleSwitchParam.checked}
+                  buttonGeneralProps={{
+                    onClick: singleSwitchParam.onChange,
+                  }}
+                  labelTitle={singleSwitchParam.label}
+                />
+              );
+            })}
+          </FormGroup>
+        </DialogActions>
+      </Dialog>
+    </BlendModalOpenContext.Provider>
   );
 };

@@ -9,18 +9,19 @@ import BlendModalContainer from '../../../container/BlendModalContainer';
 import { collectionValueBlendModeType } from '../../../stores/collection/collectionValueBlendMode';
 import { CollectionCategoryType } from '../../../stores/collection/collection';
 import { RawCollectionDataContext } from '../Collection';
-import { GlCollectionTypeArray } from '../../../types/collection/collectionData';
 
 type Props = {
-  collectionData: GlCollectionTypeArray;
   storeDeleteBlendModeValue: any;
-  blendModeOrder: string[];
   targetBlendModeValueId: string | string[];
   storedBlendModeValue:
     | collectionValueBlendModeType
     | collectionValueBlendModeType[];
   rawCollectionData?: CollectionCategoryType;
 };
+
+export const CollectionBlendModeValueContext = React.createContext<
+  Props['storedBlendModeValue']
+>([]);
 
 const BlendModePanel = (props: Props) => {
   const {

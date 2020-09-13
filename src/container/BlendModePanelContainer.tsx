@@ -1,9 +1,6 @@
 import React from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import {
-  IdType,
-  // GlCollectionTypeArray,
-} from '../types/collection/collectionData';
+import { IdType } from '../types/collection/collectionData';
 import {
   CollectionCategoryType,
   deleteCollectionInnerItem,
@@ -11,7 +8,6 @@ import {
 import { collectionValueBlendModeType } from '../stores/collection/collectionValueBlendMode';
 import { AppState } from '../stores/index';
 import BlendModePanel from '../components/molecules/BlendModePanel';
-import useCurrentSceneCollection from '../hooks/collection/useCurrentSceneCollection';
 
 type Props = {
   rawCollectionData: CollectionCategoryType;
@@ -19,7 +15,6 @@ type Props = {
 
 export default (props: Props) => {
   const { rawCollectionData } = props;
-  const collectionData = useCurrentSceneCollection();
 
   const innerItemIdData = rawCollectionData.innerItemID;
 
@@ -64,10 +59,9 @@ export default (props: Props) => {
   const combineProps = {
     storeDeleteBlendModeValue,
     blendModeOrder,
-    collectionData,
     targetBlendModeValueId,
     storedBlendModeValue,
-    rawCollectionData,
+    ...props,
   };
 
   return <BlendModePanel {...combineProps} />;

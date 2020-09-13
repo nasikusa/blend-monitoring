@@ -1,5 +1,6 @@
 /* eslint no-nested-ternary: 0 */
 import React, { useState, useEffect } from 'react';
+import { NIL as NIL_UUID } from 'uuid';
 import { makeStyles } from '@material-ui/core/styles';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
@@ -65,10 +66,14 @@ const useStyles = makeStyles(() => ({
 export const RawCollectionDataContext = React.createContext<
   CollectionCategoryType
 >({
-  id: '96b04eec-b025-421b-aabc-2f08a629949c',
+  id: NIL_UUID,
   type: 'singleColor',
   roughType: 'color',
-  innerItemID: '6157939d-befc-4d1e-b3b2-24ce096919c1',
+  innerItemID: NIL_UUID,
+  defaultOpacityId: NIL_UUID,
+  defaultBlendModeId: NIL_UUID,
+  defaultVisibilityId: NIL_UUID,
+  defaultColorId: NIL_UUID,
 });
 
 /**

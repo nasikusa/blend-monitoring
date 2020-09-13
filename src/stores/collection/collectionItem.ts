@@ -1,3 +1,4 @@
+/* eslint-disable no-param-reassign */
 import { createSlice } from '@reduxjs/toolkit';
 
 export type collectionItemTypeType = 'image' | 'color';
@@ -60,9 +61,40 @@ const initialState: collectionItemDictionaryType = {
 const slice = createSlice({
   name: 'collectionItem',
   initialState,
-  reducers: {},
+  reducers: {
+    addItem: (state, action) => {
+      const {
+        targetId,
+        targetType,
+        targetBlendModeId,
+        targetOpacityId,
+        targetVisibilityId,
+      } = action.payload;
+      if (targetType === 'color') {
+        const { targetColorId } = action.payload;
+        state[targetId] = {
+          id: targetId,
+          type: targetType,
+          blendMode: targetBlendModeId,
+          opacity: targetOpacityId,
+          visibility: targetVisibilityId,
+          color: targetColorId,
+        };
+      } else if (targetType === 'image') {
+        const { targetImageId } = action.payload;
+        state[targetId] = {
+          id: targetId,
+          type: targetType,
+          blendMode: targetBlendModeId,
+          opacity: targetOpacityId,
+          visibility: targetVisibilityId,
+          image: targetImageId,
+        };
+      }
+    },
+  },
 });
 
 export default slice.reducer;
 
-// export const { stockAddColor, stockRemoveColor, replaceAll } = slice.actions;
+export const { addItem } = slice.actions;

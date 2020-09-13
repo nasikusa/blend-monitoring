@@ -1,4 +1,6 @@
-import React, { useContext, useState } from 'react';
+import React from 'react';
+import { v4 as uuidv4 } from 'uuid';
+import { batch } from 'react-redux';
 import { css } from '@emotion/core';
 import { makeStyles, createStyles } from '@material-ui/core/styles';
 import FormControl from '@material-ui/core/FormControl';
@@ -13,13 +15,21 @@ import {
   readyBlendModeArray,
   readyBlendModeData,
 } from '../../../utils/blendMode/getBlendModeData';
-import { GlCollectionOrderContext } from '../CollectionList';
-import { GlCollectionTypeArray } from '../../../types/collection/collectionData';
+import { collectionValueBlendModeType } from '../../../stores/collection/collectionValueBlendMode';
+import { CollectionCategoryType } from '../../../stores/collection/collection';
 
 export type Props = {
-  collectionData: GlCollectionTypeArray;
-  updateBlendMode: any;
+  blendModalMode: 'single' | 'multi';
+  storeUpdateCollectionValueBlendModeValue: any;
+  storeAddCollectionValueBlendMode: any;
+  storeAddCollectionItem: any;
+  storeAddCollectionInnerItem: any;
+  storeDeleteCollectionInnerItem: any;
   blendModeOrder: string[];
+  rawCollectionData: CollectionCategoryType;
+  storedBlendModeValue:
+    | collectionValueBlendModeType
+    | collectionValueBlendModeType[];
   canDisplayNormalBlend: boolean;
   canDispalyLighterBlend: boolean;
   canDisplayLighterAndDarkerBlend: boolean;
@@ -83,21 +93,42 @@ const mathBlendMode = readyBlendModeArray.filter(
 export default function BlendModalContents(props: Props) {
   const classes = useStyles();
   const {
-    collectionData,
-    updateBlendMode,
-    blendModeOrder,
+    blendModalMode,
+    storeUpdateCollectionValueBlendModeValue,
+    storeAddCollectionValueBlendMode,
+    storeAddCollectionItem,
+    storeAddCollectionInnerItem,
+    storeDeleteCollectionInnerItem,
+    rawCollectionData,
+    storedBlendModeValue,
     canDisplayNormalBlend,
     canDispalyLighterBlend,
     canDisplayLighterAndDarkerBlend,
     canDisplayDarkerBlend,
     canDisplayMathBlend,
   } = props;
-  const glCollectionOrderKey = useContext(GlCollectionOrderContext);
-  let boolBlendModeStateObject = collectionData[glCollectionOrderKey].blendMode;
-  if (typeof boolBlendModeStateObject === 'string') {
-    boolBlendModeStateObject = [boolBlendModeStateObject];
-  }
-  const [isInsertDividerState, setIsInsertDividerState] = useState(false);
+
+  const boolBlendModeStateObject: collectionValueBlendModeType[] = (() => {
+    if (!Array.isArray(storedBlendModeValue)) {
+      return [storedBlendModeValue];
+    }
+    return storedBlendModeValue;
+  })();
+
+  /**
+   *
+   */
+  const blendModeNameArray: collectionValueBlendModeType['value'][] = boolBlendModeStateObject.map(
+    (singleBoolBlendModeStateObject) => {
+      return singleBoolBlendModeStateObject.value;
+    }
+  );
+
+  /**
+   * チェックボックスグループの脇に区切り用の線を入れるかどうかのbool値。
+   * 最初のグループのみ線を入れない。
+   */
+  let isInsertDividerState = false;
 
   const categoryBlendModeData = [
     {
@@ -132,26 +163,76 @@ export default function BlendModalContents(props: Props) {
     // },
   ];
 
-  const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    updateBlendMode({
-      blendMode: event.target.name,
-      boolValue: event.target.checked,
-      glCollectionOrderKey,
-      blendModeOrder,
-    });
+  const handleSingleChange = (
+    event: React.ChangeEvent<HTMLInputElement>
+  ): void => {
+    if (!Array.isArray(storedBlendModeValue)) {
+      storeUpdateCollectionValueBlendModeValue({
+        targetId: storedBlendModeValue.id,
+        targetNewValue: event.target.name,
+      });
+    }
+  };
+
+  const handleMultiChange = (
+    event: React.ChangeEvent<HTMLInputElement>,
+    targetIndex: number
+  ): void => {
+    const targetCollectionItemId = uuidv4();
+    const targetCollectionValueId = uuidv4();
+    if (event.target.checked) {
+      batch(() => {
+        storeAddCollectionValueBlendMode({
+          targetId: targetCollectionValueId,
+          targetNewValue: event.target.name,
+        });
+        if (rawCollectionData.type === 'singleColorMultiBlends') {
+          storeAddCollectionItem({
+            targetId: targetCollectionItemId,
+            targetType: rawCollectionData.roughType,
+            targetBlendModeId: targetCollectionValueId,
+            targetOpacityId: rawCollectionData.defaultOpacityId,
+            targetVisibilityId: rawCollectionData.defaultVisibilityId,
+            targetColorId: rawCollectionData.defaultColorId,
+          });
+        }
+        if (rawCollectionData.type === 'singleImageMultiBlends') {
+          storeAddCollectionItem({
+            targetId: targetCollectionItemId,
+            targetType: rawCollectionData.roughType,
+            targetBlendModeId: targetCollectionValueId,
+            targetOpacityId: rawCollectionData.defaultOpacityId,
+            targetVisibilityId: rawCollectionData.defaultVisibilityId,
+            targetImageId: rawCollectionData.defaultImageId,
+          });
+        }
+        storeAddCollectionInnerItem({
+          addIndexType: 'first',
+          targetInnerItemId: targetCollectionItemId,
+          targetId: rawCollectionData.id,
+        });
+      });
+    } else if (!event.target.checked) {
+      storeDeleteCollectionInnerItem({
+        targetId: rawCollectionData.id,
+        targetInnerId: rawCollectionData.innerItemID[targetIndex],
+      });
+    }
   };
 
   /**
    * 描画モードのチェックボックスが集まった要素
+   * @todo 個別の描画モードグループごとに取り出せるように関数を分離したいかも
+   * @todo 若干、内部処理がわかりにくい感じがあるので、機能を分離して、複数の関数にほうがいいのかも
    */
-  const checkBoxes = categoryBlendModeData.map(
+  const checkBoxesElementArray: React.ReactElement[] = categoryBlendModeData.map(
     (oneCategoryBlendMode, currentIndex: number) => {
       /**
        * divideコンポーネントが入る可能性のある変数
        */
-      let divideElement = <></>;
+      let divideElement = null;
       if (isInsertDividerState === false) {
-        setIsInsertDividerState(true);
+        isInsertDividerState = true;
       } else {
         divideElement = <Divider absolute orientation="vertical" />;
       }
@@ -159,18 +240,19 @@ export default function BlendModalContents(props: Props) {
       /**
        * 単一の描画モードのチェックボックス要素
        */
-      const oneCategoryLabels = oneCategoryBlendMode.data.map(
+      const oneCategoryLabels: React.ReactElement[] = oneCategoryBlendMode.data.map(
         (blendModeData) => {
           /**
            * チェックボックスのbool値を保存しておくための変数
            */
           let checkBoxValue = false;
-          if (Array.isArray(boolBlendModeStateObject)) {
-            checkBoxValue = boolBlendModeStateObject.includes(
-              blendModeData.mode
-            );
+          const checkIndex = blendModeNameArray.findIndex(
+            (singleBlendModeName) => singleBlendModeName === blendModeData.mode
+          );
+          if (Array.isArray(blendModeNameArray)) {
+            checkBoxValue = checkIndex !== -1;
           } else {
-            checkBoxValue = boolBlendModeStateObject === blendModeData.mode;
+            checkBoxValue = blendModeNameArray === blendModeData.mode;
           }
 
           const checkBoxLabelName = (() => {
@@ -188,7 +270,13 @@ export default function BlendModalContents(props: Props) {
                 <Checkbox
                   color="primary"
                   checked={checkBoxValue}
-                  onChange={handleChange}
+                  onChange={
+                    blendModalMode === 'single'
+                      ? handleSingleChange
+                      : (e) => {
+                          handleMultiChange(e, checkIndex);
+                        }
+                  }
                   name={blendModeData.mode}
                 />
               }
@@ -198,6 +286,7 @@ export default function BlendModalContents(props: Props) {
           );
         }
       );
+
       if (oneCategoryBlendMode.flagState) {
         return (
           <FormControl
@@ -207,25 +296,26 @@ export default function BlendModalContents(props: Props) {
           >
             {divideElement}
             <FormLabel css={iconCenterStyle} component="legend">
-              {currentIndex === 0 ? <Icon type="blendModeNormal" /> : ''}
-              {currentIndex === 1 ? (
-                <Icon type="blendModeBrightnessMinus" />
-              ) : (
-                ''
-              )}
-              {currentIndex === 2 ? (
-                <>
-                  <Icon type="blendModeBrightnessPlusMinus" />
-                </>
-              ) : (
-                ''
-              )}
-              {currentIndex === 3 ? (
-                <Icon type="blendModeBrightnessPlus" />
-              ) : (
-                ''
-              )}
-              {currentIndex === 4 ? <Icon type="blendModeMath" /> : ''}
+              {(() => {
+                switch (currentIndex) {
+                  case 0:
+                    return <Icon type="blendModeNormal" />;
+                  case 1:
+                    return <Icon type="blendModeBrightnessMinus" />;
+                  case 2:
+                    return (
+                      <>
+                        <Icon type="blendModeBrightnessPlusMinus" />
+                      </>
+                    );
+                  case 3:
+                    return <Icon type="blendModeBrightnessPlus" />;
+                  case 4:
+                    return <Icon type="blendModeMath" />;
+                  default:
+                    return null;
+                }
+              })()}
             </FormLabel>
             <FormGroup>{oneCategoryLabels}</FormGroup>
           </FormControl>
@@ -235,5 +325,5 @@ export default function BlendModalContents(props: Props) {
     }
   );
 
-  return <div className={classes.root}>{checkBoxes}</div>;
+  return <div className={classes.root}>{checkBoxesElementArray}</div>;
 }
