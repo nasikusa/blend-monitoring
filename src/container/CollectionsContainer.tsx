@@ -1,11 +1,9 @@
 import React from 'react';
-import { useSelector } from 'react-redux';
+import { useSelector, shallowEqual } from 'react-redux';
 import Collections from '../components/molecules/CollectionList';
 import { AppState } from '../stores/index';
-import useCurrentSceneCollection from '../hooks/collection/useCurrentSceneCollection';
 
 export default () => {
-  const collectionData = useCurrentSceneCollection();
   const currentSceneCollectionId = useSelector(
     (state: AppState) => state.currentSceneCollection.currentId
   );
@@ -13,7 +11,10 @@ export default () => {
     (state: AppState) =>
       state.sceneCollection[currentSceneCollectionId].innerCollectionId
   );
-  const themeSettings = useSelector((state: AppState) => state.themeSettings);
+  const themeSettings = useSelector(
+    (state: AppState) => state.themeSettings,
+    shallowEqual
+  );
 
   const calcedOtherAreaHeight = `${
     Number(themeSettings.header.appBarHeight.slice(0, -2)) +
@@ -23,7 +24,6 @@ export default () => {
   }px`;
 
   const combineProps = {
-    collectionData,
     calcedOtherAreaHeight,
     currentCollectionsId,
   };

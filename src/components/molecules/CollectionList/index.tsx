@@ -5,13 +5,11 @@ import List from '@material-ui/core/List';
 import Divider from '@material-ui/core/Divider';
 import CollectionContainer from '../../../container/CollectionContainer';
 
-import { GlCollectionTypeArray } from '../../../types/collection/collectionData';
 import CreateCollectionPanelContainer from '../../../container/CreateCollectionPanelContainer';
 import { sceneCollectionsType } from '../../../stores/collection/sceneCollection';
 import { ArrayElement } from '../../../types/utils/ArrayElement';
 
 export type Props = {
-  collectionData: GlCollectionTypeArray;
   calcedOtherAreaHeight: string;
   currentCollectionsId: sceneCollectionsType;
 };

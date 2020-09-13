@@ -1,5 +1,5 @@
 import React, { useCallback } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch, useSelector, shallowEqual } from 'react-redux';
 import Collection from '../components/molecules/Collection';
 import { deleteSceneCollectionInnerItem } from '../stores/collection/sceneCollection';
 import { AppState } from '../stores';
@@ -11,10 +11,12 @@ type Props = {
 const CollectionContainer = (props: Props) => {
   const { collectionId } = props;
   const rawCollectionData = useSelector(
-    (state: AppState) => state.collection[collectionId]
+    (state: AppState) => state.collection[collectionId],
+    shallowEqual
   );
   const currentSceneCollectionData = useSelector(
-    (state: AppState) => state.currentSceneCollection
+    (state: AppState) => state.currentSceneCollection,
+    shallowEqual
   );
 
   const dispatch = useDispatch();

@@ -1,5 +1,5 @@
 import React, { useContext } from 'react';
-import { useSelector, useDispatch } from 'react-redux';
+import { useSelector, useDispatch, shallowEqual } from 'react-redux';
 import BlendModalContents from '../components/molecules/BlendModalContents';
 
 import { IdType } from '../types/collection/collectionData';
@@ -43,7 +43,8 @@ export default (props: Props) => {
         });
       }
       return state.collectionItem[innerItemIdData].blendMode;
-    }
+    },
+    shallowEqual
   );
 
   /**
@@ -58,7 +59,7 @@ export default (props: Props) => {
       });
     }
     return state.collectionValueBlendMode[targetBlendModeValueId];
-  });
+  }, shallowEqual);
 
   const dispatch = useDispatch();
 

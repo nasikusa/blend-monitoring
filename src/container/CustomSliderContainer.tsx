@@ -1,5 +1,5 @@
 import React from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch, useSelector, shallowEqual } from 'react-redux';
 import OpacitySlider from '../components/molecules/OpacitySlider';
 
 import {
@@ -36,7 +36,8 @@ const CustomSliderContianer: React.FC<Props> = (props: Props) => {
         });
       }
       return state.collectionItem[innerItemIdData].opacity;
-    }
+    },
+    shallowEqual
   );
 
   /**
@@ -51,7 +52,7 @@ const CustomSliderContianer: React.FC<Props> = (props: Props) => {
       });
     }
     return state.collectionValueOpacity[targetOpacityValueId];
-  });
+  }, shallowEqual);
 
   const storeUpdateOpacityValue = React.useCallback(
     (payload: UpdateValuePayloadType) => {

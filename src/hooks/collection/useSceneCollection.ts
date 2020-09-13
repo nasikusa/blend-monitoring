@@ -1,4 +1,4 @@
-import { useSelector } from 'react-redux';
+import { useSelector, shallowEqual } from 'react-redux';
 
 import { AppState } from '../../stores/index';
 import { denormalizeSceneCollection } from '../../utils/denormalize';
@@ -10,22 +10,33 @@ const useSceneCollection = (
   const sceneCollection = useSelector(
     (state: AppState) => state.sceneCollection
   );
-  const collection = useSelector((state: AppState) => state.collection);
-  const collectionItem = useSelector((state: AppState) => state.collectionItem);
+  const collection = useSelector(
+    (state: AppState) => state.collection,
+    shallowEqual
+  );
+  const collectionItem = useSelector(
+    (state: AppState) => state.collectionItem,
+    shallowEqual
+  );
   const collectionValueOpacity = useSelector(
-    (state: AppState) => state.collectionValueOpacity
+    (state: AppState) => state.collectionValueOpacity,
+    shallowEqual
   );
   const collectionValueBlendMode = useSelector(
-    (state: AppState) => state.collectionValueBlendMode
+    (state: AppState) => state.collectionValueBlendMode,
+    shallowEqual
   );
   const collectionValueColor = useSelector(
-    (state: AppState) => state.collectionValueColor
+    (state: AppState) => state.collectionValueColor,
+    shallowEqual
   );
   const collectionValueVisibility = useSelector(
-    (state: AppState) => state.collectionValueVisibility
+    (state: AppState) => state.collectionValueVisibility,
+    shallowEqual
   );
   const collectionValueImage = useSelector(
-    (state: AppState) => state.collectionValueImage
+    (state: AppState) => state.collectionValueImage,
+    shallowEqual
   );
 
   const resultObject = denormalizeSceneCollection(argumentSceneCollectionId, {
