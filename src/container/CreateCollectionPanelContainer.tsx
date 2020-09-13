@@ -9,9 +9,6 @@ import useCurrentSceneCollection from '../hooks/collection/useCurrentSceneCollec
 
 export default (props: any) => {
   const dispatch = useDispatch();
-  // const multiCollectionData = useSelector(
-  //   (state: AppState) => state.collectionData
-  // );
   const multiCollectionData = useCurrentSceneCollection();
   const presetCollectionValue = useSelector(
     (state: AppState) => state.presetCollectionValue
