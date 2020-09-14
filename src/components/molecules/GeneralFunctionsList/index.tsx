@@ -7,9 +7,9 @@ import Divider from '@material-ui/core/Divider';
 import { useDropzone } from 'react-dropzone';
 import Icon, { IconTypeTypes } from '../../atoms/Icon';
 
-import getReduxStoreState from '../../../utils/getReduxStoreState';
-import { appSaveDataInfo } from '../../../constants/appConstantSettings';
-import loadSaveData from '../../../utils/getLoadedSaveData';
+import getReduxStoreState from '../../../utils/io/getReduxStoreState';
+import { appSaveDataInfo } from '../../../constants/general/appConstantSettings';
+import loadSaveData from '../../../utils/io/getLoadedSaveData';
 
 type Props = {
   removeAllStoredMedia: any;

@@ -8,10 +8,10 @@ import { css } from '@emotion/core';
 
 import CustomIconButton from '../CustomIconButton';
 import Icon from '../../atoms/Icon';
-import collectionTypesArray from '../../../constants/collectionTypesArray';
-import collectionTypeNameObject from '../../../constants/collectionTypeNameObject';
-import canMultiItemCollectionName from '../../../constants/canMultiItemCollectionName';
-import { presetCollectionValueType } from '../../../stores/presetCollectionValue';
+import collectionTypesArray from '../../../constants/collection/collectionTypesArray';
+import collectionTypeNameObject from '../../../constants/collection/collectionTypeNameObject';
+import canMultiItemCollectionName from '../../../constants/collection/canMultiItemCollectionName';
+import { presetCollectionValueType } from '../../../stores/collection/presetCollectionValue';
 
 export type Props = {
   createCollection: any;

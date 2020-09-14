@@ -9,7 +9,7 @@ import HelpIcon from '@material-ui/icons/Help';
 import PhotoLibraryIcon from '@material-ui/icons/PhotoLibrary';
 import FilterNoneIcon from '@material-ui/icons/FilterNone';
 
-import { CollectionTypeType } from '../../../stores/collectionData';
+import { CollectionTypeType } from '../../../types/collection/collectionData';
 
 interface PropsInterface {
   collectionType: CollectionTypeType;

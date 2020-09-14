@@ -16,6 +16,7 @@
 
 # other
 /.VSCodeCounter
+/storybook-static
 
 # misc
 .DS_Store

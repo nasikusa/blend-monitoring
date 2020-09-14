@@ -1,11 +1,20 @@
 import React from 'react';
-import { useSelector } from 'react-redux';
-import Collections from '../components/molecules/Collections';
+import { useSelector, shallowEqual } from 'react-redux';
+import Collections from '../components/molecules/CollectionList';
 import { AppState } from '../stores/index';
 
 export default () => {
-  const collectionData = useSelector((state: AppState) => state.collectionData);
-  const themeSettings = useSelector((state: AppState) => state.themeSettings);
+  const currentSceneCollectionId = useSelector(
+    (state: AppState) => state.currentSceneCollection.currentId
+  );
+  const currentCollectionsId = useSelector(
+    (state: AppState) =>
+      state.sceneCollection[currentSceneCollectionId].innerCollectionId
+  );
+  const themeSettings = useSelector(
+    (state: AppState) => state.themeSettings,
+    shallowEqual
+  );
 
   const calcedOtherAreaHeight = `${
     Number(themeSettings.header.appBarHeight.slice(0, -2)) +
@@ -14,7 +23,10 @@ export default () => {
     Number(themeSettings.glEdit.createButtonHeight.slice(0, -2))
   }px`;
 
-  const combineProps = { collectionData, calcedOtherAreaHeight };
+  const combineProps = {
+    calcedOtherAreaHeight,
+    currentCollectionsId,
+  };
 
   return <Collections {...combineProps} />;
 };

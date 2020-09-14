@@ -1,23 +1,21 @@
 import React, { useState, useEffect } from 'react';
+import { css } from '@emotion/core';
 import { makeStyles } from '@material-ui/core/styles';
 import Slider from '@material-ui/core/Slider';
 import Grid from '@material-ui/core/Grid';
-import Box from '@material-ui/core/Box';
-import Typography from '@material-ui/core/Typography';
 import Input from '@material-ui/core/Input';
 
 import Icon from '../../atoms/Icon';
-
-import {
-  GlCollectionTypeArray,
-  GlCollectionType,
-} from '../../../stores/collectionData';
+import { collectionValueOpacityType } from '../../../stores/collection/collectionValueOpacity';
 
 type Props = {
-  updateOpacity: any;
-  collectionData: GlCollectionTypeArray;
-  globalStateOpacityData: GlCollectionType['opacity'];
-  glCollectionOrderKey: number;
+  storeUpdateOpacityValue?: any;
+  storedOpacityValue: collectionValueOpacityType | collectionValueOpacityType[];
+  isShowInputArea?: boolean;
+  isArrayStoredData?: boolean;
+  isShowBeforeIcon?: boolean;
+  sliderStopCheckTime?: number | null;
+  sliderMaxWidth?: number;
 };
 
 /**
@@ -32,32 +30,67 @@ const useStyles = makeStyles({
   },
 });
 
+// function toNormalNumber2GlNumber(inputNumber: number) {
+//   return inputNumber * 0.01;
+// }
+
+// function toGlNumber2NormalNumber(inputNumber: number) {
+//   return inputNumber * 100;
+// }
+
 /**
  * 透過度のスライダーコンポーネント
  * @todo Opacityだけでなく汎用性をもたせたい
  */
 const OpacitySlider: React.FC<Props> = (props: Props) => {
   const classes = useStyles();
-  const { updateOpacity, globalStateOpacityData, glCollectionOrderKey } = props;
+  const {
+    storeUpdateOpacityValue,
+    isShowInputArea,
+    isShowBeforeIcon,
+    sliderStopCheckTime,
+    sliderMaxWidth,
+    storedOpacityValue,
+  } = props;
+
+  const styles = {
+    sliderMaxWidth: css`
+      max-width: ${sliderMaxWidth}px;
+    `,
+  };
+
+  /**
+   * storedOpacityValueのデータからidのデータのみを抽出したデータ
+   */
+  const targetOpacityValueId:
+    | collectionValueOpacityType['id']
+    | collectionValueOpacityType['id'][] = (() => {
+    if (Array.isArray(storedOpacityValue)) {
+      return storedOpacityValue.map(
+        (singleStoredOpacityValue) => singleStoredOpacityValue.id
+      );
+    }
+    return storedOpacityValue.id;
+  })();
+
   /**
    * デフォルトのカラーをグローバルのstateから取得する
    */
   const defaultOpacityValue = (): number => {
-    if (Array.isArray(globalStateOpacityData)) {
-      return globalStateOpacityData[0] * 100;
+    if (Array.isArray(storedOpacityValue)) {
+      return storedOpacityValue[0].value * 100;
     }
     if (
-      typeof globalStateOpacityData === 'number' &&
-      !Number.isNaN(globalStateOpacityData)
+      typeof storedOpacityValue.value === 'number' &&
+      !Number.isNaN(storedOpacityValue.value)
     ) {
-      return globalStateOpacityData * 100;
+      return storedOpacityValue.value * 100;
     }
     return 100;
   };
   const [opacityState, setOpacityState] = useState(defaultOpacityValue);
   const [tempOnChangeState, setTempOnChangeState] = useState(false);
   const [tempOnChangeCommitState, setTempOnChangeCommitState] = useState(false);
-  const globalStateOpacityValue = globalStateOpacityData;
 
   /**
    * スライダー変更時のイベント。ローカルステートのみ変更する。
@@ -82,14 +115,11 @@ const OpacitySlider: React.FC<Props> = (props: Props) => {
    * @param value 透過度の値
    * @todo 配列データが入ってきた際の対応(opacityが複数のパターンがある場合)
    */
-  const handleChangeCommitted = (
-    event: React.ChangeEvent<{}>,
-    value: number | number[]
-  ) => {
-    if (!Array.isArray(value)) {
-      updateOpacity({
-        opacityValue: opacityState * 0.01,
-        glCollectionOrderKey,
+  const handleChangeCommitted = () => {
+    if (storeUpdateOpacityValue != null) {
+      storeUpdateOpacityValue({
+        targetId: targetOpacityValueId,
+        targetIdNewValue: opacityState * 0.01,
       });
     }
     setTempOnChangeCommitState(true);
@@ -102,27 +132,35 @@ const OpacitySlider: React.FC<Props> = (props: Props) => {
    */
   const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setOpacityState(event.target.value === '' ? 0 : Number(event.target.value));
-    updateOpacity({
-      opacityValue:
-        event.target.value === '' ? '' : Number(event.target.value) * 0.01,
-      glCollectionOrderKey,
-    });
+    if (storeUpdateOpacityValue != null) {
+      storeUpdateOpacityValue({
+        targetId: targetOpacityValueId,
+        targetIdNewValue:
+          event.target.value === '' ? '' : Number(event.target.value) * 0.01,
+      });
+    }
   };
 
   /**
    * input変更時のブラーイベント
    */
   const handleBlur = () => {
-    if (globalStateOpacityValue < 0) {
-      updateOpacity({
-        opacityValue: 0.0,
-        glCollectionOrderKey,
-      });
-    } else if (globalStateOpacityValue > 100) {
-      updateOpacity({
-        opacityValue: 1.0,
-        glCollectionOrderKey,
-      });
+    if (!Array.isArray(storedOpacityValue)) {
+      if (storedOpacityValue.value < 0) {
+        if (storeUpdateOpacityValue != null) {
+          storeUpdateOpacityValue({
+            targetId: targetOpacityValueId,
+            targetIdNewValue: 0.0,
+          });
+        }
+      } else if (storedOpacityValue.value > 100) {
+        if (storeUpdateOpacityValue != null) {
+          storeUpdateOpacityValue({
+            targetId: targetOpacityValueId,
+            targetIdNewValue: 1.0,
+          });
+        }
+      }
     }
   };
 
@@ -130,52 +168,54 @@ const OpacitySlider: React.FC<Props> = (props: Props) => {
    * スライダーを一定時間保持しつづけるとreduxのglobalのstateが更新される関数
    */
   useEffect(() => {
-    const timer = setTimeout(() => {
-      if (tempOnChangeState === true && tempOnChangeCommitState === false) {
-        updateOpacity({
-          opacityValue: opacityState * 0.01,
-          glCollectionOrderKey,
-        });
-      }
-    }, 300);
-    return () => clearTimeout(timer);
+    if (sliderStopCheckTime !== null && sliderStopCheckTime !== undefined) {
+      const timer = setTimeout(() => {
+        if (tempOnChangeState === true && tempOnChangeCommitState === false) {
+          if (storeUpdateOpacityValue != null) {
+            storeUpdateOpacityValue({
+              targetId: targetOpacityValueId,
+              targetIdNewValue: opacityState * 0.01,
+            });
+          }
+        }
+      }, sliderStopCheckTime);
+      return () => clearTimeout(timer);
+    }
+    return () => {};
   }, [
     tempOnChangeState,
     tempOnChangeCommitState,
-    glCollectionOrderKey,
-    updateOpacity,
+    storeUpdateOpacityValue,
     opacityState,
+    targetOpacityValueId,
+    sliderStopCheckTime,
   ]);
 
   return (
-    <Box width={1}>
-      <Typography gutterBottom className={classes.label}>
-        透過度
-      </Typography>
-      <Grid container spacing={2}>
+    <Grid container spacing={2}>
+      {isShowBeforeIcon && (
         <Grid item>
           <Icon type="opacityPanel" />
         </Grid>
-        <Grid item xs>
-          <Slider
-            value={opacityState}
-            min={0}
-            max={100}
-            defaultValue={100}
-            valueLabelDisplay="auto"
-            onChange={handleChange}
-            onChangeCommitted={handleChangeCommitted}
-            aria-labelledby="opacity-slider"
-          />
-        </Grid>
+      )}
+      <Grid item xs>
+        <Slider
+          value={opacityState}
+          min={0}
+          max={100}
+          defaultValue={100}
+          valueLabelDisplay="auto"
+          onChange={handleChange}
+          onChangeCommitted={handleChangeCommitted}
+          aria-labelledby="opacity-slider"
+          css={sliderMaxWidth && styles.sliderMaxWidth}
+        />
+      </Grid>
+      {isShowInputArea && (
         <Grid item>
           <Input
             className={classes.input}
-            value={
-              typeof globalStateOpacityValue === 'number'
-                ? Math.floor(globalStateOpacityValue * 100)
-                : null
-            }
+            value={opacityState}
             margin="dense"
             onChange={handleInputChange}
             onBlur={handleBlur}
@@ -188,9 +228,14 @@ const OpacitySlider: React.FC<Props> = (props: Props) => {
             }}
           />
         </Grid>
-      </Grid>
-    </Box>
+      )}
+    </Grid>
   );
+};
+
+OpacitySlider.defaultProps = {
+  isShowBeforeIcon: false,
+  sliderMaxWidth: 500,
 };
 
 export default OpacitySlider;

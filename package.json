@@ -39,7 +39,7 @@
     "@types/redux-batched-actions": "^0.1.5",
     "@types/redux-logger": "^3.0.8",
     "@types/styled-components": "^5.1.2",
-    "@types/uuid": "^8.0.0",
+    "@types/uuid": "^8.3.0",
     "@typescript-eslint/eslint-plugin": "^2.10.0",
     "@typescript-eslint/parser": "^3.7.1",
     "@welldone-software/why-did-you-render": "^4.2.7",
@@ -68,6 +68,7 @@
     "eslint-plugin-prettier": "^3.1.4",
     "eslint-plugin-react": "7.19.0",
     "eslint-plugin-react-hooks": "^1.6.1",
+    "fast-deep-equal": "^3.1.3",
     "file-loader": "4.3.0",
     "fs-extra": "^8.1.0",
     "gl-react": "^4.0.1",
@@ -133,9 +134,11 @@
     "styled-components": "^5.1.1",
     "terser-webpack-plugin": "2.3.5",
     "ts-pnp": "1.1.6",
+    "type-fest": "^0.16.0",
     "typedocs": "^0.6.7",
     "typescript": "3.9.7",
     "url-loader": "2.3.0",
+    "utility-types": "^3.10.0",
     "uuid": "^8.3.0",
     "webpack": "4.42.0",
     "webpack-bundle-analyzer": "^3.8.0",
@@ -151,7 +154,9 @@
     "clean": "eslint src/** --fix",
     "gendoc": "typedoc --out ./docs ./src",
     "resizeImage": "node scripts/createResizedImages.js",
-    "analyze": "webpack-bundle-analyzer build/bundle-stats.json"
+    "analyze": "webpack-bundle-analyzer build/bundle-stats.json",
+    "storybook": "start-storybook -p 6006 -s public",
+    "build-storybook": "build-storybook -s public"
   },
   "eslintConfig": {
     "extends": [
@@ -187,6 +192,8 @@
       "react/jsx-props-no-spreading": [
         "off"
       ],
+      "no-nested-ternary": 0,
+      "react/prop-types": 0,
       "react/jsx-filename-extension": [
         1,
         {
@@ -272,5 +279,14 @@
       "react-app",
       "@emotion/babel-preset-css-prop"
     ]
+  },
+  "devDependencies": {
+    "@storybook/addon-actions": "^6.0.21",
+    "@storybook/addon-essentials": "^6.0.21",
+    "@storybook/addon-links": "^6.0.21",
+    "@storybook/node-logger": "^6.0.21",
+    "@storybook/preset-create-react-app": "^3.1.4",
+    "@storybook/react": "^6.0.21",
+    "react-is": "^16.13.1"
   }
 }

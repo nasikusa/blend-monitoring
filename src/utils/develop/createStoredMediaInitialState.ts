@@ -4,12 +4,12 @@ import {
   getSampleImageURLObject,
   getSampleImageAspect,
   unsplashRawWidth,
-} from '../getSampleImages';
+} from '../image/getSampleImages';
 
 import {
   StoredMediaStateItemType,
   StoredMediaStateType,
-} from '../../stores/storedMedia';
+} from '../../stores/image/storedMedia';
 
 /**
  *

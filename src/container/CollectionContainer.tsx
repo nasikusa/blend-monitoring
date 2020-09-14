@@ -1,27 +1,29 @@
 import React, { useCallback } from 'react';
-import { useSelector, useDispatch } from 'react-redux';
+import { useDispatch, useSelector, shallowEqual } from 'react-redux';
 import Collection from '../components/molecules/Collection';
+import { deleteSceneCollectionInnerItem } from '../stores/collection/sceneCollection';
+import { AppState } from '../stores';
 
-import { AppState } from '../stores/index';
-import {
-  deleteSingleCollection as deleteSingleCollectionAction,
-  updateVisibility as updateVisibilityAction,
-  GlCollectionTypeArray,
-} from '../stores/collectionData';
+type Props = {
+  collectionId: string;
+};
 
-export default () => {
-  const collectionData: GlCollectionTypeArray = useSelector<
-    AppState,
-    GlCollectionTypeArray
-  >((state) => state.collectionData);
+const CollectionContainer = (props: Props) => {
+  const { collectionId } = props;
+  const rawCollectionData = useSelector(
+    (state: AppState) => state.collection[collectionId],
+    shallowEqual
+  );
+  const currentSceneCollectionData = useSelector(
+    (state: AppState) => state.currentSceneCollection,
+    shallowEqual
+  );
+
   const dispatch = useDispatch();
 
-  /**
-   * コレクションリストの単一のコレクションを削除する関数
-   */
-  const deleteSingleCollection = useCallback(
-    (value) => {
-      dispatch(deleteSingleCollectionAction(value));
+  const storeDeleteSceneCollectionInnerItem = useCallback(
+    (payload) => {
+      dispatch(deleteSceneCollectionInnerItem(payload));
     },
     [dispatch]
   );
@@ -29,18 +31,21 @@ export default () => {
   /**
    * 単一のコレクションのvisibilityを更新する関数
    */
-  const updateVisibility = useCallback(
-    (value) => {
-      dispatch(updateVisibilityAction(value));
-    },
-    [dispatch]
-  );
+  // const updateVisibility = useCallback(
+  //   (value) => {
+  //     dispatch(updateVisibilityAction(value));
+  //   },
+  //   [dispatch]
+  // );
 
   const combineProps = {
-    collectionData,
-    deleteSingleCollection,
-    updateVisibility,
+    storeDeleteSceneCollectionInnerItem,
+    currentSceneCollectionData,
+    rawCollectionData,
+    // updateVisibility,
   };
 
   return <Collection {...combineProps} />;
 };
+
+export default CollectionContainer;

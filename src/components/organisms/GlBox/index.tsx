@@ -4,8 +4,8 @@ import Grid from '@material-ui/core/Grid';
 
 import GlItemContainer from '../../../container/GlItemContainer';
 import DefaultWelcome from '../../molecules/DefaultWelcome';
-import { GlCollectionType } from '../../../stores/collectionData';
-import { maxCountOfGlItem } from '../../../constants/appConstantSettings';
+import { GlCollectionType } from '../../../types/collection/collectionData';
+import { maxCountOfGlItem } from '../../../constants/general/appConstantSettings';
 import CustomAlert from '../../atoms/CustomAlert';
 import NoticeSnackbar from '../../atoms/NoticeSnackbar';
 
@@ -13,7 +13,7 @@ export const GlItemOrderContext = createContext(0);
 
 export type Props = {
   glItemCount: number;
-  glItemKeys: Pick<GlCollectionType, 'innerItemID'>['innerItemID'];
+  glItemKeys: Pick<GlCollectionType, 'innerItemId'>['innerItemId'];
   glBoxRowCount: number;
 };
 /**

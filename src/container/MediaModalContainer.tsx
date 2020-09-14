@@ -2,11 +2,13 @@ import React from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import MediaModal from '../components/molecules/MediaModal';
 import { AppState } from '../stores/index';
-import { addMediaData as addMediaDataAction } from '../stores/storedMedia';
+import { addMediaData as addMediaDataAction } from '../stores/image/storedMedia';
+import useCurrentSceneCollection from '../hooks/collection/useCurrentSceneCollection';
 
 export default (props: any) => {
   const dispatch = useDispatch();
-  const collectionData = useSelector((state: AppState) => state.collectionData);
+  // const collectionData = useSelector((state: AppState) => state.collectionData);
+  const collectionData = useCurrentSceneCollection();
   const storedMediaData = useSelector((state: AppState) => state.storedMedia);
 
   const addMediaData = React.useCallback(

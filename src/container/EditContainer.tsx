@@ -5,7 +5,7 @@ import Edit from '../components/pages/Edit';
 import {
   updateSingleItemSize as updateSingleItemSizeAction,
   updateRowCount as updateRowCountAction,
-} from '../stores/glSettings';
+} from '../stores/general/glSettings';
 import { AppState } from '../stores/index';
 
 export default () => {

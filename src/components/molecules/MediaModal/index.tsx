@@ -15,13 +15,13 @@ import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Switch from '@material-ui/core/Switch';
 import Snackbar from '@material-ui/core/Snackbar';
 
-import getResiedImageData from '../../../utils/getResizedImageData';
-import { GlCollectionTypeArray } from '../../../stores/collectionData';
+import getResiedImageData from '../../../utils/image/getResizedImageData';
+import { GlCollectionTypeArray } from '../../../types/collection/collectionData';
 import MediaModalContentsContainer from '../../../container/MediaModalContentsContainer';
-import createStoredMediaItemObject from '../../../utils/createStoredMediaItemObject';
+import createStoredMediaItemObject from '../../../utils/image/createStoredMediaItemObject';
 import CustomAlert from '../../atoms/CustomAlert';
 
-import { StoredMediaStateType } from '../../../stores/storedMedia';
+import { StoredMediaStateType } from '../../../stores/image/storedMedia';
 
 export type Props = {
   collectionData: GlCollectionTypeArray;

@@ -2,9 +2,9 @@ import React from 'react';
 import ReactMarkdown from 'react-markdown';
 import Box from '@material-ui/core/Box';
 import { css } from '@emotion/core';
-import imageResouceSiteArray from '../../../constants/imageResouceSite';
+import imageResouceSiteArray from '../../../constants/image/imageResouceSite';
 import markdownStyle from '../../../styles/markdown/markdown';
-import developDepList from '../../../constants/developDepList';
+import developDepList from '../../../constants/develop/developDepList';
 
 const docStyle = css`
   height: calc(100vh - 100px);

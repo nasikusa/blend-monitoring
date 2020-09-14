@@ -1,34 +1,36 @@
 /* eslint no-nested-ternary: 0 */
-import React, { useContext, useState, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
+import { NIL as NIL_UUID } from 'uuid';
 import { makeStyles } from '@material-ui/core/styles';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
 import IconButton from '@material-ui/core/IconButton';
-import Icon, { IconTypeTypes } from '../../atoms/Icon';
+import { Typography } from '@material-ui/core';
 
+import Icon, { IconTypeTypes } from '../../atoms/Icon';
 import CustomSliderContainer from '../../../container/CustomSliderContainer';
 import BlendModePanelContainer from '../../../container/BlendModePanelContainer';
 import ColorPanelContainer from '../../../container/ColorPanelContainer';
 import CollectionMainIcon from '../../atoms/CollectionMainIcon';
-import GetCollectionsName from '../../../utils/GetCollectionsName';
-import { GlCollectionOrderContext } from '../Collections';
+import getCollectionsName from '../../../utils/collection/getCollectionsName';
 import ImagePanelContainer from '../../../container/ImagePanelContainer';
-import ListItemWrap from '../ListItemWrap';
+import CollectionPanel from '../CollectionPanel';
 import CustomIconButton from '../CustomIconButton';
 
-import {
-  GlCollectionTypeArray,
-  CollectionTypeType,
-} from '../../../stores/collectionData';
+import { CollectionTypeType } from '../../../types/collection/collectionData';
 import allCollectionTypeFunctionObject, {
   collectionObjectFunctionType,
 } from './allCollectionTypeFunctionObject';
+import { CollectionCategoryType } from '../../../stores/collection/collection';
+import CollectionPanelTitle from '../../atoms/CollectionPanelTitle';
+import CollectionPanelContent from '../CollectionPanelContent';
 
 export type Props = {
-  collectionData: GlCollectionTypeArray;
-  deleteSingleCollection: any;
-  updateVisibility: any;
+  storeDeleteSceneCollectionInnerItem: any;
+  currentSceneCollectionData: any;
+  rawCollectionData: CollectionCategoryType;
+  // updateVisibility: any;
 };
 
 /**
@@ -58,28 +60,40 @@ const useStyles = makeStyles(() => ({
 }));
 
 /**
+ * collectionデータ用のコンテクスト
+ * @todo デフォルトを null かもしくは、サンプルデータにしたい
+ */
+export const RawCollectionDataContext = React.createContext<
+  CollectionCategoryType
+>({
+  id: NIL_UUID,
+  type: 'singleColor',
+  roughType: 'color',
+  innerItemId: NIL_UUID,
+  defaultOpacityId: NIL_UUID,
+  defaultBlendModeId: NIL_UUID,
+  defaultVisibilityId: NIL_UUID,
+  defaultColorId: NIL_UUID,
+});
+
+/**
  * 単一のコレクションコンポーネント
  */
-export default (props: Props) => {
-  const { collectionData, deleteSingleCollection, updateVisibility } = props;
+const Collection: React.FC<Props> = (props: Props) => {
+  const {
+    /* ,updateVisibility */
+    rawCollectionData,
+    currentSceneCollectionData,
+    // storeDeleteCollection,
+    storeDeleteSceneCollectionInnerItem,
+  } = props;
   const classes = useStyles();
-  const glCollectionOrderKey = useContext(GlCollectionOrderContext);
-
-  /**
-   * 現在使用しているコレクション
-   */
-  const singleCollectionData = collectionData[glCollectionOrderKey];
-
-  /**
-   * 現在使用しているコレクションのタイプ
-   */
-  const singleCollectionType: CollectionTypeType = singleCollectionData.type;
 
   /**
    * 現在使用している単一のcollectionの機能の可能、不可能についてのobject
    */
   const collectionTypeFunctionObject =
-    allCollectionTypeFunctionObject[singleCollectionType];
+    allCollectionTypeFunctionObject[rawCollectionData.type];
 
   /**
    * すべての機能ボタンが有効になっているかどうかのフラグ
@@ -173,10 +187,10 @@ export default (props: Props) => {
   const handleVisibilityFlagClick = (): void => {
     const invertBoolValue = !visibilityOpenFlag;
     setVisibilityOpenFlag(invertBoolValue);
-    updateVisibility({
-      visibilityBoolValue: invertBoolValue,
-      glCollectionOrderKey,
-    });
+    // updateVisibility({
+    //   visibilityBoolValue: invertBoolValue,
+    //   glCollectionOrderKey,
+    // });
   };
 
   /**
@@ -211,8 +225,9 @@ export default (props: Props) => {
    * 単一コレクションのdeleteボタンを押した際に発火する関数
    */
   const handleDeleteIconClick = (): void => {
-    deleteSingleCollection({
-      deleteCollectionNumber: glCollectionOrderKey,
+    storeDeleteSceneCollectionInnerItem({
+      targetId: currentSceneCollectionData.currentId,
+      targetInnerId: rawCollectionData.id,
     });
   };
 
@@ -226,7 +241,7 @@ export default (props: Props) => {
       clickFunction: handleVisibilityFlagClick,
       isActiveFlag: visibilityOpenFlag,
       taretFunctionProp: 'visibility',
-      currentCollectionType: singleCollectionType,
+      currentCollectionType: rawCollectionData.type,
     },
     {
       typeName: 'opacityPanel',
@@ -234,7 +249,7 @@ export default (props: Props) => {
       clickFunction: handleOpacityFlagClick,
       isActiveFlag: opacityOpenFlag,
       taretFunctionProp: 'opacity',
-      currentCollectionType: singleCollectionType,
+      currentCollectionType: rawCollectionData.type,
     },
     {
       typeName: 'blendModePanel',
@@ -242,7 +257,7 @@ export default (props: Props) => {
       clickFunction: handleBlendModeFlagClick,
       isActiveFlag: blendModeOpenFlag,
       taretFunctionProp: 'blendMode',
-      currentCollectionType: singleCollectionType,
+      currentCollectionType: rawCollectionData.type,
     },
     {
       typeName: 'colorPanel',
@@ -250,7 +265,7 @@ export default (props: Props) => {
       clickFunction: handleColorFlagClick,
       isActiveFlag: colorOpenFlag,
       taretFunctionProp: 'color',
-      currentCollectionType: singleCollectionType,
+      currentCollectionType: rawCollectionData.type,
     },
     {
       typeName: 'imagePanel',
@@ -258,7 +273,7 @@ export default (props: Props) => {
       clickFunction: handleImageFlagClick,
       isActiveFlag: imageOpenFlag,
       taretFunctionProp: 'image',
-      currentCollectionType: singleCollectionType,
+      currentCollectionType: rawCollectionData.type,
     },
     {
       typeName: 'functionDelete',
@@ -266,25 +281,22 @@ export default (props: Props) => {
       clickFunction: handleDeleteIconClick,
       isDangerFlag: true,
       taretFunctionProp: 'garbage',
-      currentCollectionType: singleCollectionType,
+      currentCollectionType: rawCollectionData.type,
     },
   ];
 
   return (
-    <>
-      <ListItem
-        className={classes.main}
-        id={collectionData[glCollectionOrderKey].id}
-      >
+    <RawCollectionDataContext.Provider value={rawCollectionData}>
+      <ListItem className={classes.main} id={rawCollectionData.id}>
         <ListItemIcon>
-          <CollectionMainIcon
-            collectionType={collectionData[glCollectionOrderKey].type}
-          />
+          <CollectionMainIcon collectionType={rawCollectionData.type} />
         </ListItemIcon>
         <ListItemText
-          primary={GetCollectionsName(
-            collectionData[glCollectionOrderKey].type
-          )}
+          primary={
+            <Typography>
+              {getCollectionsName(rawCollectionData.type)}
+            </Typography>
+          }
           secondary={
             <>
               {secondaryAreaElementDataArray.map((singleSecondaryElemData) => (
@@ -326,30 +338,60 @@ export default (props: Props) => {
           )}
         </IconButton>
       </ListItem>
-      <ListItemWrap
+      <CollectionPanel
         collapseIn={opacityOpenFlag && collectionTypeFunctionObject.opacity}
       >
-        <CustomSliderContainer />
-      </ListItemWrap>
-      <ListItemWrap
+        <>
+          <CollectionPanelTitle beforeIcon={<Icon type="opacityPanel" />}>
+            透過度パネル
+          </CollectionPanelTitle>
+          <CollectionPanelContent>
+            <CustomSliderContainer rawCollectionData={rawCollectionData} />
+          </CollectionPanelContent>
+        </>
+      </CollectionPanel>
+      <CollectionPanel
         collapseIn={blendModeOpenFlag && collectionTypeFunctionObject.blendMode}
       >
-        <BlendModePanelContainer />
-      </ListItemWrap>
-      {singleCollectionData.roughType === 'color' && (
-        <ListItemWrap
+        <>
+          <CollectionPanelTitle beforeIcon={<Icon type="blendModePanel" />}>
+            描画モードパネル
+          </CollectionPanelTitle>
+          <CollectionPanelContent>
+            <BlendModePanelContainer rawCollectionData={rawCollectionData} />
+          </CollectionPanelContent>
+        </>
+      </CollectionPanel>
+      {rawCollectionData.roughType === 'color' && (
+        <CollectionPanel
           collapseIn={colorOpenFlag && collectionTypeFunctionObject.color}
         >
-          <ColorPanelContainer />
-        </ListItemWrap>
+          <>
+            <CollectionPanelTitle beforeIcon={<Icon type="colorPanel" />}>
+              カラーパネル
+            </CollectionPanelTitle>
+            <CollectionPanelContent>
+              <ColorPanelContainer />
+            </CollectionPanelContent>
+          </>
+        </CollectionPanel>
       )}
-      {singleCollectionData.roughType === 'image' && (
-        <ListItemWrap
+      {rawCollectionData.roughType === 'image' && (
+        <CollectionPanel
           collapseIn={imageOpenFlag && collectionTypeFunctionObject.image}
         >
-          <ImagePanelContainer />
-        </ListItemWrap>
+          <>
+            <CollectionPanelTitle beforeIcon={<Icon type="imagePanel" />}>
+              画像パネル
+            </CollectionPanelTitle>
+            <CollectionPanelContent>
+              <ImagePanelContainer />
+            </CollectionPanelContent>
+          </>
+        </CollectionPanel>
       )}
-    </>
+    </RawCollectionDataContext.Provider>
   );
 };
+
+export default Collection;

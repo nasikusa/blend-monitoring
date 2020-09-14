@@ -9,12 +9,12 @@ import Tab from '@material-ui/core/Tab';
 import Button from '@material-ui/core/Button';
 import Icon from '../../atoms/Icon';
 
-import getGlViewItemAspect from '../../../utils/getGlViewItemAspect';
-import { StoredMediaStateType } from '../../../stores/storedMedia';
+import getGlViewItemAspect from '../../../utils/image/getGlViewItemAspect';
+import { StoredMediaStateType } from '../../../stores/image/storedMedia';
 import {
   ImageRelatedGlCollectionType,
   GlCollectionTypeArray,
-} from '../../../stores/collectionData';
+} from '../../../types/collection/collectionData';
 
 export type Props = {
   storedMediaData: StoredMediaStateType;

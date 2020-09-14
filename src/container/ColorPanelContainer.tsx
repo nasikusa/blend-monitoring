@@ -2,17 +2,19 @@ import React, { useContext } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import ColorPanel from '../components/molecules/ColorPanel';
 
-import { updateColor as updateColorAction } from '../stores/collectionData';
+import { updateColor as updateColorAction } from '../types/collection/collectionData';
 import {
   stockAddColor as atockAddColorAction,
   stockRemoveColor as stockRemoveColorAction,
-} from '../stores/stockedColors';
+} from '../stores/color/stockedColors';
 import { AppState } from '../stores/index';
-import { GlCollectionOrderContext } from '../components/molecules/Collections';
+import { GlCollectionOrderContext } from '../components/molecules/CollectionList';
+import useCurrentSceneCollection from '../hooks/collection/useCurrentSceneCollection';
 
 export default () => {
   const themeSettings = useSelector((state: AppState) => state.themeSettings);
-  const collectionData = useSelector((state: AppState) => state.collectionData);
+  // const collectionData = useSelector((state: AppState) => state.collectionData);
+  const collectionData = useCurrentSceneCollection();
   const stockedColorData = useSelector(
     (state: AppState) => state.stockedColors
   );

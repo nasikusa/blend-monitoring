@@ -14,11 +14,11 @@ import GlViewContainer from '../../../container/GlViewContainer';
 import CustomIconButton from '../CustomIconButton';
 import blendModeData, {
   BlendModesType,
-} from '../../../constants/blendModeData';
+} from '../../../constants/blendMode/blendModeData';
 import Icon from '../../atoms/Icon';
 
-import { CollectionTypeType } from '../../../stores/collectionData';
-import { StoredMediaStateItemType } from '../../../stores/storedMedia';
+import { CollectionTypeType } from '../../../types/collection/collectionData';
+import { StoredMediaStateItemType } from '../../../stores/image/storedMedia';
 
 type Props = {
   typeSpecialValue: string | BlendModesType | StoredMediaStateItemType | null;

@@ -1,43 +1,21 @@
 import React, { useState } from 'react';
 import Grid from '@material-ui/core/Grid';
-import { makeStyles, createStyles, Theme } from '@material-ui/core/styles';
 import Box from '@material-ui/core/Box';
-import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
 import GridList from '@material-ui/core/GridList';
 import GridListTile from '@material-ui/core/GridListTile';
 
 import Icon from '../../atoms/Icon';
 import MediaModalContainer from '../../../container/MediaModalContainer';
-import { StoredMediaStateType } from '../../../stores/storedMedia';
-import { ImageRelatedGlCollectionType } from '../../../stores/collectionData';
+import { StoredMediaStateType } from '../../../stores/image/storedMedia';
+import { ImageRelatedGlCollectionType } from '../../../types/collection/collectionData';
 
 export type Props = {
   storedMediaData: StoredMediaStateType;
   globalStateImageData: Pick<ImageRelatedGlCollectionType, 'image'>['image'];
 };
 
-const useStyles = makeStyles((theme: Theme) =>
-  createStyles({
-    root: {
-      flexGrow: 1,
-    },
-    paper: {
-      padding: theme.spacing(2),
-      textAlign: 'center',
-      color: theme.palette.text.secondary,
-    },
-    label: {
-      fontSize: '12px',
-    },
-    imageListRoot: {
-      width: '100%',
-    },
-  })
-);
-
 const ImagePanel: React.FC<Props> = (props: Props) => {
-  const classes = useStyles();
   const { storedMediaData, globalStateImageData } = props;
   const [imagePanelOpen, setImagePanelOpen] = useState(false);
   const [imageBoxWidth] = useState<number>(250);
@@ -52,9 +30,6 @@ const ImagePanel: React.FC<Props> = (props: Props) => {
 
   return (
     <Box width={1}>
-      <Typography gutterBottom className={classes.label}>
-        画像
-      </Typography>
       <Grid container spacing={1}>
         <Grid item xs={12}>
           <Box display="flex" mb={1}>

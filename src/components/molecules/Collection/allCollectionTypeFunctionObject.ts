@@ -1,4 +1,4 @@
-import { CollectionTypeType } from '../../../stores/collectionData';
+import { CollectionTypeType } from '../../../types/collection/collectionData';
 
 /**
  * コレクションの機能ボタンの機能ありなしのオブジェクトのアイテムの型
