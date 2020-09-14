@@ -1,5 +1,5 @@
 ---
-name: 機能要望
+name: 💡機能要望
 about: 機能追加・削減などを行いたい時にはこちら
 title: 'Feature: '
 

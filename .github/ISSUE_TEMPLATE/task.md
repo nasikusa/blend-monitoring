@@ -1,5 +1,5 @@
 ---
-name: 技術的課題
+name: ⛏技術的課題
 about: 技術的課題の報告はこちら
 title: 'Task: '
 
