@@ -11,7 +11,7 @@ import { CollectionCategoryType } from '../stores/collection/collection';
 import { AppState } from '../stores';
 import { IdType } from '../types/collection/collectionData';
 
-type Props = {
+export type Props = {
   rawCollectionData: CollectionCategoryType;
   isShowInputArea?: boolean;
   isShowBeforeIcon?: boolean;
@@ -19,7 +19,7 @@ type Props = {
   sliderMaxWidth?: number;
 };
 
-const CustomSliderContianer: React.FC<Props> = (props: Props) => {
+const CustomSliderContainer: React.FC<Props> = (props: Props) => {
   const { rawCollectionData } = props;
   const dispatch = useDispatch();
 
@@ -76,10 +76,23 @@ const CustomSliderContianer: React.FC<Props> = (props: Props) => {
   return <OpacitySlider {...combineProps} />;
 };
 
-CustomSliderContianer.defaultProps = {
+CustomSliderContainer.defaultProps = {
   isShowInputArea: true,
   isShowBeforeIcon: false,
   sliderStopCheckTime: 300,
 };
 
-export default CustomSliderContianer;
+const CustomSliderContainerMemo = React.memo<Props>(
+  (CustomSliderContainerMemoProps) => {
+    return (
+      <CustomSliderContainer
+        rawCollectionData={CustomSliderContainerMemoProps.rawCollectionData}
+      />
+    );
+  },
+  (prevProps, nextProps) =>
+    prevProps.rawCollectionData.innerItemId ===
+    nextProps.rawCollectionData.innerItemId
+);
+
+export default CustomSliderContainerMemo;
