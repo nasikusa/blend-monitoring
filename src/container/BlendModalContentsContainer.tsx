@@ -30,7 +30,7 @@ export default (props: Props) => {
 
   const rawCollectionData = useContext(RawCollectionDataContext);
 
-  const innerItemIdData = rawCollectionData.innerItemID;
+  const innerItemIdData = rawCollectionData.innerItemId;
 
   /**
    * 対象となる描画モードパラメータのID

@@ -372,7 +372,7 @@ export default (props: Props) => {
         <DialogContent dividers>
           <BlendModalContentsContainer
             blendModalMode={
-              Array.isArray(rawCollectionDataContextValue.innerItemID)
+              Array.isArray(rawCollectionDataContextValue.innerItemId)
                 ? 'multi'
                 : 'single'
             }

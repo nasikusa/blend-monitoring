@@ -69,7 +69,7 @@ export const RawCollectionDataContext = React.createContext<
   id: NIL_UUID,
   type: 'singleColor',
   roughType: 'color',
-  innerItemID: NIL_UUID,
+  innerItemId: NIL_UUID,
   defaultOpacityId: NIL_UUID,
   defaultBlendModeId: NIL_UUID,
   defaultVisibilityId: NIL_UUID,

@@ -23,7 +23,7 @@ const CustomSliderContianer: React.FC<Props> = (props: Props) => {
   const { rawCollectionData } = props;
   const dispatch = useDispatch();
 
-  const innerItemIdData = rawCollectionData.innerItemID;
+  const innerItemIdData = rawCollectionData.innerItemId;
 
   /**
    * 対象となる透過度パラメータのID

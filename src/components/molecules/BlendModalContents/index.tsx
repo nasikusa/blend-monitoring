@@ -215,7 +215,7 @@ export default function BlendModalContents(props: Props) {
     } else if (!event.target.checked) {
       storeDeleteCollectionInnerItem({
         targetId: rawCollectionData.id,
-        targetInnerId: rawCollectionData.innerItemID[targetIndex],
+        targetInnerId: rawCollectionData.innerItemId[targetIndex],
       });
     }
   };

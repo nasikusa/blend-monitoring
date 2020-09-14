@@ -9,7 +9,7 @@ export default (collectionData: GlCollectionTypeArray) => {
    * コレクションリストのコレクションから innerItemId のみを抽出した配列
    */
   const allInnerItemIdArray = collectionData.map((singleCollectionData) => {
-    return singleCollectionData.innerItemID;
+    return singleCollectionData.innerItemId;
   });
   /**
    * allInnerItemIdArray のなかに一つでも string[]型があるかどうかのbool

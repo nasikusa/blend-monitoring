@@ -74,7 +74,7 @@ export const getDenormalizedCollection = (
   ) {
     const { collectionValueColor } = argumentMultipleDataObject;
     const denormalizedTargetIdCollectionItem = getDenormalizedColorValueCollectionItem(
-      targetIdCollection.innerItemID,
+      targetIdCollection.innerItemId,
       {
         collectionItem,
         collectionValueOpacity,
@@ -132,7 +132,7 @@ export const getDenormalizedCollection = (
     'collectionValueColor' in argumentMultipleDataObject
   ) {
     const { collectionValueColor } = argumentMultipleDataObject;
-    const denormalizedTargetIdCollectionItemArray = targetIdCollection.innerItemID.map(
+    const denormalizedTargetIdCollectionItemArray = targetIdCollection.innerItemId.map(
       (singleInnerIdValue) =>
         getDenormalizedColorValueCollectionItem(singleInnerIdValue, {
           collectionItem,
@@ -167,7 +167,7 @@ export const getDenormalizedCollection = (
     'collectionValueImage' in argumentMultipleDataObject
   ) {
     const { collectionValueImage } = argumentMultipleDataObject;
-    const denormalizedTargetIdCollectionItemArray = targetIdCollection.innerItemID.map(
+    const denormalizedTargetIdCollectionItemArray = targetIdCollection.innerItemId.map(
       (singleInnerIdValue) =>
         getDenormalizedImageValueCollectionItem(singleInnerIdValue, {
           collectionItem,

@@ -13,7 +13,7 @@ export const GlItemOrderContext = createContext(0);
 
 export type Props = {
   glItemCount: number;
-  glItemKeys: Pick<GlCollectionType, 'innerItemID'>['innerItemID'];
+  glItemKeys: Pick<GlCollectionType, 'innerItemId'>['innerItemId'];
   glBoxRowCount: number;
 };
 /**

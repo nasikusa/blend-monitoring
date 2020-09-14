@@ -98,7 +98,7 @@ export type RootGlCollectionType = {
   readonly id: string;
   readonly type: CollectionTypeType;
   readonly roughType: CollectionRoughTypeType;
-  innerItemID: IdType | IdType[];
+  innerItemId: IdType | IdType[];
 };
 
 /**
@@ -107,7 +107,7 @@ export type RootGlCollectionType = {
 export type SingleColorGlCollectionType = RootGlCollectionType & {
   readonly type: 'singleColor';
   readonly roughType: 'color';
-  innerItemID: IdType;
+  innerItemId: IdType;
 } & SingleChildGlCollectionInnerItemType<
     DenormalizedColorCollectionItemType,
     IgnoreCollectionItemType
@@ -120,7 +120,7 @@ export type SingleColorMultiBlendsGlCollectionType = RootGlCollectionType & {
   readonly id: string;
   readonly type: 'singleColorMultiBlends';
   readonly roughType: 'color';
-  innerItemID: string[];
+  innerItemId: string[];
 } & MultipleChildGlCollectionInnerItemType<
     DenormalizedColorCollectionItemType,
     IgnoreCollectionItemType
@@ -133,7 +133,7 @@ export type MultiColorsGlCollectionType = RootGlCollectionType & {
   readonly id: string;
   readonly type: 'multiColors';
   readonly roughType: 'color';
-  innerItemID: string[];
+  innerItemId: string[];
 } & MultipleChildGlCollectionInnerItemType<
     DenormalizedColorCollectionItemType,
     IgnoreCollectionItemType
@@ -145,7 +145,7 @@ export type MultiColorsGlCollectionType = RootGlCollectionType & {
 export type SingleImageGlCollectionType = RootGlCollectionType & {
   readonly type: 'singleImage';
   readonly roughType: 'image';
-  innerItemID: IdType;
+  innerItemId: IdType;
 } & SingleChildGlCollectionInnerItemType<
     DenormalizedImageCollectionItemType,
     IgnoreCollectionItemType
@@ -158,7 +158,7 @@ export type SingleImageMultiBlendsGlCollectionType = RootGlCollectionType & {
   readonly id: string;
   readonly type: 'singleImageMultiBlends';
   readonly roughType: 'image';
-  innerItemID: string[];
+  innerItemId: string[];
 } & MultipleChildGlCollectionInnerItemType<
     DenormalizedImageCollectionItemType,
     IgnoreCollectionItemType
@@ -171,7 +171,7 @@ export type MultiImagesGlCollectionType = RootGlCollectionType & {
   readonly id: string;
   readonly type: 'multiImages';
   readonly roughType: 'image';
-  innerItemID: string[];
+  innerItemId: string[];
 } & MultipleChildGlCollectionInnerItemType<
     DenormalizedImageCollectionItemType,
     IgnoreCollectionItemType
@@ -183,7 +183,7 @@ export type MultiImagesGlCollectionType = RootGlCollectionType & {
 export type BaseGlCollectionType = RootGlCollectionType & {
   readonly type: 'base';
   readonly roughType: 'color';
-  innerItemID: IdType;
+  innerItemId: IdType;
 } & SingleChildGlCollectionInnerItemType<
     DenormalizedColorCollectionItemType,
     IgnoreCollectionItemType

@@ -39,7 +39,7 @@ export type BasicCollectionCategoryType = {
 export type SingleColorCollectionCategoryType = BasicCollectionCategoryType & {
   readonly type: 'singleColor';
   readonly roughType: 'color';
-  innerItemID: string;
+  innerItemId: string;
   readonly defaultColorId: string;
   readonly defaultBlendModeId: string;
 };
@@ -50,7 +50,7 @@ export type SingleColorCollectionCategoryType = BasicCollectionCategoryType & {
 export type SingleColorMultiBlendsCollectionCategoryType = BasicCollectionCategoryType & {
   readonly type: 'singleColorMultiBlends';
   readonly roughType: 'color';
-  innerItemID: string[];
+  innerItemId: string[];
   readonly defaultColorId: string;
 };
 
@@ -60,7 +60,7 @@ export type SingleColorMultiBlendsCollectionCategoryType = BasicCollectionCatego
 export type MultiColorsCollectionCategoryType = BasicCollectionCategoryType & {
   readonly type: 'multiColors';
   readonly roughType: 'color';
-  innerItemID: string[];
+  innerItemId: string[];
   readonly defaultBlendModeId: string;
 };
 
@@ -70,7 +70,7 @@ export type MultiColorsCollectionCategoryType = BasicCollectionCategoryType & {
 export type SingleImageCollectionCategoryType = BasicCollectionCategoryType & {
   readonly type: 'singleImage';
   readonly roughType: 'image';
-  innerItemID: string;
+  innerItemId: string;
   readonly defaultImageId: string;
   readonly defaultBlendModeId: string;
 };
@@ -81,21 +81,21 @@ export type SingleImageCollectionCategoryType = BasicCollectionCategoryType & {
 export type SingleImageMultiBlendsCollectionCategoryType = BasicCollectionCategoryType & {
   readonly type: 'singleImageMultiBlends';
   readonly roughType: 'image';
-  innerItemID: string[];
+  innerItemId: string[];
   readonly defaultImageId: string;
 };
 
 export type MultiImagesCollectionCategoryType = BasicCollectionCategoryType & {
   readonly type: 'multiImages';
   readonly roughType: 'image';
-  innerItemID: string[];
+  innerItemId: string[];
   readonly defaultBlendModeId: string;
 };
 
 export type BaseGlCollectionCategoryType = BasicCollectionCategoryType & {
   readonly type: 'base';
   readonly roughType: 'color';
-  innerItemID: string;
+  innerItemId: string;
   readonly defaultColorId: string;
   readonly defaultBlendModeId: string;
 };
@@ -151,7 +151,7 @@ const initialState: GlCollectionDictionaryType = {
     id: '96b04eec-b025-421b-aabc-2f08a629949c',
     type: 'singleColor',
     roughType: 'color',
-    innerItemID: '6157939d-befc-4d1e-b3b2-24ce096919c1',
+    innerItemId: '6157939d-befc-4d1e-b3b2-24ce096919c1',
     defaultOpacityId: '40818509-da04-44fd-baf2-af23312c7e36',
     defaultBlendModeId: 'c29adfe8-ee66-4c9b-ba09-e629affad3a2',
     defaultVisibilityId: '02d077cf-e936-41cd-b725-3d841691aabd',
@@ -161,7 +161,7 @@ const initialState: GlCollectionDictionaryType = {
     id: 'af31d35d-2144-43de-8108-855e493805c9',
     type: 'singleColorMultiBlends',
     roughType: 'color',
-    innerItemID: [
+    innerItemId: [
       '5c5f4f06-9466-40b8-bf78-75c3dcca1a8a',
       '49c32a24-3c3d-4202-97b5-8e7b5a2f5774',
     ],
@@ -187,7 +187,7 @@ const slice = createSlice({
         addIndexType,
         targetInnerItemIndex,
       } = action.payload;
-      const innerItemId = state[targetId].innerItemID;
+      const { innerItemId } = state[targetId];
       if (Array.isArray(innerItemId)) {
         if (targetInnerItemIndex != null || addIndexType === 'index') {
           innerItemId.splice(targetInnerItemIndex, 0, targetInnerItemId);
@@ -202,7 +202,7 @@ const slice = createSlice({
     },
     deleteCollectionInnerItem: (state, action) => {
       const { targetId, targetInnerId } = action.payload;
-      const innerItemIDValue = state[targetId].innerItemID;
+      const innerItemIDValue = state[targetId].innerItemId;
       if (Array.isArray(innerItemIDValue)) {
         const index = innerItemIDValue.findIndex(
           (singleInnerItemID) => singleInnerItemID === targetInnerId

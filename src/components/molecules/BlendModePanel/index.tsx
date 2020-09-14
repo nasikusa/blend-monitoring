@@ -61,11 +61,11 @@ const BlendModePanel = (props: Props) => {
    * @param blendModeName 描画モード名(英語)
    */
   const handleChipClickClose = (targetInnerItemIndex: number): void => {
-    if (Array.isArray(joinedRawCollectionData.innerItemID)) {
+    if (Array.isArray(joinedRawCollectionData.innerItemId)) {
       storeDeleteBlendModeValue({
         targetId: joinedRawCollectionData.id,
         targetInnerId:
-          joinedRawCollectionData.innerItemID[targetInnerItemIndex],
+          joinedRawCollectionData.innerItemId[targetInnerItemIndex],
       });
     }
   };

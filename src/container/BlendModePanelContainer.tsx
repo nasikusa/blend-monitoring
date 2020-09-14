@@ -16,7 +16,7 @@ type Props = {
 export default (props: Props) => {
   const { rawCollectionData } = props;
 
-  const innerItemIdData = rawCollectionData.innerItemID;
+  const innerItemIdData = rawCollectionData.innerItemId;
 
   /**
    * 対象となる描画モードパラメータのID
