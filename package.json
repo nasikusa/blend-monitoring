@@ -159,7 +159,8 @@
     "resizeImage": "node scripts/createResizedImages.js",
     "analyze": "webpack-bundle-analyzer build/bundle-stats.json",
     "storybook": "start-storybook -p 6006 -s public",
-    "build-storybook": "build-storybook -s public"
+    "site": "node scripts/openDevUtilSite.js",
+    "siteDoc": "node scripts/openDocSite.js"
   },
   "eslintConfig": {
     "extends": [

@@ -1,2 +1,4 @@
 src/serviceWorker.ts
 src/logo.svg
+scripts/**/*.js
+config/**/*.js
