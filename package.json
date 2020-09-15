@@ -284,7 +284,8 @@
     "presets": [
       "react-app",
       "@emotion/babel-preset-css-prop"
-    ]
+    ],
+    "plugins": ["emotion"]
   },
   "devDependencies": {
     "@storybook/addon-actions": "^6.0.21",
@@ -293,6 +294,7 @@
     "@storybook/node-logger": "^6.0.21",
     "@storybook/preset-create-react-app": "^3.1.4",
     "@storybook/react": "^6.0.21",
+    "babel-plugin-emotion": "^10.0.33",
     "inquirer": "^7.3.3",
     "opn": "^6.0.0",
     "react-is": "^16.13.1",
