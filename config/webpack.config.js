@@ -27,7 +27,6 @@ const typescriptFormatter = require('react-dev-utils/typescriptFormatter');
 
 const BundleAnalyzerPlugin = require('webpack-bundle-analyzer')
   .BundleAnalyzerPlugin;
-const Visualizer = require('webpack-visualizer-plugin');
 
 const postcssNormalize = require('postcss-normalize');
 
@@ -631,7 +630,6 @@ module.exports = function (webpackEnv) {
           ],
         }),
       new BundleAnalyzerPlugin(),
-      new Visualizer(),
       // TypeScript type checking
       useTypeScript &&
         new ForkTsCheckerWebpackPlugin({
