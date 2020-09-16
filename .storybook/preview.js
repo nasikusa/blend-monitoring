@@ -1,4 +1,9 @@
-// import { MaterialUIThemeProvider } from '../src/styles/theme/MaterialUIThemeProvider';
+import {
+  createMuiTheme,
+  ThemeProvider as MuiThemeProvider,
+} from '@material-ui/core/styles';
+
+import theme from '../src/styles/theme/MaterialUI/theme';
 
 export const parameters = {
   actions: {
@@ -19,10 +24,14 @@ export const parameters = {
   },
 };
 
-// export const decorators = [
-//   (Story) => (
-//     <MaterialUIThemeProvider>
-//       <Story />
-//     </ MaterialUIThemeProvider>
-//   ),
-// ];
+export const decorators = [
+  (Story) => {
+    const muiThemeObject = theme;
+    const MuiTheme = createMuiTheme(muiThemeObject);
+    return (
+      <MuiThemeProvider theme={MuiTheme}>
+        <Story />
+      </MuiThemeProvider>
+    );
+  },
+];

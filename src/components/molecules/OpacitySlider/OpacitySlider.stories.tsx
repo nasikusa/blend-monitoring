@@ -1,17 +1,9 @@
 import React from 'react';
 import OpacitySlider from './index';
-import MaterialUIThemeProvider from '../../../styles/theme/MaterialUIThemeProvider';
 
 export default {
   title: 'OpacitySlider',
   component: OpacitySlider,
-  decorators: [
-    (Story: any) => (
-      <MaterialUIThemeProvider>
-        <Story />
-      </MaterialUIThemeProvider>
-    ),
-  ],
   argTypes: {
     sliderMaxWidth: {
       control: 'range',
@@ -26,3 +18,7 @@ export default {
 export const Primary = (args: any) => (
   <OpacitySlider storedOpacityValue={0.5} sliderMaxWidth={300} {...args} />
 );
+
+Primary.args = {
+  sliderMaxWidth: 300,
+};

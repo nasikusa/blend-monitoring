@@ -8,7 +8,7 @@ import Box from '@material-ui/core/Box';
 import EditContainer from './container/EditContainer';
 import FoundationStyle from './styles/foundation';
 import { beforeRenderingScreenID } from './constants/general/domNames';
-import MaterialUIThemeProvider from './styles/theme/MaterialUIThemeProvider';
+import MaterialUIThemeProvider from './styles/theme/MaterialUI/MaterialUIThemeProvider';
 import EmotionTheme from './styles/theme/emotion';
 import { isSatisfied } from './constants/general/userEnv';
 import UnSatisfiedEnv from './components/pages/UnSatisfiedEnv';
