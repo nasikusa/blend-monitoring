@@ -1,5 +1,5 @@
 import React from 'react';
-import CustomAlert from './index';
+import CustomAlert from './CustomAlert';
 
 export default {
   title: 'CustomAlert',

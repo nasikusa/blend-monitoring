@@ -1,5 +1,5 @@
 import React from 'react';
-import CustomSketchPicker from './index';
+import CustomSketchPicker from './CustomSketchPicker';
 
 export default {
   title: 'CustomSketchPicker',
