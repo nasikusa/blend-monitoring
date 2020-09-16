@@ -1,10 +1,12 @@
 import React from 'react';
-import CollectionPanelTitle from './index';
+import CollectionPanelTitle, { Props } from './index';
 
 export default {
-  title: 'CollectionPanelTitle',
+  title: 'Components/CollectionPanelTitle',
   component: CollectionPanelTitle,
   argTypes: {},
 };
 
-export const Primary = (args: any) => <CollectionPanelTitle {...args} />;
+export const Primary = (args: Props) => (
+  <CollectionPanelTitle color="textPrimary" {...args} />
+);
