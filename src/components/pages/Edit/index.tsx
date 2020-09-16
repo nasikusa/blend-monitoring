@@ -13,7 +13,7 @@ import { makeStyles, useTheme } from '@material-ui/core/styles';
 import GlEditContainer from '../../../container/GlEditContainer';
 import PageTemplateContainer from '../../../container/PageTemplateContainer';
 import GlBoxContainer from '../../../container/GlBoxContainer';
-import Doc from '../../organisms/Doc';
+import Doc from '../../organisms/Doc/Doc';
 import GeneralFunctionsListContainer from '../../../container/GeneralFunctionsListContainer';
 
 export type Props = {
