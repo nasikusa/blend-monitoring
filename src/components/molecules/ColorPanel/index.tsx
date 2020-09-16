@@ -1,18 +1,18 @@
 import React, { useState, useContext } from 'react';
 import { css } from '@emotion/core';
-import { makeStyles, createStyles, Theme } from '@material-ui/core/styles';
 import Grid from '@material-ui/core/Grid';
 import Box from '@material-ui/core/Box';
 import Button from '@material-ui/core/Button';
 import IconButton from '@material-ui/core/IconButton';
-// import Button from '@material-ui/core/Button';
-import { CirclePicker, ColorResult } from 'react-color';
+import { ColorResult } from 'react-color';
 import Icon from '../../atoms/Icon';
 
 import CustomTooltip from '../../atoms/CustomTooltip';
 import { GlCollectionOrderContext } from '../CollectionList';
 import CustomSketchPicker from '../../atoms/CustomSketchPicker';
 import ColorModalContainer from '../../../container/ColorModalContainer';
+import ColorBox from '../../atoms/ColorBox';
+import ColorBoxGroup from '../ColorBoxGroup';
 
 import { ColorRelatedGlCollectionType } from '../../../types/collection/collectionData';
 
@@ -33,25 +33,6 @@ type Props = {
   stockRemoveColor: any;
 };
 
-const useStyles = makeStyles((theme: Theme) =>
-  createStyles({
-    root: {
-      flexGrow: 1,
-    },
-    paper: {
-      padding: theme.spacing(2),
-      textAlign: 'center',
-      color: theme.palette.text.secondary,
-    },
-    label: {
-      fontSize: '12px',
-    },
-    cirlcePicker: {
-      maxWidth: '300px',
-    },
-  })
-);
-
 const colorPanelButtonStyle = css`
   padding: 6px 6px;
 `;
@@ -70,12 +51,12 @@ const ColorPanel: React.FC<Props> = (props: Props) => {
   } = props;
   // const [colorPickerOpen, setColorPickerOpen] = useState(false);
   const [openColorPanelFlag, setOpenColorPanelFlag] = useState(false);
-  const [currentColorBoxKey, setCurrentColorBoxKey] = useState(0);
+  const [currentColorBoxKey] = useState(0);
   const [isFillToScreenCurrentColor, setIsFillToScreenCurrentColor] = useState(
     false
   );
   const [isBigSketchPickerSize, setIsBigSketchPickerSize] = useState(false);
-  const classes = useStyles();
+
   /**
    * デフォルトのカラーをグローバルのstateから取得する
    */
@@ -136,24 +117,28 @@ const ColorPanel: React.FC<Props> = (props: Props) => {
    * @param color
    * @param event
    */
-  const handleCirclePickerChange = (color: ColorResult, event: any) => {
-    /**
-     * @todo ここの型どうすればええんや....。(parentNodeがundefinedである可能性があるので)
-     */
-    const pickerElement: HTMLDivElement =
-      event.target.parentNode.parentNode.parentNode.parentNode;
-    const pickerElementItems = Array.from(pickerElement.children);
-    pickerElementItems.forEach(
-      (singlePickerItem: any, currentIndex: number) => {
-        const currentPickerItem = singlePickerItem;
-        currentPickerItem.dataset.temp_order = currentIndex;
-      }
-    );
-    const currentItemOrder = Number(
-      event.target.parentNode.parentNode.parentNode.dataset.temp_order
-    );
-    setColorValue(color.hex);
-    setCurrentColorBoxKey(currentItemOrder);
+  // const handleCirclePickerChange = (color: ColorResult, event: any) => {
+  //   /**
+  //    * @todo ここの型どうすればええんや....。(parentNodeがundefinedである可能性があるので)
+  //    */
+  //   const pickerElement: HTMLDivElement =
+  //     event.target.parentNode.parentNode.parentNode.parentNode;
+  //   const pickerElementItems = Array.from(pickerElement.children);
+  //   pickerElementItems.forEach(
+  //     (singlePickerItem: any, currentIndex: number) => {
+  //       const currentPickerItem = singlePickerItem;
+  //       currentPickerItem.dataset.temp_order = currentIndex;
+  //     }
+  //   );
+  //   const currentItemOrder = Number(
+  //     event.target.parentNode.parentNode.parentNode.dataset.temp_order
+  //   );
+  //   setColorValue(color.hex);
+  //   setCurrentColorBoxKey(currentItemOrder);
+  // };
+
+  const handleColorBoxSelect = () => {
+    console.log('fire!');
   };
 
   /**
@@ -180,7 +165,7 @@ const ColorPanel: React.FC<Props> = (props: Props) => {
   /**
    * カラーを削除するアイコンをクリックしたときに発火する関数
    */
-  const handlRemoveColor = () => {
+  const handleRemoveColor = () => {
     if (Array.isArray(globalStateColorData)) {
       const newColorState = globalStateColorData.filter(
         (hexValue, currentIndex) => currentColorBoxKey !== currentIndex
@@ -208,37 +193,6 @@ const ColorPanel: React.FC<Props> = (props: Props) => {
   };
 
   /**
-   * 小さいカラー確認用のアイテムが並んでいるもののラッパー。コンポーネントを返す。
-   */
-  const ColorBoxes = () => {
-    const cirlcePickerColors = [];
-    if (typeof globalStateColorData === 'string') {
-      cirlcePickerColors.push(globalStateColorData);
-    }
-    if (Array.isArray(globalStateColorData)) {
-      // eslint-disable-next-line react/prop-types
-      globalStateColorData.forEach((singleColorData: string) => {
-        cirlcePickerColors.push(singleColorData);
-      });
-    }
-
-    return (
-      <Box ml={2}>
-        <Grid container spacing={0}>
-          <CirclePicker
-            className={classes.cirlcePicker}
-            circleSize={18}
-            circleSpacing={6}
-            onChange={handleCirclePickerChange}
-            color={colorValue}
-            colors={[...cirlcePickerColors]}
-          />
-        </Grid>
-      </Box>
-    );
-  };
-
-  /**
    * カラー確認用のアイテムの下にある、追加、削除などを行うエリアのコンポーネント
    * @todo まとめて一つの関数とかで入れたい
    */
@@ -258,7 +212,7 @@ const ColorPanel: React.FC<Props> = (props: Props) => {
           title="選択しているカラーを削除"
           enterDelay={defaultEnterDelayTime}
         >
-          <IconButton onClick={handlRemoveColor} css={colorPanelButtonStyle}>
+          <IconButton onClick={handleRemoveColor} css={colorPanelButtonStyle}>
             <Icon type="colorPanelDelete" />
           </IconButton>
         </CustomTooltip>
@@ -328,7 +282,31 @@ const ColorPanel: React.FC<Props> = (props: Props) => {
         <Grid container spacing={1}>
           <Grid item xs={12}>
             <Box display="flex" mb={1}>
-              <ColorBoxes />
+              <Box ml={2} display="flex">
+                <ColorBoxGroup>
+                  {Array.isArray(globalStateColorData) ? (
+                    globalStateColorData.map((singleGlobalStateColorData) => {
+                      return (
+                        <ColorBox
+                          shapeType="circle"
+                          boxSpacing={1}
+                          boxSize="medium"
+                          bgColor={singleGlobalStateColorData}
+                          onClick={handleColorBoxSelect}
+                        />
+                      );
+                    })
+                  ) : (
+                    <ColorBox
+                      shapeType="circle"
+                      boxSpacing={1}
+                      boxSize="medium"
+                      bgColor={globalStateColorData}
+                      onClick={handleColorBoxSelect}
+                    />
+                  )}
+                </ColorBoxGroup>
+              </Box>
             </Box>
             <Box display="flex" mb={1}>
               <ColorBoxFunctions />
