@@ -5,50 +5,57 @@ import Typography, { TypographyProps } from '@material-ui/core/Typography';
 import Box from '@material-ui/core/Box';
 import { baseSizeNamesType } from '../../../types/Size';
 
-type Props = {
+export type Props = {
   beforeIcon?: React.ReactElement;
   afterIcon?: React.ReactElement;
   fontSize?: baseSizeNamesType;
   children: React.ReactText;
 } & TypographyProps;
 
+const styles = {
+  fontSizeSmall: css({
+    fontSize: '12px',
+  }),
+  fontSizeMedium: css({
+    fontSize: '16px',
+  }),
+  fontSizeLarge: css({
+    fontSize: '20px',
+  }),
+};
+
 const CollectionPanelTitle: React.FC<Props> = (props: Props) => {
   const {
     beforeIcon,
     afterIcon,
-    fontSize,
-    children,
+    fontSize = 'small',
+    children = 'コレクションパネルタイトル',
     ...typographyProps
   } = props;
 
-  const styles = {
-    title: css`
-      font-size: ${fontSize === 'large'
-        ? 20
-        : fontSize === 'medium'
-        ? 16
-        : fontSize === 'small'
-        ? 12
-        : 16}px;
-    `,
-  };
-
   return (
     <Box display="flex" my={2}>
-      <Box mr={2}>{beforeIcon}</Box>
+      {beforeIcon && <Box mr={2}>{beforeIcon}</Box>}
       <Box>
-        <Typography gutterBottom css={styles.title} {...typographyProps}>
+        <Typography
+          gutterBottom
+          css={
+            fontSize === 'small'
+              ? styles.fontSizeSmall
+              : fontSize === 'medium'
+              ? styles.fontSizeMedium
+              : fontSize === 'large'
+              ? styles.fontSizeLarge
+              : styles.fontSizeSmall
+          }
+          {...typographyProps}
+        >
           {children}
         </Typography>
       </Box>
-      <Box mr={2}>{afterIcon}</Box>
+      {afterIcon && <Box mr={2}>{afterIcon}</Box>}
     </Box>
   );
-};
-
-CollectionPanelTitle.defaultProps = {
-  fontSize: 'small',
-  children: 'コレクションパネルタイトル',
 };
 
 export default CollectionPanelTitle;
