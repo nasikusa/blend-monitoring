@@ -1,10 +1,21 @@
 import React from 'react';
-import CollectionPanelTitle from './index';
+import CollectionPanelTitle, { Props } from './index';
+import Icon from '../../atoms/Icon';
 
 export default {
-  title: 'CollectionPanelTitle',
+  title: 'Components/CollectionPanelTitle',
   component: CollectionPanelTitle,
   argTypes: {},
 };
 
-export const Primary = (args: any) => <CollectionPanelTitle {...args} />;
+export const Primary = (args: Props) => (
+  <CollectionPanelTitle color="textPrimary" {...args} />
+);
+
+export const WithBeforeIcon = (args: Props) => (
+  <CollectionPanelTitle
+    color="textPrimary"
+    beforeIcon={<Icon color="action" type="opacityPanel" />}
+    {...args}
+  />
+);
