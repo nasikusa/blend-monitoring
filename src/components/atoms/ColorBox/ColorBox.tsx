@@ -96,8 +96,6 @@ const ColorBox: React.FC<Props> = ({
   innerMuiBoxProps,
   activeStyleType = 'scale',
 }) => {
-  const [isActive, setIsActive] = useState(active);
-
   const arrayActiveStyles =
     Array.isArray(activeStyleType) && active === true
       ? activeStyleType.map((singleActiveStyleType) => {
@@ -134,9 +132,9 @@ const ColorBox: React.FC<Props> = ({
           shapeType === 'round' && styles.shapeRound,
           shapeType === 'lightRound' && styles.shapeLightRound,
           shapeType === 'heavyRound' && styles.shapeHeavyRound,
-          isActive && activeStyleType === 'scale' && styles.activeTypeScale,
-          isActive && activeStyleType === 'opacity' && styles.activeTypeOpacity,
-          isActive && activeStyleType === 'border' && styles.activeTypeBorder,
+          active && activeStyleType === 'scale' && styles.activeTypeScale,
+          active && activeStyleType === 'opacity' && styles.activeTypeOpacity,
+          active && activeStyleType === 'border' && styles.activeTypeBorder,
           ...arrayActiveStyles,
         ]}
         style={{
