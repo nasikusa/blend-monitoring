@@ -1,4 +1,4 @@
-import React, { useState, useContext } from 'react';
+import React, { useState } from 'react';
 import { batch } from 'react-redux';
 import { css } from '@emotion/core';
 import Grid from '@material-ui/core/Grid';
@@ -9,15 +9,12 @@ import { v4 as uuidv4 } from 'uuid';
 import Icon from '../../atoms/Icon';
 
 import CustomTooltip from '../../atoms/CustomTooltip';
-import { GlCollectionOrderContext } from '../CollectionList';
 import CustomSketchPicker from '../../atoms/CustomSketchPicker';
 import ColorModalContainer from '../../../container/ColorModalContainer';
 import ColorBox from '../../atoms/ColorBox';
 import ColorBoxGroup from '../ColorBoxGroup';
 import { collectionValueColorType } from '../../../stores/collection/collectionValueColor';
 import { CollectionCategoryType } from '../../../stores/collection/collection';
-
-import { ColorRelatedGlCollectionType } from '../../../types/collection/collectionData';
 
 export type ColorPanelFunctionNames =
   | 'colorPanelAdd'

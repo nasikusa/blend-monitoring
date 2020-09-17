@@ -1,3 +1,5 @@
+/* eslint-disable no-param-reassign */
+
 import { createSlice } from '@reduxjs/toolkit';
 import { IdType } from '../../types/collection/collectionData';
 import { baseCollectionValueType } from '../../types/collection/collectionValueType';
