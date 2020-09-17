@@ -25,7 +25,7 @@ const initialState: collectionValueBlendModeDictionaryType = {
   },
   '05a8a69e-c0a8-4d4e-910e-ee6017d8be9a': {
     id: '05a8a69e-c0a8-4d4e-910e-ee6017d8be9a',
-    value: 'overlay',
+    value: 'normal',
     type: 'blendMode',
   },
   '0f433df2-1e1e-4df3-baf1-ab96052c1f9c': {

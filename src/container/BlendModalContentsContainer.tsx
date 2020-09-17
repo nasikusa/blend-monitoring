@@ -19,7 +19,7 @@ import {
 type Props = {
   blendModalMode: 'single' | 'multi';
   canDisplayNormalBlend: boolean;
-  canDispalyLighterBlend: boolean;
+  canDisplayLighterBlend: boolean;
   canDisplayLighterAndDarkerBlend: boolean;
   canDisplayDarkerBlend: boolean;
   canDisplayMathBlend: boolean;

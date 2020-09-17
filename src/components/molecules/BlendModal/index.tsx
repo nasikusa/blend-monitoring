@@ -104,7 +104,7 @@ export default (props: Props) => {
   const [modalTransparentFlag, setModalTransparentFlag] = useState(false);
   const [modalMinifyFlag, setModalMinifyFlag] = useState(false);
   const [canDisplayNormalBlend, setCanDisplayNormalBlend] = useState(true);
-  const [canDispalyLighterBlend, setCanDisplayLighterBlend] = useState(true);
+  const [canDisplayLighterBlend, setCanDisplayLighterBlend] = useState(true);
   const [
     canDisplayLighterAndDarkerBlend,
     setCanDisplayLighterAndDarkerBlend,
@@ -113,7 +113,7 @@ export default (props: Props) => {
   const [canDisplayMathBlend, setCanDisplayMathBlend] = useState(true);
   const blendModeSwitchBoolArray = [
     canDisplayNormalBlend,
-    canDispalyLighterBlend,
+    canDisplayLighterBlend,
     canDisplayLighterAndDarkerBlend,
     canDisplayDarkerBlend,
     canDisplayMathBlend,
@@ -239,7 +239,7 @@ export default (props: Props) => {
     if (event.ctrlKey) {
       handleExcludeSwitchBlend('+');
     } else {
-      setCanDisplayLighterBlend(!canDispalyLighterBlend);
+      setCanDisplayLighterBlend(!canDisplayLighterBlend);
     }
   };
   /**
@@ -326,7 +326,7 @@ export default (props: Props) => {
       name: 'lighter',
       type: 'blendModeBrightnessPlus',
       onChange: handleSwitchChangeLighterBlend,
-      checked: canDispalyLighterBlend,
+      checked: canDisplayLighterBlend,
       label: '明るくなる描画モードを非表示',
     },
     {
@@ -372,12 +372,15 @@ export default (props: Props) => {
         <DialogContent dividers>
           <BlendModalContentsContainer
             blendModalMode={
-              Array.isArray(rawCollectionDataContextValue.innerItemId)
+              (Array.isArray(rawCollectionDataContextValue.innerItemId) &&
+                rawCollectionDataContextValue.type ===
+                  'singleColorMultiBlends') ||
+              rawCollectionDataContextValue.type === 'singleImageMultiBlends'
                 ? 'multi'
                 : 'single'
             }
             canDisplayNormalBlend={canDisplayNormalBlend}
-            canDispalyLighterBlend={canDispalyLighterBlend}
+            canDisplayLighterBlend={canDisplayLighterBlend}
             canDisplayLighterAndDarkerBlend={canDisplayLighterAndDarkerBlend}
             canDisplayDarkerBlend={canDisplayDarkerBlend}
             canDisplayMathBlend={canDisplayMathBlend}

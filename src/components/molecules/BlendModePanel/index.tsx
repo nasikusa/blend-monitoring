@@ -47,6 +47,19 @@ const BlendModePanel = (props: Props) => {
    */
   const getBlendModeNameMenuView = (() => {
     if (Array.isArray(storedBlendModeValue)) {
+      if (
+        storedBlendModeValue.length > 0 &&
+        storedBlendModeValue.every(
+          (singleStoredBlendModeValue) =>
+            singleStoredBlendModeValue.value === storedBlendModeValue[0].value
+        )
+      ) {
+        const singleBlendModeData =
+          readyBlendModeData[storedBlendModeValue[0].value];
+        if (singleBlendModeData != null) {
+          return singleBlendModeData.name.ja;
+        }
+      }
       return `複数の描画モード`;
     }
     const singleBlendModeData = readyBlendModeData[storedBlendModeValue.value];
@@ -87,7 +100,12 @@ const BlendModePanel = (props: Props) => {
         </Grid>
       </Box>
       <Box ml={4}>
-        {Array.isArray(storedBlendModeValue) ? (
+        {Array.isArray(storedBlendModeValue) &&
+        storedBlendModeValue.length > 0 &&
+        !storedBlendModeValue.every(
+          (singleStoredBlendModeValue) =>
+            singleStoredBlendModeValue.value === storedBlendModeValue[0]?.value
+        ) ? (
           <Grid container spacing={1}>
             {storedBlendModeValue.map((singleBlendModeData, currentIndex) => {
               const chipLabelName = (() => {
