@@ -1,36 +1,120 @@
-import React, { useContext } from 'react';
-import { useSelector, useDispatch } from 'react-redux';
+import React from 'react';
+import { useSelector, useDispatch, shallowEqual } from 'react-redux';
 import ColorPanel from '../components/molecules/ColorPanel';
-
-import { updateColor as updateColorAction } from '../types/collection/collectionData';
+import { AppState } from '../stores/index';
 import {
-  stockAddColor as atockAddColorAction,
+  stockAddColor as stockAddColorAction,
   stockRemoveColor as stockRemoveColorAction,
 } from '../stores/color/stockedColors';
-import { AppState } from '../stores/index';
-import { GlCollectionOrderContext } from '../components/molecules/CollectionList';
-import useCurrentSceneCollection from '../hooks/collection/useCurrentSceneCollection';
+import {
+  CollectionCategoryType,
+  addCollectionInnerItem,
+  deleteCollectionInnerItem,
+} from '../stores/collection/collection';
+import {
+  updateValueValue,
+  addValue as addCollectionValueColor,
+  collectionValueColorType,
+  UpdateValuePayloadType,
+} from '../stores/collection/collectionValueColor';
+import { IdType } from '../types/collection/collectionData';
+import { addItem as addCollectionItem } from '../stores/collection/collectionItem';
 
-export default () => {
-  const themeSettings = useSelector((state: AppState) => state.themeSettings);
-  // const collectionData = useSelector((state: AppState) => state.collectionData);
-  const collectionData = useCurrentSceneCollection();
+type Props = {
+  rawCollectionData: CollectionCategoryType;
+};
+
+export default (props: Props) => {
+  const { rawCollectionData } = props;
+
+  const innerItemIdData = rawCollectionData.innerItemId;
+
   const stockedColorData = useSelector(
-    (state: AppState) => state.stockedColors
+    (state: AppState) => state.stockedColors,
+    shallowEqual
   );
   const dispatch = useDispatch();
-  const glCollectionOrderKey = useContext(GlCollectionOrderContext);
-  const currentSingleCollectionData = collectionData[glCollectionOrderKey];
 
-  const updateColor = React.useCallback(
-    (val) => {
-      dispatch(updateColorAction(val));
+  /**
+   * 対象となるカラーパラメータのID
+   */
+  const targetColorValueId: IdType | IdType[] = useSelector(
+    (state: AppState) => {
+      if (
+        rawCollectionData.type === 'multiColors' ||
+        rawCollectionData.type === 'singleColor' ||
+        rawCollectionData.type === 'singleColorMultiBlends'
+      ) {
+        if (Array.isArray(innerItemIdData)) {
+          return innerItemIdData.map((singleInnerItemIdData) => {
+            // 上にてcollectionのタイプを確定させているため、 asでキャストしている。
+            // @todo: asを取り除きたい
+            return state.collectionItem[singleInnerItemIdData].color as IdType;
+          });
+        }
+        // 上にてcollectionのタイプを確定させているため、 asでキャストしている。
+        // @todo: asを取り除きたい
+        return state.collectionItem[innerItemIdData].color as IdType;
+      }
+      return [];
+    },
+    shallowEqual
+  );
+
+  /**
+   * 対象となるカラーvalueオブジェクト
+   */
+  const storedColorValue:
+    | collectionValueColorType
+    | collectionValueColorType[] = useSelector((state: AppState) => {
+    if (Array.isArray(targetColorValueId)) {
+      return targetColorValueId.map((singleTargetColorValueId) => {
+        return state.collectionValueColor[singleTargetColorValueId];
+      });
+    }
+    return state.collectionValueColor[targetColorValueId];
+  }, shallowEqual);
+
+  /**
+   * collectionValueColorのvalueを更新する
+   */
+  const storeUpdateCollectionValueColorValue = React.useCallback(
+    (payload: UpdateValuePayloadType) => {
+      dispatch(updateValueValue(payload));
     },
     [dispatch]
   );
+
+  const storeAddCollectionValueColor = React.useCallback(
+    (payload) => {
+      dispatch(addCollectionValueColor(payload));
+    },
+    [dispatch]
+  );
+
+  const storeAddCollectionItem = React.useCallback(
+    (payload) => {
+      dispatch(addCollectionItem(payload));
+    },
+    [dispatch]
+  );
+
+  const storeAddCollectionInnerItem = React.useCallback(
+    (payload) => {
+      dispatch(addCollectionInnerItem(payload));
+    },
+    [dispatch]
+  );
+  const storeDeleteCollectionInnerItem = React.useCallback(
+    (payload) => {
+      dispatch(deleteCollectionInnerItem(payload));
+    },
+    [dispatch]
+  );
+
   const stockAddColor = React.useCallback(
-    (val) => {
-      dispatch(atockAddColorAction(val));
+    (payload) => {
+      dispatch(stockAddColorAction(payload));
     },
     [dispatch]
   );
@@ -39,20 +123,14 @@ export default () => {
   }, [dispatch]);
 
   const combineProps = {
-    themeSettings,
-    updateColor,
-    globalStateColorData: (() => {
-      if (
-        currentSingleCollectionData.type === 'singleColor' ||
-        currentSingleCollectionData.type === 'singleColorMultiBlends' ||
-        currentSingleCollectionData.type === 'multiColors'
-      ) {
-        const globalStateColorDataProp = currentSingleCollectionData.color;
-        return globalStateColorDataProp;
-      }
-      return undefined;
-    })(),
+    rawCollectionData,
+    storedColorValue,
     stockedColorData,
+    storeUpdateCollectionValueColorValue,
+    storeAddCollectionValueColor,
+    storeAddCollectionItem,
+    storeAddCollectionInnerItem,
+    storeDeleteCollectionInnerItem,
     stockAddColor,
     stockRemoveColor,
   };

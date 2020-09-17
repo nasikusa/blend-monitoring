@@ -43,7 +43,7 @@ const initialState: collectionItemDictionaryType = {
   '5c5f4f06-9466-40b8-bf78-75c3dcca1a8a': {
     id: '5c5f4f06-9466-40b8-bf78-75c3dcca1a8a',
     type: 'color',
-    blendMode: '05a8a69e-c0a8-4d4e-910e-ee6017d8be9a',
+    blendMode: '0f433df2-1e1e-4df3-baf1-ab96052c1f9c',
     opacity: 'bef45475-7567-42c3-b8ee-0901b7470134',
     visibility: '557f8233-3b5a-4250-8499-c5c1243b9fd8',
     color: 'cdc0644b-a77a-4e2a-8abc-d77ed88b108e',
@@ -54,7 +54,7 @@ const initialState: collectionItemDictionaryType = {
     blendMode: '0f433df2-1e1e-4df3-baf1-ab96052c1f9c',
     opacity: 'bef45475-7567-42c3-b8ee-0901b7470134',
     visibility: '557f8233-3b5a-4250-8499-c5c1243b9fd8',
-    color: 'cdc0644b-a77a-4e2a-8abc-d77ed88b108e',
+    color: '62756cf0-e438-4e77-bc81-c73bb6f46bca',
   },
 };
 
