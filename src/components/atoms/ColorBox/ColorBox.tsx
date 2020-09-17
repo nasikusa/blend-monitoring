@@ -12,14 +12,14 @@ type Props = Readonly<
     borderWidth: number;
     boxSize: 'small' | 'medium' | 'large' | 'exLarge';
     boxSizeHeightRatio: number;
-    onClick: () => void;
-    children: never;
     muiBoxProps: BoxProps;
-    innerMuiBoxProps: BoxProps;
     active: boolean;
     activeStyleType:
       | activeStyleTypeType
       | [activeStyleTypeType, ...activeStyleTypeType[]];
+    onClick: () => void;
+    children: never;
+    innerMuiBoxProps: BoxProps;
   }>
 >;
 

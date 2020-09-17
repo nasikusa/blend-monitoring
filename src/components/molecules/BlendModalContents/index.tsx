@@ -31,7 +31,7 @@ export type Props = {
     | collectionValueBlendModeType
     | collectionValueBlendModeType[];
   canDisplayNormalBlend: boolean;
-  canDispalyLighterBlend: boolean;
+  canDisplayLighterBlend: boolean;
   canDisplayLighterAndDarkerBlend: boolean;
   canDisplayDarkerBlend: boolean;
   canDisplayMathBlend: boolean;
@@ -102,7 +102,7 @@ export default function BlendModalContents(props: Props) {
     rawCollectionData,
     storedBlendModeValue,
     canDisplayNormalBlend,
-    canDispalyLighterBlend,
+    canDisplayLighterBlend,
     canDisplayLighterAndDarkerBlend,
     canDisplayDarkerBlend,
     canDisplayMathBlend,
@@ -149,7 +149,7 @@ export default function BlendModalContents(props: Props) {
     {
       data: brightnessPlusBlendMode,
       name: 'brightnessPlus',
-      flagState: canDispalyLighterBlend,
+      flagState: canDisplayLighterBlend,
     },
     {
       data: mathBlendMode,
@@ -169,6 +169,14 @@ export default function BlendModalContents(props: Props) {
     if (!Array.isArray(storedBlendModeValue)) {
       storeUpdateCollectionValueBlendModeValue({
         targetId: storedBlendModeValue.id,
+        targetNewValue: event.target.name,
+      });
+    } else if (
+      rawCollectionData.type === 'multiColors' ||
+      rawCollectionData.type === 'multiImages'
+    ) {
+      storeUpdateCollectionValueBlendModeValue({
+        targetId: rawCollectionData.defaultBlendModeId,
         targetNewValue: event.target.name,
       });
     }

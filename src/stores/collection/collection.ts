@@ -157,16 +157,28 @@ const initialState: GlCollectionDictionaryType = {
     defaultVisibilityId: '02d077cf-e936-41cd-b725-3d841691aabd',
     defaultColorId: '82ceb1d9-1f61-4797-9838-738988d46054',
   },
+  // 'af31d35d-2144-43de-8108-855e493805c9': {
+  //   id: 'af31d35d-2144-43de-8108-855e493805c9',
+  //   type: 'singleColorMultiBlends',
+  //   roughType: 'color',
+  //   innerItemId: [
+  //     '5c5f4f06-9466-40b8-bf78-75c3dcca1a8a',
+  //     '49c32a24-3c3d-4202-97b5-8e7b5a2f5774',
+  //   ],
+  //   defaultOpacityId: 'bef45475-7567-42c3-b8ee-0901b7470134',
+  //   defaultColorId: 'cdc0644b-a77a-4e2a-8abc-d77ed88b108e',
+  //   defaultVisibilityId: '557f8233-3b5a-4250-8499-c5c1243b9fd8',
+  // },
   'af31d35d-2144-43de-8108-855e493805c9': {
     id: 'af31d35d-2144-43de-8108-855e493805c9',
-    type: 'singleColorMultiBlends',
+    type: 'multiColors',
     roughType: 'color',
     innerItemId: [
       '5c5f4f06-9466-40b8-bf78-75c3dcca1a8a',
       '49c32a24-3c3d-4202-97b5-8e7b5a2f5774',
     ],
     defaultOpacityId: 'bef45475-7567-42c3-b8ee-0901b7470134',
-    defaultColorId: 'cdc0644b-a77a-4e2a-8abc-d77ed88b108e',
+    defaultBlendModeId: '0f433df2-1e1e-4df3-baf1-ab96052c1f9c',
     defaultVisibilityId: '557f8233-3b5a-4250-8499-c5c1243b9fd8',
   },
 };

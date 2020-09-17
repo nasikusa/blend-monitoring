@@ -371,7 +371,7 @@ const Collection: React.FC<Props> = (props: Props) => {
               カラーパネル
             </CollectionPanelTitle>
             <CollectionPanelContent>
-              <ColorPanelContainer />
+              <ColorPanelContainer rawCollectionData={rawCollectionData} />
             </CollectionPanelContent>
           </>
         </CollectionPanel>
