@@ -127,7 +127,7 @@
     "redux-immutable-state-invariant": "^2.1.0",
     "redux-logger": "^3.0.6",
     "redux-undo": "^1.0.1",
-    "resolve": "1.15.0",
+    "resolve": "1.17.0",
     "resolve-url-loader": "3.1.1",
     "sass-loader": "10.0.2",
     "semver": "6.3.0",
