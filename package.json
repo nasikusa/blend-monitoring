@@ -131,7 +131,7 @@
     "resolve-url-loader": "3.1.1",
     "sass-loader": "10.0.2",
     "semver": "6.3.0",
-    "sharp": "^0.25.4",
+    "sharp": "^0.26.0",
     "style-loader": "0.23.1",
     "styled-components": "^5.1.1",
     "terser-webpack-plugin": "2.3.5",
