@@ -98,19 +98,21 @@
   "scripts": {
     "start": "node scripts/start.js",
     "build": "node scripts/build.js",
-    "buildProfile": "yarn build --profile",
+    "build-profile": "yarn build --profile",
+    "build-doc": "typedoc --out ./docs ./src",
+    "build-storybook": "build-storybook -s public",
+    "build-all": "yarn build && yarn build-doc && yarn build-storybook",
+    "storybook": "start-storybook -p 6006 -s public",
     "test": "node scripts/test.js",
     "lint": "eslint src/**",
     "clean": "eslint src/** --fix",
-    "buildDoc": "typedoc --out ./docs ./src",
-    "viewDoc": "http-server ./docs -o http://192.168.135.1:8080",
-    "viewStory": "http-server ./storybook-static -o http://119.242.29.53:8080",
-    "viewBuild": "http-server ./build -o http://202.225.13.81:8080",
-    "resizeImage": "node scripts/createResizedImages.js",
-    "storybook": "start-storybook -p 6006 -s public",
-    "buildStorybook": "build-storybook -s public",
-    "site": "node scripts/openDevUtilSite.js",
-    "siteDoc": "node scripts/openDocSite.js"
+    "view-doc": "http-server ./docs -p 8081 -o",
+    "view-story": "http-server ./storybook-static -p 8082 -o",
+    "view-build": "http-server ./build -p 8083 -o",
+    "view-all": "yarn view-build && yarn view-doc && yarn view-story",
+    "view-site": "node scripts/openDevUtilSite.js",
+    "view-site-doc": "node scripts/openDocSite.js",
+    "resize-image": "node scripts/createResizedImages.js"
   },
   "eslintConfig": {
     "extends": [
