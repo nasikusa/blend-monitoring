@@ -2706,10 +2706,10 @@
   resolved "https://registry.yarnpkg.com/@types/braces/-/braces-3.0.0.tgz#7da1c0d44ff1c7eb660a36ec078ea61ba7eb42cb"
   integrity sha512-TbH79tcyi9FHwbyboOKeRachRq63mSuWYXOflsNO9ZyE5ClQ/JaozNKl+aWUq87qPNsXasXxi2AbgfwIJ+8GQw==
 
-"@types/chroma-js@^2.0.0":
-  version "2.0.1"
-  resolved "https://registry.yarnpkg.com/@types/chroma-js/-/chroma-js-2.0.1.tgz#9dc55127dd25f9fd5bfc3ea7a790adc7b2d117e0"
-  integrity sha512-vVWMMgoJPxnekRV0nccamAUVJgucvUMd0KEFQRkqLJXWvTRgMI2f9gnnGHxiF8po3XUv7ALXzVhixFclnOfX6Q==
+"@types/chroma-js@^2.1.0":
+  version "2.1.0"
+  resolved "https://registry.yarnpkg.com/@types/chroma-js/-/chroma-js-2.1.0.tgz#612ce66f8eeb42e37ee90ce8c6da40d8845dc83c"
+  integrity sha512-2L+sToR0+0m/l8bTRF+Q5WkPuPpNjS2e+Zcs1xr1RRos3PJZHkrUJujZ+fwsKIfxA9NkqDKDhf8zlWCCm+rQhg==
 
 "@types/color-name@^1.1.1":
   version "1.1.1"
