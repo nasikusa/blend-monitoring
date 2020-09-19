@@ -15781,6 +15781,11 @@ use-composed-ref@^1.0.0:
   dependencies:
     ts-essentials "^2.0.3"
 
+use-immer@^0.4.1:
+  version "0.4.1"
+  resolved "https://registry.yarnpkg.com/use-immer/-/use-immer-0.4.1.tgz#82a372e666496bfd49750673be78c17fcd375ca8"
+  integrity sha512-lXukZMx+sWwkWOLMyd5/5Obr6xTDFGSOJ85/nGQk/qhpWAohaFWrYJkT2+70seU/F6Dh7S41c9X6TWL9ljReGQ==
+
 use-isomorphic-layout-effect@^1.0.0:
   version "1.0.0"
   resolved "https://registry.yarnpkg.com/use-isomorphic-layout-effect/-/use-isomorphic-layout-effect-1.0.0.tgz#f56b4ed633e1c21cd9fc76fe249002a1c28989fb"

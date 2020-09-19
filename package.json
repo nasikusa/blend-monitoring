@@ -90,6 +90,7 @@
     "typedoc": "^0.19.1",
     "typedocs": "^0.6.7",
     "typescript": "^4.0.2",
+    "use-immer": "^0.4.1",
     "utility-types": "^3.10.0",
     "uuid": "^8.3.0",
     "validator": "^13.1.1"
