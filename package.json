@@ -93,7 +93,7 @@
     "use-immer": "^0.4.1",
     "utility-types": "^3.10.0",
     "uuid": "^8.3.0",
-    "validator": "^13.1.1"
+    "validator": "^13.1.17"
   },
   "scripts": {
     "start": "node scripts/start.js",
