@@ -19,10 +19,11 @@ type Props = Partial<{
   disableTooltip: boolean;
   iconProps: SvgIconProps;
   iconButtonProps: IconButtonProps;
+  onClick: any;
   buttonProps: ButtonProps;
   buttonGeneralProps: IconButtonProps & ButtonProps;
   tooltipProps: Omit<TooltipProps, 'children'>;
-  children: React.ReactElement | string;
+  children: React.ReactText;
 }>;
 
 const CustomIconButton = (props: Props) => {
@@ -40,6 +41,7 @@ const CustomIconButton = (props: Props) => {
     active,
     danger,
     labelTitle,
+    onClick,
   } = props;
 
   const theme = useTheme();
@@ -67,6 +69,7 @@ const CustomIconButton = (props: Props) => {
       <IconButton
         disabled={disable}
         css={styles.iconButtonStyle}
+        onClick={onClick}
         {...iconButtonProps}
         {...buttonGeneralProps}
       >
@@ -105,6 +108,7 @@ const CustomIconButton = (props: Props) => {
         }
         color={active ? 'secondary' : 'default'}
         disabled={disable}
+        onClick={onClick}
         {...buttonProps}
         {...buttonGeneralProps}
       >
@@ -141,4 +145,4 @@ CustomIconButton.defaultProps = {
   disableTooltip: false,
 };
 
-export default CustomIconButton;
+export default React.memo(CustomIconButton);

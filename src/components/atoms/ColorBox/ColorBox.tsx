@@ -24,6 +24,11 @@ type Props = Readonly<
 >;
 
 export const styles: { [K: string]: SerializedStyles } = {
+  root: css({
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
+  }),
   cursorDefault: css({
     cursor: 'default',
   }),
@@ -96,6 +101,9 @@ const ColorBox: React.FC<Props> = ({
   innerMuiBoxProps,
   activeStyleType = 'scale',
 }) => {
+  /**
+   * activeの際のスタイルが複数選択されている場合は、こちらで管理している
+   */
   const arrayActiveStyles =
     Array.isArray(activeStyleType) && active === true
       ? activeStyleType.map((singleActiveStyleType) => {
@@ -115,7 +123,7 @@ const ColorBox: React.FC<Props> = ({
   return (
     <Box
       onClick={onClick}
-      css={[onClick ? styles.cursorPointer : styles.cursorDefault]}
+      css={[styles.root, onClick ? styles.cursorPointer : styles.cursorDefault]}
       style={{
         width: `${calcBoxSize(boxSize)}px`,
         height: `${calcBoxSize(boxSize) * boxSizeHeightRatio}px`,

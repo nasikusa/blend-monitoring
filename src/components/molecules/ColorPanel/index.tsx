@@ -1,20 +1,18 @@
-import React, { useState } from 'react';
+import React, { useState, useCallback } from 'react';
 import { batch } from 'react-redux';
-import { css } from '@emotion/core';
 import Grid from '@material-ui/core/Grid';
 import Box from '@material-ui/core/Box';
 import Button from '@material-ui/core/Button';
-import IconButton from '@material-ui/core/IconButton';
 import { v4 as uuidv4 } from 'uuid';
-import Icon from '../../atoms/Icon';
 
-import CustomTooltip from '../../atoms/CustomTooltip';
 import CustomSketchPicker from '../../atoms/CustomSketchPicker';
 import ColorModalContainer from '../../../container/ColorModalContainer';
 import ColorBox from '../../atoms/ColorBox';
 import ColorBoxGroup from '../ColorBoxGroup';
 import { collectionValueColorType } from '../../../stores/collection/collectionValueColor';
 import { CollectionCategoryType } from '../../../stores/collection/collection';
+import CustomIconButton from '../CustomIconButton';
+import { IconTypeTypes } from '../../atoms/Icon';
 
 export type ColorPanelFunctionNames =
   | 'colorPanelAdd'
@@ -37,10 +35,6 @@ type Props = {
   stockRemoveColor: any;
   stockAddColor: any;
 };
-
-const colorPanelButtonStyle = css`
-  padding: 6px 6px;
-`;
 
 /**
  * カラーパネルコンポーネント
@@ -112,6 +106,9 @@ const ColorPanel: React.FC<Props> = (props: Props) => {
     }
   };
 
+  /**
+   * ColorBoxコンポーネントがクリックされて選択されたときのイベント関数
+   */
   const handleColorBoxSelect = (
     newColorValue: string,
     currentItemOrder: number
@@ -164,105 +161,92 @@ const ColorPanel: React.FC<Props> = (props: Props) => {
   /**
    * カラーを削除するアイコンをクリックしたときに発火する関数
    */
-  const handleRemoveColor = () => {
+  const handleRemoveColor = useCallback(() => {
     if (Array.isArray(storedColorValue)) {
       storeDeleteCollectionInnerItem({
         targetId: rawCollectionData.id,
         targetInnerId: rawCollectionData.innerItemId[currentColorBoxKey],
       });
     }
-  };
+  }, [
+    storedColorValue,
+    rawCollectionData,
+    currentColorBoxKey,
+    storeDeleteCollectionInnerItem,
+  ]);
 
-  const handleStockColor = () => {
+  const handleStockColor = useCallback(() => {
     stockAddColor({ newColorValue: colorValue });
-  };
-  const handleStockColorRemove = () => {
+  }, [colorValue, stockAddColor]);
+
+  const handleStockColorRemove = useCallback(() => {
     stockRemoveColor();
-  };
+  }, [stockRemoveColor]);
 
-  const handleScreenFillColor = () => {
+  const handleScreenFillColor = useCallback(() => {
     setIsFillToScreenCurrentColor(!isFillToScreenCurrentColor);
-  };
+  }, [setIsFillToScreenCurrentColor, isFillToScreenCurrentColor]);
 
-  const handleSketchPickerSize = () => {
+  const handleSketchPickerSize = useCallback(() => {
     setIsBigSketchPickerSize(!isBigSketchPickerSize);
-  };
+  }, [setIsBigSketchPickerSize, isBigSketchPickerSize]);
+
+  const customIconButtonData: {
+    labelTitle: string;
+    iconType: IconTypeTypes;
+    handleFunction: (() => void) | null;
+  }[] = [
+    {
+      labelTitle: '新しいカラーを追加',
+      iconType: 'colorPanelAdd',
+      handleFunction: handleAddNewColor,
+    },
+    {
+      labelTitle: '選択しているカラーを削除',
+      iconType: 'colorPanelDelete',
+      handleFunction: handleRemoveColor,
+    },
+    {
+      labelTitle: 'カラーをソート',
+      iconType: 'colorPanelSort',
+      handleFunction: null,
+    },
+    {
+      labelTitle: 'カラーをストック',
+      iconType: 'colorPanelAddFav',
+      handleFunction: handleStockColor,
+    },
+    {
+      labelTitle: 'ストックしたカラーをすべて削除',
+      iconType: 'colorPanelDeleteFav',
+      handleFunction: handleStockColorRemove,
+    },
+    {
+      labelTitle: '現在のカラーをパネルに映す',
+      iconType: 'colorPanelFill',
+      handleFunction: handleScreenFillColor,
+    },
+    {
+      labelTitle: 'カラーピッカーを拡大',
+      iconType: 'colorPanelExpand',
+      handleFunction: handleSketchPickerSize,
+    },
+  ];
 
   /**
    * カラー確認用のアイテムの下にある、追加、削除などを行うエリアのコンポーネント
-   * @todo まとめて一つの関数とかで入れたい
    */
   const ColorBoxFunctions = () => {
-    const defaultEnterDelayTime = 1000;
-    return (
-      <Box ml={4}>
-        <CustomTooltip
-          title="新しいカラーを追加"
-          enterDelay={defaultEnterDelayTime}
-        >
-          <IconButton onClick={handleAddNewColor} css={colorPanelButtonStyle}>
-            <Icon type="colorPanelAdd" />
-          </IconButton>
-        </CustomTooltip>
-        <CustomTooltip
-          title="選択しているカラーを削除"
-          enterDelay={defaultEnterDelayTime}
-        >
-          <IconButton onClick={handleRemoveColor} css={colorPanelButtonStyle}>
-            <Icon type="colorPanelDelete" />
-          </IconButton>
-        </CustomTooltip>
-        <CustomTooltip
-          title="カラーをソート"
-          enterDelay={defaultEnterDelayTime}
-        >
-          <IconButton size="small" css={colorPanelButtonStyle}>
-            <Icon type="colorPanelSort" />
-          </IconButton>
-        </CustomTooltip>
-        <CustomTooltip
-          title="カラーをストック"
-          enterDelay={defaultEnterDelayTime}
-        >
-          <IconButton onClick={handleStockColor} css={colorPanelButtonStyle}>
-            <Icon type="colorPanelAddFav" />
-          </IconButton>
-        </CustomTooltip>
-        <CustomTooltip
-          title="ストックしたカラーをすべて削除"
-          enterDelay={defaultEnterDelayTime}
-        >
-          <IconButton
-            onClick={handleStockColorRemove}
-            css={colorPanelButtonStyle}
-          >
-            <Icon type="colorPanelDeleteFav" />
-          </IconButton>
-        </CustomTooltip>
-        <CustomTooltip
-          title="現在のカラーをパネルに映す"
-          enterDelay={defaultEnterDelayTime}
-        >
-          <IconButton
-            onClick={handleScreenFillColor}
-            css={colorPanelButtonStyle}
-          >
-            <Icon type="colorPanelFill" />
-          </IconButton>
-        </CustomTooltip>
-        <CustomTooltip
-          title="カラーピッカーを拡大"
-          enterDelay={defaultEnterDelayTime}
-        >
-          <IconButton
-            onClick={handleSketchPickerSize}
-            css={colorPanelButtonStyle}
-          >
-            <Icon type="colorPanelExpand" />
-          </IconButton>
-        </CustomTooltip>
-      </Box>
-    );
+    return customIconButtonData.map((singleCustomIconButtonData) => {
+      return (
+        <CustomIconButton
+          type={singleCustomIconButtonData.iconType}
+          buttonType="iconButton"
+          labelTitle={singleCustomIconButtonData.labelTitle}
+          onClick={singleCustomIconButtonData.handleFunction}
+        />
+      );
+    });
   };
 
   return (
@@ -318,7 +302,7 @@ const ColorPanel: React.FC<Props> = (props: Props) => {
               </Box>
             </Box>
             <Box display="flex" mb={1}>
-              <ColorBoxFunctions />
+              <Box ml={4}>{ColorBoxFunctions}</Box>
             </Box>
           </Grid>
           <Grid item xs={12}>
