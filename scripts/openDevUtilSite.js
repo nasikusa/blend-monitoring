@@ -6,7 +6,7 @@ inquirer
     {
       name: 'playgroundShortName',
       message:
-        'cs: CodeSandBox | cp: CodePen | t: TypeScript Playground | dts: TypeScript d.ts search | g: Github Repo | \n y: Youtube | uuid: UUID Generator | bm: BlendMonitoring | ciu: CanIUse | gls: glslSandBox',
+        'cs: CodeSandBox | cp: CodePen | t: TypeScript Playground | dts: TypeScript d.ts search | g: Github Repo | y: Youtube | uuid: UUID Generator | bm: BlendMonitoring | ciu: CanIUse | gls: glslSandBox | bp: bundlePhobia',
       default: 'cs',
     },
   ])
@@ -41,6 +41,9 @@ inquirer
         break;
       case 'gls':
         opn('http://glslsandbox.com/');
+        break;
+      case 'bp':
+        opn('https://bundlephobia.com/');
         break;
     }
   });
