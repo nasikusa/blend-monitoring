@@ -1,5 +1,5 @@
 import React from 'react';
-import DefaultWelcome from './index';
+import DefaultWelcome from './DefaultWelcome';
 
 export default {
   title: 'DefaultWelcome',
