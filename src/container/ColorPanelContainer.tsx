@@ -6,7 +6,11 @@ import {
   stockAddColor as stockAddColorAction,
   stockRemoveColor as stockRemoveColorAction,
 } from '../stores/color/stockedColors';
-import { CollectionCategoryType } from '../stores/collection/collection';
+import {
+  CollectionCategoryType,
+  addCollectionInnerItem,
+  deleteCollectionInnerItem,
+} from '../stores/collection/collection';
 import {
   updateValueValue,
   addValue as addCollectionValueColor,
@@ -15,10 +19,6 @@ import {
 } from '../stores/collection/collectionValueColor';
 import { IdType } from '../types/collection/collectionData';
 import { addItem as addCollectionItem } from '../stores/collection/collectionItem';
-import {
-  addCollectionInnerItem,
-  deleteCollectionInnerItem,
-} from '../stores/collection/collection';
 
 type Props = {
   rawCollectionData: CollectionCategoryType;

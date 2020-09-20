@@ -115,8 +115,7 @@ const CustomSketchPicker = (props: Props) => {
         /* 単色確認用の色パネル */
         height: ${hueAndSingleColorSizeValue}px !important;
         ${disableCurrentColor && 'display: none;'}
-        ${disableHue &&
-        'width: 100% !important; margin-left: 0px !important;'}
+        ${disableHue && 'width: 100% !important; margin-left: 0px !important;'}
         > div:nth-of-type(2) {
           /* 単色確認用のパネルのシャドー */
           box-shadow: none !important;

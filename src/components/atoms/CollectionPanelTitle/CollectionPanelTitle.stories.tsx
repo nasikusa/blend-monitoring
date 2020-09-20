@@ -1,6 +1,6 @@
 import React from 'react';
 import CollectionPanelTitle, { Props } from './index';
-import Icon from '../../atoms/Icon';
+import Icon from '../Icon';
 
 export default {
   title: 'Components/CollectionPanelTitle',
