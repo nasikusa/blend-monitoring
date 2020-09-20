@@ -1,25 +1,25 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useCallback } from 'react';
 import { css } from '@emotion/core';
 import { makeStyles } from '@material-ui/core/styles';
 import Slider from '@material-ui/core/Slider';
 import Grid from '@material-ui/core/Grid';
 import Input from '@material-ui/core/Input';
+import { debounce } from 'lodash';
 
 import Icon from '../../atoms/Icon';
 import { collectionValueOpacityType } from '../../../stores/collection/collectionValueOpacity';
 
 type Props = {
-  storeUpdateOpacityValue?: any;
+  storeUpdateOpacityValue: any;
   storedOpacityValue: collectionValueOpacityType | collectionValueOpacityType[];
   isShowInputArea?: boolean;
-  isArrayStoredData?: boolean;
   isShowBeforeIcon?: boolean;
-  sliderStopCheckTime?: number | null;
+  sliderStopCheckTime?: number;
   sliderMaxWidth?: number;
 };
 
 /**
- * mateiral uiのカスタムスタイル
+ * material uiのカスタムスタイル
  */
 const useStyles = makeStyles({
   input: {
@@ -46,10 +46,10 @@ const OpacitySlider: React.FC<Props> = (props: Props) => {
   const classes = useStyles();
   const {
     storeUpdateOpacityValue,
-    isShowInputArea,
-    isShowBeforeIcon,
-    sliderStopCheckTime,
-    sliderMaxWidth,
+    isShowInputArea = true,
+    isShowBeforeIcon = true,
+    sliderStopCheckTime = 200,
+    sliderMaxWidth = 500,
     storedOpacityValue,
   } = props;
 
@@ -89,25 +89,8 @@ const OpacitySlider: React.FC<Props> = (props: Props) => {
     return 100;
   };
   const [opacityState, setOpacityState] = useState(defaultOpacityValue);
-  const [tempOnChangeState, setTempOnChangeState] = useState(false);
-  const [tempOnChangeCommitState, setTempOnChangeCommitState] = useState(false);
-
-  /**
-   * スライダー変更時のイベント。ローカルステートのみ変更する。
-   * @param event
-   * @param newValue 透過度の値
-   * @todo 配列データが入ってきた際の対応(opacityが複数のパターンがある場合)
-   */
-  const handleChange = (
-    event: React.ChangeEvent<{}>,
-    eventValue: number | number[]
-  ) => {
-    if (!Array.isArray(eventValue)) {
-      setOpacityState(eventValue);
-    }
-    setTempOnChangeCommitState(false);
-    setTempOnChangeState(true);
-  };
+  // const [tempOnChangeState] = useState(false);
+  // const [tempOnChangeCommitState] = useState(false);
 
   /**
    * 透過度が確定した際にdispatchを実行する
@@ -122,8 +105,43 @@ const OpacitySlider: React.FC<Props> = (props: Props) => {
         targetIdNewValue: opacityState * 0.01,
       });
     }
-    setTempOnChangeCommitState(true);
-    setTempOnChangeState(false);
+    // setTempOnChangeCommitState(true);
+    // setTempOnChangeState(false);
+  };
+
+  const handleChangeCommittedDebounced = (nextValue: number) => {
+    if (storeUpdateOpacityValue != null) {
+      storeUpdateOpacityValue({
+        targetId: targetOpacityValueId,
+        targetIdNewValue: nextValue * 0.01,
+      });
+    }
+  };
+
+  const debouncedHandleChangeCommitted = useCallback(
+    debounce(
+      (nextValue: number) => handleChangeCommittedDebounced(nextValue),
+      sliderStopCheckTime
+    ),
+    []
+  );
+
+  /**
+   * スライダー変更時のイベント。ローカルステートのみ変更する。
+   * @param event
+   * @param newValue 透過度の値
+   * @todo 配列データが入ってきた際の対応(opacityが複数のパターンがある場合)
+   */
+  const handleChange = (
+    event: React.ChangeEvent<{}>,
+    eventValue: number | number[]
+  ) => {
+    if (!Array.isArray(eventValue)) {
+      setOpacityState(eventValue);
+    }
+    if (!Array.isArray(eventValue)) {
+      debouncedHandleChangeCommitted(eventValue);
+    }
   };
 
   /**
@@ -167,29 +185,29 @@ const OpacitySlider: React.FC<Props> = (props: Props) => {
   /**
    * スライダーを一定時間保持しつづけるとreduxのglobalのstateが更新される関数
    */
-  useEffect(() => {
-    if (sliderStopCheckTime !== null && sliderStopCheckTime !== undefined) {
-      const timer = setTimeout(() => {
-        if (tempOnChangeState === true && tempOnChangeCommitState === false) {
-          if (storeUpdateOpacityValue != null) {
-            storeUpdateOpacityValue({
-              targetId: targetOpacityValueId,
-              targetIdNewValue: opacityState * 0.01,
-            });
-          }
-        }
-      }, sliderStopCheckTime);
-      return () => clearTimeout(timer);
-    }
-    return () => {};
-  }, [
-    tempOnChangeState,
-    tempOnChangeCommitState,
-    storeUpdateOpacityValue,
-    opacityState,
-    targetOpacityValueId,
-    sliderStopCheckTime,
-  ]);
+  // useEffect(() => {
+  //   if (sliderStopCheckTime !== null && sliderStopCheckTime !== undefined) {
+  //     const timer = setTimeout(() => {
+  //       if (tempOnChangeState === true && tempOnChangeCommitState === false) {
+  //         if (storeUpdateOpacityValue != null) {
+  //           storeUpdateOpacityValue({
+  //             targetId: targetOpacityValueId,
+  //             targetIdNewValue: opacityState * 0.01,
+  //           });
+  //         }
+  //       }
+  //     }, sliderStopCheckTime);
+  //     return () => clearTimeout(timer);
+  //   }
+  //   return () => {};
+  // }, [
+  //   tempOnChangeState,
+  //   tempOnChangeCommitState,
+  //   storeUpdateOpacityValue,
+  //   opacityState,
+  //   targetOpacityValueId,
+  //   sliderStopCheckTime,
+  // ]);
 
   return (
     <Grid container spacing={2}>
@@ -234,7 +252,9 @@ const OpacitySlider: React.FC<Props> = (props: Props) => {
 };
 
 OpacitySlider.defaultProps = {
-  isShowBeforeIcon: false,
+  isShowInputArea: true,
+  isShowBeforeIcon: true,
+  sliderStopCheckTime: 200,
   sliderMaxWidth: 500,
 };
 
