@@ -8,15 +8,14 @@ import { readyBlendModeData } from '../../../utils/blendMode/getBlendModeData';
 import BlendModalContainer from '../../../container/BlendModalContainer';
 import { collectionValueBlendModeType } from '../../../stores/collection/collectionValueBlendMode';
 import { CollectionCategoryType } from '../../../stores/collection/collection';
-import { RawCollectionDataContext } from '../Collection';
+import { RawCollectionDataContext } from '../Collection/Collection';
 
 type Props = {
   storeDeleteBlendModeValue: any;
-  targetBlendModeValueId: string | string[];
   storedBlendModeValue:
     | collectionValueBlendModeType
     | collectionValueBlendModeType[];
-  rawCollectionData?: CollectionCategoryType;
+  rawCollectionData: CollectionCategoryType;
 };
 
 export const CollectionBlendModeValueContext = React.createContext<

@@ -1,5 +1,5 @@
 import React from 'react';
-import OpacitySlider from './index';
+import OpacitySlider from './OpacitySlider';
 
 export default {
   title: 'OpacitySlider',

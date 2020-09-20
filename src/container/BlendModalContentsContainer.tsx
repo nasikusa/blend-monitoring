@@ -4,7 +4,7 @@ import BlendModalContents from '../components/molecules/BlendModalContents';
 
 import { IdType } from '../types/collection/collectionData';
 import { AppState } from '../stores/index';
-import { RawCollectionDataContext } from '../components/molecules/Collection';
+import { RawCollectionDataContext } from '../components/molecules/Collection/Collection';
 import {
   collectionValueBlendModeType,
   updateValueValue as updateCollectionValueBlendModeValue,

@@ -1,6 +1,6 @@
 import React from 'react';
 import { useSelector, shallowEqual } from 'react-redux';
-import Collections from '../components/molecules/CollectionList';
+import CollectionList from '../components/molecules/CollectionList';
 import { AppState } from '../stores/index';
 
 export default () => {
@@ -28,5 +28,5 @@ export default () => {
     currentCollectionsId,
   };
 
-  return <Collections {...combineProps} />;
+  return <CollectionList {...combineProps} />;
 };
