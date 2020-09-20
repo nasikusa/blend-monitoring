@@ -1,5 +1,5 @@
 import React from 'react';
-import CollectionPanelTitle, { Props } from './index';
+import CollectionPanelTitle, { Props } from './CollectionPanelTitle';
 import Icon from '../Icon';
 
 export default {
