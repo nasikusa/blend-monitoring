@@ -7,7 +7,11 @@ type Props = {
 
 const ColorBoxGroup: React.FC<Props> = (props) => {
   const { children } = props;
-  return <Box display="flex">{children}</Box>;
+  return (
+    <Box display="flex" flexWrap="wrap">
+      {children}
+    </Box>
+  );
 };
 
 export default ColorBoxGroup;
