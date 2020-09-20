@@ -91,7 +91,7 @@
     "type-fest": "^0.16.0",
     "typedoc": "^0.19.1",
     "typedocs": "^0.6.7",
-    "typescript": "^4.0.2",
+    "typescript": "^4.0.3",
     "use-immer": "^0.4.1",
     "utility-types": "^3.10.0",
     "uuid": "^8.3.0",
