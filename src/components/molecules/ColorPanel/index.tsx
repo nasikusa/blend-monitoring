@@ -109,15 +109,12 @@ const ColorPanel: React.FC<Props> = (props: Props) => {
   /**
    * ColorBoxコンポーネントがクリックされて選択されたときのイベント関数
    */
-  const handleColorBoxSelect = (
-    newColorValue: string,
-    currentItemOrder: number
-  ) => {
-    if (newColorValue != null) {
-      setColorValue(newColorValue);
-      setCurrentColorBoxKey(currentItemOrder);
+  const handleColorBoxSelect = useCallback((event: any) => {
+    if (event.currentTarget.dataset.color != null) {
+      setColorValue(event.currentTarget.dataset.color);
+      setCurrentColorBoxKey(Number(event.currentTarget.dataset.index));
     }
-  };
+  }, []);
 
   /**
    * カラーピッカーの値が変化したときに発火する関数
@@ -130,7 +127,7 @@ const ColorPanel: React.FC<Props> = (props: Props) => {
   /**
    * 新しいカラーを追加するアイコンをクリックしたときに発火する関数
    */
-  const handleAddNewColor = () => {
+  const handleAddNewColor = useCallback(() => {
     if (Array.isArray(storedColorValue)) {
       const targetCollectionItemId = uuidv4();
       const targetCollectionValueId = uuidv4();
@@ -156,7 +153,13 @@ const ColorPanel: React.FC<Props> = (props: Props) => {
         }
       });
     }
-  };
+  }, [
+    storedColorValue,
+    rawCollectionData,
+    storeAddCollectionValueColor,
+    storeAddCollectionItem,
+    storeAddCollectionInnerItem,
+  ]);
 
   /**
    * カラーを削除するアイコンをクリックしたときに発火する関数
@@ -236,10 +239,11 @@ const ColorPanel: React.FC<Props> = (props: Props) => {
   /**
    * カラー確認用のアイテムの下にある、追加、削除などを行うエリアのコンポーネント
    */
-  const ColorBoxFunctions = () => {
+  const ColorPanelFunctionIconButtonGroup = () => {
     return customIconButtonData.map((singleCustomIconButtonData) => {
       return (
         <CustomIconButton
+          key={singleCustomIconButtonData.iconType}
           type={singleCustomIconButtonData.iconType}
           buttonType="iconButton"
           labelTitle={singleCustomIconButtonData.labelTitle}
@@ -262,28 +266,26 @@ const ColorPanel: React.FC<Props> = (props: Props) => {
         <Grid container spacing={1}>
           <Grid item xs={12}>
             <Box display="flex" mb={1}>
-              <Box ml={2} display="flex">
+              <Box display="flex">
                 <ColorBoxGroup>
                   {Array.isArray(storedColorValue) ? (
                     storedColorValue.map(
                       (singleGlobalStateColorData, currentIndex) => {
                         return (
                           <ColorBox
+                            key={singleGlobalStateColorData.id}
                             shapeType="circle"
                             boxSize="medium"
                             activeStyleType={['scale', 'border']}
                             active={currentColorBoxKey === currentIndex}
-                            bgColor={
+                            color={
                               currentColorBoxKey === currentIndex
                                 ? colorValue
                                 : singleGlobalStateColorData.value
                             }
-                            onClick={() => {
-                              handleColorBoxSelect(
-                                singleGlobalStateColorData.value,
-                                currentIndex
-                              );
-                            }}
+                            data-color={singleGlobalStateColorData.value}
+                            data-index={currentIndex}
+                            onClick={handleColorBoxSelect}
                           />
                         );
                       }
@@ -292,21 +294,21 @@ const ColorPanel: React.FC<Props> = (props: Props) => {
                     <ColorBox
                       shapeType="circle"
                       boxSize="medium"
-                      bgColor={colorValue}
-                      onClick={() => {
-                        handleColorBoxSelect(storedColorValue.value, 0);
-                      }}
+                      color={colorValue}
+                      data-color={colorValue}
+                      data-index={0}
+                      onClick={handleColorBoxSelect}
                     />
                   )}
                 </ColorBoxGroup>
               </Box>
             </Box>
-            <Box display="flex" mb={1}>
-              <Box ml={4}>{ColorBoxFunctions}</Box>
+            <Box display="flex" flexWrap="wrap" mb={1}>
+              {ColorPanelFunctionIconButtonGroup}
             </Box>
           </Grid>
           <Grid item xs={12}>
-            <Box ml={4}>
+            <Box>
               <CustomSketchPicker
                 color={colorValue}
                 onChangeComplete={handleColorChangeComplete}
@@ -317,7 +319,7 @@ const ColorPanel: React.FC<Props> = (props: Props) => {
             </Box>
           </Grid>
           <Grid item xs={12}>
-            <Box ml={4}>
+            <Box>
               <Button onClick={handleColorPanelOpen}>カラーパネルを開く</Button>
             </Box>
           </Grid>
