@@ -38,7 +38,7 @@
     "@types/redux-logger": "^3.0.8",
     "@types/styled-components": "^5.1.2",
     "@types/uuid": "^8.3.0",
-    "@welldone-software/why-did-you-render": "^4.2.7",
+    "@welldone-software/why-did-you-render": "^4.3.2",
     "bowser": "^2.10.0",
     "camelcase": "^6.0.0",
     "chroma-js": "^2.1.0",
