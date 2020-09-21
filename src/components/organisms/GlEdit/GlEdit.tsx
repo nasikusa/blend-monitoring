@@ -12,7 +12,7 @@ type Props = {
 };
 
 interface TabPanelProps {
-  children?: React.ReactNode;
+  children: React.ReactNode;
   index: any;
   value: any;
 }
