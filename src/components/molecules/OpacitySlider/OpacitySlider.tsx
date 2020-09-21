@@ -105,8 +105,6 @@ const OpacitySlider: React.FC<Props> = (props: Props) => {
         targetIdNewValue: opacityState * 0.01,
       });
     }
-    // setTempOnChangeCommitState(true);
-    // setTempOnChangeState(false);
   };
 
   const handleChangeCommittedDebounced = (nextValue: number) => {

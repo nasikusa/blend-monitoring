@@ -4,6 +4,7 @@ import Grid from '@material-ui/core/Grid';
 import Box from '@material-ui/core/Box';
 import Button from '@material-ui/core/Button';
 import { v4 as uuidv4 } from 'uuid';
+import { debounce } from 'lodash';
 
 import CustomSketchPicker from '../../atoms/CustomSketchPicker';
 import ColorModalContainer from '../../../container/ColorModalContainer';
@@ -86,25 +87,28 @@ const ColorPanel: React.FC<Props> = (props: Props) => {
     setOpenColorPanelFlag(!openColorPanelFlag);
   };
 
-  /**
-   * カラーピッカーを選択し終えたとき、もしくはカラーが一定時間(0.5sくらい？)
-   * 変わらなかった場合に発火する関数
-   * @todo 決めた一定時間後に発火できるようにしたいです
-   */
-  const handleColorChangeComplete = (): void => {
+  const handleChangeCommittedDebounced = (nextValue: string) => {
     if (!Array.isArray(storedColorValue)) {
       storeUpdateCollectionValueColorValue({
         targetId: storedColorValue.id,
-        targetIdNewValue: colorValue,
+        targetIdNewValue: nextValue,
       });
     }
     if (Array.isArray(storedColorValue)) {
       storeUpdateCollectionValueColorValue({
         targetId: storedColorValue[currentColorBoxKey].id,
-        targetIdNewValue: colorValue,
+        targetIdNewValue: nextValue,
       });
     }
   };
+
+  const debouncedHandleChangeCommitted = useCallback(
+    debounce(
+      (nextValue: string) => handleChangeCommittedDebounced(nextValue),
+      200
+    ),
+    [currentColorBoxKey, storedColorValue]
+  );
 
   /**
    * ColorBoxコンポーネントがクリックされて選択されたときのイベント関数
@@ -118,10 +122,11 @@ const ColorPanel: React.FC<Props> = (props: Props) => {
 
   /**
    * カラーピッカーの値が変化したときに発火する関数
-   * @param event
+   * @param color
    */
-  const handleColorChange = (event: { hex: string }): void => {
-    setColorValue(event.hex);
+  const handleColorChange = (color: any): void => {
+    setColorValue(color.hex);
+    debouncedHandleChangeCommitted(color.hex);
   };
 
   /**
@@ -198,41 +203,49 @@ const ColorPanel: React.FC<Props> = (props: Props) => {
     labelTitle: string;
     iconType: IconTypeTypes;
     handleFunction: (() => void) | null;
+    isShow: boolean;
   }[] = [
     {
       labelTitle: '新しいカラーを追加',
       iconType: 'colorPanelAdd',
       handleFunction: handleAddNewColor,
+      isShow: true,
     },
     {
       labelTitle: '選択しているカラーを削除',
       iconType: 'colorPanelDelete',
       handleFunction: handleRemoveColor,
+      isShow: true,
     },
     {
       labelTitle: 'カラーをソート',
       iconType: 'colorPanelSort',
       handleFunction: null,
+      isShow: false,
     },
     {
       labelTitle: 'カラーをストック',
       iconType: 'colorPanelAddFav',
       handleFunction: handleStockColor,
+      isShow: true,
     },
     {
       labelTitle: 'ストックしたカラーをすべて削除',
       iconType: 'colorPanelDeleteFav',
       handleFunction: handleStockColorRemove,
+      isShow: true,
     },
     {
       labelTitle: '現在のカラーをパネルに映す',
       iconType: 'colorPanelFill',
       handleFunction: handleScreenFillColor,
+      isShow: true,
     },
     {
       labelTitle: 'カラーピッカーを拡大',
       iconType: 'colorPanelExpand',
       handleFunction: handleSketchPickerSize,
+      isShow: false,
     },
   ];
 
@@ -242,13 +255,15 @@ const ColorPanel: React.FC<Props> = (props: Props) => {
   const ColorPanelFunctionIconButtonGroup = () => {
     return customIconButtonData.map((singleCustomIconButtonData) => {
       return (
-        <CustomIconButton
-          key={singleCustomIconButtonData.iconType}
-          type={singleCustomIconButtonData.iconType}
-          buttonType="iconButton"
-          labelTitle={singleCustomIconButtonData.labelTitle}
-          onClick={singleCustomIconButtonData.handleFunction}
-        />
+        singleCustomIconButtonData.isShow && (
+          <CustomIconButton
+            key={singleCustomIconButtonData.iconType}
+            type={singleCustomIconButtonData.iconType}
+            buttonType="iconButton"
+            labelTitle={singleCustomIconButtonData.labelTitle}
+            onClick={singleCustomIconButtonData.handleFunction}
+          />
+        )
       );
     });
   };
@@ -278,11 +293,7 @@ const ColorPanel: React.FC<Props> = (props: Props) => {
                             boxSize="medium"
                             activeStyleType={['scale', 'border']}
                             active={currentColorBoxKey === currentIndex}
-                            color={
-                              currentColorBoxKey === currentIndex
-                                ? colorValue
-                                : singleGlobalStateColorData.value
-                            }
+                            color={singleGlobalStateColorData.value}
                             data-color={singleGlobalStateColorData.value}
                             data-index={currentIndex}
                             onClick={handleColorBoxSelect}
@@ -311,7 +322,6 @@ const ColorPanel: React.FC<Props> = (props: Props) => {
             <Box>
               <CustomSketchPicker
                 color={colorValue}
-                onChangeComplete={handleColorChangeComplete}
                 onChange={handleColorChange}
                 disableAlpha
                 presetColors={stockedColorData}
