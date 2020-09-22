@@ -18,6 +18,7 @@ const initialState: sceneCollectionsDictionaryType = {
     innerCollectionId: [
       '96b04eec-b025-421b-aabc-2f08a629949c',
       'af31d35d-2144-43de-8108-855e493805c9',
+      'fcf0ba35-f55c-43af-a29b-051c5959fd2b',
     ],
   },
 };
