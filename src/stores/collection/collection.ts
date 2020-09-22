@@ -197,6 +197,12 @@ const slice = createSlice({
   name: 'collection',
   initialState,
   reducers: {
+    addCollection: (state, action) => {
+      const { id } = action.payload;
+      state[id] = {
+        ...action.payload,
+      };
+    },
     deleteCollection: (state, action) => {
       const { targetId } = action.payload;
       delete state[targetId];
@@ -211,7 +217,7 @@ const slice = createSlice({
       } = action.payload;
       const { innerItemId } = state[targetId];
       if (Array.isArray(innerItemId)) {
-        if (targetInnerItemIndex != null || addIndexType === 'index') {
+        if (targetInnerItemIndex != null && addIndexType === 'index') {
           innerItemId.splice(targetInnerItemIndex, 0, targetInnerItemId);
         } else if (addIndexType === 'last') {
           innerItemId.push(targetInnerItemId);
@@ -238,6 +244,7 @@ const slice = createSlice({
 export default slice.reducer;
 
 export const {
+  addCollection,
   deleteCollection,
   addCollectionInnerItem,
   deleteCollectionInnerItem,

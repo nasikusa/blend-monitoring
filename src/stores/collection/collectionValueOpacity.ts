@@ -40,6 +40,14 @@ const slice = createSlice({
   name: 'collectionValueOpacity',
   initialState,
   reducers: {
+    addValue: (state, action) => {
+      const { targetId, targetNewValue } = action.payload;
+      state[targetId] = {
+        id: targetId,
+        value: targetNewValue,
+        type: 'opacity',
+      };
+    },
     updateValue: (
       state,
       action: { type: string; payload: UpdateValuePayloadType }
@@ -72,4 +80,4 @@ const slice = createSlice({
 
 export default slice.reducer;
 
-export const { updateValue } = slice.actions;
+export const { updateValue, addValue } = slice.actions;

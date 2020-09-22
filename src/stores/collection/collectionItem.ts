@@ -1,5 +1,5 @@
 /* eslint-disable no-param-reassign */
-import { createSlice } from '@reduxjs/toolkit';
+import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
 export type collectionItemTypeType = 'image' | 'color';
 
@@ -30,6 +30,24 @@ export type collectionItemType =
 export type collectionItemDictionaryType = {
   [key: string]: collectionItemType;
 };
+
+type AddItemBasePayloadType = {
+  targetId: string;
+  targetBlendModeId: string;
+  targetOpacityId: string;
+  targetVisibilityId: string;
+};
+
+type AddItemImagePayloadType = AddItemBasePayloadType & {
+  targetImageId: string;
+  targetType: 'image';
+};
+type AddItemColorPayloadType = AddItemBasePayloadType & {
+  targetColorId: string;
+  targetType: 'color';
+};
+
+type AddItemPayloadType = AddItemImagePayloadType | AddItemColorPayloadType;
 
 const initialState: collectionItemDictionaryType = {
   '6157939d-befc-4d1e-b3b2-24ce096919c1': {
@@ -70,29 +88,29 @@ const slice = createSlice({
   name: 'collectionItem',
   initialState,
   reducers: {
-    addItem: (state, action) => {
+    addItem: (state, { payload }: PayloadAction<AddItemPayloadType>) => {
       const {
         targetId,
-        targetType,
         targetBlendModeId,
         targetOpacityId,
         targetVisibilityId,
-      } = action.payload;
-      if (targetType === 'color') {
-        const { targetColorId } = action.payload;
+        ...others
+      } = payload;
+      if (others.targetType === 'color') {
+        const { targetColorId } = others;
         state[targetId] = {
           id: targetId,
-          type: targetType,
+          type: others.targetType,
           blendMode: targetBlendModeId,
           opacity: targetOpacityId,
           visibility: targetVisibilityId,
           color: targetColorId,
         };
-      } else if (targetType === 'image') {
-        const { targetImageId } = action.payload;
+      } else if (others.targetType === 'image') {
+        const { targetImageId } = others;
         state[targetId] = {
           id: targetId,
-          type: targetType,
+          type: others.targetType,
           blendMode: targetBlendModeId,
           opacity: targetOpacityId,
           visibility: targetVisibilityId,

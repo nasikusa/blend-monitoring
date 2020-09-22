@@ -1,4 +1,5 @@
 import React from 'react';
+import { batch } from 'react-redux';
 import { v4 as uuidv4 } from 'uuid';
 import Box from '@material-ui/core/Box';
 import Grid from '@material-ui/core/Grid';
@@ -14,9 +15,17 @@ import canMultiItemCollectionName from '../../../constants/collection/canMultiIt
 import { presetCollectionValueType } from '../../../stores/collection/presetCollectionValue';
 
 export type Props = {
-  createCollection: any;
+  curerntSceneCollectionId: string;
   presetCollectionValue: presetCollectionValueType;
   hasMultiItemCollection: boolean;
+  storeAddSceneCollectionInnerItem: any;
+  storeAddCollection: any;
+  storeAddCollectionItem: any;
+  storeAddCollectionBlendModeValue: any;
+  storeAddCollectionOpacityValue: any;
+  storeAddCollectionVisibilityValue: any;
+  storeAddCollectionColorValue: any;
+  storeAddCollectionImageValue: any;
 };
 
 /**
@@ -24,9 +33,16 @@ export type Props = {
  */
 export default (props: Props) => {
   const {
-    createCollection,
+    curerntSceneCollectionId,
     hasMultiItemCollection,
-    presetCollectionValue,
+    storeAddSceneCollectionInnerItem,
+    storeAddCollection,
+    storeAddCollectionItem,
+    storeAddCollectionBlendModeValue,
+    storeAddCollectionOpacityValue,
+    storeAddCollectionVisibilityValue,
+    storeAddCollectionColorValue,
+    storeAddCollectionImageValue,
   } = props;
   const theme = useTheme();
 
@@ -36,83 +52,143 @@ export default (props: Props) => {
    */
   const handleChange = (currentIndex: number) => {
     const clickedTypeName = collectionTypesArray[currentIndex];
-    const baseCollectionObject = {
-      type: clickedTypeName,
-      id: uuidv4(),
-      innerItemId: uuidv4(),
-      visibility: true,
-      opacity: 1.0,
-      blendMode: 'normal',
-      color: null,
-      size: null,
-      image: null,
-    };
-    let multipleCollectionObject = {};
-    switch (clickedTypeName) {
-      case 'singleColor':
-        multipleCollectionObject = {
-          roughType: 'color',
-          color: '#000000',
-          ...presetCollectionValue.singleColor,
-        };
-        break;
-      case 'singleColorMultiBlends':
-        multipleCollectionObject = {
-          roughType: 'color',
-          color: '#000000',
-          blendMode: [],
-          innerItemId: [],
-          ...presetCollectionValue.singleColorMultiBlends,
-        };
-        break;
-      case 'multiColors':
-        multipleCollectionObject = {
-          roughType: 'color',
-          color: ['#000000'],
-          innerItemId: [uuidv4()],
-          ...presetCollectionValue.multiColors,
-        };
-        break;
-      case 'singleImage':
-        multipleCollectionObject = {
-          roughType: 'image',
-          image: null,
-          blendMode: 'normal',
-          innerItemId: [uuidv4()],
-          size: 'cover',
-          ...presetCollectionValue.singleImage,
-        };
-        break;
-      case 'singleImageMultiBlends':
-        multipleCollectionObject = {
-          roughType: 'image',
-          image: null,
-          blendMode: [],
-          innerItemId: [],
-          size: 'cover',
-          ...presetCollectionValue.singleImagesMultiBlends,
-        };
-        break;
-      case 'multiImages':
-        multipleCollectionObject = {
-          roughType: 'image',
-          image: [],
-          innerItemId: [],
-          size: 'cover',
-          ...presetCollectionValue.multiImages,
-        };
-        break;
-      default:
-        break;
-    }
 
-    const resultNewCollectionObject = {
-      ...baseCollectionObject,
-      ...multipleCollectionObject,
+    const uuidObject = {
+      collection: uuidv4(),
+      collectionItem: uuidv4(),
+      opacity: uuidv4(),
+      blendMode: uuidv4(),
+      visibility: uuidv4(),
+      color: uuidv4(),
+      image: uuidv4(),
     };
 
-    createCollection({
-      collectionDataObject: resultNewCollectionObject,
+    console.log('batch start');
+
+    batch(() => {
+      storeAddCollectionOpacityValue({
+        targetId: uuidObject.opacity,
+        targetNewValue: 1,
+      });
+      storeAddCollectionBlendModeValue({
+        targetId: uuidObject.blendMode,
+        targetNewValue: 'normal',
+      });
+      storeAddCollectionVisibilityValue({
+        targetId: uuidObject.visibility,
+        targetNewValue: true,
+      });
+
+      let collectionItemSubObject = {};
+
+      switch (clickedTypeName) {
+        case 'singleImage':
+        case 'singleImageMultiBlends':
+        case 'multiImages':
+          storeAddCollectionImageValue({
+            targetId: uuidObject.image,
+            targetIdNewValue: '#000000',
+          });
+          collectionItemSubObject = {
+            targetType: 'image',
+            targetImageId: uuidObject.image,
+          };
+          break;
+        case 'singleColor':
+        case 'singleColorMultiBlends':
+        case 'multiColors':
+        case 'base':
+          storeAddCollectionColorValue({
+            targetId: uuidObject.color,
+            targetNewValue: '#000000',
+          });
+          collectionItemSubObject = {
+            targetType: 'color',
+            targetColorId: uuidObject.color,
+          };
+          break;
+        default:
+          collectionItemSubObject = {};
+          break;
+      }
+
+      storeAddCollectionItem({
+        targetId: uuidObject.collectionItem,
+        targetBlendModeId: uuidObject.blendMode,
+        targetOpacityId: uuidObject.opacity,
+        targetVisibilityId: uuidObject.visibility,
+        ...collectionItemSubObject,
+      });
+
+      let collectionSubObject = {};
+
+      switch (clickedTypeName) {
+        case 'singleColor':
+          collectionSubObject = {
+            type: 'singleColor',
+            roughType: 'color',
+            defaultBlendModeId: uuidObject.blendMode,
+            defaultColorId: uuidObject.color,
+            innerItemId: uuidObject.collectionItem,
+          };
+          break;
+        case 'singleColorMultiBlends':
+          collectionSubObject = {
+            type: 'singleColorMultiBlends',
+            roughType: 'color',
+            defaultBlendModeId: uuidObject.blendMode,
+            innerItemId: [uuidObject.collectionItem],
+          };
+          break;
+        case 'multiColors':
+          collectionSubObject = {
+            type: 'multiColors',
+            roughType: 'color',
+            defaultBlendModeId: uuidObject.blendMode,
+            innerItemId: [uuidObject.collectionItem],
+          };
+          break;
+        case 'singleImage':
+          collectionSubObject = {
+            type: 'singleImage',
+            roughType: 'image',
+            defaultBlendModeId: uuidObject.blendMode,
+            defaultImageId: uuidObject.image,
+            innerItemId: uuidObject.collectionItem,
+          };
+          break;
+        case 'singleImageMultiBlends':
+          collectionSubObject = {
+            type: 'singleImageMultiBlends',
+            roughType: 'image',
+            defaultBlendModeId: uuidObject.blendMode,
+            innerItemId: [uuidObject.collectionItem],
+          };
+          break;
+        case 'multiImages':
+          collectionSubObject = {
+            type: 'multiImages',
+            roughType: 'image',
+            defaultBlendModeId: uuidObject.blendMode,
+            innerItemId: [],
+          };
+          break;
+        default:
+          break;
+      }
+
+      storeAddCollection({
+        id: uuidObject.collection,
+        defaultVisibilityId: uuidObject.visibility,
+        defaultOpacityId: uuidObject.opacity,
+        ...collectionSubObject,
+      });
+
+      storeAddSceneCollectionInnerItem({
+        targetInnerItemId: uuidObject.collection,
+        addIndexType: 'last',
+        targetId: curerntSceneCollectionId,
+      });
     });
   };
 
