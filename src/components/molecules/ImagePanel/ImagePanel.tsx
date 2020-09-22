@@ -8,15 +8,15 @@ import GridListTile from '@material-ui/core/GridListTile';
 import Icon from '../../atoms/Icon';
 import MediaModalContainer from '../../../container/MediaModalContainer';
 import { StoredMediaStateType } from '../../../stores/image/storedMedia';
-import { ImageRelatedGlCollectionType } from '../../../types/collection/collectionData';
+import { collectionValueImageType } from '../../../stores/collection/collectionValueImage';
 
 export type Props = {
   storedMediaData: StoredMediaStateType;
-  globalStateImageData: Pick<ImageRelatedGlCollectionType, 'image'>['image'];
+  storedImageValue: collectionValueImageType | collectionValueImageType[];
 };
 
 const ImagePanel: React.FC<Props> = (props: Props) => {
-  const { storedMediaData, globalStateImageData } = props;
+  const { storedMediaData, storedImageValue } = props;
   const [imagePanelOpen, setImagePanelOpen] = useState(false);
   const [imageBoxWidth] = useState<number>(250);
   const [imageBoxRowCount] = useState<number>(4);
@@ -39,20 +39,32 @@ const ImagePanel: React.FC<Props> = (props: Props) => {
                 cellHeight={imageBoxWidth / imageBoxRowCount}
                 cols={imageBoxRowCount}
               >
-                {globalStateImageData != null &&
-                globalStateImageData.length !== 0 &&
-                Array.isArray(globalStateImageData)
-                  ? globalStateImageData.map((singleImageID: string) => {
+                {storedImageValue != null && Array.isArray(storedImageValue) ? (
+                  storedImageValue.map(
+                    (singleImageValue: collectionValueImageType) => {
                       return (
-                        <GridListTile key={singleImageID} cols={1}>
+                        <GridListTile key={singleImageValue.value} cols={1}>
                           <img
-                            src={storedMediaData[singleImageID].resource.small}
-                            alt="sample"
+                            src={
+                              storedMediaData[singleImageValue.value].resource
+                                .small
+                            }
+                            alt="thumbnailImage"
                           />
                         </GridListTile>
                       );
-                    })
-                  : ''}
+                    }
+                  )
+                ) : (
+                  <GridListTile key={storedImageValue.value} cols={1}>
+                    <img
+                      src={
+                        storedMediaData[storedImageValue.value].resource.small
+                      }
+                      alt="thumbnailImage"
+                    />
+                  </GridListTile>
+                )}
               </GridList>
             </Box>
           </Box>

@@ -6,7 +6,7 @@ import { css } from '@emotion/core';
 
 type Props = {
   iconElement: React.ReactElement;
-  children?: React.ReactNode;
+  children: React.ReactNode;
 };
 
 const TextWithIcon = (props: Props) => {

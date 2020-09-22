@@ -41,3 +41,7 @@ export default function CollectionMainIcon(props: PropsInterface) {
       return <HelpIcon {...iconProps} />;
   }
 }
+
+CollectionMainIcon.defaultProps = {
+  iconProps: {},
+};

@@ -8,7 +8,7 @@ import { css } from '@emotion/core';
 
 type Props = {
   children: React.ReactElement;
-  collapseIn: boolean;
+  collapseIn?: boolean;
 };
 
 const CollectionPanel = (props: Props) => {

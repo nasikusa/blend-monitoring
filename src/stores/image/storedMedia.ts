@@ -1,6 +1,7 @@
 import { createSlice } from '@reduxjs/toolkit';
+import tempSampleImage from '../../constants/image/tempSampleImage';
 
-// import createStoredMediaInitialState from '../utils/develop/createStoredMediaInitialState';
+// import createStoredMediaInitialState from '../../utils/develop/createStoredMediaInitialState';
 
 export type StoredMediaTypesType = 'image' | 'sequenceImages' | 'video';
 
@@ -47,10 +48,41 @@ export type StoredMediaStateType = {
 export const imageSizeNames = ['thumb', 'small', 'medium', 'large', 'raw'];
 
 // const initialState: StoredMediaStateType = createStoredMediaInitialState(
-//   10,
+//   1,
 //   false
 // );
-const initialState: StoredMediaStateType = {};
+const initialState: StoredMediaStateType = {
+  '1ece8d80-6316-4649-ae77-06e1285d8eec': {
+    id: '1ece8d80-6316-4649-ae77-06e1285d8eec',
+    name: 'test',
+    mediaType: 'image',
+    dataType: 'objectURL',
+    aspectRatio: 1,
+    color: {
+      dominant: '#000000',
+      palette: [],
+    },
+    mime: 'image/jpeg',
+    fileSize: {
+      raw: 0,
+      large: 0,
+      medium: 0,
+      small: 0,
+      thumb: 0,
+    },
+    resource: {
+      raw: tempSampleImage,
+      large: tempSampleImage,
+      medium: tempSampleImage,
+      small: tempSampleImage,
+      thumb: tempSampleImage,
+    },
+    rawWidth: 1000,
+    rawHeight: 1000,
+    isSelected: false,
+    itemOrder: 0,
+  },
+};
 
 const slice = createSlice({
   name: 'storedMedia',

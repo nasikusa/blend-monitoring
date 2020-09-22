@@ -14,7 +14,13 @@ export type collectionValueImageDictionaryType = {
   [key: string]: baseCollectionValueType & collectionValueImageType;
 };
 
-const initialState: collectionValueImageDictionaryType = {};
+const initialState: collectionValueImageDictionaryType = {
+  '369a776b-5640-4d3d-9dfe-6d1d6ccc9150': {
+    id: '369a776b-5640-4d3d-9dfe-6d1d6ccc9150',
+    value: '1ece8d80-6316-4649-ae77-06e1285d8eec',
+    type: 'image',
+  },
+};
 
 const slice = createSlice({
   name: 'collectionValueImage',

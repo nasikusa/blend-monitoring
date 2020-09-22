@@ -56,6 +56,14 @@ const initialState: collectionItemDictionaryType = {
     visibility: '557f8233-3b5a-4250-8499-c5c1243b9fd8',
     color: '62756cf0-e438-4e77-bc81-c73bb6f46bca',
   },
+  '701cc008-42f3-4a19-829c-52035544296e': {
+    id: '701cc008-42f3-4a19-829c-52035544296e',
+    type: 'image',
+    blendMode: '0f433df2-1e1e-4df3-baf1-ab96052c1f9c',
+    opacity: 'bef45475-7567-42c3-b8ee-0901b7470134',
+    visibility: '557f8233-3b5a-4250-8499-c5c1243b9fd8',
+    image: '369a776b-5640-4d3d-9dfe-6d1d6ccc9150',
+  },
 };
 
 const slice = createSlice({
