@@ -1,10 +1,8 @@
-import React, { useContext } from 'react';
+import React from 'react';
 import { useSelector, shallowEqual } from 'react-redux';
 import ImagePanel from '../components/molecules/ImagePanel';
 import { AppState } from '../stores/index';
 import { IdType } from '../types/collection/collectionData';
-import { GlCollectionOrderContext } from '../components/molecules/CollectionList/CollectionList';
-import useCurrentSceneCollection from '../hooks/collection/useCurrentSceneCollection';
 import { CollectionCategoryType } from '../stores/collection/collection';
 import { collectionValueImageType } from '../stores/collection/collectionValueImage';
 
@@ -46,28 +44,14 @@ const ImagePanelContainer = (props: Props) => {
     return state.collectionValueImage[targetImageValueId];
   }, shallowEqual);
 
-  // ==========================================
-
-  const storedMediaData = useSelector((state: AppState) => state.storedMedia);
-  // const collectionData = useSelector((state: AppState) => state.collectionData);
-  const collectionData = useCurrentSceneCollection();
-  const glCollectionOrderKey = useContext(GlCollectionOrderContext);
-  const currentSingleCollectionData = collectionData[glCollectionOrderKey];
-  let globalStateImageData =
-    currentSingleCollectionData.roughType === 'image'
-      ? currentSingleCollectionData.image
-      : null;
-  if (!Array.isArray(globalStateImageData) && globalStateImageData != null) {
-    globalStateImageData = [globalStateImageData];
-  }
-  if (globalStateImageData == null) {
-    globalStateImageData = [];
-  }
+  const storedMediaData = useSelector(
+    (state: AppState) => state.storedMedia,
+    shallowEqual
+  );
 
   const combineProps = {
     storedImageValue,
     storedMediaData,
-    globalStateImageData,
   };
 
   return <ImagePanel {...combineProps} />;

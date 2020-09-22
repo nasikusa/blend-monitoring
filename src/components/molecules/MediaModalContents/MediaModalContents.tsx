@@ -1,4 +1,6 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
+import { batch } from 'react-redux';
+import { v4 as uuidv4 } from 'uuid';
 import { css } from '@emotion/core';
 import Typography from '@material-ui/core/Typography';
 import Box from '@material-ui/core/Box';
@@ -8,16 +10,19 @@ import Tabs from '@material-ui/core/Tabs';
 import Tab from '@material-ui/core/Tab';
 import Button from '@material-ui/core/Button';
 import Icon from '../../atoms/Icon';
+import { CollectionCategoryType } from '../../../stores/collection/collection';
 
-import getGlViewItemAspect from '../../../utils/image/getGlViewItemAspect';
 import { StoredMediaStateType } from '../../../stores/image/storedMedia';
 import {
   ImageRelatedGlCollectionType,
   GlCollectionTypeArray,
 } from '../../../types/collection/collectionData';
+import { collectionValueImageType } from '../../../stores/collection/collectionValueImage';
 
 export type Props = {
+  rawCollectionData: CollectionCategoryType;
   storedMediaData: StoredMediaStateType;
+  storedImageValue: collectionValueImageType | collectionValueImageType[];
   collectionStateImageData: Pick<
     ImageRelatedGlCollectionType,
     'image'
@@ -26,9 +31,14 @@ export type Props = {
   glCollectionOrderKey: number;
   OpenFileWindowFunction: any;
   updateSingleItemAspect: any;
+  storeCollectionValueImageUpdateValue: any;
   collectionData: GlCollectionTypeArray;
   isBoxSmallFlag: boolean;
   isImageBigFlag: boolean;
+  storeAddCollectionValueImage: any;
+  storeAddCollectionItem: any;
+  storeAddCollectionInnerItem: any;
+  storeDeleteCollectionInnerItem: any;
 };
 
 interface TabPanelProps {
@@ -78,46 +88,88 @@ function TabPanel(props: TabPanelProps) {
 export default function MediaModalContents(props: Props) {
   const {
     storedMediaData,
-    collectionStateImageData,
-    updateImages,
-    glCollectionOrderKey,
+    rawCollectionData,
+    storedImageValue,
     OpenFileWindowFunction,
-    updateSingleItemAspect,
-    collectionData,
     isBoxSmallFlag,
     isImageBigFlag,
+    storeCollectionValueImageUpdateValue,
+    storeAddCollectionValueImage,
+    storeAddCollectionItem,
+    storeAddCollectionInnerItem,
+    storeDeleteCollectionInnerItem,
   } = props;
 
-  const [value, setValue] = React.useState(0);
-  const [isImageChangeFlag, setIsImageChangeFlag] = useState(false);
+  const [tabValue, setTabValue] = React.useState(0);
+  const storedImageValueValues = Array.isArray(storedImageValue)
+    ? storedImageValue.map(
+        (singleStoredImageValue) => singleStoredImageValue.value
+      )
+    : storedImageValue.value;
 
   const handleTabChange = (event: React.ChangeEvent<{}>, newValue: number) => {
-    setValue(newValue);
+    setTabValue(newValue);
   };
 
-  const handleImageChange = (targetImageID: any, targetBoolValue: any) => {
-    updateImages({
-      imageID: targetImageID,
-      glCollectionOrderKey,
-      boolValue: targetBoolValue,
-    });
-    setIsImageChangeFlag(true);
-  };
-
-  useEffect(() => {
-    if (!isImageChangeFlag) {
-      return;
+  const handleImageChange = (
+    targetImageID: any,
+    targetBoolValue: boolean,
+    targetIndex: number
+  ) => {
+    if (!Array.isArray(storedImageValue)) {
+      storeCollectionValueImageUpdateValue({
+        targetId: storedImageValue.value,
+        targetIdNewValue: targetImageID,
+      });
+    } else {
+      const targetCollectionItemId = uuidv4();
+      const targetCollectionValueId = uuidv4();
+      if (rawCollectionData.type === 'multiImages') {
+        if (targetBoolValue) {
+          batch(() => {
+            storeAddCollectionValueImage({
+              targetId: targetCollectionValueId,
+              targetIdNewValue: targetImageID,
+            });
+            storeAddCollectionItem({
+              targetId: targetCollectionItemId,
+              targetType: rawCollectionData.roughType,
+              targetBlendModeId: rawCollectionData.defaultBlendModeId,
+              targetOpacityId: rawCollectionData.defaultOpacityId,
+              targetVisibilityId: rawCollectionData.defaultVisibilityId,
+              targetImageId: targetCollectionValueId,
+            });
+            storeAddCollectionInnerItem({
+              addIndexType: 'first',
+              targetInnerItemId: targetCollectionItemId,
+              targetId: rawCollectionData.id,
+            });
+          });
+        } else if (!targetBoolValue) {
+          storeDeleteCollectionInnerItem({
+            targetId: rawCollectionData.id,
+            targetInnerId: rawCollectionData.innerItemId[targetIndex],
+          });
+        }
+      }
     }
-    const aspectValue = getGlViewItemAspect(collectionData, storedMediaData);
-    updateSingleItemAspect({ aspectValue });
-    setIsImageChangeFlag(false);
-  }, [
-    storedMediaData,
-    isImageChangeFlag,
-    collectionData,
-    updateSingleItemAspect,
-    setIsImageChangeFlag,
-  ]);
+    // setIsImageChangeFlag(true);
+  };
+
+  // useEffect(() => {
+  //   if (!isImageChangeFlag) {
+  //     return;
+  //   }
+  //   const aspectValue = getGlViewItemAspect(collectionData, storedMediaData);
+  //   updateSingleItemAspect({ aspectValue });
+  //   setIsImageChangeFlag(false);
+  // }, [
+  //   storedMediaData,
+  //   isImageChangeFlag,
+  //   collectionData,
+  //   updateSingleItemAspect,
+  //   setIsImageChangeFlag,
+  // ]);
 
   return (
     <Box width={isBoxSmallFlag ? 300 : 600}>
@@ -138,17 +190,15 @@ export default function MediaModalContents(props: Props) {
       </Box>
       <Tabs
         css={tabsStyle}
-        value={value}
+        value={tabValue}
         onChange={handleTabChange}
         aria-label="フォルダタブ"
         variant="scrollable"
         scrollButtons="auto"
       >
         <Tab label="すべてのメディア" />
-        {/* <Tab label="フォルダ2" />
-        <Tab label="フォルダ3" /> */}
       </Tabs>
-      <TabPanel value={value} index={0}>
+      <TabPanel value={tabValue} index={0}>
         {Object.keys(storedMediaData).length === 0 ? (
           <Typography variant="overline" display="block">
             画像をアップロードするとここに表示されます。
@@ -160,14 +210,36 @@ export default function MediaModalContents(props: Props) {
             css={gridListStyle}
           >
             {Object.keys(storedMediaData).map((singleImageID: string) => {
-              const isIncludeSingleImageID =
-                collectionStateImageData != null
-                  ? collectionStateImageData.includes(singleImageID)
-                  : '';
+              /**
+               * チェックボックスのbool値を保存しておくための変数
+               */
+              let isIncludeSingleImageID = false;
+              const targetIndex = Array.isArray(storedImageValueValues)
+                ? storedImageValueValues.findIndex(
+                    (singleStoredImageValueValue) =>
+                      singleStoredImageValueValue === singleImageID
+                  )
+                : -1;
+              if (Array.isArray(storedImageValueValues)) {
+                isIncludeSingleImageID = targetIndex !== -1;
+              } else {
+                isIncludeSingleImageID =
+                  storedImageValueValues === singleImageID;
+              }
+
+              // const isIncludeSingleImageID =
+              //   storedImageValueValues != null &&
+              //   Array.isArray(storedImageValueValues)
+              //     ? storedImageValueValues.includes(singleImageID)
+              //     : storedImageValueValues === singleImageID;
               return (
                 <GridListTile
                   onClick={() => {
-                    handleImageChange(singleImageID, !isIncludeSingleImageID);
+                    handleImageChange(
+                      singleImageID,
+                      !isIncludeSingleImageID,
+                      targetIndex
+                    );
                   }}
                   css={
                     isIncludeSingleImageID
@@ -179,7 +251,7 @@ export default function MediaModalContents(props: Props) {
                   rows={1}
                 >
                   <img
-                    src={storedMediaData[singleImageID].resource.small}
+                    src={storedMediaData[singleImageID].resource.thumb}
                     alt={singleImageID}
                   />
                 </GridListTile>
@@ -187,54 +259,6 @@ export default function MediaModalContents(props: Props) {
             })}
           </GridList>
         )}
-      </TabPanel>
-      <TabPanel value={value} index={1}>
-        <GridList
-          cellHeight={(isBoxSmallFlag ? 300 : 600) / (isImageBigFlag ? 4 : 9)}
-          cols={isImageBigFlag ? 4 : 9}
-          css={gridListStyle}
-        >
-          {Object.keys(storedMediaData)
-            .map((singleImageID: any) => {
-              return (
-                <GridListTile
-                  css={gridListTileStyle}
-                  key={singleImageID}
-                  cols={1}
-                  rows={1}
-                >
-                  <img
-                    src={storedMediaData[singleImageID].resource.small}
-                    alt={storedMediaData[singleImageID].name}
-                  />
-                </GridListTile>
-              );
-            })
-            .slice(0, 7)}
-        </GridList>
-      </TabPanel>
-      <TabPanel value={value} index={2}>
-        <GridList
-          cellHeight={(isBoxSmallFlag ? 300 : 600) / (isImageBigFlag ? 4 : 9)}
-          cols={isImageBigFlag ? 4 : 9}
-          css={gridListStyle}
-        >
-          {Object.keys(storedMediaData).map((singleImageID: any) => {
-            return (
-              <GridListTile
-                css={gridListTileStyle}
-                key={singleImageID}
-                cols={1}
-                rows={1}
-              >
-                <img
-                  src={storedMediaData[singleImageID].resource.small}
-                  alt="sample"
-                />
-              </GridListTile>
-            );
-          })}
-        </GridList>
       </TabPanel>
     </Box>
   );

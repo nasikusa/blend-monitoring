@@ -16,16 +16,11 @@ import Switch from '@material-ui/core/Switch';
 import Snackbar from '@material-ui/core/Snackbar';
 
 import getResiedImageData from '../../../utils/image/getResizedImageData';
-import { GlCollectionTypeArray } from '../../../types/collection/collectionData';
 import MediaModalContentsContainer from '../../../container/MediaModalContentsContainer';
 import createStoredMediaItemObject from '../../../utils/image/createStoredMediaItemObject';
 import CustomAlert from '../../atoms/CustomAlert';
 
-import { StoredMediaStateType } from '../../../stores/image/storedMedia';
-
 export type Props = {
-  collectionData: GlCollectionTypeArray;
-  storedMediaData: StoredMediaStateType;
   modalOpen: boolean;
   setModalOpen: (modalOpenFlag: boolean) => void;
   addMediaData: any;
@@ -33,17 +28,10 @@ export type Props = {
 
 const useStyles = makeStyles(() =>
   createStyles({
-    label: {
-      fontSize: `12px`,
-    },
     modal: {
       display: `flex`,
       alignItems: `center`,
       justifyContent: `center`,
-    },
-    grid: {
-      // display: `flex`,
-      // alignItems: `center`,
     },
   })
 );

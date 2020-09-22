@@ -5,7 +5,6 @@ import Button from '@material-ui/core/Button';
 import GridList from '@material-ui/core/GridList';
 import GridListTile from '@material-ui/core/GridListTile';
 
-import Icon from '../../atoms/Icon';
 import MediaModalContainer from '../../../container/MediaModalContainer';
 import { StoredMediaStateType } from '../../../stores/image/storedMedia';
 import { collectionValueImageType } from '../../../stores/collection/collectionValueImage';
@@ -33,7 +32,6 @@ const ImagePanel: React.FC<Props> = (props: Props) => {
       <Grid container spacing={1}>
         <Grid item xs={12}>
           <Box display="flex" mb={1}>
-            <Icon type="imagePanel" />
             <Box ml={2} width={imageBoxWidth}>
               <GridList
                 cellHeight={imageBoxWidth / imageBoxRowCount}
@@ -59,7 +57,7 @@ const ImagePanel: React.FC<Props> = (props: Props) => {
                   <GridListTile key={storedImageValue.value} cols={1}>
                     <img
                       src={
-                        storedMediaData[storedImageValue.value].resource.small
+                        storedMediaData[storedImageValue.value].resource.thumb
                       }
                       alt="thumbnailImage"
                     />
@@ -70,7 +68,7 @@ const ImagePanel: React.FC<Props> = (props: Props) => {
           </Box>
         </Grid>
         <Grid item xs={12}>
-          <Box ml={4}>
+          <Box>
             <Button
               variant="contained"
               color="primary"
