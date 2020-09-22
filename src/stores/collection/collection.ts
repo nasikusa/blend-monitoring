@@ -183,13 +183,13 @@ const initialState: GlCollectionDictionaryType = {
   },
   'fcf0ba35-f55c-43af-a29b-051c5959fd2b': {
     id: 'fcf0ba35-f55c-43af-a29b-051c5959fd2b',
-    type: 'singleImage',
+    type: 'multiImages',
     roughType: 'image',
-    innerItemId: '701cc008-42f3-4a19-829c-52035544296e',
+    innerItemId: ['701cc008-42f3-4a19-829c-52035544296e'],
     defaultOpacityId: '40818509-da04-44fd-baf2-af23312c7e36',
-    defaultBlendModeId: 'c29adfe8-ee66-4c9b-ba09-e629affad3a2',
+    defaultBlendModeId: '0f433df2-1e1e-4df3-baf1-ab96052c1f9c',
     defaultVisibilityId: '02d077cf-e936-41cd-b725-3d841691aabd',
-    defaultImageId: '369a776b-5640-4d3d-9dfe-6d1d6ccc9150',
+    // defaultImageId: '369a776b-5640-4d3d-9dfe-6d1d6ccc9150',
   },
 };
 
