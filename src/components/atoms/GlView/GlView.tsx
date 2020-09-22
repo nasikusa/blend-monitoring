@@ -88,8 +88,6 @@ const GlView: React.FC<Props> = (props: Props) => {
     }
     `;
 
-    // console.log(shaderString);
-
     shaderUniformValue = {
       ...CreateShaderUniforms(
         multiCollectionData,
