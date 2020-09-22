@@ -34,7 +34,7 @@ export type Props = {
 export default (props: Props) => {
   const {
     curerntSceneCollectionId,
-    // hasMultiItemCollection,
+    hasMultiItemCollection,
     storeAddSceneCollectionInnerItem,
     storeAddCollection,
     storeAddCollectionItem,
@@ -215,13 +215,17 @@ export default (props: Props) => {
                 labelTitle={collectionTypeNameObject[singleCollectionType].ja}
                 active
                 disableTooltip
-                disable={canMultiItemCollectionName.includes(
-                  singleCollectionType
-                )}
+                disable={
+                  canMultiItemCollectionName.includes(singleCollectionType) &&
+                  hasMultiItemCollection
+                }
                 buttonGeneralProps={{
                   onClick: () => {
                     if (
-                      canMultiItemCollectionName.includes(singleCollectionType)
+                      canMultiItemCollectionName.includes(
+                        singleCollectionType
+                      ) &&
+                      hasMultiItemCollection
                     ) {
                       return;
                     }
