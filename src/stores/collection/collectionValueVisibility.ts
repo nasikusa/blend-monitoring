@@ -1,3 +1,4 @@
+/* eslint-disable no-param-reassign */
 import { createSlice } from '@reduxjs/toolkit';
 import { IdType } from '../../types/collection/collectionData';
 import { baseCollectionValueType } from '../../types/collection/collectionValueType';
@@ -30,9 +31,18 @@ const initialState: collectionValueVisibilityDictionaryType = {
 const slice = createSlice({
   name: 'collectionValueVisibility',
   initialState,
-  reducers: {},
+  reducers: {
+    addValue: (state, action) => {
+      const { targetId, targetNewValue } = action.payload;
+      state[targetId] = {
+        id: targetId,
+        value: targetNewValue,
+        type: 'visibility',
+      };
+    },
+  },
 });
 
 export default slice.reducer;
 
-// export const { stockAddColor, stockRemoveColor, replaceAll } = slice.actions;
+export const { addValue } = slice.actions;

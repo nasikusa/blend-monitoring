@@ -1,4 +1,4 @@
-import { createSlice } from '@reduxjs/toolkit';
+import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { IdType } from '../../types/collection/collectionData';
 // import { v4 as uuidv4 } from 'uuid';
 
@@ -10,6 +10,13 @@ export type sceneCollectionsDictionaryType = {
     innerCollectionId: IdType[];
     createdAt?: string;
   };
+};
+
+type AddSceneCollectionInnerItemReducerType = {
+  targetId: string;
+  targetInnerItemId: string;
+  addIndexType: 'first' | 'last' | 'index';
+  targetInnerItemIndex: number;
 };
 
 const initialState: sceneCollectionsDictionaryType = {
@@ -27,6 +34,27 @@ const slice = createSlice({
   name: 'sceneCollection',
   initialState,
   reducers: {
+    addSceneCollectionInnerItem: (
+      state,
+      { payload }: PayloadAction<AddSceneCollectionInnerItemReducerType>
+    ) => {
+      const {
+        targetId,
+        targetInnerItemId,
+        addIndexType,
+        targetInnerItemIndex,
+      } = payload;
+      const { innerCollectionId } = state[targetId];
+      if (targetInnerItemIndex != null && addIndexType === 'index') {
+        innerCollectionId.splice(targetInnerItemIndex, 0, targetInnerItemId);
+      } else if (addIndexType === 'last') {
+        innerCollectionId.push(targetInnerItemId);
+      } else if (addIndexType === 'first') {
+        innerCollectionId.unshift(targetInnerItemId);
+      } else {
+        innerCollectionId.push(targetInnerItemId);
+      }
+    },
     deleteSceneCollectionInnerItem: (state, action) => {
       const { targetId, targetInnerId } = action.payload;
       const innerItemIDValue = state[targetId].innerCollectionId;
@@ -42,4 +70,7 @@ const slice = createSlice({
 
 export default slice.reducer;
 
-export const { deleteSceneCollectionInnerItem } = slice.actions;
+export const {
+  deleteSceneCollectionInnerItem,
+  addSceneCollectionInnerItem,
+} = slice.actions;
