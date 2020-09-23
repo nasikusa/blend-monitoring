@@ -1,5 +1,5 @@
 import React from 'react';
-import { useSelector } from 'react-redux';
+import { useSelector, shallowEqual } from 'react-redux';
 import Footer from '../components/organisms/Footer';
 import { AppState } from '../stores/index';
 import getLengthOfCollections from '../utils/collection/getLengthOfCollections';
@@ -11,7 +11,10 @@ import useCurrentSceneCollection from '../hooks/collection/useCurrentSceneCollec
 export default () => {
   // const collectionData = useSelector((state: AppState) => state.collectionData);
   const collectionData = useCurrentSceneCollection();
-  const storedMediaData = useSelector((state: AppState) => state.storedMedia);
+  const storedMediaData = useSelector(
+    (state: AppState) => state.storedMedia,
+    shallowEqual
+  );
   const multiCollectionsLength = collectionData.length;
   const storedMediaLength = Object.keys(storedMediaData).length;
   const glViewItemLength = getLengthOfCollections(collectionData);

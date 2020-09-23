@@ -7,7 +7,6 @@ import { AppState } from '../stores/index';
 import useCurrentSceneCollection from '../hooks/collection/useCurrentSceneCollection';
 
 export default () => {
-  // const collectionData = useSelector((state: AppState) => state.collectionData);
   const collectionData = useCurrentSceneCollection();
   const glSettingsData = useSelector((state: AppState) => state.glSettings);
   /**

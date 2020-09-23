@@ -1,29 +1,37 @@
 import React from 'react';
-import Box, { BoxProps } from '@material-ui/core/Box';
+import Box from '@material-ui/core/Box';
 import { css, SerializedStyles } from '@emotion/core';
+import { shallowEqual } from 'react-redux';
+
+import arrayEqual from '../../../utils/general/arrayEqual';
 
 type activeStyleTypeType = 'none' | 'scale' | 'opacity' | 'border';
 
 type Props = Readonly<
   Partial<{
-    bgColor: string;
+    color: string;
     shapeType: 'circle' | 'heavyRound' | 'round' | 'lightRound' | 'square';
     borderColor: string;
     borderWidth: number;
     boxSize: 'small' | 'medium' | 'large' | 'exLarge';
     boxSizeHeightRatio: number;
-    muiBoxProps: BoxProps;
     active: boolean;
     activeStyleType:
       | activeStyleTypeType
       | [activeStyleTypeType, ...activeStyleTypeType[]];
-    onClick: () => void;
+    'data-color': string;
+    'data-index': number;
+    onClick: (event: any) => void;
     children: never;
-    innerMuiBoxProps: BoxProps;
   }>
 >;
 
 export const styles: { [K: string]: SerializedStyles } = {
+  root: css({
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
+  }),
   cursorDefault: css({
     cursor: 'default',
   }),
@@ -84,7 +92,7 @@ const calcBoxSize = (boxSize: Props['boxSize']): number => {
  * @todo active状態のときのpropsを入れたいです
  */
 const ColorBox: React.FC<Props> = ({
-  bgColor = '#000000',
+  color = '#000000',
   shapeType = 'square',
   active = false,
   borderColor = '#ffffff',
@@ -92,10 +100,13 @@ const ColorBox: React.FC<Props> = ({
   boxSize = 'medium',
   boxSizeHeightRatio = 1,
   onClick,
-  muiBoxProps,
-  innerMuiBoxProps,
   activeStyleType = 'scale',
+  'data-index': dataIndex,
+  'data-color': dataColor,
 }) => {
+  /**
+   * activeの際のスタイルが複数選択されている場合は、こちらで管理している
+   */
   const arrayActiveStyles =
     Array.isArray(activeStyleType) && active === true
       ? activeStyleType.map((singleActiveStyleType) => {
@@ -115,15 +126,16 @@ const ColorBox: React.FC<Props> = ({
   return (
     <Box
       onClick={onClick}
-      css={[onClick ? styles.cursorPointer : styles.cursorDefault]}
+      css={[styles.root, onClick ? styles.cursorPointer : styles.cursorDefault]}
       style={{
         width: `${calcBoxSize(boxSize)}px`,
         height: `${calcBoxSize(boxSize) * boxSizeHeightRatio}px`,
       }}
-      {...muiBoxProps}
+      data-color={dataColor}
+      data-index={dataIndex}
     >
       <Box
-        bgcolor={bgColor}
+        bgcolor={color}
         css={[
           styles.innerBase,
           styles.border,
@@ -140,10 +152,28 @@ const ColorBox: React.FC<Props> = ({
         style={{
           border: `${borderWidth}px solid ${borderColor}`,
         }}
-        {...innerMuiBoxProps}
       />
     </Box>
   );
 };
 
-export default ColorBox;
+export default React.memo(ColorBox, (prevProps, nextProps) => {
+  if (
+    Array.isArray(prevProps.activeStyleType) &&
+    Array.isArray(nextProps.activeStyleType)
+  ) {
+    const {
+      activeStyleType: prevActiveStyleType,
+      ...prevOtherProps
+    } = prevProps;
+    const {
+      activeStyleType: nextActiveStyleType,
+      ...nextOtherProps
+    } = nextProps;
+    return (
+      shallowEqual(prevOtherProps, nextOtherProps) &&
+      arrayEqual(prevProps.activeStyleType, nextProps.activeStyleType)
+    );
+  }
+  return shallowEqual(prevProps, nextProps);
+});

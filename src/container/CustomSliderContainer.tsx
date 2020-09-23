@@ -15,7 +15,7 @@ export type Props = {
   rawCollectionData: CollectionCategoryType;
   isShowInputArea?: boolean;
   isShowBeforeIcon?: boolean;
-  sliderStopCheckTime?: number | null;
+  sliderStopCheckTime?: number;
   sliderMaxWidth?: number;
 };
 
@@ -64,7 +64,6 @@ const CustomSliderContainer: React.FC<Props> = (props: Props) => {
   const combineProps = {
     storeUpdateOpacityValue,
     storedOpacityValue,
-    isArrayStoredData: Array.isArray(storedOpacityValue),
     isArrayAllSameId: Array.isArray(storedOpacityValue)
       ? storedOpacityValue.every(
           (singleStoredOpacityValue) => singleStoredOpacityValue.id
@@ -79,7 +78,7 @@ const CustomSliderContainer: React.FC<Props> = (props: Props) => {
 CustomSliderContainer.defaultProps = {
   isShowInputArea: true,
   isShowBeforeIcon: false,
-  sliderStopCheckTime: 300,
+  sliderStopCheckTime: 200,
 };
 
 const CustomSliderContainerMemo = React.memo<Props>(

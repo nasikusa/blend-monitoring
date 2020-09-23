@@ -1,5 +1,5 @@
 import React, { useContext } from 'react';
-import { useSelector } from 'react-redux';
+import { useSelector, shallowEqual } from 'react-redux';
 import GlItem from '../components/molecules/GlItem';
 import { AppState } from '../stores/index';
 import hasMultiItemCollection from '../utils/collection/hasMultiItemCollection';
@@ -12,7 +12,10 @@ export default () => {
   const glItemOrder = useContext(GlItemOrderContext);
   // const collectionData = useSelector((state: AppState) => state.collectionData);
   const collectionData = useCurrentSceneCollection();
-  const storedMediaData = useSelector((state: AppState) => state.storedMedia);
+  const storedMediaData = useSelector(
+    (state: AppState) => state.storedMedia,
+    shallowEqual
+  );
   const [
     hasMultiItemCollectionBoolean,
     hasMultiItemCollectionData,

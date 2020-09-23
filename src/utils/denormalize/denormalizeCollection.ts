@@ -103,7 +103,7 @@ export const getDenormalizedCollection = (
   ) {
     const { collectionValueImage } = argumentMultipleDataObject;
     const denormalizedTargetIdCollectionItem = getDenormalizedImageValueCollectionItem(
-      targetIdCollection.id,
+      targetIdCollection.innerItemId,
       {
         collectionItem,
         collectionValueOpacity,

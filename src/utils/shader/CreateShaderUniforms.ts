@@ -34,9 +34,8 @@ export default (
         // opacity = 0 で非表示と同義になる。もしくは他の方法でもいいのかも。
         resultOpacityValue = '0.0';
       } else if (Array.isArray(opacity)) {
-        resultOpacityValue = getFloatAdjustedString4GLSL(
-          opacity[collectionCurrentIndex]
-        );
+        // TODO: 複数のopacity値のケースへの対応
+        resultOpacityValue = getFloatAdjustedString4GLSL(opacity[0]);
       } else if (typeof opacity === 'number') {
         resultOpacityValue = getFloatAdjustedString4GLSL(opacity);
       }
@@ -48,6 +47,9 @@ export default (
           if (image != null && typeof image === 'string') {
             resultUniformsObject[`layer${collectionCurrentIndex}`] =
               storedMediaState[image].resource.medium;
+          } else if (Array.isArray(image)) {
+            resultUniformsObject[`layer${collectionCurrentIndex}`] =
+              storedMediaState[image[0]].resource.medium;
           }
           break;
         }

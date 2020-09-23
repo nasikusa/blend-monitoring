@@ -1,6 +1,7 @@
 /* eslint-disable no-param-reassign */
 
-import { createSlice } from '@reduxjs/toolkit';
+import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+import { IdType } from '../../types/collection/collectionData';
 
 export type SingleItemCollectionTypeType =
   | 'singleColor'
@@ -181,14 +182,36 @@ const initialState: GlCollectionDictionaryType = {
     defaultBlendModeId: '0f433df2-1e1e-4df3-baf1-ab96052c1f9c',
     defaultVisibilityId: '557f8233-3b5a-4250-8499-c5c1243b9fd8',
   },
+  'fcf0ba35-f55c-43af-a29b-051c5959fd2b': {
+    id: 'fcf0ba35-f55c-43af-a29b-051c5959fd2b',
+    type: 'multiImages',
+    roughType: 'image',
+    innerItemId: ['701cc008-42f3-4a19-829c-52035544296e'],
+    defaultOpacityId: '40818509-da04-44fd-baf2-af23312c7e36',
+    defaultBlendModeId: '0f433df2-1e1e-4df3-baf1-ab96052c1f9c',
+    defaultVisibilityId: '02d077cf-e936-41cd-b725-3d841691aabd',
+    // defaultImageId: '369a776b-5640-4d3d-9dfe-6d1d6ccc9150',
+  },
 };
 
 const slice = createSlice({
   name: 'collection',
   initialState,
   reducers: {
-    deleteCollection: (state, action) => {
-      const { targetId } = action.payload;
+    addCollection: (
+      state,
+      { payload }: PayloadAction<CollectionCategoryType>
+    ) => {
+      const { id } = payload;
+      state[id] = {
+        ...payload,
+      };
+    },
+    deleteCollection: (
+      state,
+      { payload }: PayloadAction<{ targetId: IdType }>
+    ) => {
+      const { targetId } = payload;
       delete state[targetId];
     },
     // ↓から innerItemIDが配列のときのみ使用可能
@@ -201,7 +224,7 @@ const slice = createSlice({
       } = action.payload;
       const { innerItemId } = state[targetId];
       if (Array.isArray(innerItemId)) {
-        if (targetInnerItemIndex != null || addIndexType === 'index') {
+        if (targetInnerItemIndex != null && addIndexType === 'index') {
           innerItemId.splice(targetInnerItemIndex, 0, targetInnerItemId);
         } else if (addIndexType === 'last') {
           innerItemId.push(targetInnerItemId);
@@ -228,6 +251,7 @@ const slice = createSlice({
 export default slice.reducer;
 
 export const {
+  addCollection,
   deleteCollection,
   addCollectionInnerItem,
   deleteCollectionInnerItem,

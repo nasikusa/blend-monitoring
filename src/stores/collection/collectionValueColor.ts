@@ -1,6 +1,6 @@
 /* eslint-disable no-param-reassign */
 
-import { createSlice } from '@reduxjs/toolkit';
+import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { IdType } from '../../types/collection/collectionData';
 import { baseCollectionValueType } from '../../types/collection/collectionValueType';
 
@@ -21,6 +21,11 @@ export type UpdateValuePayloadType = {
   targetIdNewValue:
     | collectionValueColorValueType
     | collectionValueColorValueType[];
+};
+
+type AddValuePayloadType = {
+  targetId: IdType;
+  targetNewValue: collectionValueColorValueType;
 };
 
 const initialState: collectionValueColorDictionaryType = {
@@ -45,8 +50,8 @@ const slice = createSlice({
   name: 'collectionValueColor',
   initialState,
   reducers: {
-    addValue: (state, action) => {
-      const { targetId, targetNewValue } = action.payload;
+    addValue: (state, { payload }: PayloadAction<AddValuePayloadType>) => {
+      const { targetId, targetNewValue } = payload;
       state[targetId] = {
         id: targetId,
         value: targetNewValue,

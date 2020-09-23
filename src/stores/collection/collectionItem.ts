@@ -1,5 +1,5 @@
 /* eslint-disable no-param-reassign */
-import { createSlice } from '@reduxjs/toolkit';
+import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
 export type collectionItemTypeType = 'image' | 'color';
 
@@ -31,6 +31,24 @@ export type collectionItemDictionaryType = {
   [key: string]: collectionItemType;
 };
 
+type AddItemBasePayloadType = {
+  targetId: string;
+  targetBlendModeId: string;
+  targetOpacityId: string;
+  targetVisibilityId: string;
+};
+
+type AddItemImagePayloadType = AddItemBasePayloadType & {
+  targetImageId: string;
+  targetType: 'image';
+};
+type AddItemColorPayloadType = AddItemBasePayloadType & {
+  targetColorId: string;
+  targetType: 'color';
+};
+
+type AddItemPayloadType = AddItemImagePayloadType | AddItemColorPayloadType;
+
 const initialState: collectionItemDictionaryType = {
   '6157939d-befc-4d1e-b3b2-24ce096919c1': {
     id: '6157939d-befc-4d1e-b3b2-24ce096919c1',
@@ -56,35 +74,43 @@ const initialState: collectionItemDictionaryType = {
     visibility: '557f8233-3b5a-4250-8499-c5c1243b9fd8',
     color: '62756cf0-e438-4e77-bc81-c73bb6f46bca',
   },
+  '701cc008-42f3-4a19-829c-52035544296e': {
+    id: '701cc008-42f3-4a19-829c-52035544296e',
+    type: 'image',
+    blendMode: '0f433df2-1e1e-4df3-baf1-ab96052c1f9c',
+    opacity: 'bef45475-7567-42c3-b8ee-0901b7470134',
+    visibility: '557f8233-3b5a-4250-8499-c5c1243b9fd8',
+    image: '369a776b-5640-4d3d-9dfe-6d1d6ccc9150',
+  },
 };
 
 const slice = createSlice({
   name: 'collectionItem',
   initialState,
   reducers: {
-    addItem: (state, action) => {
+    addItem: (state, { payload }: PayloadAction<AddItemPayloadType>) => {
       const {
         targetId,
-        targetType,
         targetBlendModeId,
         targetOpacityId,
         targetVisibilityId,
-      } = action.payload;
-      if (targetType === 'color') {
-        const { targetColorId } = action.payload;
+        ...others
+      } = payload;
+      if (others.targetType === 'color') {
+        const { targetColorId } = others;
         state[targetId] = {
           id: targetId,
-          type: targetType,
+          type: others.targetType,
           blendMode: targetBlendModeId,
           opacity: targetOpacityId,
           visibility: targetVisibilityId,
           color: targetColorId,
         };
-      } else if (targetType === 'image') {
-        const { targetImageId } = action.payload;
+      } else if (others.targetType === 'image') {
+        const { targetImageId } = others;
         state[targetId] = {
           id: targetId,
-          type: targetType,
+          type: others.targetType,
           blendMode: targetBlendModeId,
           opacity: targetOpacityId,
           visibility: targetVisibilityId,
