@@ -52,7 +52,7 @@
     "glsl-blend": "^1.0.3",
     "lodash": "^4.17.20",
     "mobile-detect": "^1.4.4",
-    "moment": "^2.27.0",
+    "moment": "^2.29.0",
     "pica": "^6.1.0",
     "prop-types": "^15.7.2",
     "randomcolor": "^0.6.2",
