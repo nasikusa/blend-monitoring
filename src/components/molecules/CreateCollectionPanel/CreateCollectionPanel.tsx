@@ -13,25 +13,35 @@ import collectionTypesArray from '../../../constants/collection/collectionTypesA
 import collectionTypeNameObject from '../../../constants/collection/collectionTypeNameObject';
 import canMultiItemCollectionName from '../../../constants/collection/canMultiItemCollectionName';
 import { presetCollectionValueType } from '../../../stores/collection/presetCollectionValue';
+import { defaultImageMediaStoreDataId } from '../../../constants/image/defaultImageMediaStoreData';
+
+import { addSceneCollectionInnerItem } from '../../../stores/collection/sceneCollection';
+import { addCollection } from '../../../stores/collection/collection';
+import { addItem } from '../../../stores/collection/collectionItem';
+import { addValue as addCollectionBlendModeValue } from '../../../stores/collection/collectionValueBlendMode';
+import { addValue as addCollectionOpacity } from '../../../stores/collection/collectionValueOpacity';
+import { addValue as addCollectionVisibility } from '../../../stores/collection/collectionValueVisibility';
+import { addValue as addCollectionColor } from '../../../stores/collection/collectionValueColor';
+import { addValue as addCollectionImage } from '../../../stores/collection/collectionValueImage';
 
 export type Props = {
   curerntSceneCollectionId: string;
   presetCollectionValue: presetCollectionValueType;
   hasMultiItemCollection: boolean;
-  storeAddSceneCollectionInnerItem: any;
-  storeAddCollection: any;
-  storeAddCollectionItem: any;
-  storeAddCollectionBlendModeValue: any;
-  storeAddCollectionOpacityValue: any;
-  storeAddCollectionVisibilityValue: any;
-  storeAddCollectionColorValue: any;
-  storeAddCollectionImageValue: any;
+  storeAddSceneCollectionInnerItem: typeof addSceneCollectionInnerItem;
+  storeAddCollection: typeof addCollection;
+  storeAddCollectionItem: typeof addItem;
+  storeAddCollectionBlendModeValue: typeof addCollectionBlendModeValue;
+  storeAddCollectionOpacityValue: typeof addCollectionOpacity;
+  storeAddCollectionVisibilityValue: typeof addCollectionVisibility;
+  storeAddCollectionColorValue: typeof addCollectionColor;
+  storeAddCollectionImageValue: typeof addCollectionImage;
 };
 
 /**
  * レイヤー / コレクションを追加するメニューのコンポーネント
  */
-export default (props: Props) => {
+const CreateCollectionPanel = (props: Props) => {
   const {
     curerntSceneCollectionId,
     hasMultiItemCollection,
@@ -63,9 +73,9 @@ export default (props: Props) => {
       image: uuidv4(),
     };
 
-    console.log('batch start');
-
     batch(() => {
+      // en: Added the required value for all base collection Items
+      // ja: ベースとなるすべてのcollectionItemで必要になるvalueを追加
       storeAddCollectionOpacityValue({
         targetId: uuidObject.opacity,
         targetNewValue: 1,
@@ -79,7 +89,16 @@ export default (props: Props) => {
         targetNewValue: true,
       });
 
-      let collectionItemSubObject = {};
+      /**
+       * en: object with properties that are the basis of collectionItem
+       * ja: collectionItemのベースとなるプロパティを持ったobject
+       */
+      const baseCollectionItemObject = {
+        targetId: uuidObject.collectionItem,
+        targetBlendModeId: uuidObject.blendMode,
+        targetOpacityId: uuidObject.opacity,
+        targetVisibilityId: uuidObject.visibility,
+      };
 
       switch (clickedTypeName) {
         case 'singleImage':
@@ -87,12 +106,13 @@ export default (props: Props) => {
         case 'multiImages':
           storeAddCollectionImageValue({
             targetId: uuidObject.image,
-            targetIdNewValue: '#000000',
+            targetIdNewValue: defaultImageMediaStoreDataId,
           });
-          collectionItemSubObject = {
+          storeAddCollectionItem({
+            ...baseCollectionItemObject,
             targetType: 'image',
             targetImageId: uuidObject.image,
-          };
+          });
           break;
         case 'singleColor':
         case 'singleColorMultiBlends':
@@ -102,87 +122,82 @@ export default (props: Props) => {
             targetId: uuidObject.color,
             targetNewValue: '#000000',
           });
-          collectionItemSubObject = {
+          storeAddCollectionItem({
+            ...baseCollectionItemObject,
             targetType: 'color',
             targetColorId: uuidObject.color,
-          };
+          });
           break;
         default:
-          collectionItemSubObject = {};
-          break;
+          throw new Error('not reachable collection type');
       }
 
-      storeAddCollectionItem({
-        targetId: uuidObject.collectionItem,
-        targetBlendModeId: uuidObject.blendMode,
-        targetOpacityId: uuidObject.opacity,
-        targetVisibilityId: uuidObject.visibility,
-        ...collectionItemSubObject,
-      });
-
-      let collectionSubObject = {};
+      const baseCollectionObject = {
+        id: uuidObject.collection,
+        defaultVisibilityId: uuidObject.visibility,
+        defaultOpacityId: uuidObject.opacity,
+      };
 
       switch (clickedTypeName) {
         case 'singleColor':
-          collectionSubObject = {
+          storeAddCollection({
+            ...baseCollectionObject,
             type: 'singleColor',
             roughType: 'color',
             defaultBlendModeId: uuidObject.blendMode,
             defaultColorId: uuidObject.color,
             innerItemId: uuidObject.collectionItem,
-          };
+          });
           break;
         case 'singleColorMultiBlends':
-          collectionSubObject = {
+          storeAddCollection({
+            ...baseCollectionObject,
             type: 'singleColorMultiBlends',
             roughType: 'color',
-            defaultBlendModeId: uuidObject.blendMode,
+            defaultColorId: uuidObject.color,
             innerItemId: [uuidObject.collectionItem],
-          };
+          });
           break;
         case 'multiColors':
-          collectionSubObject = {
+          storeAddCollection({
+            ...baseCollectionObject,
             type: 'multiColors',
             roughType: 'color',
             defaultBlendModeId: uuidObject.blendMode,
             innerItemId: [uuidObject.collectionItem],
-          };
+          });
           break;
         case 'singleImage':
-          collectionSubObject = {
+          storeAddCollection({
+            ...baseCollectionObject,
             type: 'singleImage',
             roughType: 'image',
             defaultBlendModeId: uuidObject.blendMode,
             defaultImageId: uuidObject.image,
             innerItemId: uuidObject.collectionItem,
-          };
+          });
           break;
         case 'singleImageMultiBlends':
-          collectionSubObject = {
+          storeAddCollection({
+            ...baseCollectionObject,
             type: 'singleImageMultiBlends',
             roughType: 'image',
-            defaultBlendModeId: uuidObject.blendMode,
+            defaultImageId: uuidObject.image,
             innerItemId: [uuidObject.collectionItem],
-          };
+          });
           break;
         case 'multiImages':
-          collectionSubObject = {
+          storeAddCollection({
+            ...baseCollectionObject,
             type: 'multiImages',
             roughType: 'image',
             defaultBlendModeId: uuidObject.blendMode,
-            innerItemId: [],
-          };
+            innerItemId: [uuidObject.collectionItem],
+          });
           break;
         default:
           break;
       }
-
-      storeAddCollection({
-        id: uuidObject.collection,
-        defaultVisibilityId: uuidObject.visibility,
-        defaultOpacityId: uuidObject.opacity,
-        ...collectionSubObject,
-      });
 
       storeAddSceneCollectionInnerItem({
         targetInnerItemId: uuidObject.collection,
@@ -246,3 +261,5 @@ export default (props: Props) => {
     </Box>
   );
 };
+
+export default CreateCollectionPanel;

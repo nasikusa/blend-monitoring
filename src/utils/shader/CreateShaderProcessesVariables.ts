@@ -40,7 +40,6 @@ export default (
         case `singleImageMultiBlends`:
         case `multiImages`: {
           const { image } = singleCollectionData;
-          console.log('image', image);
           if (image != null) {
             const imageWidth = Array.isArray(image)
               ? storedMediaState[image[glItemOrderKey]].rawWidth

@@ -1,5 +1,6 @@
 import { createSlice } from '@reduxjs/toolkit';
 import tempSampleImage from '../../constants/image/tempSampleImage';
+import defaultImageMediaStoreData from '../../constants/image/defaultImageMediaStoreData';
 
 // import createStoredMediaInitialState from '../../utils/develop/createStoredMediaInitialState';
 
@@ -52,6 +53,7 @@ export const imageSizeNames = ['thumb', 'small', 'medium', 'large', 'raw'];
 //   false
 // );
 const initialState: StoredMediaStateType = {
+  [defaultImageMediaStoreData.id]: defaultImageMediaStoreData,
   '1ece8d80-6316-4649-ae77-06e1285d8eec': {
     id: '1ece8d80-6316-4649-ae77-06e1285d8eec',
     name: 'test',

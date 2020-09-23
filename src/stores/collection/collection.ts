@@ -1,6 +1,7 @@
 /* eslint-disable no-param-reassign */
 
-import { createSlice } from '@reduxjs/toolkit';
+import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+import { IdType } from '../../types/collection/collectionData';
 
 export type SingleItemCollectionTypeType =
   | 'singleColor'
@@ -197,14 +198,20 @@ const slice = createSlice({
   name: 'collection',
   initialState,
   reducers: {
-    addCollection: (state, action) => {
-      const { id } = action.payload;
+    addCollection: (
+      state,
+      { payload }: PayloadAction<CollectionCategoryType>
+    ) => {
+      const { id } = payload;
       state[id] = {
-        ...action.payload,
+        ...payload,
       };
     },
-    deleteCollection: (state, action) => {
-      const { targetId } = action.payload;
+    deleteCollection: (
+      state,
+      { payload }: PayloadAction<{ targetId: IdType }>
+    ) => {
+      const { targetId } = payload;
       delete state[targetId];
     },
     // ↓から innerItemIDが配列のときのみ使用可能

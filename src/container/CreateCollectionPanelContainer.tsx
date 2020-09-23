@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useCallback } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { AppState } from '../stores/index';
 import CreateCollectionPanel from '../components/molecules/CreateCollectionPanel';
@@ -14,7 +14,7 @@ import { addValue as addCollectionVisibility } from '../stores/collection/collec
 import { addValue as addCollectionColor } from '../stores/collection/collectionValueColor';
 import { addValue as addCollectionImage } from '../stores/collection/collectionValueImage';
 
-export default (props: any) => {
+const CreateCollectionPanelContainer = (props: any) => {
   const dispatch = useDispatch();
   const multiCollectionData = useCurrentSceneCollection();
   const presetCollectionValue = useSelector(
@@ -33,49 +33,49 @@ export default (props: any) => {
     }
   );
 
-  const storeAddSceneCollectionInnerItem = React.useCallback(
+  const storeAddSceneCollectionInnerItem = useCallback(
     (payload) => {
       dispatch(addSceneCollectionInnerItem(payload));
     },
     [dispatch]
   );
-  const storeAddCollection = React.useCallback(
+  const storeAddCollection = useCallback(
     (payload) => {
       dispatch(addCollection(payload));
     },
     [dispatch]
   );
-  const storeAddCollectionItem = React.useCallback(
+  const storeAddCollectionItem = useCallback(
     (payload) => {
       dispatch(addItem(payload));
     },
     [dispatch]
   );
-  const storeAddCollectionBlendModeValue = React.useCallback(
+  const storeAddCollectionBlendModeValue = useCallback(
     (payload) => {
       dispatch(addCollectionBlendModeValue(payload));
     },
     [dispatch]
   );
-  const storeAddCollectionOpacityValue = React.useCallback(
+  const storeAddCollectionOpacityValue = useCallback(
     (payload) => {
       dispatch(addCollectionOpacity(payload));
     },
     [dispatch]
   );
-  const storeAddCollectionVisibilityValue = React.useCallback(
+  const storeAddCollectionVisibilityValue = useCallback(
     (payload) => {
       dispatch(addCollectionVisibility(payload));
     },
     [dispatch]
   );
-  const storeAddCollectionColorValue = React.useCallback(
+  const storeAddCollectionColorValue = useCallback(
     (payload) => {
       dispatch(addCollectionColor(payload));
     },
     [dispatch]
   );
-  const storeAddCollectionImageValue = React.useCallback(
+  const storeAddCollectionImageValue = useCallback(
     (payload) => {
       dispatch(addCollectionImage(payload));
     },
@@ -99,3 +99,5 @@ export default (props: any) => {
 
   return <CreateCollectionPanel {...combineProps} />;
 };
+
+export default CreateCollectionPanelContainer;
