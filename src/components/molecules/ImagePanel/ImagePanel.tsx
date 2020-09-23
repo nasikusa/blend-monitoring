@@ -37,7 +37,12 @@ const ImagePanel: React.FC<Props> = (props: Props) => {
                 cellHeight={imageBoxWidth / imageBoxRowCount}
                 cols={imageBoxRowCount}
               >
-                {storedImageValue != null && Array.isArray(storedImageValue) ? (
+                {storedImageValue != null &&
+                Array.isArray(storedImageValue) &&
+                !storedImageValue.every(
+                  (singleStoredImageValue) =>
+                    singleStoredImageValue.value === storedImageValue[0].value
+                ) ? (
                   storedImageValue.map(
                     (singleImageValue: collectionValueImageType) => {
                       return (
@@ -53,6 +58,16 @@ const ImagePanel: React.FC<Props> = (props: Props) => {
                       );
                     }
                   )
+                ) : Array.isArray(storedImageValue) ? (
+                  <GridListTile key={storedImageValue[0]?.value} cols={1}>
+                    <img
+                      src={
+                        storedMediaData[storedImageValue[0]?.value]?.resource
+                          .thumb
+                      }
+                      alt="thumbnailImage"
+                    />
+                  </GridListTile>
                 ) : (
                   <GridListTile key={storedImageValue.value} cols={1}>
                     <img
