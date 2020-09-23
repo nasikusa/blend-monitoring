@@ -98,7 +98,7 @@ const BlendModePanel = (props: Props) => {
           </Grid>
         </Grid>
       </Box>
-      <Box ml={4}>
+      <Box>
         {Array.isArray(storedBlendModeValue) &&
         storedBlendModeValue.length > 0 &&
         !storedBlendModeValue.every(
