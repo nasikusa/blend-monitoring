@@ -1,5 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit';
-import tempSampleImage from '../../constants/image/tempSampleImage';
+// import tempSampleImage from '../../constants/image/tempSampleImage';
 import defaultImageMediaStoreData from '../../constants/image/defaultImageMediaStoreData';
 
 // import createStoredMediaInitialState from '../../utils/develop/createStoredMediaInitialState';
@@ -54,36 +54,36 @@ export const imageSizeNames = ['thumb', 'small', 'medium', 'large', 'raw'];
 // );
 const initialState: StoredMediaStateType = {
   [defaultImageMediaStoreData.id]: defaultImageMediaStoreData,
-  '1ece8d80-6316-4649-ae77-06e1285d8eec': {
-    id: '1ece8d80-6316-4649-ae77-06e1285d8eec',
-    name: 'test',
-    mediaType: 'image',
-    dataType: 'objectURL',
-    aspectRatio: 634 / 951,
-    color: {
-      dominant: '#000000',
-      palette: [],
-    },
-    mime: 'image/jpeg',
-    fileSize: {
-      raw: 0,
-      large: 0,
-      medium: 0,
-      small: 0,
-      thumb: 0,
-    },
-    resource: {
-      raw: tempSampleImage,
-      large: tempSampleImage,
-      medium: tempSampleImage,
-      small: tempSampleImage,
-      thumb: tempSampleImage,
-    },
-    rawWidth: 634,
-    rawHeight: 951,
-    isSelected: false,
-    itemOrder: 0,
-  },
+  // '1ece8d80-6316-4649-ae77-06e1285d8eec': {
+  //   id: '1ece8d80-6316-4649-ae77-06e1285d8eec',
+  //   name: 'test',
+  //   mediaType: 'image',
+  //   dataType: 'objectURL',
+  //   aspectRatio: 634 / 951,
+  //   color: {
+  //     dominant: '#000000',
+  //     palette: [],
+  //   },
+  //   mime: 'image/jpeg',
+  //   fileSize: {
+  //     raw: 0,
+  //     large: 0,
+  //     medium: 0,
+  //     small: 0,
+  //     thumb: 0,
+  //   },
+  //   resource: {
+  //     raw: tempSampleImage,
+  //     large: tempSampleImage,
+  //     medium: tempSampleImage,
+  //     small: tempSampleImage,
+  //     thumb: tempSampleImage,
+  //   },
+  //   rawWidth: 634,
+  //   rawHeight: 951,
+  //   isSelected: false,
+  //   itemOrder: 0,
+  // },
 };
 
 const slice = createSlice({
