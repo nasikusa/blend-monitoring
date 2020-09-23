@@ -16,7 +16,7 @@ type AddSceneCollectionInnerItemReducerType = {
   targetId: string;
   targetInnerItemId: string;
   addIndexType: 'first' | 'last' | 'index';
-  targetInnerItemIndex: number;
+  targetInnerItemIndex?: number;
 };
 
 const initialState: sceneCollectionsDictionaryType = {
