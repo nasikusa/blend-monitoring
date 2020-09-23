@@ -116,41 +116,43 @@ export default function MediaModalContents(props: Props) {
     targetBoolValue: boolean,
     targetIndex: number
   ) => {
-    if (!Array.isArray(storedImageValue)) {
+    if (
+      rawCollectionData.type === 'singleImageMultiBlends' ||
+      rawCollectionData.type === 'singleImage'
+    ) {
       storeCollectionValueImageUpdateValue({
-        targetId: storedImageValue.value,
+        targetId: rawCollectionData.defaultImageId,
         targetIdNewValue: targetImageID,
       });
-    } else {
+    } else if (rawCollectionData.type === 'multiImages') {
       const targetCollectionItemId = uuidv4();
       const targetCollectionValueId = uuidv4();
-      if (rawCollectionData.type === 'multiImages') {
-        if (targetBoolValue) {
-          batch(() => {
-            storeAddCollectionValueImage({
-              targetId: targetCollectionValueId,
-              targetIdNewValue: targetImageID,
-            });
-            storeAddCollectionItem({
-              targetId: targetCollectionItemId,
-              targetType: rawCollectionData.roughType,
-              targetBlendModeId: rawCollectionData.defaultBlendModeId,
-              targetOpacityId: rawCollectionData.defaultOpacityId,
-              targetVisibilityId: rawCollectionData.defaultVisibilityId,
-              targetImageId: targetCollectionValueId,
-            });
-            storeAddCollectionInnerItem({
-              addIndexType: 'first',
-              targetInnerItemId: targetCollectionItemId,
-              targetId: rawCollectionData.id,
-            });
+      if (targetBoolValue) {
+        batch(() => {
+          storeAddCollectionValueImage({
+            targetId: targetCollectionValueId,
+            targetIdNewValue: targetImageID,
           });
-        } else if (!targetBoolValue) {
-          storeDeleteCollectionInnerItem({
+
+          storeAddCollectionItem({
+            targetId: targetCollectionItemId,
+            targetType: rawCollectionData.roughType,
+            targetBlendModeId: rawCollectionData.defaultBlendModeId,
+            targetOpacityId: rawCollectionData.defaultOpacityId,
+            targetVisibilityId: rawCollectionData.defaultVisibilityId,
+            targetImageId: targetCollectionValueId,
+          });
+          storeAddCollectionInnerItem({
+            addIndexType: 'first',
+            targetInnerItemId: targetCollectionItemId,
             targetId: rawCollectionData.id,
-            targetInnerId: rawCollectionData.innerItemId[targetIndex],
           });
-        }
+        });
+      } else if (!targetBoolValue) {
+        storeDeleteCollectionInnerItem({
+          targetId: rawCollectionData.id,
+          targetInnerId: rawCollectionData.innerItemId[targetIndex],
+        });
       }
     }
     // setIsImageChangeFlag(true);
