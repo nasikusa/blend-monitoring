@@ -77,7 +77,7 @@
     "react-redux": "^7.2.1",
     "react-remove-scroll": "^2.3.0",
     "react-resizable": "^2.0.0",
-    "react-rnd": "^10.2.1",
+    "react-rnd": "^10.2.3",
     "react-router-dom": "^5.2.0",
     "react-share": "^4.3.0",
     "react-test-renderer": "^16.13.1",
