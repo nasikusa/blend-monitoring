@@ -283,7 +283,11 @@ const ColorPanel: React.FC<Props> = (props: Props) => {
             <Box display="flex" mb={1}>
               <Box display="flex">
                 <ColorBoxGroup>
-                  {Array.isArray(storedColorValue) ? (
+                  {Array.isArray(storedColorValue) &&
+                  !storedColorValue.every(
+                    (singleStoredColorValue) =>
+                      storedColorValue[0].value === singleStoredColorValue.value
+                  ) ? (
                     storedColorValue.map(
                       (singleGlobalStateColorData, currentIndex) => {
                         return (
@@ -306,6 +310,8 @@ const ColorPanel: React.FC<Props> = (props: Props) => {
                       shapeType="circle"
                       boxSize="medium"
                       color={colorValue}
+                      activeStyleType={['scale', 'border']}
+                      active
                       data-color={colorValue}
                       data-index={0}
                       onClick={handleColorBoxSelect}
