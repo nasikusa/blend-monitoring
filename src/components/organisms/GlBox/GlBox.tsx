@@ -9,6 +9,7 @@ import { maxCountOfGlItem } from '../../../constants/general/appConstantSettings
 import CustomAlert from '../../atoms/CustomAlert';
 import NoticeSnackbar from '../../atoms/NoticeSnackbar';
 import GlItemOrderContextElement from './GlItemOrderContextElement';
+import createCustomLengthArray from '../../../utils/general/createCustomLengthArray';
 
 export type Props = {
   glItemCount: number;
@@ -42,13 +43,16 @@ export default function GlBox(props: Props) {
     <>
       <Grid container>
         {glItemCount > 0 ? (
-          (() => {
-            const itemsArray = [];
-            for (let i = 0; i < resultGlItemCountValue; i += 1) {
-              itemsArray.push(
+          createCustomLengthArray(resultGlItemCountValue).map(
+            (__NOT_USED_VALUE__, currentIndex) => {
+              return (
                 <GlItemOrderContextElement
-                  key={Array.isArray(glItemKeys) ? glItemKeys[i] : glItemKeys}
-                  value={i}
+                  key={
+                    Array.isArray(glItemKeys)
+                      ? glItemKeys[currentIndex]
+                      : glItemKeys
+                  }
+                  value={currentIndex}
                 >
                   <Box width={1 / glBoxRowCount}>
                     <GlItemContainer />
@@ -56,8 +60,7 @@ export default function GlBox(props: Props) {
                 </GlItemOrderContextElement>
               );
             }
-            return itemsArray;
-          })()
+          )
         ) : (
           <DefaultWelcome />
         )}
