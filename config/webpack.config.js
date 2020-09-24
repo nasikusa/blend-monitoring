@@ -27,6 +27,8 @@ const typescriptFormatter = require('react-dev-utils/typescriptFormatter');
 
 // const BundleAnalyzerPlugin = require('webpack-bundle-analyzer')
 //   .BundleAnalyzerPlugin;
+const LicenseWebpackPlugin = require('license-webpack-plugin')
+  .LicenseWebpackPlugin;
 
 const postcssNormalize = require('postcss-normalize');
 
@@ -630,6 +632,7 @@ module.exports = function (webpackEnv) {
             new RegExp('/[^/?]+\\.[^/]+$'),
           ],
         }),
+      new LicenseWebpackPlugin(),
       // new BundleAnalyzerPlugin(),
       // TypeScript type checking
       useTypeScript &&
