@@ -49,6 +49,7 @@ import BlockIcon from '@material-ui/icons/Block';
 import VisibilityIcon from '@material-ui/icons/Visibility';
 import SaveIcon from '@material-ui/icons/Save';
 import ScheduleIcon from '@material-ui/icons/Schedule';
+import DescriptionIcon from '@material-ui/icons/Description';
 // IconBrandNames
 import TwitterIcon from '@material-ui/icons/Twitter';
 import FacebookIcon from '@material-ui/icons/Facebook';
@@ -86,7 +87,8 @@ export type IconGeneralMeaningNames =
   | 'functionSaveData'
   | 'functionImage'
   | 'functionPalette'
-  | 'functionTime';
+  | 'functionTime'
+  | 'functionLicense';
 
 type IconBrandNames = 'iconTwitter' | 'iconFacebook' | 'iconGithub';
 
@@ -217,6 +219,8 @@ const Icon = (p: Props) => {
         return <ColorLensIcon {...p} />;
       case 'functionTime':
         return <ScheduleIcon {...p} />;
+      case 'functionLicense':
+        return <DescriptionIcon {...p} />;
       // IconBrandNames
       case 'iconTwitter':
         return <TwitterIcon {...p} />;

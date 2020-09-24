@@ -2,13 +2,16 @@ import React from 'react';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import Divider from '@material-ui/core/Divider';
+import Typography from '@material-ui/core/Typography';
 import Grid from '@material-ui/core/Grid';
+import Link from '@material-ui/core/Link';
 import { makeStyles } from '@material-ui/core/styles';
 
 import Icon from '../../atoms/Icon';
 import TextWithIcon from '../../molecules/TextWithIcon';
 import { AppSiteInfo } from '../../../constants/general/appConstantSettings';
 import getDefaultColorSpace from '../../../utils/color/getDefaultColorSpace';
+import { FileNames } from '../../../constants/general/dirAndFileNames';
 
 type Props = {
   multiCollectionsLength: number;
@@ -64,6 +67,15 @@ export default function (props: Props) {
               <Divider orientation="vertical" />
               <TextWithIcon iconElement={<Icon type="functionTime" />}>
                 更新日時 : {AppSiteInfo.updatedAt}
+              </TextWithIcon>
+              <Divider orientation="vertical" />
+              <TextWithIcon iconElement={<Icon type="functionLicense" />}>
+                <Link target="_blank" href={`/${FileNames.license}`}>
+                  {/* TODO: 文字の色がwhite固定になってしまっているので、変えたいです */}
+                  <Typography variant="overline" style={{ color: 'white' }}>
+                    ライセンス情報
+                  </Typography>
+                </Link>
               </TextWithIcon>
             </Grid>
           </Grid>
