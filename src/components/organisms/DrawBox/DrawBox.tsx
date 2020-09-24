@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import Box from '@material-ui/core/Box';
 import Grid from '@material-ui/core/Grid';
 
-import GlItemContainer from '../../../container/GlItemContainer';
+import DrawItemContainer from '../../../container/DrawItemContainer';
 import DefaultWelcome from '../../molecules/DefaultWelcome';
 import { GlCollectionType } from '../../../types/collection/collectionData';
 import { maxCountOfGlItem } from '../../../constants/general/appConstantSettings';
@@ -20,7 +20,7 @@ export type Props = {
  * glsl描画アイテムのラッパーコンポーネント
  * @todo 最大アイテム数以上のときに警告を表示する
  */
-export default function GlBox(props: Props) {
+export default function DrawBox(props: Props) {
   const { glItemCount, glItemKeys, glBoxRowCount } = props;
   const [overItemNumberFlag, setOverItemNumberFlag] = useState(false);
 
@@ -55,7 +55,7 @@ export default function GlBox(props: Props) {
                   value={currentIndex}
                 >
                   <Box width={1 / glBoxRowCount}>
-                    <GlItemContainer />
+                    <DrawItemContainer />
                   </Box>
                 </GlItemOrderContextElement>
               );

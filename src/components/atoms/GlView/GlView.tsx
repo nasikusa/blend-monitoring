@@ -9,7 +9,7 @@ import CreateShaderUniforms from '../../../utils/shader/CreateShaderUniforms';
 import CreateShaderFunctions from '../../../utils/shader/CreateShaderFunctions';
 import CreateShaderProcesses from '../../../utils/shader/CreateShaderProcesses';
 import CreateShaderProcessesVariables from '../../../utils/shader/CreateShaderProcessesVariables';
-import { GlItemOrderContext } from '../../organisms/GlBox/GlItemOrderContextElement';
+import { GlItemOrderContext } from '../../organisms/DrawBox/GlItemOrderContextElement';
 
 import { GlSettingsType } from '../../../stores/general/glSettings';
 import { GlCollectionTypeArray } from '../../../types/collection/collectionData';

@@ -31,7 +31,7 @@ type Props = {
  * @todo propsで渡される typeSpecialValue があいまいになってしまっているので
  * 、 xxx | undefined的な感じでもいいので複数にしたいです。
  */
-export default (props: Props) => {
+const DrawItem: React.FC<Props> = (props: Props) => {
   const {
     typeSpecialValue,
     hasMultiItemCollectionBoolean,
@@ -192,3 +192,5 @@ export default (props: Props) => {
     </Fade>
   );
 };
+
+export default DrawItem;

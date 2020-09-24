@@ -12,7 +12,7 @@ import { makeStyles, useTheme } from '@material-ui/core/styles';
 
 import GlEditContainer from '../../../container/GlEditContainer';
 import PageTemplateContainer from '../../../container/PageTemplateContainer';
-import GlBoxContainer from '../../../container/GlBoxContainer';
+import DrawBoxContainer from '../../../container/DrawBoxContainer';
 import Doc from '../../organisms/Doc/Doc';
 import GeneralFunctionsListContainer from '../../../container/GeneralFunctionsListContainer';
 
@@ -164,7 +164,7 @@ const Edit = (props: Props) => {
               ref={containerRef}
               className={classes.scrollable}
             >
-              <GlBoxContainer />
+              <DrawBoxContainer />
             </CustomEmotionBox>
             {/* <Resizable
               enable={{
