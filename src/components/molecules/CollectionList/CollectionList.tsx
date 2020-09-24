@@ -19,12 +19,6 @@ export type Props = {
  */
 export type GlCollectionOrderContextType = number;
 
-/**
- * 現在のコレクションの順番を判別するためのcontext
- */
-export const GlCollectionOrderContext = createContext<
-  GlCollectionOrderContextType
->(0);
 export const CollectionIdContext = createContext<{
   collectionId: ArrayElement<sceneCollectionsType>;
   collectionOrder: GlCollectionOrderContextType;
@@ -63,10 +57,7 @@ export default (props: Props) => {
                     }}
                     key={currentCollectionId}
                   >
-                    {/* // @deprecated */}
-                    <GlCollectionOrderContext.Provider value={currentIndex}>
-                      <CollectionContainer collectionId={currentCollectionId} />
-                    </GlCollectionOrderContext.Provider>
+                    <CollectionContainer collectionId={currentCollectionId} />
                   </CollectionIdContext.Provider>
                 );
               }
