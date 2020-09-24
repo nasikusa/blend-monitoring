@@ -25,7 +25,6 @@ type Props = {
 const surfaceBaseStyle = css`
   > span {
     display: block;
-    vertical-align: bottom;
   }
 `;
 
