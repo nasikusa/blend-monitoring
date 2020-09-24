@@ -27,7 +27,7 @@ export const CollectionIdContext = createContext<{
   collectionOrder: -1,
 });
 
-export default (props: Props) => {
+const CollectionList: React.FC<Props> = (props) => {
   const { calcedOtherAreaHeight, currentCollectionsId } = props;
   const collectionFixedMenuRef = useRef();
 
@@ -68,3 +68,5 @@ export default (props: Props) => {
     </Box>
   );
 };
+
+export default CollectionList;

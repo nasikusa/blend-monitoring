@@ -19,21 +19,22 @@ type Props = {
   storedMediaLength: number;
 };
 
-export default function (props: Props) {
+const useStyles = makeStyles({
+  bar: {
+    height: '20px',
+    maxHeight: '20px',
+    minHeight: '20px',
+  },
+  logo: {
+    fontFamily: "'Do Hyeon', sans-serif;",
+    fontSize: '20px',
+    letterSpacing: '2px',
+  },
+});
+
+const Footer: React.FC<Props> = (props: Props) => {
   const { multiCollectionsLength, glViewItemLength, storedMediaLength } = props;
 
-  const useStyles = makeStyles({
-    bar: {
-      height: '20px',
-      maxHeight: '20px',
-      minHeight: '20px',
-    },
-    logo: {
-      fontFamily: "'Do Hyeon', sans-serif;",
-      fontSize: '20px',
-      letterSpacing: '2px',
-    },
-  });
   const classes = useStyles();
 
   return (
@@ -83,4 +84,6 @@ export default function (props: Props) {
       </Toolbar>
     </AppBar>
   );
-}
+};
+
+export default Footer;

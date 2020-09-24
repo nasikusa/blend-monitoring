@@ -22,9 +22,9 @@ export type Props = {
  */
 export default function DrawBox(props: Props) {
   const { glItemCount, glItemKeys, glBoxRowCount } = props;
-  const [overItemNumberFlag, setOverItemNumberFlag] = useState(false);
+  const [overItemNumberFlag, setOverItemNumberFlag] = useState<boolean>(false);
 
-  const handleClose = () => {
+  const handleClose = (): void => {
     setOverItemNumberFlag(false);
   };
 
