@@ -38,7 +38,7 @@ const Edit = (props: Props) => {
     isShowDocArea,
     editAreaHeightvalue,
   } = props;
-  const [generalFunctionListWidth] = useState(180);
+  const [generalFunctionListWidth] = useState(0);
   const [glBoxWidth] = useState(0.75);
   const [glEditWidth] = useState(0.25);
   const containerRef = useRef(null);
@@ -141,6 +141,7 @@ const Edit = (props: Props) => {
       <GlobalHotKeys keyMap={HotkeyMap} handlers={HotKeyhandlers} />
       <Box width={1.0} className={classes.heightSetting}>
         <Box width={1.0} display="flex">
+          {/* TEMP */}
           {isShowDocArea ? (
             <Box>
               <Doc />
@@ -148,13 +149,16 @@ const Edit = (props: Props) => {
           ) : (
             ''
           )}
-          <Box
-            width={generalFunctionListWidth}
-            className={classes.heightSetting}
-            style={{ backgroundColor: theme.palette.background.paper }}
-          >
-            <GeneralFunctionsListContainer css={heightSettingStyle} />
-          </Box>
+          {/* TEMP */}
+          {false && (
+            <Box
+              width={generalFunctionListWidth}
+              className={classes.heightSetting}
+              style={{ backgroundColor: theme.palette.background.paper }}
+            >
+              <GeneralFunctionsListContainer css={heightSettingStyle} />
+            </Box>
+          )}
           <Box
             display="flex"
             width={window.innerWidth - generalFunctionListWidth}
