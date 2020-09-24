@@ -2,7 +2,7 @@ import React, { useState, useCallback } from 'react';
 import { batch } from 'react-redux';
 import Grid from '@material-ui/core/Grid';
 import Box from '@material-ui/core/Box';
-import Button from '@material-ui/core/Button';
+// import Button from '@material-ui/core/Button';
 import { v4 as uuidv4 } from 'uuid';
 import { debounce } from 'lodash';
 
@@ -83,9 +83,9 @@ const ColorPanel: React.FC<Props> = (props: Props) => {
   /**
    * カラーパネルを開くハンドル関数
    */
-  const handleColorPanelOpen = () => {
-    setOpenColorPanelFlag(!openColorPanelFlag);
-  };
+  // const handleColorPanelOpen = () => {
+  //   setOpenColorPanelFlag(!openColorPanelFlag);
+  // };
 
   const handleChangeCommittedDebounced = (nextValue: string) => {
     if (!Array.isArray(storedColorValue)) {
@@ -334,11 +334,11 @@ const ColorPanel: React.FC<Props> = (props: Props) => {
               />
             </Box>
           </Grid>
-          <Grid item xs={12}>
+          {/* <Grid item xs={12}>
             <Box>
               <Button onClick={handleColorPanelOpen}>カラーパネルを開く</Button>
             </Box>
-          </Grid>
+          </Grid> */}
         </Grid>
       </Box>
       <ColorModalContainer

@@ -1,9 +1,9 @@
 import React, { useContext } from 'react';
 import { useSelector, shallowEqual } from 'react-redux';
-import GlItem from '../components/molecules/GlItem';
+import DrawItem from '../components/molecules/DrawItem';
 import { AppState } from '../stores/index';
 import hasMultiItemCollection from '../utils/collection/hasMultiItemCollection';
-import { GlItemOrderContext } from '../components/organisms/GlBox/GlItemOrderContextElement';
+import { GlItemOrderContext } from '../components/organisms/DrawBox/GlItemOrderContextElement';
 import { CollectionTypeType } from '../types/collection/collectionData';
 import { StoredMediaStateItemType } from '../stores/image/storedMedia';
 import useCurrentSceneCollection from '../hooks/collection/useCurrentSceneCollection';
@@ -51,5 +51,5 @@ export default () => {
     multiItemCollectionType,
   };
 
-  return <GlItem {...combineProps} />;
+  return <DrawItem {...combineProps} />;
 };

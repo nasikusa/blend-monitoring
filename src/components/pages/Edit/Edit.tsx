@@ -12,7 +12,7 @@ import { makeStyles, useTheme } from '@material-ui/core/styles';
 
 import GlEditContainer from '../../../container/GlEditContainer';
 import PageTemplateContainer from '../../../container/PageTemplateContainer';
-import GlBoxContainer from '../../../container/GlBoxContainer';
+import DrawBoxContainer from '../../../container/DrawBoxContainer';
 import Doc from '../../organisms/Doc/Doc';
 import GeneralFunctionsListContainer from '../../../container/GeneralFunctionsListContainer';
 
@@ -38,7 +38,7 @@ const Edit = (props: Props) => {
     isShowDocArea,
     editAreaHeightvalue,
   } = props;
-  const [generalFunctionListWidth] = useState(180);
+  const [generalFunctionListWidth] = useState(0);
   const [glBoxWidth] = useState(0.75);
   const [glEditWidth] = useState(0.25);
   const containerRef = useRef(null);
@@ -141,6 +141,7 @@ const Edit = (props: Props) => {
       <GlobalHotKeys keyMap={HotkeyMap} handlers={HotKeyhandlers} />
       <Box width={1.0} className={classes.heightSetting}>
         <Box width={1.0} display="flex">
+          {/* TEMP */}
           {isShowDocArea ? (
             <Box>
               <Doc />
@@ -148,13 +149,16 @@ const Edit = (props: Props) => {
           ) : (
             ''
           )}
-          <Box
-            width={generalFunctionListWidth}
-            className={classes.heightSetting}
-            style={{ backgroundColor: theme.palette.background.paper }}
-          >
-            <GeneralFunctionsListContainer css={heightSettingStyle} />
-          </Box>
+          {/* TEMP */}
+          {false && (
+            <Box
+              width={generalFunctionListWidth}
+              className={classes.heightSetting}
+              style={{ backgroundColor: theme.palette.background.paper }}
+            >
+              <GeneralFunctionsListContainer css={heightSettingStyle} />
+            </Box>
+          )}
           <Box
             display="flex"
             width={window.innerWidth - generalFunctionListWidth}
@@ -164,7 +168,7 @@ const Edit = (props: Props) => {
               ref={containerRef}
               className={classes.scrollable}
             >
-              <GlBoxContainer />
+              <DrawBoxContainer />
             </CustomEmotionBox>
             {/* <Resizable
               enable={{

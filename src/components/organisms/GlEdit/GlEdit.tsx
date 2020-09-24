@@ -77,14 +77,10 @@ export default (props: any) => {
           label="シーンコレクション"
           {...a11yProps(0)}
         />
-        {/* <Tab icon={<BuildIcon />} label="設定" {...a11yProps(1)} /> */}
       </Tabs>
       <TabPanel css={tabPanelStyle} value={value} index={0}>
         <CollectionsContainer />
       </TabPanel>
-      {/* <TabPanel css={tabPanelStyle} value={value} index={1}>
-        Item Two
-      </TabPanel> */}
     </Box>
   );
 };
