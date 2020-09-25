@@ -1,30 +1,77 @@
 import React from 'react';
-import { useSelector } from 'react-redux';
+import { useSelector, shallowEqual } from 'react-redux';
 import DrawBox from '../components/organisms/DrawBox';
-import getLengthOfCollections from '../utils/collection/getLengthOfCollections';
-import getMaxLengthInnerItemId from '../utils/collection/getMaxLengthInnerItemId';
 import { AppState } from '../stores/index';
-import useCurrentSceneCollection from '../hooks/collection/useCurrentSceneCollection';
 
-export default () => {
-  const collectionData = useCurrentSceneCollection();
-  const glSettingsData = useSelector((state: AppState) => state.glSettings);
+const DrawBoxContainer = () => {
   /**
-   * コレクションリストのなかで最大の要素数の配列のlengthを格納している変数
+   * en: Number of lines of items drawn
+   * ja: 描画されるアイテムの行数
    */
-  let glItemCountValue = getLengthOfCollections(collectionData, 'max');
-  const glMinItemCountValue = getLengthOfCollections(collectionData, 'min');
-  if (glMinItemCountValue === 0) {
-    glItemCountValue = 0;
-  }
+  const drawBoxRowCount = useSelector(
+    (state: AppState) => state.glSettings.rowCount
+  );
 
-  const glItemKeys = getMaxLengthInnerItemId(collectionData);
+  const currentSceneCollectionId = useSelector(
+    (state: AppState) => state.currentSceneCollection.currentId
+  );
 
-  const glBoxRowCount = glSettingsData.rowCount;
+  const currentCollectionsId = useSelector(
+    (state: AppState) =>
+      state.sceneCollection[currentSceneCollectionId].innerCollectionId,
+    shallowEqual
+  );
+
+  /**
+   * en: Contains the innerItemId of a collection that may have multiple drawing items (= array)
+   * ja: 複数の描画アイテムを持つ可能性のある( =配列 )collectionのinnerItemIdが入る
+   */
+  let drawItemKeys: string[] = [];
+
+  /**
+   * en: Bool value for whether there is a collection that may have multiple drawing items
+   * ja: 複数の描画アイテムを持つ可能性のあるcollectionが存在しているかどうかのbool値
+   */
+  let hasCanMultiCollectionType = false;
+
+  const rawSceneCollectionInnerItemData = useSelector((state: AppState) => {
+    return currentCollectionsId.map((singleCurrentCollectionId) => {
+      const innerItemData =
+        state.collection[singleCurrentCollectionId].innerItemId;
+      if (!Array.isArray(innerItemData)) {
+        return [innerItemData];
+      }
+      if (Array.isArray(innerItemData)) {
+        drawItemKeys = innerItemData;
+        hasCanMultiCollectionType = true;
+        return innerItemData;
+      }
+      return [];
+    });
+  }, shallowEqual);
+
+  /**
+   * en: Returns the maximum number of lengths in the collection's innerItemId array
+   * ja: collectionのinnerItemIdの配列の中で最大の数のlengthを返す
+   */
+  const drawItemCountValue = (() => {
+    if (rawSceneCollectionInnerItemData.length === 0) return 0;
+    const InnerItemLengthArray = rawSceneCollectionInnerItemData.map(
+      (singleInnerItemData) => {
+        return singleInnerItemData.length;
+      }
+    );
+    return Math.max(...InnerItemLengthArray);
+  })();
 
   const combineProps = {
-    ...{ glItemCount: glItemCountValue, glItemKeys, glBoxRowCount },
+    drawItemCount: drawItemCountValue,
+    drawItemKeys,
+    drawBoxRowCount,
+    hasCanMultiCollectionType,
   };
 
   return <DrawBox {...combineProps} />;
 };
+
+export default DrawBoxContainer;
