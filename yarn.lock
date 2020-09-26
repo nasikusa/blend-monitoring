@@ -10588,11 +10588,6 @@ markdown-to-jsx@^6.11.4:
     prop-types "^15.6.2"
     unquote "^1.1.0"
 
-marked@^0.7.0:
-  version "0.7.0"
-  resolved "https://registry.yarnpkg.com/marked/-/marked-0.7.0.tgz#b64201f051d271b1edc10a04d1ae9b74bb8e5c0e"
-  integrity sha512-c+yYdCZJQrsRjTPhUx7VKkApw9bwDkNbHUKo1ovgcfDjb2kc8rLuRbIFyXL5WOEUwzSSKo3IXpph2K6DqB/KZg==
-
 marked@^1.1.1:
   version "1.1.1"
   resolved "https://registry.yarnpkg.com/marked/-/marked-1.1.1.tgz#e5d61b69842210d5df57b05856e0c91572703e6a"
@@ -15617,19 +15612,6 @@ typedoc@^0.19.2:
     semver "^7.3.2"
     shelljs "^0.8.4"
     typedoc-default-themes "^0.11.4"
-
-typedocs@^0.6.7:
-  version "0.6.7"
-  resolved "https://registry.yarnpkg.com/typedocs/-/typedocs-0.6.7.tgz#ee4dd18228b175dbf074409956eb9a3149c378fc"
-  integrity sha512-ZWpgwfPyJoqpLVUX+XdOqQLGcZJneSIWDLSlKt0ItkGeFrz2BFPIr38/mfR11Yw50mmPInkd4MC0KLU7PV+XUA==
-  dependencies:
-    marked "^0.7.0"
-    typescript "3.2.4"
-
-typescript@3.2.4:
-  version "3.2.4"
-  resolved "https://registry.yarnpkg.com/typescript/-/typescript-3.2.4.tgz#c585cb952912263d915b462726ce244ba510ef3d"
-  integrity sha512-0RNDbSdEokBeEAkgNbxJ+BLwSManFy9TeXz8uW+48j/xhEXv1ePME60olyzw2XzUqUBNAYFeJadIqAgNqIACwg==
 
 typescript@^4.0.3:
   version "4.0.3"

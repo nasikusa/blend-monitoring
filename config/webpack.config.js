@@ -305,16 +305,29 @@ module.exports = function (webpackEnv) {
         }),
         ...(modules.webpackAliases || {}),
         // '@': path.resolve(__dirname, '/src'),
+
+        // see: https://github.com/welldone-software/why-did-you-render/issues/85
+        'react-redux':
+          process.env.NODE_ENV === 'development'
+            ? 'react-redux/lib'
+            : 'react-redux',
       },
       plugins: [
         // Adds support for installing with Plug'n'Play, leading to faster installs and adding
         // guards against forgotten dependencies and such.
         PnpWebpackPlugin,
+        // en:
         // Prevents users from importing files from outside of src/ (or node_modules/).
         // This often causes confusion because we only process files within src/ with babel.
         // To fix this, we prevent you from importing files out of src/ -- if you'd like to,
         // please link the files into your node_modules/ and let module-resolution kick in.
         // Make sure your source files are compiled, as they will not be processed in any way.
+        // ja:
+        //ユーザーがsrc /（またはnode_modules /）の外部からファイルをインポートできないようにします。
+        // src /内のファイルのみをbabelで処理するため、これはしばしば混乱を引き起こします。
+        //これを修正するために、src /からファイルをインポートできないようにします-必要に応じて、
+        //ファイルをnode_modules /にリンクして、module-resolutionを開始させてください。
+        //ソースファイルはまったく処理されないため、コンパイルされていることを確認してください。
         new ModuleScopePlugin(paths.appSrc, [paths.appPackageJson]),
       ],
     },
@@ -559,11 +572,18 @@ module.exports = function (webpackEnv) {
       // This gives some necessary context to module not found errors, such as
       // the requesting resource.
       new ModuleNotFoundPlugin(paths.appPath),
+      // en:
       // Makes some environment variables available to the JS code, for example:
       // if (process.env.NODE_ENV === 'production') { ... }. See `./env.js`.
       // It is absolutely essential that NODE_ENV is set to production
       // during a production build.
       // Otherwise React will be compiled in the very slow development mode.
+      // ja:
+      //次のようにいくつかの環境変数をJSコードで使用できるようにします。
+      // if（process.env.NODE_ENV === 'production'）{...}。 `。/ env.js`を参照してください。
+      // NODE_ENVを本番環境に設定することが絶対に必要です
+      //本番ビルド中。
+      //それ以外の場合、Reactは非常に遅い開発モードでコンパイルされます。
       new webpack.DefinePlugin(env.stringified),
       // This is necessary to emit hot updates (currently CSS only):
       isEnvDevelopment && new webpack.HotModuleReplacementPlugin(),
