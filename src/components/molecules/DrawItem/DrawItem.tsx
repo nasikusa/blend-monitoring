@@ -185,7 +185,7 @@ const DrawItem: React.FC<Props> = (props: Props) => {
             <GlViewContainer />
           </CardContent>
           <CardActions disableSpacing css={styles.innerSpacing}>
-            <CustomIconButton />
+            {false && <CustomIconButton />}
           </CardActions>
         </Card>
       </Draggable>

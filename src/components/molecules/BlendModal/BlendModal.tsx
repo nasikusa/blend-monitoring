@@ -391,11 +391,10 @@ export default (props: Props) => {
             {modalSwitchParams.map((singleSwitchParam) => {
               return (
                 <CustomIconButton
+                  key={singleSwitchParam.type}
                   type={singleSwitchParam.type}
                   active={singleSwitchParam.checked}
-                  buttonGeneralProps={{
-                    onClick: singleSwitchParam.onChange,
-                  }}
+                  onClick={singleSwitchParam.onChange}
                   labelTitle={singleSwitchParam.label}
                 />
               );

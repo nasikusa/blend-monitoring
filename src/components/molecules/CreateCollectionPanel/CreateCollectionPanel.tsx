@@ -223,38 +223,33 @@ const CreateCollectionPanel = (props: Props) => {
       <Grid>
         {collectionTypesArray.map((singleCollectionType, currentIndex) => {
           return (
-            <>
-              <CustomIconButton
-                type={singleCollectionType}
-                buttonType="buttonWithIcon"
-                labelTitle={collectionTypeNameObject[singleCollectionType].ja}
-                active
-                disableTooltip
-                disable={
+            <CustomIconButton
+              key={singleCollectionType}
+              type={singleCollectionType}
+              buttonType="buttonWithIcon"
+              labelTitle={collectionTypeNameObject[singleCollectionType].ja}
+              active
+              disableTooltip
+              disable={
+                canMultiItemCollectionName.includes(singleCollectionType) &&
+                hasMultiItemCollection
+              }
+              onClick={() => {
+                if (
                   canMultiItemCollectionName.includes(singleCollectionType) &&
                   hasMultiItemCollection
+                ) {
+                  return;
                 }
-                buttonGeneralProps={{
-                  onClick: () => {
-                    if (
-                      canMultiItemCollectionName.includes(
-                        singleCollectionType
-                      ) &&
-                      hasMultiItemCollection
-                    ) {
-                      return;
-                    }
-                    handleChange(currentIndex);
-                  },
-                }}
-                buttonProps={{
-                  fullWidth: true,
-                  variant: 'outlined',
-                }}
-              >
-                {collectionTypeNameObject[singleCollectionType].ja}
-              </CustomIconButton>
-            </>
+                handleChange(currentIndex);
+              }}
+              buttonProps={{
+                fullWidth: true,
+                variant: 'outlined',
+              }}
+            >
+              {collectionTypeNameObject[singleCollectionType].ja}
+            </CustomIconButton>
           );
         })}
       </Grid>

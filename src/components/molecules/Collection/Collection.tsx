@@ -301,6 +301,7 @@ const Collection: React.FC<Props> = (props: Props) => {
             <>
               {secondaryAreaElementDataArray.map((singleSecondaryElemData) => (
                 <CustomIconButton
+                  key={singleSecondaryElemData.typeName}
                   type={singleSecondaryElemData.typeName}
                   labelTitle={singleSecondaryElemData.labelTitleValue}
                   buttonType="iconButton"
@@ -313,9 +314,7 @@ const Collection: React.FC<Props> = (props: Props) => {
                         ]
                       : true
                   }
-                  buttonGeneralProps={{
-                    onClick: singleSecondaryElemData.clickFunction,
-                  }}
+                  onClick={singleSecondaryElemData.clickFunction}
                   buttonProps={{
                     fullWidth: true,
                   }}

@@ -1,4 +1,4 @@
-import React, { createContext, useRef } from 'react';
+import React, { createContext } from 'react';
 import { css } from '@emotion/core';
 import Box from '@material-ui/core/Box';
 import List from '@material-ui/core/List';
@@ -29,7 +29,6 @@ export const CollectionIdContext = createContext<{
 
 const CollectionList: React.FC<Props> = (props) => {
   const { calcedOtherAreaHeight, currentCollectionsId } = props;
-  const collectionFixedMenuRef = useRef();
 
   const scrollStyle = css`
     overflow-y: scroll;
@@ -39,7 +38,7 @@ const CollectionList: React.FC<Props> = (props) => {
 
   return (
     <Box>
-      <CreateCollectionPanelContainer ref={collectionFixedMenuRef} />
+      <CreateCollectionPanelContainer />
       <Divider />
       <Box css={scrollStyle}>
         <List>

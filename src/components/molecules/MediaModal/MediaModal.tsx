@@ -209,6 +209,7 @@ export default (props: Props) => {
               {modalSwitchParams.map((singleSwitchParam) => {
                 return (
                   <FormControlLabel
+                    key={singleSwitchParam.name}
                     control={
                       <Switch
                         size="small"
