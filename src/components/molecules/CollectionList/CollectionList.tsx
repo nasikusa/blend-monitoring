@@ -1,4 +1,4 @@
-import React, { createContext } from 'react';
+import React from 'react';
 import { css } from '@emotion/core';
 import Box from '@material-ui/core/Box';
 import List from '@material-ui/core/List';
@@ -13,19 +13,6 @@ export type Props = {
   calcedOtherAreaHeight: string;
   currentCollectionsId: sceneCollectionsType;
 };
-
-/**
- * 現在のコレクションの順番を決定するためのcontextの型
- */
-export type GlCollectionOrderContextType = number;
-
-export const CollectionIdContext = createContext<{
-  collectionId: ArrayElement<sceneCollectionsType>;
-  collectionOrder: GlCollectionOrderContextType;
-}>({
-  collectionId: '',
-  collectionOrder: -1,
-});
 
 const CollectionList: React.FC<Props> = (props) => {
   const { calcedOtherAreaHeight, currentCollectionsId } = props;
@@ -43,24 +30,14 @@ const CollectionList: React.FC<Props> = (props) => {
       <Box css={scrollStyle}>
         <List>
           {currentCollectionsId
-            .map(
-              (
-                currentCollectionId: ArrayElement<sceneCollectionsType>,
-                currentIndex: number
-              ) => {
-                return (
-                  <CollectionIdContext.Provider
-                    value={{
-                      collectionId: currentCollectionId,
-                      collectionOrder: currentIndex,
-                    }}
-                    key={currentCollectionId}
-                  >
-                    <CollectionContainer collectionId={currentCollectionId} />
-                  </CollectionIdContext.Provider>
-                );
-              }
-            )
+            .map((currentCollectionId: ArrayElement<sceneCollectionsType>) => {
+              return (
+                <CollectionContainer
+                  key={currentCollectionId}
+                  collectionId={currentCollectionId}
+                />
+              );
+            })
             .reverse()}
         </List>
       </Box>
