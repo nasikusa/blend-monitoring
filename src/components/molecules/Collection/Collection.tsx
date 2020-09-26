@@ -1,5 +1,5 @@
 /* eslint no-nested-ternary: 0 */
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { NIL as NIL_UUID } from 'uuid';
 import { makeStyles } from '@material-ui/core/styles';
 import ListItem from '@material-ui/core/ListItem';
@@ -184,52 +184,56 @@ const Collection: React.FC<Props> = (props: Props) => {
   /**
    * 単一コレクションのvisibilityフラグハンドル関数
    */
-  const handleVisibilityFlagClick = (): void => {
+  const handleVisibilityFlagClick = useCallback((): void => {
     const invertBoolValue = !visibilityOpenFlag;
     setVisibilityOpenFlag(invertBoolValue);
     // updateVisibility({
     //   visibilityBoolValue: invertBoolValue,
     //   glCollectionOrderKey,
     // });
-  };
+  }, [visibilityOpenFlag]);
 
   /**
    * 単一コレクションのopacityフラグハンドル関数
    */
-  const handleOpacityFlagClick = (): void => {
+  const handleOpacityFlagClick = useCallback((): void => {
     setOpacityOpenFlag(!opacityOpenFlag);
-  };
+  }, [opacityOpenFlag]);
 
   /**
    * 単一コレクションの描画モードフラグハンドル関数
    */
-  const handleBlendModeFlagClick = (): void => {
+  const handleBlendModeFlagClick = useCallback((): void => {
     setBlendModeOpenFlag(!blendModeOpenFlag);
-  };
+  }, [blendModeOpenFlag]);
 
   /**
    * 単一コレクションのカラーフラグハンドル関数
    */
-  const handleColorFlagClick = (): void => {
+  const handleColorFlagClick = useCallback((): void => {
     setColorOpenFlag(!colorOpenFlag);
-  };
+  }, [colorOpenFlag]);
 
   /**
    * 単一コレクションの画像フラグハンドル関数
    */
-  const handleImageFlagClick = (): void => {
+  const handleImageFlagClick = useCallback((): void => {
     setImageOpenFlag(!imageOpenFlag);
-  };
+  }, [imageOpenFlag]);
 
   /**
    * 単一コレクションのdeleteボタンを押した際に発火する関数
    */
-  const handleDeleteIconClick = (): void => {
+  const handleDeleteIconClick = useCallback((): void => {
     storeDeleteSceneCollectionInnerItem({
       targetId: currentSceneCollectionData.currentId,
       targetInnerId: rawCollectionData.id,
     });
-  };
+  }, [
+    storeDeleteSceneCollectionInnerItem,
+    currentSceneCollectionData.currentId,
+    rawCollectionData.id,
+  ]);
 
   /**
    * タイトル下のアイコン機能メニューのデータ一覧
@@ -315,9 +319,9 @@ const Collection: React.FC<Props> = (props: Props) => {
                       : true
                   }
                   onClick={singleSecondaryElemData.clickFunction}
-                  buttonProps={{
-                    fullWidth: true,
-                  }}
+                  // buttonProps={{
+                  //   fullWidth: true,
+                  // }}
                 >
                   {singleSecondaryElemData.labelTitleValue}
                 </CustomIconButton>
