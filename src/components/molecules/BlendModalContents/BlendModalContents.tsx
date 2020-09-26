@@ -108,7 +108,7 @@ export default function BlendModalContents(props: Props) {
     canDisplayMathBlend,
   } = props;
 
-  const boolBlendModeStateObject: collectionValueBlendModeType[] = (() => {
+  const blendModeStateObjectArray: collectionValueBlendModeType[] = (() => {
     if (!Array.isArray(storedBlendModeValue)) {
       return [storedBlendModeValue];
     }
@@ -116,9 +116,10 @@ export default function BlendModalContents(props: Props) {
   })();
 
   /**
-   *
+   * en: Array data containing only the name of the currently enabled drawing mode
+   * ja: 現在、有効化されている描画モードの名前のみの入った配列データ
    */
-  const blendModeNameArray: collectionValueBlendModeType['value'][] = boolBlendModeStateObject.map(
+  const blendModeNameArray: collectionValueBlendModeType['value'][] = blendModeStateObjectArray.map(
     (singleBoolBlendModeStateObject) => {
       return singleBoolBlendModeStateObject.value;
     }
@@ -128,7 +129,7 @@ export default function BlendModalContents(props: Props) {
    * チェックボックスグループの脇に区切り用の線を入れるかどうかのbool値。
    * 最初のグループのみ線を入れない。
    */
-  let isInsertDividerState = false;
+  let isInsertDividerStateFlag = false;
 
   const categoryBlendModeData = [
     {
@@ -239,8 +240,8 @@ export default function BlendModalContents(props: Props) {
        * divideコンポーネントが入る可能性のある変数
        */
       let divideElement = null;
-      if (isInsertDividerState === false) {
-        isInsertDividerState = true;
+      if (isInsertDividerStateFlag === false) {
+        isInsertDividerStateFlag = true;
       } else {
         divideElement = <Divider absolute orientation="vertical" />;
       }
