@@ -1,4 +1,4 @@
-import './utils/develop/whenDidYouRender';
+import './utils/develop/whyDidYouRender';
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { Provider as ReduxProvider } from 'react-redux';
