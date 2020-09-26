@@ -32,7 +32,7 @@ export type Props = {
 };
 
 interface TabPanelProps {
-  children: React.ReactText;
+  children: React.ReactNode;
   index: any;
   value: any;
 }
