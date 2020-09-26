@@ -42,6 +42,8 @@ const DrawBoxContainer = () => {
         return [innerItemData];
       }
       if (Array.isArray(innerItemData)) {
+        // HACK: en: Problems can occur in the future if you have an array that doesn't have multiple collections
+        // HACK: ja: 将来配列だけども、複数のコレクションを持たないようなものができた場合に問題が起こる可能性がある
         drawItemKeys = innerItemData;
         hasCanMultiCollectionType = true;
         return innerItemData;
