@@ -6,7 +6,7 @@ inquirer
     {
       name: 'playgroundShortName',
       message:
-        'cs: CodeSandBox | cp: CodePen | t: TypeScript Playground | dts: TypeScript d.ts search | g: Github Repo | y: Youtube | uuid: UUID Generator | bm: BlendMonitoring | ciu: CanIUse | gls: glslSandBox | bp: bundlePhobia',
+        'cs: CodeSandBox | cp: CodePen | t: TypeScript Playground | dts: TypeScript d.ts search | g: Github Repo | y: Youtube | uuid: UUID Generator | bm: BlendMonitoring | ciu: CanIUse | gls: glslSandBox | bp: bundlePhobia | nt: npmTrends',
       default: 'cs',
     },
   ])
@@ -44,6 +44,9 @@ inquirer
         break;
       case 'bp':
         opn('https://bundlephobia.com/');
+        break;
+      case 'nt':
+        opn('https://www.npmtrends.com/');
         break;
     }
   });
