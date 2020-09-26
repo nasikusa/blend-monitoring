@@ -1,5 +1,6 @@
 /* eslint no-nested-ternary: 0 */
 import React from 'react';
+import deepEqual from 'fast-deep-equal';
 import IconButton, { IconButtonProps } from '@material-ui/core/IconButton';
 import Button, { ButtonProps } from '@material-ui/core/Button';
 import { SvgIconProps } from '@material-ui/core/SvgIcon';
@@ -130,6 +131,9 @@ const CustomIconButton = (props: Props) => {
   ) : (
     <CustomTooltip
       title={labelTitle || 'ツールチップタイトル'}
+      PopperProps={{
+        disablePortal: true,
+      }}
       {...tooltipProps}
     >
       <div css={styles.toolTipInnerWrapper}>
@@ -145,4 +149,6 @@ CustomIconButton.defaultProps = {
   disableTooltip: false,
 };
 
-export default React.memo(CustomIconButton);
+export default React.memo(CustomIconButton, (prevProps, nextProps) =>
+  deepEqual(prevProps, nextProps)
+);
