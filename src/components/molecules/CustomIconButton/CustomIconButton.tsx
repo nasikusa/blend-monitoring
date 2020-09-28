@@ -29,15 +29,15 @@ type Props = Partial<{
 
 const CustomIconButton = (props: Props) => {
   const {
-    type,
-    buttonType,
+    type = 'functionHelp',
+    buttonType = 'iconButton',
     iconProps,
     iconButtonProps,
     buttonProps,
     buttonGeneralProps,
     tooltipProps,
     children,
-    disableTooltip,
+    disableTooltip = false,
     disable,
     active,
     danger,
@@ -48,12 +48,12 @@ const CustomIconButton = (props: Props) => {
   const theme = useTheme();
 
   const styles = {
-    toolTipInnerWrapper: css`
-      display: inline-flex;
-    `,
-    iconButtonStyle: css`
-      padding: ${theme.spacing(2)}px;
-    `,
+    toolTipInnerWrapper: css({
+      display: 'inline-flex',
+    }),
+    iconButtonStyle: css({
+      padding: `${theme.spacing(2)}px`,
+    }),
     buttonStyle: css`
       margin-top: 1px;
       margin-bottom: 1px;
@@ -76,7 +76,7 @@ const CustomIconButton = (props: Props) => {
       >
         <Icon
           // @ts-ignore
-          type={type != null ? type : 'functionHelp'}
+          type={type}
           color={
             danger
               ? 'error'
@@ -141,12 +141,6 @@ const CustomIconButton = (props: Props) => {
       </div>
     </CustomTooltip>
   );
-};
-
-CustomIconButton.defaultProps = {
-  type: 'functionHelp',
-  buttonType: 'iconButton',
-  disableTooltip: false,
 };
 
 export default React.memo(CustomIconButton, (prevProps, nextProps) =>
