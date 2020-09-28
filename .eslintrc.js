@@ -9,11 +9,13 @@ module.exports = {
     'prettier/react',
     'plugin:prettier/recommended',
   ],
+  env: {
+    browser: true,
+  },
   parser: '@typescript-eslint/parser',
   plugins: ['jsx-a11y', 'prettier'],
   settings: {
     'import/resolver': {
-      // webpack: { config: path.join(__dirname, '/config/webpack.config.js') },
       node: {
         extensions: ['.js', '.jsx', '.json', '.ts', '.tsx'],
       },

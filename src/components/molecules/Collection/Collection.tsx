@@ -8,23 +8,24 @@ import ListItemText from '@material-ui/core/ListItemText';
 import IconButton from '@material-ui/core/IconButton';
 import { Typography } from '@material-ui/core';
 
-import Icon, { IconTypeTypes } from '../../atoms/Icon';
-import CustomSliderContainer from '../../../container/CustomSliderContainer';
-import BlendModePanelContainer from '../../../container/BlendModePanelContainer';
-import ColorPanelContainer from '../../../container/ColorPanelContainer';
-import CollectionMainIcon from '../../atoms/CollectionMainIcon';
-import getCollectionsName from '../../../utils/collection/getCollectionsName';
-import ImagePanelContainer from '../../../container/ImagePanelContainer';
-import CollectionPanel from '../CollectionPanel';
-import CustomIconButton from '../CustomIconButton';
-
-import { CollectionTypeType } from '../../../types/collection/collectionData';
+/* eslint-disable import/no-unresolved */
+import BlendModePanelContainer from 'container/BlendModePanelContainer';
+import ImagePanelContainer from 'container/ImagePanelContainer';
+import CustomSliderContainer from 'container/CustomSliderContainer';
+import ColorPanelContainer from 'container/ColorPanelContainer';
+import getCollectionsName from 'utils/collection/getCollectionsName';
+import { CollectionCategoryType } from 'stores/collection/collection';
+import { CollectionTypeType } from 'types/collection/collectionData';
+import Icon, { IconTypeTypes } from 'components/atoms/Icon';
+import CollectionMainIcon from 'components/atoms/CollectionMainIcon';
+import CollectionPanelTitle from 'components/atoms/CollectionPanelTitle';
+import CollectionPanel from 'components/molecules/CollectionPanel';
+import CustomIconButton from 'components/molecules/CustomIconButton';
+import CollectionPanelContent from 'components/molecules/CollectionPanelContent';
+/* eslint-enable import/no-unresolved */
 import allCollectionTypeFunctionObject, {
   collectionObjectFunctionType,
 } from './allCollectionTypeFunctionObject';
-import { CollectionCategoryType } from '../../../stores/collection/collection';
-import CollectionPanelTitle from '../../atoms/CollectionPanelTitle';
-import CollectionPanelContent from '../CollectionPanelContent/CollectionPanelContent';
 
 export type Props = {
   storeDeleteSceneCollectionInnerItem: any;
