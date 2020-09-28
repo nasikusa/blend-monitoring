@@ -1,6 +1,6 @@
 {
   "name": "blend-monitoring",
-  "version": "0.2.0-alpha.2",
+  "version": "0.2.0-alpha.3",
   "private": true,
   "dependencies": {
     "@emotion/babel-preset-css-prop": "^10.0.27",
