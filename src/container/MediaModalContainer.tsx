@@ -1,7 +1,10 @@
 import React from 'react';
 import { useDispatch } from 'react-redux';
-import MediaModal from '../components/molecules/MediaModal';
-import { addMediaData as addMediaDataAction } from '../stores/image/storedMedia';
+
+/* eslint-disable import/no-unresolved */
+import MediaModal from 'components/molecules/MediaModal';
+import { addMediaData as addMediaDataAction } from 'stores/image/storedMedia';
+/* eslint-enable import/no-unresolved */
 
 export default (props: any) => {
   const dispatch = useDispatch();

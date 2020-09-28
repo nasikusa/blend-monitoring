@@ -1,12 +1,14 @@
 import React from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import Edit from '../components/pages/Edit';
 
+/* eslint-disable import/no-unresolved */
+import Edit from 'components/pages/Edit';
 import {
   updateSingleItemSize as updateSingleItemSizeAction,
   updateRowCount as updateRowCountAction,
-} from '../stores/general/glSettings';
-import { AppState } from '../stores/index';
+} from 'stores/general/glSettings';
+import { AppState } from 'stores/index';
+/* eslint-enable import/no-unresolved */
 
 export default () => {
   const themeSettings = useSelector((state: AppState) => state.themeSettings);

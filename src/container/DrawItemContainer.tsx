@@ -1,12 +1,15 @@
 import React, { useContext } from 'react';
 import { useSelector, shallowEqual } from 'react-redux';
-import DrawItem from '../components/molecules/DrawItem';
-import { AppState } from '../stores/index';
-import hasMultiItemCollection from '../utils/collection/hasMultiItemCollection';
-import { GlItemOrderContext } from '../components/organisms/DrawBox/GlItemOrderContextElement';
-import { CollectionTypeType } from '../types/collection/collectionData';
-import { StoredMediaStateItemType } from '../stores/image/storedMedia';
-import useCurrentSceneCollection from '../hooks/collection/useCurrentSceneCollection';
+
+/* eslint-disable import/no-unresolved */
+import DrawItem from 'components/molecules/DrawItem';
+import { AppState } from 'stores/index';
+import hasMultiItemCollection from 'utils/collection/hasMultiItemCollection';
+import { GlItemOrderContext } from 'components/organisms/DrawBox/GlItemOrderContextElement';
+import { CollectionTypeType } from 'types/collection/collectionData';
+import { StoredMediaStateItemType } from 'stores/image/storedMedia';
+import useCurrentSceneCollection from 'hooks/collection/useCurrentSceneCollection';
+/* eslint-enable import/no-unresolved */
 
 export default () => {
   const glItemOrder = useContext(GlItemOrderContext);

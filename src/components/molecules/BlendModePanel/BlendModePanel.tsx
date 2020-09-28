@@ -4,9 +4,11 @@ import Box from '@material-ui/core/Box';
 import Button from '@material-ui/core/Button';
 import Chip from '@material-ui/core/Chip';
 
-import { readyBlendModeData } from '../../../utils/blendMode/getBlendModeData';
-import BlendModalContainer from '../../../container/BlendModalContainer';
-import { collectionValueBlendModeType } from '../../../stores/collection/collectionValueBlendMode';
+/* eslint-disable import/no-unresolved */
+import { readyBlendModeData } from 'utils/blendMode/getBlendModeData';
+import BlendModalContainer from 'container/BlendModalContainer';
+import { collectionValueBlendModeType } from 'stores/collection/collectionValueBlendMode';
+/* eslint-enable import/no-unresolved */
 import { RawCollectionDataContext } from '../Collection/Collection';
 
 type Props = {

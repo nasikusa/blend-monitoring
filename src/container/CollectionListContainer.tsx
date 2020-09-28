@@ -1,7 +1,10 @@
 import React from 'react';
 import { useSelector, shallowEqual } from 'react-redux';
-import CollectionList from '../components/molecules/CollectionList';
-import { AppState } from '../stores/index';
+
+/* eslint-disable import/no-unresolved */
+import { AppState } from 'stores/index';
+import CollectionList from 'components/molecules/CollectionList';
+/* eslint-enable import/no-unresolved */
 
 const CollectionListContainer = () => {
   const currentSceneCollectionId = useSelector(

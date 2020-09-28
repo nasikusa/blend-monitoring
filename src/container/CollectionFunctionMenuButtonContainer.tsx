@@ -1,7 +1,10 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
-import CollectionFunctionMenuButton from '../components/atoms/CollectionFunctionMenuButton';
-import { AppState } from '../stores/index';
+
+/* eslint-disable import/no-unresolved */
+import { AppState } from 'stores/index';
+import CollectionFunctionMenuButton from 'components/atoms/CollectionFunctionMenuButton';
+/* eslint-enable import/no-unresolved */
 
 export default (props: any) => {
   const appSettings = useSelector((state: AppState) => state.glSettings);

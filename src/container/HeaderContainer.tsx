@@ -1,7 +1,10 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
-import Header from '../components/organisms/Header';
-import { AppState } from '../stores/index';
+
+/* eslint-disable import/no-unresolved */
+import Header from 'components/organisms/Header';
+import { AppState } from 'stores/index';
+/* eslint-enable import/no-unresolved */
 
 /**
  * ヘッダーコンポーネントのcontainer

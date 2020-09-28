@@ -1,7 +1,10 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
-import GlEdit from '../components/organisms/GlEdit';
-import { AppState } from '../stores/index';
+
+/* eslint-disable import/no-unresolved */
+import { AppState } from 'stores/index';
+import GlEdit from 'components/organisms/GlEdit';
+/* eslint-enable import/no-unresolved */
 
 export default () => {
   const themeSettings = useSelector((state: AppState) => state.themeSettings);

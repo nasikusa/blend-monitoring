@@ -1,8 +1,10 @@
 import React, { useCallback } from 'react';
 import { useDispatch, useSelector, shallowEqual } from 'react-redux';
-import Collection from '../components/molecules/Collection';
-import { deleteSceneCollectionInnerItem } from '../stores/collection/sceneCollection';
-import { AppState } from '../stores';
+/* eslint-disable import/no-unresolved */
+import { AppState } from 'stores';
+import { deleteSceneCollectionInnerItem } from 'stores/collection/sceneCollection';
+import Collection from 'components/molecules/Collection';
+/* eslint-enable import/no-unresolved */
 
 type Props = {
   collectionId: string;

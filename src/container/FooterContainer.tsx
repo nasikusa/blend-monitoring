@@ -1,9 +1,12 @@
 import React from 'react';
 import { useSelector, shallowEqual } from 'react-redux';
-import Footer from '../components/organisms/Footer';
-import { AppState } from '../stores/index';
-import getLengthOfCollections from '../utils/collection/getLengthOfCollections';
-import useCurrentSceneCollection from '../hooks/collection/useCurrentSceneCollection';
+
+/* eslint-disable import/no-unresolved */
+import Footer from 'components/organisms/Footer';
+import { AppState } from 'stores/index';
+import getLengthOfCollections from 'utils/collection/getLengthOfCollections';
+import useCurrentSceneCollection from 'hooks/collection/useCurrentSceneCollection';
+/* eslint-enable import/no-unresolved */
 
 /**
  * フッターコンポーネントのcontainer

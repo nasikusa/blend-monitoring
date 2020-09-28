@@ -1,7 +1,10 @@
 import React from 'react';
 import { useSelector, shallowEqual } from 'react-redux';
-import DrawBox from '../components/organisms/DrawBox';
-import { AppState } from '../stores/index';
+
+/* eslint-disable import/no-unresolved */
+import { AppState } from 'stores/index';
+import DrawBox from 'components/organisms/DrawBox';
+/* eslint-enable import/no-unresolved */
 
 const DrawBoxContainer = () => {
   /**

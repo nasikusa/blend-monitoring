@@ -1,17 +1,19 @@
 import React, { useCallback } from 'react';
 import { useDispatch, useSelector, shallowEqual } from 'react-redux';
-import { AppState } from '../stores/index';
-import CreateCollectionPanel from '../components/molecules/CreateCollectionPanel';
 
-import canMultiItemCollectionName from '../constants/collection/canMultiItemCollectionName';
-import { addSceneCollectionInnerItem } from '../stores/collection/sceneCollection';
-import { addCollection } from '../stores/collection/collection';
-import { addItem } from '../stores/collection/collectionItem';
-import { addValue as addCollectionBlendModeValue } from '../stores/collection/collectionValueBlendMode';
-import { addValue as addCollectionOpacity } from '../stores/collection/collectionValueOpacity';
-import { addValue as addCollectionVisibility } from '../stores/collection/collectionValueVisibility';
-import { addValue as addCollectionColor } from '../stores/collection/collectionValueColor';
-import { addValue as addCollectionImage } from '../stores/collection/collectionValueImage';
+/* eslint-disable import/no-unresolved */
+import { AppState } from 'stores/index';
+import CreateCollectionPanel from 'components/molecules/CreateCollectionPanel';
+import canMultiItemCollectionName from 'constants/collection/canMultiItemCollectionName';
+import { addSceneCollectionInnerItem } from 'stores/collection/sceneCollection';
+import { addCollection } from 'stores/collection/collection';
+import { addItem } from 'stores/collection/collectionItem';
+import { addValue as addCollectionBlendModeValue } from 'stores/collection/collectionValueBlendMode';
+import { addValue as addCollectionOpacity } from 'stores/collection/collectionValueOpacity';
+import { addValue as addCollectionVisibility } from 'stores/collection/collectionValueVisibility';
+import { addValue as addCollectionColor } from 'stores/collection/collectionValueColor';
+import { addValue as addCollectionImage } from 'stores/collection/collectionValueImage';
+/* eslint-enable import/no-unresolved */
 
 const CreateCollectionPanelContainer = (props: any) => {
   const dispatch = useDispatch();

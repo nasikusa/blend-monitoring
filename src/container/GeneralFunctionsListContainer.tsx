@@ -1,19 +1,22 @@
 import React from 'react';
 import { useDispatch } from 'react-redux';
-import GeneralFunctionsList from '../components/molecules/GeneralFunctionsList';
 
-import { replaceAll as replaceAllGlSettingsAction } from '../stores/general/glSettings';
+/* eslint-disable import/no-unresolved */
+import GeneralFunctionsList from 'components/molecules/GeneralFunctionsList';
+
+import { replaceAll as replaceAllGlSettingsAction } from 'stores/general/glSettings';
 import {
   replaceAll as replaceAllStoredMediaAction,
   removeAll as removeAllStoredMediaAction,
-} from '../stores/image/storedMedia';
+} from 'stores/image/storedMedia';
 import {
   replaceAll as replaceAllCollectionDataAction,
   removeAll as removeAllCollectionDataAction,
-} from '../types/collection/collectionData';
-import { replaceAll as replaceAllThemeSettingsAction } from '../stores/general/themeSettings';
-import { replaceAll as replaceAllBlendModeOrderAction } from '../stores/blendMode/blendModeOrder';
-import { replaceAll as replaceAllStockedColorsAction } from '../stores/color/stockedColors';
+} from 'types/collection/collectionData';
+import { replaceAll as replaceAllThemeSettingsAction } from 'stores/general/themeSettings';
+import { replaceAll as replaceAllBlendModeOrderAction } from 'stores/blendMode/blendModeOrder';
+import { replaceAll as replaceAllStockedColorsAction } from 'stores/color/stockedColors';
+/* eslint-enable import/no-unresolved */
 
 export default () => {
   const dispatch = useDispatch();
