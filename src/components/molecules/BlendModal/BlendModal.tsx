@@ -13,7 +13,7 @@ import Button from '@material-ui/core/Button';
 
 import CustomIconButton from '../CustomIconButton';
 import { IconTypeTypes } from '../../atoms/Icon';
-import BlendModalContentsContainer from '../../../container/BlendModalContentsContainer';
+import BlendModalContentsContainer from '../../../containers/BlendModalContentsContainer';
 import { RawCollectionDataContext } from '../Collection/Collection';
 
 type Props = {

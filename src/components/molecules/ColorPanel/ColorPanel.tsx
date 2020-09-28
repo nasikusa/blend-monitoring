@@ -7,7 +7,7 @@ import { v4 as uuidv4 } from 'uuid';
 import { debounce } from 'lodash';
 
 import CustomSketchPicker from '../../atoms/CustomSketchPicker';
-import ColorModalContainer from '../../../container/ColorModalContainer';
+import ColorModalContainer from '../../../containers/ColorModalContainer';
 import ColorBox from '../../atoms/ColorBox';
 import ColorBoxGroup from '../ColorBoxGroup';
 import { collectionValueColorType } from '../../../stores/collection/collectionValueColor';

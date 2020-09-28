@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import Box from '@material-ui/core/Box';
 import Grid from '@material-ui/core/Grid';
 
-import DrawItemContainer from '../../../container/DrawItemContainer';
+import DrawItemContainer from '../../../containers/DrawItemContainer';
 import DefaultWelcome from '../../molecules/DefaultWelcome';
 import { maxCountOfGlItem } from '../../../constants/general/appConstantSettings';
 import CustomAlert from '../../atoms/CustomAlert';

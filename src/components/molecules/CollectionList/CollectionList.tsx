@@ -7,8 +7,8 @@ import Divider from '@material-ui/core/Divider';
 /* eslint-disable import/no-unresolved */
 import CollectionIdContext from 'contexts/CollectionIdContext';
 /* eslint-enable import/no-unresolved */
-import CollectionContainer from '../../../container/CollectionContainer';
-import CreateCollectionPanelContainer from '../../../container/CreateCollectionPanelContainer';
+import CollectionContainer from '../../../containers/CollectionContainer';
+import CreateCollectionPanelContainer from '../../../containers/CreateCollectionPanelContainer';
 import { SceneCollectionsType } from '../../../stores/collection/sceneCollection';
 import { ArrayElement } from '../../../types/utils/ArrayElement';
 

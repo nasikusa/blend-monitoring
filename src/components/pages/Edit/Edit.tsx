@@ -10,11 +10,11 @@ import { GlobalHotKeys } from 'react-hotkeys';
 import Box from '@material-ui/core/Box';
 import { makeStyles, useTheme } from '@material-ui/core/styles';
 
-import GlEditContainer from '../../../container/GlEditContainer';
-import PageTemplateContainer from '../../../container/PageTemplateContainer';
-import DrawBoxContainer from '../../../container/DrawBoxContainer';
+import GlEditContainer from '../../../containers/GlEditContainer';
+import PageTemplateContainer from '../../../containers/PageTemplateContainer';
+import DrawBoxContainer from '../../../containers/DrawBoxContainer';
 import Doc from '../../organisms/Doc/Doc';
-import GeneralFunctionsListContainer from '../../../container/GeneralFunctionsListContainer';
+import GeneralFunctionsListContainer from '../../../containers/GeneralFunctionsListContainer';
 
 export type Props = Readonly<{
   updateSingleItemSize: any;

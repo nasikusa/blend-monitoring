@@ -1,6 +1,6 @@
 import React from 'react';
-import HeaderContainer from '../../../container/HeaderContainer';
-import FooterContainer from '../../../container/FooterContainer';
+import HeaderContainer from '../../../containers/HeaderContainer';
+import FooterContainer from '../../../containers/FooterContainer';
 
 export default (props: any) => {
   const { body } = props;

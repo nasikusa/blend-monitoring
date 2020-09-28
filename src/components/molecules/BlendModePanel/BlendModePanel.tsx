@@ -6,7 +6,7 @@ import Chip from '@material-ui/core/Chip';
 
 /* eslint-disable import/no-unresolved */
 import { readyBlendModeData } from 'utils/blendMode/getBlendModeData';
-import BlendModalContainer from 'container/BlendModalContainer';
+import BlendModalContainer from 'containers/BlendModalContainer';
 import { collectionValueBlendModeType } from 'stores/collection/collectionValueBlendMode';
 /* eslint-enable import/no-unresolved */
 import { RawCollectionDataContext } from '../Collection/Collection';

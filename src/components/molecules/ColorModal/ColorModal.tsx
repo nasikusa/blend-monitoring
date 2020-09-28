@@ -17,7 +17,7 @@ import Snackbar from '@material-ui/core/Snackbar';
 
 import getResiedImageData from '../../../utils/image/getResizedImageData';
 import { GlCollectionTypeArray } from '../../../types/collection/collectionData';
-import MediaModalContentsContainer from '../../../container/MediaModalContentsContainer';
+import MediaModalContentsContainer from '../../../containers/MediaModalContentsContainer';
 import createStoredMediaItemObject from '../../../utils/image/createStoredMediaItemObject';
 import CustomAlert from '../../atoms/CustomAlert';
 

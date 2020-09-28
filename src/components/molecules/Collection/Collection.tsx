@@ -9,10 +9,10 @@ import IconButton from '@material-ui/core/IconButton';
 import { Typography } from '@material-ui/core';
 
 /* eslint-disable import/no-unresolved */
-import BlendModePanelContainer from 'container/BlendModePanelContainer';
-import ImagePanelContainer from 'container/ImagePanelContainer';
-import CustomSliderContainer from 'container/CustomSliderContainer';
-import ColorPanelContainer from 'container/ColorPanelContainer';
+import BlendModePanelContainer from 'containers/BlendModePanelContainer';
+import ImagePanelContainer from 'containers/ImagePanelContainer';
+import CustomSliderContainer from 'containers/CustomSliderContainer';
+import ColorPanelContainer from 'containers/ColorPanelContainer';
 import getCollectionsName from 'utils/collection/getCollectionsName';
 import { CollectionCategoryType } from 'stores/collection/collection';
 import { CollectionTypeType } from 'types/collection/collectionData';

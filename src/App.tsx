@@ -5,7 +5,7 @@ import { HTML5Backend } from 'react-dnd-html5-backend';
 import { ThemeProvider as EmotionThemeProvider } from 'emotion-theming';
 import Box from '@material-ui/core/Box';
 
-import EditContainer from './container/EditContainer';
+import EditContainer from './containers/EditContainer';
 import FoundationStyle from './styles/foundation';
 import { beforeRenderingScreenID } from './constants/general/domNames';
 import MaterialUIThemeProvider from './styles/theme/MaterialUI/MaterialUIThemeProvider';

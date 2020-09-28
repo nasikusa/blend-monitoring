@@ -10,7 +10,7 @@ import { useTheme } from '@material-ui/core/styles';
 import CardContent from '@material-ui/core/CardContent';
 import CardActions from '@material-ui/core/CardActions';
 
-import GlViewContainer from '../../../container/GlViewContainer';
+import GlViewContainer from '../../../containers/GlViewContainer';
 import CustomIconButton from '../CustomIconButton';
 import blendModeData, {
   BlendModesType,

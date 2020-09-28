@@ -16,7 +16,7 @@ import Switch from '@material-ui/core/Switch';
 import Snackbar from '@material-ui/core/Snackbar';
 
 import getResiedImageData from '../../../utils/image/getResizedImageData';
-import MediaModalContentsContainer from '../../../container/MediaModalContentsContainer';
+import MediaModalContentsContainer from '../../../containers/MediaModalContentsContainer';
 import createStoredMediaItemObject from '../../../utils/image/createStoredMediaItemObject';
 import CustomAlert from '../../atoms/CustomAlert';
 

@@ -5,7 +5,7 @@ import Button from '@material-ui/core/Button';
 import GridList from '@material-ui/core/GridList';
 import GridListTile from '@material-ui/core/GridListTile';
 
-import MediaModalContainer from '../../../container/MediaModalContainer';
+import MediaModalContainer from '../../../containers/MediaModalContainer';
 import { StoredMediaStateType } from '../../../stores/image/storedMedia';
 import { collectionValueImageType } from '../../../stores/collection/collectionValueImage';
 
