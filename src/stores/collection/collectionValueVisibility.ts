@@ -5,14 +5,14 @@ import { baseCollectionValueType } from '../../types/collection/collectionValueT
 
 export type collectionValueVisibilityValueType = boolean;
 
-export type collectionValueVisibilityType = {
+export type collectionValueVisibilityType = baseCollectionValueType & {
   readonly id: IdType;
   value: collectionValueVisibilityValueType;
   readonly type: 'visibility';
 };
 
 export type collectionValueVisibilityDictionaryType = {
-  [key: string]: baseCollectionValueType & collectionValueVisibilityType;
+  [key: string]: collectionValueVisibilityType;
 };
 
 type AddValuePayloadType = {

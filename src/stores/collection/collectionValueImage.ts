@@ -6,14 +6,14 @@ import { baseCollectionValueType } from '../../types/collection/collectionValueT
 
 export type collectionValueImageValueType = string;
 
-export type collectionValueImageType = {
+export type collectionValueImageType = baseCollectionValueType & {
   readonly id: IdType;
   value: collectionValueImageValueType;
   readonly type: 'image';
 };
 
 export type collectionValueImageDictionaryType = {
-  [key: string]: baseCollectionValueType & collectionValueImageType;
+  [key: string]: collectionValueImageType;
 };
 
 export type UpdateValuePayloadType = {

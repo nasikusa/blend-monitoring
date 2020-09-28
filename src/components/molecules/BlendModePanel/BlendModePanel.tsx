@@ -7,7 +7,6 @@ import Chip from '@material-ui/core/Chip';
 import { readyBlendModeData } from '../../../utils/blendMode/getBlendModeData';
 import BlendModalContainer from '../../../container/BlendModalContainer';
 import { collectionValueBlendModeType } from '../../../stores/collection/collectionValueBlendMode';
-import { CollectionCategoryType } from '../../../stores/collection/collection';
 import { RawCollectionDataContext } from '../Collection/Collection';
 
 type Props = {
@@ -15,7 +14,6 @@ type Props = {
   storedBlendModeValue:
     | collectionValueBlendModeType
     | collectionValueBlendModeType[];
-  rawCollectionData: CollectionCategoryType;
 };
 
 export const CollectionBlendModeValueContext = React.createContext<
@@ -23,16 +21,11 @@ export const CollectionBlendModeValueContext = React.createContext<
 >([]);
 
 const BlendModePanel = (props: Props) => {
-  const {
-    storeDeleteBlendModeValue,
-    storedBlendModeValue,
-    rawCollectionData,
-  } = props;
+  const { storeDeleteBlendModeValue, storedBlendModeValue } = props;
 
   const [open, setOpen] = useState(false);
   const rawCollectionDataContextObject = useContext(RawCollectionDataContext);
-  const joinedRawCollectionData =
-    rawCollectionData || rawCollectionDataContextObject;
+  const joinedRawCollectionData = rawCollectionDataContextObject;
 
   /**
    * モーダルの開閉stateをtrueにする関数

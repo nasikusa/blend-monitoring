@@ -1,33 +1,29 @@
 import React from 'react';
 import { useSelector, useDispatch, shallowEqual } from 'react-redux';
-import ColorPanel from '../components/molecules/ColorPanel';
-import { AppState } from '../stores/index';
+/* eslint-disable import/no-unresolved */
+import { useCollectionValueColor } from 'hooks/collection/useCollectionValue';
+import useCollectionIdContext from 'hooks/context/useCollectionIdContext';
+import useRawCollection from 'hooks/collection/useRawCollection';
+import { AppState } from 'stores/index';
 import {
   stockAddColor as stockAddColorAction,
   stockRemoveColor as stockRemoveColorAction,
-} from '../stores/color/stockedColors';
+} from 'stores/color/stockedColors';
 import {
-  CollectionCategoryType,
   addCollectionInnerItem,
   deleteCollectionInnerItem,
-} from '../stores/collection/collection';
+} from 'stores/collection/collection';
 import {
   updateValueValue,
   addValue as addCollectionValueColor,
-  collectionValueColorType,
   UpdateValuePayloadType,
-} from '../stores/collection/collectionValueColor';
-import { IdType } from '../types/collection/collectionData';
-import { addItem as addCollectionItem } from '../stores/collection/collectionItem';
+} from 'stores/collection/collectionValueColor';
+import { addItem as addCollectionItem } from 'stores/collection/collectionItem';
+import ColorPanel from 'components/molecules/ColorPanel';
+/* eslint-enable import/no-unresolved */
 
-type Props = {
-  rawCollectionData: CollectionCategoryType;
-};
-
-export default (props: Props) => {
-  const { rawCollectionData } = props;
-
-  const innerItemIdData = rawCollectionData.innerItemId;
+export default () => {
+  const rawCollectionData = useRawCollection();
 
   const stockedColorData = useSelector(
     (state: AppState) => state.stockedColors,
@@ -35,45 +31,11 @@ export default (props: Props) => {
   );
   const dispatch = useDispatch();
 
-  /**
-   * 対象となるカラーパラメータのID
-   */
-  const targetColorValueId: IdType | IdType[] = useSelector(
-    (state: AppState) => {
-      if (
-        rawCollectionData.type === 'multiColors' ||
-        rawCollectionData.type === 'singleColor' ||
-        rawCollectionData.type === 'singleColorMultiBlends'
-      ) {
-        if (Array.isArray(innerItemIdData)) {
-          return innerItemIdData.map((singleInnerItemIdData) => {
-            // 上にてcollectionのタイプを確定させているため、 asでキャストしている。
-            // @todo: asを取り除きたい
-            return state.collectionItem[singleInnerItemIdData].color as IdType;
-          });
-        }
-        // 上にてcollectionのタイプを確定させているため、 asでキャストしている。
-        // @todo: asを取り除きたい
-        return state.collectionItem[innerItemIdData].color as IdType;
-      }
-      return [];
-    },
-    shallowEqual
-  );
+  const collectionIdContextValue = useCollectionIdContext();
 
-  /**
-   * 対象となるカラーvalueオブジェクト
-   */
-  const storedColorValue:
-    | collectionValueColorType
-    | collectionValueColorType[] = useSelector((state: AppState) => {
-    if (Array.isArray(targetColorValueId)) {
-      return targetColorValueId.map((singleTargetColorValueId) => {
-        return state.collectionValueColor[singleTargetColorValueId];
-      });
-    }
-    return state.collectionValueColor[targetColorValueId];
-  }, shallowEqual);
+  const storedColorValue = useCollectionValueColor(
+    collectionIdContextValue.collectionId
+  );
 
   /**
    * collectionValueColorのvalueを更新する

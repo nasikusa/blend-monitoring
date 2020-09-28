@@ -1,19 +1,22 @@
-import React, { useContext } from 'react';
+import React from 'react';
 import { useSelector, useDispatch, shallowEqual } from 'react-redux';
-import MediaModalContents from '../components/molecules/MediaModalContents';
-import { AppState } from '../stores/index';
-import { IdType } from '../types/collection/collectionData';
-import { RawCollectionDataContext } from '../components/molecules/Collection/Collection';
+
+/* eslint-disable import/no-unresolved */
+import { useCollectionValueImage } from 'hooks/collection/useCollectionValue';
+import useCollectionIdContext from 'hooks/context/useCollectionIdContext';
+import useRawCollection from 'hooks/collection/useRawCollection';
+import { AppState } from 'stores/index';
 import {
-  collectionValueImageType,
   updateValueValue,
   addValue as addCollectionValueImage,
-} from '../stores/collection/collectionValueImage';
-import { addItem as addCollectionItem } from '../stores/collection/collectionItem';
+} from 'stores/collection/collectionValueImage';
+import { addItem as addCollectionItem } from 'stores/collection/collectionItem';
 import {
   addCollectionInnerItem,
   deleteCollectionInnerItem,
-} from '../stores/collection/collection';
+} from 'stores/collection/collection';
+/* eslint-enable import/no-unresolved */
+import MediaModalContents from '../components/molecules/MediaModalContents';
 
 export default (props: any) => {
   const storedMediaData = useSelector(
@@ -21,38 +24,13 @@ export default (props: any) => {
     shallowEqual
   );
 
-  const rawCollectionData = useContext(RawCollectionDataContext);
+  const rawCollectionData = useRawCollection();
 
-  const innerItemIdData = rawCollectionData.innerItemId;
+  const collectionIdContextValue = useCollectionIdContext();
 
-  /**
-   * 対象となる描画モードパラメータのID
-   */
-  const targetImageValueId: IdType | IdType[] = useSelector(
-    (state: AppState) => {
-      if (Array.isArray(innerItemIdData)) {
-        return innerItemIdData.map((singleInnerItemIdData) => {
-          return state.collectionItem[singleInnerItemIdData].image as IdType;
-        });
-      }
-      return state.collectionItem[innerItemIdData].image as IdType;
-    },
-    shallowEqual
+  const storedImageValue = useCollectionValueImage(
+    collectionIdContextValue.collectionId
   );
-
-  /**
-   * 対象となる描画モードvalueオブジェクト
-   */
-  const storedImageValue:
-    | collectionValueImageType
-    | collectionValueImageType[] = useSelector((state: AppState) => {
-    if (Array.isArray(targetImageValueId)) {
-      return targetImageValueId.map((singleTargetBlendModeValueId) => {
-        return state.collectionValueImage[singleTargetBlendModeValueId];
-      });
-    }
-    return state.collectionValueImage[targetImageValueId];
-  }, shallowEqual);
 
   const dispatch = useDispatch();
 

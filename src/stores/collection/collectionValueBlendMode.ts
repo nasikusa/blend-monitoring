@@ -7,11 +7,11 @@ import { baseCollectionValueType } from '../../types/collection/collectionValueT
 
 export type collectionValueBlendModeValueType = BlendModesType;
 
-export type collectionValueBlendModeType = {
+export type collectionValueBlendModeType = baseCollectionValueType & {
   readonly id: IdType;
   value: collectionValueBlendModeValueType;
   readonly type: 'blendMode';
-} & baseCollectionValueType;
+};
 
 export type collectionValueBlendModeDictionaryType = {
   [key: string]: collectionValueBlendModeType;

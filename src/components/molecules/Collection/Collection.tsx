@@ -362,7 +362,7 @@ const Collection: React.FC<Props> = (props: Props) => {
             描画モードパネル
           </CollectionPanelTitle>
           <CollectionPanelContent>
-            <BlendModePanelContainer rawCollectionData={rawCollectionData} />
+            <BlendModePanelContainer />
           </CollectionPanelContent>
         </>
       </CollectionPanel>
@@ -375,7 +375,7 @@ const Collection: React.FC<Props> = (props: Props) => {
               カラーパネル
             </CollectionPanelTitle>
             <CollectionPanelContent>
-              <ColorPanelContainer rawCollectionData={rawCollectionData} />
+              <ColorPanelContainer />
             </CollectionPanelContent>
           </>
         </CollectionPanel>
@@ -389,7 +389,7 @@ const Collection: React.FC<Props> = (props: Props) => {
               画像パネル
             </CollectionPanelTitle>
             <CollectionPanelContent>
-              <ImagePanelContainer rawCollectionData={rawCollectionData} />
+              <ImagePanelContainer />
             </CollectionPanelContent>
           </>
         </CollectionPanel>

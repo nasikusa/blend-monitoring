@@ -3,7 +3,7 @@ import { useSelector, shallowEqual } from 'react-redux';
 import CollectionList from '../components/molecules/CollectionList';
 import { AppState } from '../stores/index';
 
-export default () => {
+const CollectionListContainer = () => {
   const currentSceneCollectionId = useSelector(
     (state: AppState) => state.currentSceneCollection.currentId
   );
@@ -30,3 +30,5 @@ export default () => {
 
   return <CollectionList {...combineProps} />;
 };
+
+export default CollectionListContainer;

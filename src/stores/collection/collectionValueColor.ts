@@ -6,14 +6,14 @@ import { baseCollectionValueType } from '../../types/collection/collectionValueT
 
 export type collectionValueColorValueType = string;
 
-export type collectionValueColorType = {
+export type collectionValueColorType = baseCollectionValueType & {
   readonly id: IdType;
   value: collectionValueColorValueType;
   readonly type: 'color';
 };
 
 export type collectionValueColorDictionaryType = {
-  [key: string]: baseCollectionValueType & collectionValueColorType;
+  [key: string]: collectionValueColorType;
 };
 
 export type UpdateValuePayloadType = {

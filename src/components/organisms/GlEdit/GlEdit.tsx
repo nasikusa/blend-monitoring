@@ -5,7 +5,7 @@ import Tab from '@material-ui/core/Tab';
 import Box from '@material-ui/core/Box';
 import Icon from '../../atoms/Icon';
 
-import CollectionsContainer from '../../../container/CollectionsContainer';
+import CollectionsContainer from '../../../container/CollectionListContainer';
 
 type Props = {
   editPanelUpperMargin: string;

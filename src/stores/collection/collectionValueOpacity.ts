@@ -6,11 +6,11 @@ import { baseCollectionValueType } from '../../types/collection/collectionValueT
 
 export type collectionValueOpacityValueType = number;
 
-export type collectionValueOpacityType = {
+export type collectionValueOpacityType = baseCollectionValueType & {
   readonly id: IdType;
   value: collectionValueOpacityValueType;
   readonly type: 'opacity';
-} & baseCollectionValueType;
+};
 
 export type collectionValueOpacityDictionaryType = {
   [key: string]: collectionValueOpacityType;

@@ -1,7 +1,7 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { IdType } from '../../types/collection/collectionData';
 
-export type sceneCollectionsType = string[];
+export type SceneCollectionsType = string[];
 
 export type sceneCollectionsDictionaryType = {
   [key: string]: {

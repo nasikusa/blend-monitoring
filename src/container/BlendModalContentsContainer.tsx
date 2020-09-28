@@ -1,20 +1,22 @@
-import React, { useContext } from 'react';
-import { useSelector, useDispatch, shallowEqual } from 'react-redux';
-import BlendModalContents from '../components/molecules/BlendModalContents';
+import React, { useCallback } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
 
-import { IdType } from '../types/collection/collectionData';
-import { AppState } from '../stores/index';
-import { RawCollectionDataContext } from '../components/molecules/Collection/Collection';
-import {
-  collectionValueBlendModeType,
-  updateValueValue as updateCollectionValueBlendModeValue,
-  addValue as addCollectionValueBlendMode,
-} from '../stores/collection/collectionValueBlendMode';
-import { addItem as addCollectionItem } from '../stores/collection/collectionItem';
+/* eslint-disable import/no-unresolved */
+import { useCollectionValueBlendMode } from 'hooks/collection/useCollectionValue';
+import useCollectionIdContext from 'hooks/context/useCollectionIdContext';
 import {
   addCollectionInnerItem,
   deleteCollectionInnerItem,
-} from '../stores/collection/collection';
+} from 'stores/collection/collection';
+import { AppState } from 'stores/index';
+import {
+  updateValueValue as updateCollectionValueBlendModeValue,
+  addValue as addCollectionValueBlendMode,
+} from 'stores/collection/collectionValueBlendMode';
+import { addItem as addCollectionItem } from 'stores/collection/collectionItem';
+import BlendModalContents from 'components/molecules/BlendModalContents';
+import useRawCollection from 'hooks/collection/useRawCollection';
+/* eslint-enable import/no-unresolved */
 
 type Props = {
   blendModalMode: 'single' | 'multi';
@@ -25,72 +27,47 @@ type Props = {
   canDisplayMathBlend: boolean;
 };
 
-export default (props: Props) => {
+const BlendModalContentsContainer = (props: Props) => {
   const blendModeOrder = useSelector((state: AppState) => state.blendModeOrder);
 
-  const rawCollectionData = useContext(RawCollectionDataContext);
+  const rawCollectionData = useRawCollection();
 
-  const innerItemIdData = rawCollectionData.innerItemId;
+  const collectionIdContextValue = useCollectionIdContext();
 
-  /**
-   * 対象となる描画モードパラメータのID
-   */
-  const targetBlendModeValueId: IdType | IdType[] = useSelector(
-    (state: AppState) => {
-      if (Array.isArray(innerItemIdData)) {
-        return innerItemIdData.map((singleInnerItemIdData) => {
-          return state.collectionItem[singleInnerItemIdData].blendMode;
-        });
-      }
-      return state.collectionItem[innerItemIdData].blendMode;
-    },
-    shallowEqual
+  const storedBlendModeValue = useCollectionValueBlendMode(
+    collectionIdContextValue.collectionId
   );
-
-  /**
-   * 対象となる描画モードvalueオブジェクト
-   */
-  const storedBlendModeValue:
-    | collectionValueBlendModeType
-    | collectionValueBlendModeType[] = useSelector((state: AppState) => {
-    if (Array.isArray(targetBlendModeValueId)) {
-      return targetBlendModeValueId.map((singleTargetBlendModeValueId) => {
-        return state.collectionValueBlendMode[singleTargetBlendModeValueId];
-      });
-    }
-    return state.collectionValueBlendMode[targetBlendModeValueId];
-  }, shallowEqual);
 
   const dispatch = useDispatch();
 
-  const storeUpdateCollectionValueBlendModeValue = React.useCallback(
+  const storeUpdateCollectionValueBlendModeValue = useCallback(
     (payload) => {
       dispatch(updateCollectionValueBlendModeValue(payload));
     },
     [dispatch]
   );
 
-  const storeAddCollectionValueBlendMode = React.useCallback(
+  const storeAddCollectionValueBlendMode = useCallback(
     (payload) => {
       dispatch(addCollectionValueBlendMode(payload));
     },
     [dispatch]
   );
 
-  const storeAddCollectionItem = React.useCallback(
+  const storeAddCollectionItem = useCallback(
     (payload) => {
       dispatch(addCollectionItem(payload));
     },
     [dispatch]
   );
 
-  const storeAddCollectionInnerItem = React.useCallback(
+  const storeAddCollectionInnerItem = useCallback(
     (payload) => {
       dispatch(addCollectionInnerItem(payload));
     },
     [dispatch]
   );
-  const storeDeleteCollectionInnerItem = React.useCallback(
+  const storeDeleteCollectionInnerItem = useCallback(
     (payload) => {
       dispatch(deleteCollectionInnerItem(payload));
     },
@@ -111,3 +88,5 @@ export default (props: Props) => {
 
   return <BlendModalContents {...combineProps} />;
 };
+
+export default BlendModalContentsContainer;

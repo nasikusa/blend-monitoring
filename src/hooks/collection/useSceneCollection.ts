@@ -8,7 +8,8 @@ const useSceneCollection = (
   argumentSceneCollectionId: IdType
 ): ReturnType<typeof denormalizeSceneCollection> => {
   const sceneCollection = useSelector(
-    (state: AppState) => state.sceneCollection
+    (state: AppState) => state.sceneCollection,
+    shallowEqual
   );
   const collection = useSelector(
     (state: AppState) => state.collection,
