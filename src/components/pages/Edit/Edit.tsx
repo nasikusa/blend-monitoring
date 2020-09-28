@@ -16,14 +16,12 @@ import DrawBoxContainer from '../../../container/DrawBoxContainer';
 import Doc from '../../organisms/Doc/Doc';
 import GeneralFunctionsListContainer from '../../../container/GeneralFunctionsListContainer';
 
-export type Props = {
+export type Props = Readonly<{
   updateSingleItemSize: any;
   updateRowCount: any;
   isShowDocArea: boolean;
   editAreaHeightvalue: string;
-};
-
-type PanelWidthType = 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 | 11 | 12;
+}>;
 
 const CustomEmotionBox = styled(Box)``;
 

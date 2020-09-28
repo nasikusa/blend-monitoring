@@ -49,6 +49,7 @@ import BlockIcon from '@material-ui/icons/Block';
 import VisibilityIcon from '@material-ui/icons/Visibility';
 import SaveIcon from '@material-ui/icons/Save';
 import ScheduleIcon from '@material-ui/icons/Schedule';
+import DescriptionIcon from '@material-ui/icons/Description';
 // IconBrandNames
 import TwitterIcon from '@material-ui/icons/Twitter';
 import FacebookIcon from '@material-ui/icons/Facebook';
@@ -64,6 +65,10 @@ import { IgnoreDupliCollectionPanelNamesType } from '../../../types/CollectionPa
 import { ColorPanelFunctionNames } from '../../molecules/ColorPanel/ColorPanel';
 import { BlendModeRoughTypeType } from '../../../constants/blendMode/blendModeData';
 
+/**
+ * en: The name of the type of the icon of the universal name function used throughout the application
+ * ja: アプリケーション内、全体で活用する普遍的な名前の機能のアイコンのtypeの名前
+ */
 export type IconGeneralMeaningNames =
   | 'functionAdd'
   | 'functionAddBlock'
@@ -86,8 +91,13 @@ export type IconGeneralMeaningNames =
   | 'functionSaveData'
   | 'functionImage'
   | 'functionPalette'
-  | 'functionTime';
+  | 'functionTime'
+  | 'functionLicense';
 
+/**
+ * en: Icon name of other application
+ * ja: 他アプリケーションのアイコン名
+ */
 type IconBrandNames = 'iconTwitter' | 'iconFacebook' | 'iconGithub';
 
 type FooterFunctionNames = 'footerFunctionDraw' | 'footerFunctionVersion';
@@ -104,7 +114,8 @@ export type IconTypeTypes =
   | FooterFunctionNames;
 
 type Props = {
-  type: IconTypeTypes;
+  readonly type?: IconTypeTypes;
+  readonly children?: never;
 } & SvgIconProps;
 
 const Icon = (p: Props) => {
@@ -217,6 +228,8 @@ const Icon = (p: Props) => {
         return <ColorLensIcon {...p} />;
       case 'functionTime':
         return <ScheduleIcon {...p} />;
+      case 'functionLicense':
+        return <DescriptionIcon {...p} />;
       // IconBrandNames
       case 'iconTwitter':
         return <TwitterIcon {...p} />;
@@ -234,11 +247,7 @@ const Icon = (p: Props) => {
     }
   };
 
-  return (
-    <>
-      <IconElement />
-    </>
-  );
+  return <IconElement />;
 };
 
 export default Icon;

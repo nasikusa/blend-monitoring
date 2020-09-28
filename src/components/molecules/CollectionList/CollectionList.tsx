@@ -1,4 +1,4 @@
-import React, { createContext, useRef } from 'react';
+import React from 'react';
 import { css } from '@emotion/core';
 import Box from '@material-ui/core/Box';
 import List from '@material-ui/core/List';
@@ -14,28 +14,8 @@ export type Props = {
   currentCollectionsId: sceneCollectionsType;
 };
 
-/**
- * 現在のコレクションの順番を決定するためのcontextの型
- */
-export type GlCollectionOrderContextType = number;
-
-/**
- * 現在のコレクションの順番を判別するためのcontext
- */
-export const GlCollectionOrderContext = createContext<
-  GlCollectionOrderContextType
->(0);
-export const CollectionIdContext = createContext<{
-  collectionId: ArrayElement<sceneCollectionsType>;
-  collectionOrder: GlCollectionOrderContextType;
-}>({
-  collectionId: '',
-  collectionOrder: -1,
-});
-
-export default (props: Props) => {
+const CollectionList: React.FC<Props> = (props) => {
   const { calcedOtherAreaHeight, currentCollectionsId } = props;
-  const collectionFixedMenuRef = useRef();
 
   const scrollStyle = css`
     overflow-y: scroll;
@@ -45,35 +25,24 @@ export default (props: Props) => {
 
   return (
     <Box>
-      <CreateCollectionPanelContainer ref={collectionFixedMenuRef} />
+      <CreateCollectionPanelContainer />
       <Divider />
       <Box css={scrollStyle}>
         <List>
           {currentCollectionsId
-            .map(
-              (
-                currentCollectionId: ArrayElement<sceneCollectionsType>,
-                currentIndex: number
-              ) => {
-                return (
-                  <CollectionIdContext.Provider
-                    value={{
-                      collectionId: currentCollectionId,
-                      collectionOrder: currentIndex,
-                    }}
-                    key={currentCollectionId}
-                  >
-                    {/* // @deprecated */}
-                    <GlCollectionOrderContext.Provider value={currentIndex}>
-                      <CollectionContainer collectionId={currentCollectionId} />
-                    </GlCollectionOrderContext.Provider>
-                  </CollectionIdContext.Provider>
-                );
-              }
-            )
+            .map((currentCollectionId: ArrayElement<sceneCollectionsType>) => {
+              return (
+                <CollectionContainer
+                  key={currentCollectionId}
+                  collectionId={currentCollectionId}
+                />
+              );
+            })
             .reverse()}
         </List>
       </Box>
     </Box>
   );
 };
+
+export default CollectionList;

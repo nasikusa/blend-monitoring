@@ -1,5 +1,5 @@
 /* eslint no-nested-ternary: 0 */
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { NIL as NIL_UUID } from 'uuid';
 import { makeStyles } from '@material-ui/core/styles';
 import ListItem from '@material-ui/core/ListItem';
@@ -8,23 +8,24 @@ import ListItemText from '@material-ui/core/ListItemText';
 import IconButton from '@material-ui/core/IconButton';
 import { Typography } from '@material-ui/core';
 
-import Icon, { IconTypeTypes } from '../../atoms/Icon';
-import CustomSliderContainer from '../../../container/CustomSliderContainer';
-import BlendModePanelContainer from '../../../container/BlendModePanelContainer';
-import ColorPanelContainer from '../../../container/ColorPanelContainer';
-import CollectionMainIcon from '../../atoms/CollectionMainIcon';
-import getCollectionsName from '../../../utils/collection/getCollectionsName';
-import ImagePanelContainer from '../../../container/ImagePanelContainer';
-import CollectionPanel from '../CollectionPanel';
-import CustomIconButton from '../CustomIconButton';
-
-import { CollectionTypeType } from '../../../types/collection/collectionData';
+/* eslint-disable import/no-unresolved */
+import BlendModePanelContainer from 'container/BlendModePanelContainer';
+import ImagePanelContainer from 'container/ImagePanelContainer';
+import CustomSliderContainer from 'container/CustomSliderContainer';
+import ColorPanelContainer from 'container/ColorPanelContainer';
+import getCollectionsName from 'utils/collection/getCollectionsName';
+import { CollectionCategoryType } from 'stores/collection/collection';
+import { CollectionTypeType } from 'types/collection/collectionData';
+import Icon, { IconTypeTypes } from 'components/atoms/Icon';
+import CollectionMainIcon from 'components/atoms/CollectionMainIcon';
+import CollectionPanelTitle from 'components/atoms/CollectionPanelTitle';
+import CollectionPanel from 'components/molecules/CollectionPanel';
+import CustomIconButton from 'components/molecules/CustomIconButton';
+import CollectionPanelContent from 'components/molecules/CollectionPanelContent';
+/* eslint-enable import/no-unresolved */
 import allCollectionTypeFunctionObject, {
   collectionObjectFunctionType,
 } from './allCollectionTypeFunctionObject';
-import { CollectionCategoryType } from '../../../stores/collection/collection';
-import CollectionPanelTitle from '../../atoms/CollectionPanelTitle';
-import CollectionPanelContent from '../CollectionPanelContent/CollectionPanelContent';
 
 export type Props = {
   storeDeleteSceneCollectionInnerItem: any;
@@ -184,52 +185,56 @@ const Collection: React.FC<Props> = (props: Props) => {
   /**
    * 単一コレクションのvisibilityフラグハンドル関数
    */
-  const handleVisibilityFlagClick = (): void => {
+  const handleVisibilityFlagClick = useCallback((): void => {
     const invertBoolValue = !visibilityOpenFlag;
     setVisibilityOpenFlag(invertBoolValue);
     // updateVisibility({
     //   visibilityBoolValue: invertBoolValue,
     //   glCollectionOrderKey,
     // });
-  };
+  }, [visibilityOpenFlag]);
 
   /**
    * 単一コレクションのopacityフラグハンドル関数
    */
-  const handleOpacityFlagClick = (): void => {
+  const handleOpacityFlagClick = useCallback((): void => {
     setOpacityOpenFlag(!opacityOpenFlag);
-  };
+  }, [opacityOpenFlag]);
 
   /**
    * 単一コレクションの描画モードフラグハンドル関数
    */
-  const handleBlendModeFlagClick = (): void => {
+  const handleBlendModeFlagClick = useCallback((): void => {
     setBlendModeOpenFlag(!blendModeOpenFlag);
-  };
+  }, [blendModeOpenFlag]);
 
   /**
    * 単一コレクションのカラーフラグハンドル関数
    */
-  const handleColorFlagClick = (): void => {
+  const handleColorFlagClick = useCallback((): void => {
     setColorOpenFlag(!colorOpenFlag);
-  };
+  }, [colorOpenFlag]);
 
   /**
    * 単一コレクションの画像フラグハンドル関数
    */
-  const handleImageFlagClick = (): void => {
+  const handleImageFlagClick = useCallback((): void => {
     setImageOpenFlag(!imageOpenFlag);
-  };
+  }, [imageOpenFlag]);
 
   /**
    * 単一コレクションのdeleteボタンを押した際に発火する関数
    */
-  const handleDeleteIconClick = (): void => {
+  const handleDeleteIconClick = useCallback((): void => {
     storeDeleteSceneCollectionInnerItem({
       targetId: currentSceneCollectionData.currentId,
       targetInnerId: rawCollectionData.id,
     });
-  };
+  }, [
+    storeDeleteSceneCollectionInnerItem,
+    currentSceneCollectionData.currentId,
+    rawCollectionData.id,
+  ]);
 
   /**
    * タイトル下のアイコン機能メニューのデータ一覧
@@ -301,6 +306,7 @@ const Collection: React.FC<Props> = (props: Props) => {
             <>
               {secondaryAreaElementDataArray.map((singleSecondaryElemData) => (
                 <CustomIconButton
+                  key={singleSecondaryElemData.typeName}
                   type={singleSecondaryElemData.typeName}
                   labelTitle={singleSecondaryElemData.labelTitleValue}
                   buttonType="iconButton"
@@ -313,12 +319,10 @@ const Collection: React.FC<Props> = (props: Props) => {
                         ]
                       : true
                   }
-                  buttonGeneralProps={{
-                    onClick: singleSecondaryElemData.clickFunction,
-                  }}
-                  buttonProps={{
-                    fullWidth: true,
-                  }}
+                  onClick={singleSecondaryElemData.clickFunction}
+                  // buttonProps={{
+                  //   fullWidth: true,
+                  // }}
                 >
                   {singleSecondaryElemData.labelTitleValue}
                 </CustomIconButton>

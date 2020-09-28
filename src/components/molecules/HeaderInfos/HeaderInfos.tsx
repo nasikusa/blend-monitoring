@@ -24,12 +24,12 @@ export default () => {
       <Box mx={2} display="flex">
         <Typography>share :</Typography>
         <TwitterShareButton url={AppSiteInfo.url}>
-          <IconButton size="small">
+          <IconButton size="small" component="span">
             <Icon type="iconTwitter" />
           </IconButton>
         </TwitterShareButton>
         <FacebookShareButton url={AppSiteInfo.url}>
-          <IconButton size="small">
+          <IconButton size="small" component="span">
             <Icon type="iconFacebook" />
           </IconButton>
         </FacebookShareButton>

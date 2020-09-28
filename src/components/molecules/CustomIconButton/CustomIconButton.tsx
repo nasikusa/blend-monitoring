@@ -1,5 +1,6 @@
 /* eslint no-nested-ternary: 0 */
 import React from 'react';
+import deepEqual from 'fast-deep-equal';
 import IconButton, { IconButtonProps } from '@material-ui/core/IconButton';
 import Button, { ButtonProps } from '@material-ui/core/Button';
 import { SvgIconProps } from '@material-ui/core/SvgIcon';
@@ -28,15 +29,15 @@ type Props = Partial<{
 
 const CustomIconButton = (props: Props) => {
   const {
-    type,
-    buttonType,
+    type = 'functionHelp',
+    buttonType = 'iconButton',
     iconProps,
     iconButtonProps,
     buttonProps,
     buttonGeneralProps,
     tooltipProps,
     children,
-    disableTooltip,
+    disableTooltip = false,
     disable,
     active,
     danger,
@@ -47,12 +48,12 @@ const CustomIconButton = (props: Props) => {
   const theme = useTheme();
 
   const styles = {
-    toolTipInnerWrapper: css`
-      display: inline-flex;
-    `,
-    iconButtonStyle: css`
-      padding: ${theme.spacing(2)}px;
-    `,
+    toolTipInnerWrapper: css({
+      display: 'inline-flex',
+    }),
+    iconButtonStyle: css({
+      padding: `${theme.spacing(2)}px`,
+    }),
     buttonStyle: css`
       margin-top: 1px;
       margin-bottom: 1px;
@@ -75,7 +76,7 @@ const CustomIconButton = (props: Props) => {
       >
         <Icon
           // @ts-ignore
-          type={type != null ? type : 'functionHelp'}
+          type={type}
           color={
             danger
               ? 'error'
@@ -130,6 +131,9 @@ const CustomIconButton = (props: Props) => {
   ) : (
     <CustomTooltip
       title={labelTitle || 'ツールチップタイトル'}
+      PopperProps={{
+        disablePortal: true,
+      }}
       {...tooltipProps}
     >
       <div css={styles.toolTipInnerWrapper}>
@@ -139,10 +143,6 @@ const CustomIconButton = (props: Props) => {
   );
 };
 
-CustomIconButton.defaultProps = {
-  type: 'functionHelp',
-  buttonType: 'iconButton',
-  disableTooltip: false,
-};
-
-export default React.memo(CustomIconButton);
+export default React.memo(CustomIconButton, (prevProps, nextProps) =>
+  deepEqual(prevProps, nextProps)
+);

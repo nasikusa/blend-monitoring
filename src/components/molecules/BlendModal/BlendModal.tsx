@@ -1,5 +1,5 @@
 /* eslint no-nested-ternary: 0 */
-import React, { useState, useContext } from 'react';
+import React, { useState, useContext, useCallback } from 'react';
 import { makeStyles, createStyles } from '@material-ui/core/styles';
 import { css, SerializedStyles } from '@emotion/core';
 import DialogTitle from '@material-ui/core/DialogTitle';
@@ -169,111 +169,125 @@ export default (props: Props) => {
   /**
    * モーダルサイズハンドル関数
    */
-  const handleSwitchChangeSize = (): void => {
+  const handleSwitchChangeSize = useCallback((): void => {
     setModalMinifyFlag(!modalMinifyFlag);
-  };
+  }, [modalMinifyFlag]);
 
   /**
    * ctrlキーと同時に押した際に、他のものを除外した描画モードの表示を選択をする関数
    * @param targetBlendModeName ターゲットとなる対象を識別するための文字列
    * @todo もう少しスマートにできるかも？
    */
-  const handleExcludeSwitchBlend = (
-    targetBlendModeName: 'normal' | '+' | '+-' | '-' | 'math'
-  ): void => {
-    switch (targetBlendModeName) {
-      case 'normal':
-        setCanDisplayNormalBlend(true);
-        setCanDisplayDarkerBlend(false);
-        setCanDisplayLighterAndDarkerBlend(false);
-        setCanDisplayLighterBlend(false);
-        setCanDisplayMathBlend(false);
-        break;
-      case '-':
-        setCanDisplayNormalBlend(false);
-        setCanDisplayDarkerBlend(true);
-        setCanDisplayLighterAndDarkerBlend(false);
-        setCanDisplayLighterBlend(false);
-        setCanDisplayMathBlend(false);
-        break;
-      case '+-':
-        setCanDisplayNormalBlend(false);
-        setCanDisplayDarkerBlend(false);
-        setCanDisplayLighterAndDarkerBlend(true);
-        setCanDisplayLighterBlend(false);
-        setCanDisplayMathBlend(false);
-        break;
-      case '+':
-        setCanDisplayNormalBlend(false);
-        setCanDisplayDarkerBlend(false);
-        setCanDisplayLighterAndDarkerBlend(false);
-        setCanDisplayLighterBlend(true);
-        setCanDisplayMathBlend(false);
-        break;
-      case 'math':
-        setCanDisplayNormalBlend(false);
-        setCanDisplayDarkerBlend(false);
-        setCanDisplayLighterAndDarkerBlend(false);
-        setCanDisplayLighterBlend(false);
-        setCanDisplayMathBlend(true);
-        break;
-      default:
-        break;
-    }
-  };
+  const handleExcludeSwitchBlend = useCallback(
+    (targetBlendModeName: 'normal' | '+' | '+-' | '-' | 'math'): void => {
+      switch (targetBlendModeName) {
+        case 'normal':
+          setCanDisplayNormalBlend(true);
+          setCanDisplayDarkerBlend(false);
+          setCanDisplayLighterAndDarkerBlend(false);
+          setCanDisplayLighterBlend(false);
+          setCanDisplayMathBlend(false);
+          break;
+        case '-':
+          setCanDisplayNormalBlend(false);
+          setCanDisplayDarkerBlend(true);
+          setCanDisplayLighterAndDarkerBlend(false);
+          setCanDisplayLighterBlend(false);
+          setCanDisplayMathBlend(false);
+          break;
+        case '+-':
+          setCanDisplayNormalBlend(false);
+          setCanDisplayDarkerBlend(false);
+          setCanDisplayLighterAndDarkerBlend(true);
+          setCanDisplayLighterBlend(false);
+          setCanDisplayMathBlend(false);
+          break;
+        case '+':
+          setCanDisplayNormalBlend(false);
+          setCanDisplayDarkerBlend(false);
+          setCanDisplayLighterAndDarkerBlend(false);
+          setCanDisplayLighterBlend(true);
+          setCanDisplayMathBlend(false);
+          break;
+        case 'math':
+          setCanDisplayNormalBlend(false);
+          setCanDisplayDarkerBlend(false);
+          setCanDisplayLighterAndDarkerBlend(false);
+          setCanDisplayLighterBlend(false);
+          setCanDisplayMathBlend(true);
+          break;
+        default:
+          break;
+      }
+    },
+    []
+  );
 
   /**
    * 通常描画モードハンドル関数
    */
-  const handleSwitchChangeNormalBlend = (event: React.MouseEvent): void => {
-    if (event.ctrlKey) {
-      handleExcludeSwitchBlend('normal');
-    } else {
-      setCanDisplayNormalBlend(!canDisplayNormalBlend);
-    }
-  };
+  const handleSwitchChangeNormalBlend = useCallback(
+    (event: React.MouseEvent): void => {
+      if (event.ctrlKey) {
+        handleExcludeSwitchBlend('normal');
+      } else {
+        setCanDisplayNormalBlend(!canDisplayNormalBlend);
+      }
+    },
+    [handleExcludeSwitchBlend, canDisplayNormalBlend]
+  );
   /**
    * 明るい描画モードハンドル関数
    */
-  const handleSwitchChangeLighterBlend = (event: React.MouseEvent): void => {
-    if (event.ctrlKey) {
-      handleExcludeSwitchBlend('+');
-    } else {
-      setCanDisplayLighterBlend(!canDisplayLighterBlend);
-    }
-  };
+  const handleSwitchChangeLighterBlend = useCallback(
+    (event: React.MouseEvent): void => {
+      if (event.ctrlKey) {
+        handleExcludeSwitchBlend('+');
+      } else {
+        setCanDisplayLighterBlend(!canDisplayLighterBlend);
+      }
+    },
+    [handleExcludeSwitchBlend, canDisplayLighterBlend]
+  );
   /**
    * 明暗描画モードハンドル関数
    */
-  const handleSwitchChangeLighterAndDarkerBlend = (
-    event: React.MouseEvent
-  ): void => {
-    if (event.ctrlKey) {
-      handleExcludeSwitchBlend('+-');
-    } else {
-      setCanDisplayLighterAndDarkerBlend(!canDisplayLighterAndDarkerBlend);
-    }
-  };
+  const handleSwitchChangeLighterAndDarkerBlend = useCallback(
+    (event: React.MouseEvent): void => {
+      if (event.ctrlKey) {
+        handleExcludeSwitchBlend('+-');
+      } else {
+        setCanDisplayLighterAndDarkerBlend(!canDisplayLighterAndDarkerBlend);
+      }
+    },
+    [handleExcludeSwitchBlend, canDisplayLighterAndDarkerBlend]
+  );
   /**
    * 暗くなる描画モードハンドル関数
    */
-  const handleSwitchChangeDarkerBlend = (event: React.MouseEvent): void => {
-    if (event.ctrlKey) {
-      handleExcludeSwitchBlend('-');
-    } else {
-      setCanDisplayDarkerBlend(!canDisplayDarkerBlend);
-    }
-  };
+  const handleSwitchChangeDarkerBlend = useCallback(
+    (event: React.MouseEvent): void => {
+      if (event.ctrlKey) {
+        handleExcludeSwitchBlend('-');
+      } else {
+        setCanDisplayDarkerBlend(!canDisplayDarkerBlend);
+      }
+    },
+    [handleExcludeSwitchBlend, canDisplayDarkerBlend]
+  );
   /**
    * 数学描画モードハンドル関数
    */
-  const handleSwitchChangeMathBlend = (event: React.MouseEvent): void => {
-    if (event.ctrlKey) {
-      handleExcludeSwitchBlend('math');
-    } else {
-      setCanDisplayMathBlend(!canDisplayMathBlend);
-    }
-  };
+  const handleSwitchChangeMathBlend = useCallback(
+    (event: React.MouseEvent): void => {
+      if (event.ctrlKey) {
+        handleExcludeSwitchBlend('math');
+      } else {
+        setCanDisplayMathBlend(!canDisplayMathBlend);
+      }
+    },
+    [handleExcludeSwitchBlend, canDisplayMathBlend]
+  );
 
   type modalFunctionsType = {
     name: string;
@@ -391,11 +405,10 @@ export default (props: Props) => {
             {modalSwitchParams.map((singleSwitchParam) => {
               return (
                 <CustomIconButton
+                  key={singleSwitchParam.type}
                   type={singleSwitchParam.type}
                   active={singleSwitchParam.checked}
-                  buttonGeneralProps={{
-                    onClick: singleSwitchParam.onChange,
-                  }}
+                  onClick={singleSwitchParam.onChange}
                   labelTitle={singleSwitchParam.label}
                 />
               );
