@@ -1,9 +1,7 @@
 import React, { useState, useCallback } from 'react';
-import { batch } from 'react-redux';
 import Grid from '@material-ui/core/Grid';
 import Box from '@material-ui/core/Box';
 // import Button from '@material-ui/core/Button';
-import { v4 as uuidv4 } from 'uuid';
 import { debounce } from 'lodash';
 
 /* eslint-disable import/no-unresolved */
@@ -32,10 +30,8 @@ type Props = {
   storedColorValue: collectionValueColorType | collectionValueColorType[];
   rawCollectionData: CollectionCategoryType;
   storeUpdateCollectionValueColorValue: any;
-  storeAddCollectionValueColor: any;
-  storeAddCollectionItem: any;
-  storeAddCollectionInnerItem: any;
   storeDeleteCollectionInnerItem: any;
+  storeAddCollectionInnerItemWithValue: any;
   stockRemoveColor: any;
   stockAddColor: any;
 };
@@ -50,10 +46,8 @@ const ColorPanel: React.FC<Props> = (props: Props) => {
     storedColorValue,
     rawCollectionData,
     storeUpdateCollectionValueColorValue,
-    storeAddCollectionValueColor,
-    storeAddCollectionItem,
-    storeAddCollectionInnerItem,
     storeDeleteCollectionInnerItem,
+    storeAddCollectionInnerItemWithValue,
     stockRemoveColor,
     stockAddColor,
   } = props;
@@ -137,37 +131,9 @@ const ColorPanel: React.FC<Props> = (props: Props) => {
    */
   const handleAddNewColor = useCallback(() => {
     if (Array.isArray(storedColorValue)) {
-      const targetCollectionItemId = uuidv4();
-      const targetCollectionValueId = uuidv4();
-      batch(() => {
-        if (rawCollectionData.type === 'multiColors') {
-          storeAddCollectionValueColor({
-            targetId: targetCollectionValueId,
-            targetNewValue: '#000000',
-          });
-          storeAddCollectionItem({
-            targetId: targetCollectionItemId,
-            targetType: rawCollectionData.roughType,
-            targetBlendModeId: rawCollectionData.defaultBlendModeId,
-            targetOpacityId: rawCollectionData.defaultOpacityId,
-            targetVisibilityId: rawCollectionData.defaultVisibilityId,
-            targetColorId: targetCollectionValueId,
-          });
-          storeAddCollectionInnerItem({
-            addIndexType: 'first',
-            targetInnerItemId: targetCollectionItemId,
-            targetId: rawCollectionData.id,
-          });
-        }
-      });
+      storeAddCollectionInnerItemWithValue('#000000');
     }
-  }, [
-    storedColorValue,
-    rawCollectionData,
-    storeAddCollectionValueColor,
-    storeAddCollectionItem,
-    storeAddCollectionInnerItem,
-  ]);
+  }, [storeAddCollectionInnerItemWithValue, storedColorValue]);
 
   /**
    * カラーを削除するアイコンをクリックしたときに発火する関数

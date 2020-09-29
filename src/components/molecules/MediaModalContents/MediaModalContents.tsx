@@ -1,6 +1,4 @@
 import React from 'react';
-import { batch } from 'react-redux';
-import { v4 as uuidv4 } from 'uuid';
 import { css } from '@emotion/core';
 import Typography from '@material-ui/core/Typography';
 import Box from '@material-ui/core/Box';
@@ -37,10 +35,8 @@ export type Props = {
   collectionData: GlCollectionTypeArray;
   isBoxSmallFlag: boolean;
   isImageBigFlag: boolean;
-  storeAddCollectionValueImage: any;
-  storeAddCollectionItem: any;
-  storeAddCollectionInnerItem: any;
   storeDeleteCollectionInnerItem: any;
+  storeAddCollectionInnerItemWithValue: any;
 };
 
 interface TabPanelProps {
@@ -96,10 +92,8 @@ export default function MediaModalContents(props: Props) {
     isBoxSmallFlag,
     isImageBigFlag,
     storeCollectionValueImageUpdateValue,
-    storeAddCollectionValueImage,
-    storeAddCollectionItem,
-    storeAddCollectionInnerItem,
     storeDeleteCollectionInnerItem,
+    storeAddCollectionInnerItemWithValue,
   } = props;
 
   const [tabValue, setTabValue] = React.useState(0);
@@ -127,29 +121,8 @@ export default function MediaModalContents(props: Props) {
         targetIdNewValue: targetImageID,
       });
     } else if (rawCollectionData.type === 'multiImages') {
-      const targetCollectionItemId = uuidv4();
-      const targetCollectionValueId = uuidv4();
       if (targetBoolValue) {
-        batch(() => {
-          storeAddCollectionValueImage({
-            targetId: targetCollectionValueId,
-            targetIdNewValue: targetImageID,
-          });
-
-          storeAddCollectionItem({
-            targetId: targetCollectionItemId,
-            targetType: rawCollectionData.roughType,
-            targetBlendModeId: rawCollectionData.defaultBlendModeId,
-            targetOpacityId: rawCollectionData.defaultOpacityId,
-            targetVisibilityId: rawCollectionData.defaultVisibilityId,
-            targetImageId: targetCollectionValueId,
-          });
-          storeAddCollectionInnerItem({
-            addIndexType: 'first',
-            targetInnerItemId: targetCollectionItemId,
-            targetId: rawCollectionData.id,
-          });
-        });
+        storeAddCollectionInnerItemWithValue(targetImageID);
       } else if (!targetBoolValue) {
         storeDeleteCollectionInnerItem({
           targetId: rawCollectionData.id,

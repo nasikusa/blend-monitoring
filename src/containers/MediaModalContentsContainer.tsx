@@ -6,19 +6,13 @@ import { useCollectionValueImage } from 'hooks/collection/useCollectionValue';
 import useCollectionIdContext from 'hooks/context/useCollectionIdContext';
 import useRawCollection from 'hooks/collection/useRawCollection';
 import { AppState } from 'stores/index';
-import {
-  updateValueValue,
-  addValue as addCollectionValueImage,
-} from 'stores/collection/collectionValueImage';
-import { addItem as addCollectionItem } from 'stores/collection/collectionItem';
-import {
-  addCollectionInnerItem,
-  deleteCollectionInnerItem,
-} from 'stores/collection/collection';
+import { updateValueValue } from 'stores/collection/collectionValueImage';
+import { deleteCollectionInnerItem } from 'stores/collection/collection';
+import useAddCollectionInnerItemWithValue from 'hooks/collection/useAddCollectionInnerItemWithValue';
 /* eslint-enable import/no-unresolved */
 import MediaModalContents from '../components/molecules/MediaModalContents';
 
-export default (props: any) => {
+const MediaModalContentsContainer = (props: any) => {
   const storedMediaData = useSelector(
     (state: AppState) => state.storedMedia,
     shallowEqual
@@ -32,32 +26,13 @@ export default (props: any) => {
     collectionIdContextValue.collectionId
   );
 
+  const storeAddCollectionInnerItemWithValue = useAddCollectionInnerItemWithValue();
+
   const dispatch = useDispatch();
 
   const storeCollectionValueImageUpdateValue = React.useCallback(
     (payload) => {
       dispatch(updateValueValue(payload));
-    },
-    [dispatch]
-  );
-
-  const storeAddCollectionValueImage = React.useCallback(
-    (payload) => {
-      dispatch(addCollectionValueImage(payload));
-    },
-    [dispatch]
-  );
-
-  const storeAddCollectionItem = React.useCallback(
-    (payload) => {
-      dispatch(addCollectionItem(payload));
-    },
-    [dispatch]
-  );
-
-  const storeAddCollectionInnerItem = React.useCallback(
-    (payload) => {
-      dispatch(addCollectionInnerItem(payload));
     },
     [dispatch]
   );
@@ -73,12 +48,12 @@ export default (props: any) => {
     storedMediaData,
     storedImageValue,
     storeCollectionValueImageUpdateValue,
-    storeAddCollectionValueImage,
-    storeAddCollectionItem,
-    storeAddCollectionInnerItem,
     storeDeleteCollectionInnerItem,
+    storeAddCollectionInnerItemWithValue,
     ...props,
   };
 
   return <MediaModalContents {...combineProps} />;
 };
+
+export default MediaModalContentsContainer;

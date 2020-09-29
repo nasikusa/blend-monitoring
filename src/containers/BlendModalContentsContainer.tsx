@@ -4,18 +4,12 @@ import { useSelector, useDispatch } from 'react-redux';
 /* eslint-disable import/no-unresolved */
 import { useCollectionValueBlendMode } from 'hooks/collection/useCollectionValue';
 import useCollectionIdContext from 'hooks/context/useCollectionIdContext';
-import {
-  addCollectionInnerItem,
-  deleteCollectionInnerItem,
-} from 'stores/collection/collection';
-import { AppState } from 'stores/index';
-import {
-  updateValueValue as updateCollectionValueBlendModeValue,
-  addValue as addCollectionValueBlendMode,
-} from 'stores/collection/collectionValueBlendMode';
-import { addItem as addCollectionItem } from 'stores/collection/collectionItem';
-import BlendModalContents from 'components/molecules/BlendModalContents';
 import useRawCollection from 'hooks/collection/useRawCollection';
+import { deleteCollectionInnerItem } from 'stores/collection/collection';
+import { AppState } from 'stores/index';
+import { updateValueValue as updateCollectionValueBlendModeValue } from 'stores/collection/collectionValueBlendMode';
+import BlendModalContents from 'components/molecules/BlendModalContents';
+import useAddCollectionInnerItemWithValue from 'hooks/collection/useAddCollectionInnerItemWithValue';
 /* eslint-enable import/no-unresolved */
 
 type Props = {
@@ -38,6 +32,8 @@ const BlendModalContentsContainer = (props: Props) => {
     collectionIdContextValue.collectionId
   );
 
+  const storeAddCollectionInnerItemWithValue = useAddCollectionInnerItemWithValue();
+
   const dispatch = useDispatch();
 
   const storeUpdateCollectionValueBlendModeValue = useCallback(
@@ -47,26 +43,6 @@ const BlendModalContentsContainer = (props: Props) => {
     [dispatch]
   );
 
-  const storeAddCollectionValueBlendMode = useCallback(
-    (payload) => {
-      dispatch(addCollectionValueBlendMode(payload));
-    },
-    [dispatch]
-  );
-
-  const storeAddCollectionItem = useCallback(
-    (payload) => {
-      dispatch(addCollectionItem(payload));
-    },
-    [dispatch]
-  );
-
-  const storeAddCollectionInnerItem = useCallback(
-    (payload) => {
-      dispatch(addCollectionInnerItem(payload));
-    },
-    [dispatch]
-  );
   const storeDeleteCollectionInnerItem = useCallback(
     (payload) => {
       dispatch(deleteCollectionInnerItem(payload));
@@ -76,10 +52,8 @@ const BlendModalContentsContainer = (props: Props) => {
 
   const combineProps = {
     storeUpdateCollectionValueBlendModeValue,
-    storeAddCollectionValueBlendMode,
-    storeAddCollectionItem,
-    storeAddCollectionInnerItem,
     storeDeleteCollectionInnerItem,
+    storeAddCollectionInnerItemWithValue,
     blendModeOrder,
     storedBlendModeValue,
     rawCollectionData,

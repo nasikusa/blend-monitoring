@@ -9,17 +9,13 @@ import {
   stockAddColor as stockAddColorAction,
   stockRemoveColor as stockRemoveColorAction,
 } from 'stores/color/stockedColors';
-import {
-  addCollectionInnerItem,
-  deleteCollectionInnerItem,
-} from 'stores/collection/collection';
+import { deleteCollectionInnerItem } from 'stores/collection/collection';
 import {
   updateValueValue,
-  addValue as addCollectionValueColor,
   UpdateValuePayloadType,
 } from 'stores/collection/collectionValueColor';
-import { addItem as addCollectionItem } from 'stores/collection/collectionItem';
 import ColorPanel from 'components/molecules/ColorPanel';
+import useAddCollectionInnerItemWithValue from 'hooks/collection/useAddCollectionInnerItemWithValue';
 /* eslint-enable import/no-unresolved */
 
 export default () => {
@@ -37,33 +33,14 @@ export default () => {
     collectionIdContextValue.collectionId
   );
 
+  const storeAddCollectionInnerItemWithValue = useAddCollectionInnerItemWithValue();
+
   /**
    * collectionValueColorのvalueを更新する
    */
   const storeUpdateCollectionValueColorValue = React.useCallback(
     (payload: UpdateValuePayloadType) => {
       dispatch(updateValueValue(payload));
-    },
-    [dispatch]
-  );
-
-  const storeAddCollectionValueColor = React.useCallback(
-    (payload) => {
-      dispatch(addCollectionValueColor(payload));
-    },
-    [dispatch]
-  );
-
-  const storeAddCollectionItem = React.useCallback(
-    (payload) => {
-      dispatch(addCollectionItem(payload));
-    },
-    [dispatch]
-  );
-
-  const storeAddCollectionInnerItem = React.useCallback(
-    (payload) => {
-      dispatch(addCollectionInnerItem(payload));
     },
     [dispatch]
   );
@@ -89,10 +66,8 @@ export default () => {
     storedColorValue,
     stockedColorData,
     storeUpdateCollectionValueColorValue,
-    storeAddCollectionValueColor,
-    storeAddCollectionItem,
-    storeAddCollectionInnerItem,
     storeDeleteCollectionInnerItem,
+    storeAddCollectionInnerItemWithValue,
     stockAddColor,
     stockRemoveColor,
   };

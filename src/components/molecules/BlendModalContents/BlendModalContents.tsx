@@ -1,6 +1,4 @@
 import React from 'react';
-import { v4 as uuidv4 } from 'uuid';
-import { batch } from 'react-redux';
 import { css } from '@emotion/core';
 import { makeStyles, createStyles } from '@material-ui/core/styles';
 import FormControl from '@material-ui/core/FormControl';
@@ -23,10 +21,8 @@ import Icon from '../../atoms/Icon';
 export type Props = {
   blendModalMode: 'single' | 'multi';
   storeUpdateCollectionValueBlendModeValue: any;
-  storeAddCollectionValueBlendMode: any;
-  storeAddCollectionItem: any;
-  storeAddCollectionInnerItem: any;
   storeDeleteCollectionInnerItem: any;
+  storeAddCollectionInnerItemWithValue: any;
   blendModeOrder: string[];
   rawCollectionData: CollectionCategoryType;
   storedBlendModeValue:
@@ -97,10 +93,8 @@ export default function BlendModalContents(props: Props) {
   const {
     blendModalMode,
     storeUpdateCollectionValueBlendModeValue,
-    storeAddCollectionValueBlendMode,
-    storeAddCollectionItem,
-    storeAddCollectionInnerItem,
     storeDeleteCollectionInnerItem,
+    storeAddCollectionInnerItemWithValue,
     rawCollectionData,
     storedBlendModeValue,
     canDisplayNormalBlend,
@@ -189,40 +183,8 @@ export default function BlendModalContents(props: Props) {
     event: React.ChangeEvent<HTMLInputElement>,
     targetIndex: number
   ): void => {
-    const targetCollectionItemId = uuidv4();
-    const targetCollectionValueId = uuidv4();
     if (event.target.checked) {
-      batch(() => {
-        storeAddCollectionValueBlendMode({
-          targetId: targetCollectionValueId,
-          targetNewValue: event.target.name,
-        });
-        if (rawCollectionData.type === 'singleColorMultiBlends') {
-          storeAddCollectionItem({
-            targetId: targetCollectionItemId,
-            targetType: rawCollectionData.roughType,
-            targetBlendModeId: targetCollectionValueId,
-            targetOpacityId: rawCollectionData.defaultOpacityId,
-            targetVisibilityId: rawCollectionData.defaultVisibilityId,
-            targetColorId: rawCollectionData.defaultColorId,
-          });
-        }
-        if (rawCollectionData.type === 'singleImageMultiBlends') {
-          storeAddCollectionItem({
-            targetId: targetCollectionItemId,
-            targetType: rawCollectionData.roughType,
-            targetBlendModeId: targetCollectionValueId,
-            targetOpacityId: rawCollectionData.defaultOpacityId,
-            targetVisibilityId: rawCollectionData.defaultVisibilityId,
-            targetImageId: rawCollectionData.defaultImageId,
-          });
-        }
-        storeAddCollectionInnerItem({
-          addIndexType: 'first',
-          targetInnerItemId: targetCollectionItemId,
-          targetId: rawCollectionData.id,
-        });
-      });
+      storeAddCollectionInnerItemWithValue(event.target.name);
     } else if (!event.target.checked) {
       storeDeleteCollectionInnerItem({
         targetId: rawCollectionData.id,
