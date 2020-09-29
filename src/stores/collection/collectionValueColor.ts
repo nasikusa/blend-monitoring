@@ -28,23 +28,7 @@ type AddValuePayloadType = {
   targetNewValue: collectionValueColorValueType;
 };
 
-const initialState: collectionValueColorDictionaryType = {
-  '82ceb1d9-1f61-4797-9838-738988d46054': {
-    id: '82ceb1d9-1f61-4797-9838-738988d46054',
-    value: '#0000ff',
-    type: 'color',
-  },
-  'cdc0644b-a77a-4e2a-8abc-d77ed88b108e': {
-    id: 'cdc0644b-a77a-4e2a-8abc-d77ed88b108e',
-    value: '#ff0000',
-    type: 'color',
-  },
-  '62756cf0-e438-4e77-bc81-c73bb6f46bca': {
-    id: '62756cf0-e438-4e77-bc81-c73bb6f46bca',
-    value: '#ccff00',
-    type: 'color',
-  },
-};
+const initialState: collectionValueColorDictionaryType = {};
 
 const slice = createSlice({
   name: 'collectionValueColor',

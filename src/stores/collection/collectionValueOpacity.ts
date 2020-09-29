@@ -23,18 +23,7 @@ export type UpdateValuePayloadType = {
     | collectionValueOpacityValueType[];
 };
 
-const initialState: collectionValueOpacityDictionaryType = {
-  '40818509-da04-44fd-baf2-af23312c7e36': {
-    id: '40818509-da04-44fd-baf2-af23312c7e36',
-    value: 0.25,
-    type: 'opacity',
-  },
-  'bef45475-7567-42c3-b8ee-0901b7470134': {
-    id: 'bef45475-7567-42c3-b8ee-0901b7470134',
-    value: 1,
-    type: 'opacity',
-  },
-};
+const initialState: collectionValueOpacityDictionaryType = {};
 
 const slice = createSlice({
   name: 'collectionValueOpacity',

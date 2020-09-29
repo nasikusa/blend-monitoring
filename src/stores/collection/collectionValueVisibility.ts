@@ -20,18 +20,7 @@ type AddValuePayloadType = {
   targetNewValue: collectionValueVisibilityValueType;
 };
 
-const initialState: collectionValueVisibilityDictionaryType = {
-  '02d077cf-e936-41cd-b725-3d841691aabd': {
-    id: '02d077cf-e936-41cd-b725-3d841691aabd',
-    value: true,
-    type: 'visibility',
-  },
-  '557f8233-3b5a-4250-8499-c5c1243b9fd8': {
-    id: '557f8233-3b5a-4250-8499-c5c1243b9fd8',
-    value: true,
-    type: 'visibility',
-  },
-};
+const initialState: collectionValueVisibilityDictionaryType = {};
 
 const slice = createSlice({
   name: 'collectionValueVisibility',
