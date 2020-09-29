@@ -9,15 +9,17 @@ import GridListTile from '@material-ui/core/GridListTile';
 import Tabs from '@material-ui/core/Tabs';
 import Tab from '@material-ui/core/Tab';
 import Button from '@material-ui/core/Button';
-import Icon from '../../atoms/Icon';
-import { CollectionCategoryType } from '../../../stores/collection/collection';
 
-import { StoredMediaStateType } from '../../../stores/image/storedMedia';
+/* eslint-disable import/no-unresolved */
+import { CollectionCategoryType } from 'stores/collection/collection';
+import { StoredMediaStateType } from 'stores/image/storedMedia';
 import {
   ImageRelatedGlCollectionType,
   GlCollectionTypeArray,
-} from '../../../types/collection/collectionData';
-import { collectionValueImageType } from '../../../stores/collection/collectionValueImage';
+} from 'types/collection/collectionData';
+import { collectionValueImageType } from 'stores/collection/collectionValueImage';
+/* eslint-enable import/no-unresolved */
+import Icon from '../../atoms/Icon';
 
 export type Props = {
   rawCollectionData: CollectionCategoryType;

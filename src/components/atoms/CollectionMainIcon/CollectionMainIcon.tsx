@@ -9,7 +9,9 @@ import HelpIcon from '@material-ui/icons/Help';
 import PhotoLibraryIcon from '@material-ui/icons/PhotoLibrary';
 import FilterNoneIcon from '@material-ui/icons/FilterNone';
 
-import { CollectionTypeType } from '../../../types/collection/collectionData';
+/* eslint-disable import/no-unresolved */
+import { CollectionTypeType } from 'types/collection/collectionData';
+/* eslint-enable import/no-unresolved */
 
 interface PropsInterface {
   collectionType: CollectionTypeType;

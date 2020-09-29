@@ -3,7 +3,10 @@ import React from 'react';
 import { css } from '@emotion/core';
 import Typography, { TypographyProps } from '@material-ui/core/Typography';
 import Box from '@material-ui/core/Box';
-import { baseSizeNamesType } from '../../../types/Size';
+
+/* eslint-disable import/no-unresolved */
+import { baseSizeNamesType } from 'types/Size';
+/* eslint-enable import/no-unresolved */
 
 export type Props = {
   beforeIcon?: React.ReactElement;

@@ -6,12 +6,15 @@ import Box from '@material-ui/core/Box';
 import { v4 as uuidv4 } from 'uuid';
 import { debounce } from 'lodash';
 
+/* eslint-disable import/no-unresolved */
+import ColorModalContainer from 'containers/ColorModalContainer';
+import { collectionValueColorType } from 'stores/collection/collectionValueColor';
+import { CollectionCategoryType } from 'stores/collection/collection';
+/* eslint-enable import/no-unresolved */
+
 import CustomSketchPicker from '../../atoms/CustomSketchPicker';
-import ColorModalContainer from '../../../containers/ColorModalContainer';
 import ColorBox from '../../atoms/ColorBox';
 import ColorBoxGroup from '../ColorBoxGroup';
-import { collectionValueColorType } from '../../../stores/collection/collectionValueColor';
-import { CollectionCategoryType } from '../../../stores/collection/collection';
 import CustomIconButton from '../CustomIconButton';
 import { IconTypeTypes } from '../../atoms/Icon';
 

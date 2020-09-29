@@ -7,22 +7,25 @@ import Typography from '@material-ui/core/Typography';
 import { useTheme } from '@material-ui/core/styles';
 import { css } from '@emotion/core';
 
+/* eslint-disable import/no-unresolved */
+import collectionTypesArray from 'constants/collection/collectionTypesArray';
+import collectionTypeNameObject from 'constants/collection/collectionTypeNameObject';
+import canMultiItemCollectionName from 'constants/collection/canMultiItemCollectionName';
+import { presetCollectionValueType } from 'stores/collection/presetCollectionValue';
+import { defaultImageMediaStoreDataId } from 'constants/image/defaultImageMediaStoreData';
+
+import { addSceneCollectionInnerItem } from 'stores/collection/sceneCollection';
+import { addCollection } from 'stores/collection/collection';
+import { addItem } from 'stores/collection/collectionItem';
+import { addValue as addCollectionBlendModeValue } from 'stores/collection/collectionValueBlendMode';
+import { addValue as addCollectionOpacity } from 'stores/collection/collectionValueOpacity';
+import { addValue as addCollectionVisibility } from 'stores/collection/collectionValueVisibility';
+import { addValue as addCollectionColor } from 'stores/collection/collectionValueColor';
+import { addValue as addCollectionImage } from 'stores/collection/collectionValueImage';
+/* eslint-enable import/no-unresolved */
+
 import CustomIconButton from '../CustomIconButton';
 import Icon from '../../atoms/Icon';
-import collectionTypesArray from '../../../constants/collection/collectionTypesArray';
-import collectionTypeNameObject from '../../../constants/collection/collectionTypeNameObject';
-import canMultiItemCollectionName from '../../../constants/collection/canMultiItemCollectionName';
-import { presetCollectionValueType } from '../../../stores/collection/presetCollectionValue';
-import { defaultImageMediaStoreDataId } from '../../../constants/image/defaultImageMediaStoreData';
-
-import { addSceneCollectionInnerItem } from '../../../stores/collection/sceneCollection';
-import { addCollection } from '../../../stores/collection/collection';
-import { addItem } from '../../../stores/collection/collectionItem';
-import { addValue as addCollectionBlendModeValue } from '../../../stores/collection/collectionValueBlendMode';
-import { addValue as addCollectionOpacity } from '../../../stores/collection/collectionValueOpacity';
-import { addValue as addCollectionVisibility } from '../../../stores/collection/collectionValueVisibility';
-import { addValue as addCollectionColor } from '../../../stores/collection/collectionValueColor';
-import { addValue as addCollectionImage } from '../../../stores/collection/collectionValueImage';
 
 export type Props = {
   curerntSceneCollectionId: string;

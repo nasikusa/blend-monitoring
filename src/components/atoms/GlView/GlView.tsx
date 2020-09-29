@@ -4,17 +4,19 @@ import { Surface } from 'gl-react-dom';
 import { css } from '@emotion/core';
 import Box from '@material-ui/core/Box';
 
-import CreateShaderVariables from '../../../utils/shader/CreateShaderVariables';
-import CreateShaderUniforms from '../../../utils/shader/CreateShaderUniforms';
-import CreateShaderFunctions from '../../../utils/shader/CreateShaderFunctions';
-import CreateShaderProcesses from '../../../utils/shader/CreateShaderProcesses';
-import CreateShaderProcessesVariables from '../../../utils/shader/CreateShaderProcessesVariables';
-import { GlItemOrderContext } from '../../organisms/DrawBox/GlItemOrderContextElement';
+/* eslint-disable import/no-unresolved */
+import CreateShaderVariables from 'utils/shader/CreateShaderVariables';
+import CreateShaderUniforms from 'utils/shader/CreateShaderUniforms';
+import CreateShaderFunctions from 'utils/shader/CreateShaderFunctions';
+import CreateShaderProcesses from 'utils/shader/CreateShaderProcesses';
+import CreateShaderProcessesVariables from 'utils/shader/CreateShaderProcessesVariables';
 
-import { GlSettingsType } from '../../../stores/general/glSettings';
-import { GlCollectionTypeArray } from '../../../types/collection/collectionData';
-import { StoredMediaStateType } from '../../../stores/image/storedMedia';
-import isEmptyMultiCollections from '../../../utils/collection/isEmptyMultiCollections';
+import { GlSettingsType } from 'stores/general/glSettings';
+import { GlCollectionTypeArray } from 'types/collection/collectionData';
+import { StoredMediaStateType } from 'stores/image/storedMedia';
+import isEmptyMultiCollections from 'utils/collection/isEmptyMultiCollections';
+/* eslint-enable import/no-unresolved */
+import { GlItemOrderContext } from '../../organisms/DrawBox/GlItemOrderContextElement';
 
 type Props = {
   glSettings: GlSettingsType;

@@ -9,14 +9,16 @@ import FormControlLabel from '@material-ui/core/FormControlLabel';
 import FormLabel from '@material-ui/core/FormLabel';
 import Checkbox from '@material-ui/core/Checkbox';
 import Divider from '@material-ui/core/Divider';
-import Icon from '../../atoms/Icon';
 
+/* eslint-disable import/no-unresolved */
 import {
   readyBlendModeArray,
   readyBlendModeData,
-} from '../../../utils/blendMode/getBlendModeData';
-import { collectionValueBlendModeType } from '../../../stores/collection/collectionValueBlendMode';
-import { CollectionCategoryType } from '../../../stores/collection/collection';
+} from 'utils/blendMode/getBlendModeData';
+import { collectionValueBlendModeType } from 'stores/collection/collectionValueBlendMode';
+import { CollectionCategoryType } from 'stores/collection/collection';
+/* eslint-enable import/no-unresolved */
+import Icon from '../../atoms/Icon';
 
 export type Props = {
   blendModalMode: 'single' | 'multi';

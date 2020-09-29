@@ -15,9 +15,11 @@ import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Switch from '@material-ui/core/Switch';
 import Snackbar from '@material-ui/core/Snackbar';
 
-import getResiedImageData from '../../../utils/image/getResizedImageData';
-import MediaModalContentsContainer from '../../../containers/MediaModalContentsContainer';
-import createStoredMediaItemObject from '../../../utils/image/createStoredMediaItemObject';
+/* eslint-disable import/no-unresolved */
+import getResiedImageData from 'utils/image/getResizedImageData';
+import MediaModalContentsContainer from 'containers/MediaModalContentsContainer';
+import createStoredMediaItemObject from 'utils/image/createStoredMediaItemObject';
+/* eslint-enable import/no-unresolved */
 import CustomAlert from '../../atoms/CustomAlert';
 
 export type Props = {

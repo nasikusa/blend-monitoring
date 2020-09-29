@@ -2,7 +2,10 @@ import React from 'react';
 import { css } from '@emotion/core';
 import { SketchPicker, SketchPickerProps } from 'react-color';
 import { useTheme } from '@material-ui/core/styles';
-import { baseSizeNamesType } from '../../../types/Size';
+
+/* eslint-disable import/no-unresolved */
+import { baseSizeNamesType } from 'types/Size';
+/* eslint-enable import/no-unresolved */
 
 export type Props = Partial<{
   squarePicker: boolean;

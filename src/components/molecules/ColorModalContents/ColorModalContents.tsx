@@ -7,14 +7,16 @@ import GridListTile from '@material-ui/core/GridListTile';
 import Tabs from '@material-ui/core/Tabs';
 import Tab from '@material-ui/core/Tab';
 import Button from '@material-ui/core/Button';
-import Icon from '../../atoms/Icon';
 
-import getGlViewItemAspect from '../../../utils/image/getGlViewItemAspect';
-import { StoredMediaStateType } from '../../../stores/image/storedMedia';
+/* eslint-disable import/no-unresolved */
+import getGlViewItemAspect from 'utils/image/getGlViewItemAspect';
+import { StoredMediaStateType } from 'stores/image/storedMedia';
 import {
   ImageRelatedGlCollectionType,
   GlCollectionTypeArray,
-} from '../../../types/collection/collectionData';
+} from 'types/collection/collectionData';
+/* eslint-enable import/no-unresolved */
+import Icon from '../../atoms/Icon';
 
 export type Props = {
   storedMediaData: StoredMediaStateType;

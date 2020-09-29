@@ -2,13 +2,15 @@ import React, { useState } from 'react';
 import Box from '@material-ui/core/Box';
 import Grid from '@material-ui/core/Grid';
 
-import DrawItemContainer from '../../../containers/DrawItemContainer';
+/* eslint-disable import/no-unresolved */
+import DrawItemContainer from 'containers/DrawItemContainer';
+import createCustomLengthArray from 'utils/general/createCustomLengthArray';
+import { maxCountOfGlItem } from 'constants/general/appConstantSettings';
+/* eslint-enable import/no-unresolved */
 import DefaultWelcome from '../../molecules/DefaultWelcome';
-import { maxCountOfGlItem } from '../../../constants/general/appConstantSettings';
 import CustomAlert from '../../atoms/CustomAlert';
 import NoticeSnackbar from '../../atoms/NoticeSnackbar';
 import GlItemOrderContextElement from './GlItemOrderContextElement';
-import createCustomLengthArray from '../../../utils/general/createCustomLengthArray';
 
 export type Props = {
   drawItemCount: number;

@@ -6,8 +6,10 @@ import Grid from '@material-ui/core/Grid';
 import Input from '@material-ui/core/Input';
 import { debounce } from 'lodash';
 
+/* eslint-disable import/no-unresolved */
+import { collectionValueOpacityType } from 'stores/collection/collectionValueOpacity';
+/* eslint-enable import/no-unresolved */
 import Icon from '../../atoms/Icon';
-import { collectionValueOpacityType } from '../../../stores/collection/collectionValueOpacity';
 
 type Props = {
   storeUpdateOpacityValue: any;

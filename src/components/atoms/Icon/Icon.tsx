@@ -60,10 +60,12 @@ import ShowChartIcon from '@material-ui/icons/ShowChart';
 
 // icon end =======================================
 
-import { CollectionTypeType } from '../../../types/collection/collectionData';
-import { IgnoreDupliCollectionPanelNamesType } from '../../../types/CollectionPanelNames';
+/* eslint-disable import/no-unresolved */
+import { CollectionTypeType } from 'types/collection/collectionData';
+import { IgnoreDupliCollectionPanelNamesType } from 'types/CollectionPanelNames';
+import { BlendModeRoughTypeType } from 'constants/blendMode/blendModeData';
+/* eslint-enable import/no-unresolved */
 import { ColorPanelFunctionNames } from '../../molecules/ColorPanel/ColorPanel';
-import { BlendModeRoughTypeType } from '../../../constants/blendMode/blendModeData';
 
 /**
  * en: The name of the type of the icon of the universal name function used throughout the application

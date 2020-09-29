@@ -12,12 +12,14 @@ import ColorLensIcon from '@material-ui/icons/ColorLens';
 import TextureIcon from '@material-ui/icons/Texture';
 import HelpIcon from '@material-ui/icons/Help';
 
+/* eslint-disable import/no-unresolved */
+import { CollectionTypeType } from 'types/collection/collectionData';
+/* eslint-enable import/no-unresolved */
 import CustomTooltip from '../CustomTooltip';
 
 import collectionTypeFunctionObject, {
   collectionObjectFunctionType,
 } from '../../molecules/Collection/allCollectionTypeFunctionObject';
-import { CollectionTypeType } from '../../../types/collection/collectionData';
 
 export type Props = {
   labelTitleValue: string;

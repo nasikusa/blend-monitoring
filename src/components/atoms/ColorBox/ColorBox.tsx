@@ -3,7 +3,9 @@ import Box from '@material-ui/core/Box';
 import { css, SerializedStyles } from '@emotion/core';
 import { shallowEqual } from 'react-redux';
 
-import arrayEqual from '../../../utils/general/arrayEqual';
+/* eslint-disable import/no-unresolved */
+import arrayEqual from 'utils/general/arrayEqual';
+/* eslint-enable import/no-unresolved */
 
 type activeStyleTypeType = 'none' | 'scale' | 'opacity' | 'border';
 

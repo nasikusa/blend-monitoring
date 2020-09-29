@@ -6,29 +6,16 @@ import Divider from '@material-ui/core/Divider';
 
 /* eslint-disable import/no-unresolved */
 import CollectionIdContext from 'contexts/CollectionIdContext';
+import CollectionContainer from 'containers/CollectionContainer';
+import CreateCollectionPanelContainer from 'containers/CreateCollectionPanelContainer';
+import { SceneCollectionsType } from 'stores/collection/sceneCollection';
+import { ArrayElement } from 'types/utils/ArrayElement';
 /* eslint-enable import/no-unresolved */
-import CollectionContainer from '../../../containers/CollectionContainer';
-import CreateCollectionPanelContainer from '../../../containers/CreateCollectionPanelContainer';
-import { SceneCollectionsType } from '../../../stores/collection/sceneCollection';
-import { ArrayElement } from '../../../types/utils/ArrayElement';
 
 export type Props = {
   calcedOtherAreaHeight: string;
   currentCollectionsId: SceneCollectionsType;
 };
-
-// /**
-//  * 現在のコレクションの順番を決定するためのcontextの型
-//  */
-// export type GlCollectionOrderContextType = number;
-
-// export const CollectionIdContext = createContext<{
-//   collectionId: ArrayElement<SceneCollectionsType>;
-//   collectionOrder: GlCollectionOrderContextType;
-// }>({
-//   collectionId: '',
-//   collectionOrder: -1,
-// });
 
 const CollectionList: React.FC<Props> = (props) => {
   const { calcedOtherAreaHeight, currentCollectionsId } = props;

@@ -5,11 +5,13 @@ import Button from '@material-ui/core/Button';
 import ButtonGroup from '@material-ui/core/ButtonGroup';
 import Divider from '@material-ui/core/Divider';
 import { useDropzone } from 'react-dropzone';
-import Icon, { IconTypeTypes } from '../../atoms/Icon';
 
-import getReduxStoreState from '../../../utils/io/getReduxStoreState';
-import { appSaveDataInfo } from '../../../constants/general/appConstantSettings';
-import loadSaveData from '../../../utils/io/getLoadedSaveData';
+/* eslint-disable import/no-unresolved */
+import getReduxStoreState from 'utils/io/getReduxStoreState';
+import { appSaveDataInfo } from 'constants/general/appConstantSettings';
+import loadSaveData from 'utils/io/getLoadedSaveData';
+/* eslint-enable import/no-unresolved */
+import Icon, { IconTypeTypes } from '../../atoms/Icon';
 
 type Props = {
   removeAllStoredMedia: any;

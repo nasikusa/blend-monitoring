@@ -7,9 +7,11 @@ import Divider from '@material-ui/core/Divider';
 import Typography from '@material-ui/core/Typography';
 import Link from '@material-ui/core/Link';
 import IconButton from '@material-ui/core/IconButton';
-import Icon from '../../atoms/Icon';
 
-import { AppSiteInfo } from '../../../constants/general/appConstantSettings';
+/* eslint-disable import/no-unresolved */
+import { AppSiteInfo } from 'constants/general/appConstantSettings';
+/* eslint-enable import/no-unresolved */
+import Icon from '../../atoms/Icon';
 
 export default () => {
   const theme = useTheme();

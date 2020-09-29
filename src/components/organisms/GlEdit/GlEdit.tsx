@@ -3,9 +3,11 @@ import { css } from '@emotion/core';
 import Tabs from '@material-ui/core/Tabs';
 import Tab from '@material-ui/core/Tab';
 import Box from '@material-ui/core/Box';
-import Icon from '../../atoms/Icon';
 
-import CollectionsContainer from '../../../containers/CollectionListContainer';
+/* eslint-disable import/no-unresolved */
+import CollectionsContainer from 'containers/CollectionListContainer';
+/* eslint-enable import/no-unresolved */
+import Icon from '../../atoms/Icon';
 
 type Props = {
   editPanelUpperMargin: string;

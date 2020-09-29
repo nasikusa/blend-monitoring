@@ -10,15 +10,16 @@ import { useTheme } from '@material-ui/core/styles';
 import CardContent from '@material-ui/core/CardContent';
 import CardActions from '@material-ui/core/CardActions';
 
-import GlViewContainer from '../../../containers/GlViewContainer';
-import CustomIconButton from '../CustomIconButton';
+/* eslint-disable import/no-unresolved */
+import GlViewContainer from 'containers/GlViewContainer';
 import blendModeData, {
   BlendModesType,
-} from '../../../constants/blendMode/blendModeData';
+} from 'constants/blendMode/blendModeData';
+import { CollectionTypeType } from 'types/collection/collectionData';
+import { StoredMediaStateItemType } from 'stores/image/storedMedia';
+/* eslint-enable import/no-unresolved */
 import Icon from '../../atoms/Icon';
-
-import { CollectionTypeType } from '../../../types/collection/collectionData';
-import { StoredMediaStateItemType } from '../../../stores/image/storedMedia';
+import CustomIconButton from '../CustomIconButton';
 
 type Props = {
   typeSpecialValue: string | BlendModesType | StoredMediaStateItemType | null;
