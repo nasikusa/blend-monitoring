@@ -15,10 +15,10 @@ import Icon, { IconTypeTypes } from '../../atoms/Icon';
 
 type Props = {
   removeAllStoredMedia: any;
-  removeAllCollectionData: any;
+  // removeAllCollectionData: any;
   replaceAllGlSettings: any;
   replaceAllStoredMedia: any;
-  replaceAllCollectionData: any;
+  // replaceAllCollectionData: any;
   replaceAllThemeSettings: any;
   replaceAllBlendModeOrder: any;
   replaceAllStockedColors: any;
@@ -31,13 +31,13 @@ type GeneralFunctionsDataType = {
   onClick?: any;
 };
 
-const GeneralFunctionsList = (props: Props) => {
+const GeneralFunctionsList: React.FC<Props> = (props) => {
   const {
     removeAllStoredMedia,
-    removeAllCollectionData,
+    // removeAllCollectionData,
     replaceAllGlSettings,
     replaceAllStoredMedia,
-    replaceAllCollectionData,
+    // replaceAllCollectionData,
     replaceAllThemeSettings,
     replaceAllBlendModeOrder,
     replaceAllStockedColors,
@@ -49,25 +49,25 @@ const GeneralFunctionsList = (props: Props) => {
         const targetFileObject = acceptedFiles[0];
         const result = await loadSaveData(targetFileObject);
         // collectionDataを先に削除しておかないと、依存関係でエラーが出ます
-        removeAllCollectionData();
+        // removeAllCollectionData();
         removeAllStoredMedia();
         replaceAllStoredMedia({ newState: result.storedMedia });
         replaceAllBlendModeOrder({ newState: result.blendModeOrder });
         replaceAllStockedColors({ newState: result.stockedColors });
         replaceAllThemeSettings({ newState: result.themeSettings });
         replaceAllGlSettings({ newState: result.glSettings });
-        replaceAllCollectionData({ newState: result.collectionData });
+        // replaceAllCollectionData({ newState: result.collectionData });
       }
     },
     [
       removeAllStoredMedia,
-      removeAllCollectionData,
+      // removeAllCollectionData,
       replaceAllThemeSettings,
       replaceAllBlendModeOrder,
       replaceAllStockedColors,
       replaceAllGlSettings,
       replaceAllStoredMedia,
-      replaceAllCollectionData,
+      // replaceAllCollectionData,
     ]
   );
 

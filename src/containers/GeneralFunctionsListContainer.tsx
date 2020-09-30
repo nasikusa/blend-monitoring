@@ -9,10 +9,10 @@ import {
   replaceAll as replaceAllStoredMediaAction,
   removeAll as removeAllStoredMediaAction,
 } from 'stores/image/storedMedia';
-import {
-  replaceAll as replaceAllCollectionDataAction,
-  removeAll as removeAllCollectionDataAction,
-} from 'types/collection/collectionData';
+// import {
+//   replaceAll as replaceAllCollectionDataAction,
+//   removeAll as removeAllCollectionDataAction,
+// } from 'types/collection/collectionData';
 import { replaceAll as replaceAllThemeSettingsAction } from 'stores/general/themeSettings';
 import { replaceAll as replaceAllBlendModeOrderAction } from 'stores/blendMode/blendModeOrder';
 import { replaceAll as replaceAllStockedColorsAction } from 'stores/color/stockedColors';
@@ -25,12 +25,12 @@ export default () => {
     dispatch(removeAllStoredMediaAction());
   }, [dispatch]);
 
-  const removeAllCollectionData = React.useCallback(
-    (val) => {
-      dispatch(removeAllCollectionDataAction(val));
-    },
-    [dispatch]
-  );
+  // const removeAllCollectionData = React.useCallback(
+  //   (val) => {
+  //     dispatch(removeAllCollectionDataAction(val));
+  //   },
+  //   [dispatch]
+  // );
 
   const replaceAllGlSettings = React.useCallback(
     (val) => {
@@ -44,12 +44,12 @@ export default () => {
     },
     [dispatch]
   );
-  const replaceAllCollectionData = React.useCallback(
-    (val) => {
-      dispatch(replaceAllCollectionDataAction(val));
-    },
-    [dispatch]
-  );
+  // const replaceAllCollectionData = React.useCallback(
+  //   (val) => {
+  //     dispatch(replaceAllCollectionDataAction(val));
+  //   },
+  //   [dispatch]
+  // );
   const replaceAllThemeSettings = React.useCallback(
     (val) => {
       dispatch(replaceAllThemeSettingsAction(val));
@@ -71,10 +71,10 @@ export default () => {
 
   const combineProps = {
     removeAllStoredMedia,
-    removeAllCollectionData,
+    // removeAllCollectionData,
     replaceAllGlSettings,
     replaceAllStoredMedia,
-    replaceAllCollectionData,
+    // replaceAllCollectionData,
     replaceAllThemeSettings,
     replaceAllBlendModeOrder,
     replaceAllStockedColors,
