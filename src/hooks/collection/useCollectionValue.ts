@@ -16,6 +16,11 @@ type targetValueTypes =
   | 'color'
   | 'blendMode';
 
+/**
+ * collectionValue系の実際に値を持っているオブジェクトをオブジェクト配列もしくはオブジェクトで返すhook
+ * @param collectionId 対象となるコレクションのId
+ * @param targetValueType 対象となるcollectionValueのタイプ
+ */
 const useCollectionValue = (
   collectionId: IdType,
   targetValueType: targetValueTypes

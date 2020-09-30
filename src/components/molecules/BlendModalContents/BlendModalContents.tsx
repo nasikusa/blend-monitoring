@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { css } from '@emotion/core';
 import { makeStyles, createStyles } from '@material-ui/core/styles';
 import FormControl from '@material-ui/core/FormControl';
@@ -15,6 +15,8 @@ import {
 } from 'utils/blendMode/getBlendModeData';
 import { collectionValueBlendModeType } from 'stores/collection/collectionValueBlendMode';
 import { CollectionCategoryType } from 'stores/collection/collection';
+import BlendModalSettingsContext from 'contexts/BlendModalSettingsContext';
+
 /* eslint-enable import/no-unresolved */
 import Icon from '../../atoms/Icon';
 
@@ -28,11 +30,6 @@ export type Props = {
   storedBlendModeValue:
     | collectionValueBlendModeType
     | collectionValueBlendModeType[];
-  canDisplayNormalBlend: boolean;
-  canDisplayLighterBlend: boolean;
-  canDisplayLighterAndDarkerBlend: boolean;
-  canDisplayDarkerBlend: boolean;
-  canDisplayMathBlend: boolean;
 };
 
 /**
@@ -93,13 +90,16 @@ const BlendModalContents: React.FC<Props> = (props) => {
     storeAddCollectionInnerItemWithValue,
     rawCollectionData,
     storedBlendModeValue,
+  } = props;
+  const {
     canDisplayNormalBlend,
     canDisplayLighterBlend,
     canDisplayLighterAndDarkerBlend,
     canDisplayDarkerBlend,
     canDisplayMathBlend,
-  } = props;
+  } = useContext(BlendModalSettingsContext);
 
+  // もらったデータを配列に変換している
   const blendModeStateObjectArray: collectionValueBlendModeType[] = (() => {
     if (!Array.isArray(storedBlendModeValue)) {
       return [storedBlendModeValue];

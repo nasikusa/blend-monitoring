@@ -1,11 +1,5 @@
 /* eslint no-nested-ternary: 0 */
-import React, {
-  useState,
-  useContext,
-  useCallback,
-  Dispatch,
-  SetStateAction,
-} from 'react';
+import React, { useState, useCallback, Dispatch, SetStateAction } from 'react';
 import { makeStyles, createStyles } from '@material-ui/core/styles';
 import { css, SerializedStyles } from '@emotion/core';
 import DialogTitle from '@material-ui/core/DialogTitle';
@@ -17,10 +11,14 @@ import Draggable from 'react-draggable';
 import FormGroup from '@material-ui/core/FormGroup';
 import Button from '@material-ui/core/Button';
 
+/* eslint-disable import/no-unresolved */
+import BlendModalSettingsContext from 'contexts/BlendModalSettingsContext';
+import useRawCollection from 'hooks/collection/useRawCollection';
+import BlendModalContentsContainer from 'containers/BlendModalContentsContainer';
+import ModalOpenContext from 'contexts/ModalOpenContext';
 import CustomIconButton from '../CustomIconButton';
 import { IconTypeTypes } from '../../atoms/Icon';
-import BlendModalContentsContainer from '../../../containers/BlendModalContentsContainer';
-import { RawCollectionDataContext } from '../Collection/Collection';
+/* eslint-enable import/no-unresolved */
 
 export type Props = {
   modalOpen: boolean;
@@ -90,14 +88,6 @@ const modalMinifyStyle = css`
   }
 `;
 
-export const BlendModalOpenContext = React.createContext<{
-  modalOpen: Props['modalOpen'];
-  setModalOpen: Props['setModalOpen'];
-}>({
-  modalOpen: false,
-  setModalOpen: () => {},
-});
-
 /**
  * 描画モードのモーダルを管理するコンポーネント。モーダルの中身に関しては、
  * 他コンポーネントを参照してください。
@@ -106,6 +96,7 @@ export const BlendModalOpenContext = React.createContext<{
  */
 const BlendModal: React.FC<Props> = (props) => {
   const classes = useStyles();
+  const rawCollectionDataContextValue = useRawCollection();
   const { modalOpen, setModalOpen } = props;
   const [modalTransparentFlag, setModalTransparentFlag] = useState(false);
   const [modalMinifyFlag, setModalMinifyFlag] = useState(false);
@@ -124,8 +115,6 @@ const BlendModal: React.FC<Props> = (props) => {
     canDisplayDarkerBlend,
     canDisplayMathBlend,
   ];
-
-  const rawCollectionDataContextValue = useContext(RawCollectionDataContext);
 
   /**
    * 描画モードの表示のオンオフスイッチの有効数
@@ -359,70 +348,86 @@ const BlendModal: React.FC<Props> = (props) => {
   ];
 
   return (
-    <BlendModalOpenContext.Provider value={{ modalOpen, setModalOpen }}>
-      <Dialog
-        className={classes.modal}
-        onClose={handleClose}
-        aria-labelledby="描画モードのパネル"
-        open={modalOpen}
-        maxWidth={false}
-        disableEnforceFocus
-        BackdropProps={{
-          style: { backgroundColor: 'rgba(0,0,0,0)', pointerEvents: 'none' },
+    <ModalOpenContext.Provider
+      value={{ isModalOpen: modalOpen, setIsModalOpen: setModalOpen }}
+    >
+      <BlendModalSettingsContext.Provider
+        value={{
+          setModalTransparentFlag,
+          setModalMinifyFlag,
+          setCanDisplayNormalBlend,
+          setCanDisplayLighterBlend,
+          setCanDisplayLighterAndDarkerBlend,
+          setCanDisplayDarkerBlend,
+          setCanDisplayMathBlend,
+          modalTransparentFlag,
+          modalMinifyFlag,
+          canDisplayNormalBlend,
+          canDisplayLighterBlend,
+          canDisplayLighterAndDarkerBlend,
+          canDisplayDarkerBlend,
+          canDisplayMathBlend,
         }}
-        PaperProps={{
-          style: {
-            backgroundColor: modalTransparentFlag ? 'rgba(0,0,0,0)' : '',
-            pointerEvents: 'all',
-          },
-        }}
-        PaperComponent={PaperComponent}
-        css={modalMinifyFlag ? modalMinifyStyle : modalBackStyle}
       >
-        <DialogTitle
-          id="blend-draggable-dialog-title"
-          style={{ cursor: 'move' }}
-          css={modalTitleStyle}
+        <Dialog
+          className={classes.modal}
+          onClose={handleClose}
+          aria-labelledby="描画モードのパネル"
+          open={modalOpen}
+          maxWidth={false}
+          disableEnforceFocus
+          BackdropProps={{
+            style: { backgroundColor: 'rgba(0,0,0,0)', pointerEvents: 'none' },
+          }}
+          PaperProps={{
+            style: {
+              backgroundColor: modalTransparentFlag ? 'rgba(0,0,0,0)' : '',
+              pointerEvents: 'all',
+            },
+          }}
+          PaperComponent={PaperComponent}
+          css={modalMinifyFlag ? modalMinifyStyle : modalBackStyle}
         >
-          {blendModeSwitchActiveCount <= 1
-            ? '描画モード'
-            : '描画モードの設定パネル'}
-          <Button onClick={handleClose}>閉じる</Button>
-        </DialogTitle>
-        <DialogContent dividers>
-          <BlendModalContentsContainer
-            blendModalMode={
-              (Array.isArray(rawCollectionDataContextValue.innerItemId) &&
-                rawCollectionDataContextValue.type ===
-                  'singleColorMultiBlends') ||
-              rawCollectionDataContextValue.type === 'singleImageMultiBlends'
-                ? 'multi'
-                : 'single'
-            }
-            canDisplayNormalBlend={canDisplayNormalBlend}
-            canDisplayLighterBlend={canDisplayLighterBlend}
-            canDisplayLighterAndDarkerBlend={canDisplayLighterAndDarkerBlend}
-            canDisplayDarkerBlend={canDisplayDarkerBlend}
-            canDisplayMathBlend={canDisplayMathBlend}
-          />
-        </DialogContent>
-        <DialogActions>
-          <FormGroup row css={modalMaxWidthStyle}>
-            {modalSwitchParams.map((singleSwitchParam) => {
-              return (
-                <CustomIconButton
-                  key={singleSwitchParam.type}
-                  type={singleSwitchParam.type}
-                  active={singleSwitchParam.checked}
-                  onClick={singleSwitchParam.onChange}
-                  labelTitle={singleSwitchParam.label}
-                />
-              );
-            })}
-          </FormGroup>
-        </DialogActions>
-      </Dialog>
-    </BlendModalOpenContext.Provider>
+          <DialogTitle
+            id="blend-draggable-dialog-title"
+            style={{ cursor: 'move' }}
+            css={modalTitleStyle}
+          >
+            {blendModeSwitchActiveCount <= 1
+              ? '描画モード'
+              : '描画モードの設定パネル'}
+            <Button onClick={handleClose}>閉じる</Button>
+          </DialogTitle>
+          <DialogContent dividers>
+            <BlendModalContentsContainer
+              blendModalMode={
+                (Array.isArray(rawCollectionDataContextValue.innerItemId) &&
+                  rawCollectionDataContextValue.type ===
+                    'singleColorMultiBlends') ||
+                rawCollectionDataContextValue.type === 'singleImageMultiBlends'
+                  ? 'multi'
+                  : 'single'
+              }
+            />
+          </DialogContent>
+          <DialogActions>
+            <FormGroup row css={modalMaxWidthStyle}>
+              {modalSwitchParams.map((singleSwitchParam) => {
+                return (
+                  <CustomIconButton
+                    key={singleSwitchParam.type}
+                    type={singleSwitchParam.type}
+                    active={singleSwitchParam.checked}
+                    onClick={singleSwitchParam.onChange}
+                    labelTitle={singleSwitchParam.label}
+                  />
+                );
+              })}
+            </FormGroup>
+          </DialogActions>
+        </Dialog>
+      </BlendModalSettingsContext.Provider>
+    </ModalOpenContext.Provider>
   );
 };
 

@@ -1,6 +1,5 @@
 /* eslint no-nested-ternary: 0 */
 import React, { useState, useEffect, useCallback } from 'react';
-import { NIL as NIL_UUID } from 'uuid';
 import { makeStyles } from '@material-ui/core/styles';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
@@ -22,6 +21,7 @@ import CollectionPanelTitle from 'components/atoms/CollectionPanelTitle';
 import CollectionPanel from 'components/molecules/CollectionPanel';
 import CustomIconButton from 'components/molecules/CustomIconButton';
 import CollectionPanelContent from 'components/molecules/CollectionPanelContent';
+import RawCollectionDataContext from 'contexts/RawCollectionDataContext';
 /* eslint-enable import/no-unresolved */
 import allCollectionTypeFunctionObject, {
   collectionObjectFunctionType,
@@ -59,23 +59,6 @@ const useStyles = makeStyles(() => ({
     cursor: `default`,
   },
 }));
-
-/**
- * collectionデータ用のコンテクスト
- * @todo デフォルトを null かもしくは、サンプルデータにしたい
- */
-export const RawCollectionDataContext = React.createContext<
-  CollectionCategoryType
->({
-  id: NIL_UUID,
-  type: 'singleColor',
-  roughType: 'color',
-  innerItemId: NIL_UUID,
-  defaultOpacityId: NIL_UUID,
-  defaultBlendModeId: NIL_UUID,
-  defaultVisibilityId: NIL_UUID,
-  defaultColorId: NIL_UUID,
-});
 
 /**
  * 単一のコレクションコンポーネント

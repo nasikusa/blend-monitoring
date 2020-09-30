@@ -17,11 +17,6 @@ import useAddCollectionInnerItemWithValue from 'hooks/collection/useAddCollectio
 
 type Props = {
   blendModalMode: 'single' | 'multi';
-  canDisplayNormalBlend: boolean;
-  canDisplayLighterBlend: boolean;
-  canDisplayLighterAndDarkerBlend: boolean;
-  canDisplayDarkerBlend: boolean;
-  canDisplayMathBlend: boolean;
 };
 
 const BlendModalContentsContainer = (props: Props) => {

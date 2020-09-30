@@ -8,8 +8,8 @@ import Chip from '@material-ui/core/Chip';
 import { readyBlendModeData } from 'utils/blendMode/getBlendModeData';
 import BlendModalContainer from 'containers/BlendModalContainer';
 import { collectionValueBlendModeType } from 'stores/collection/collectionValueBlendMode';
+import { RawCollectionDataContext } from 'contexts/RawCollectionDataContext';
 /* eslint-enable import/no-unresolved */
-import { RawCollectionDataContext } from '../Collection/Collection';
 
 type Props = {
   storeDeleteBlendModeValue: any;

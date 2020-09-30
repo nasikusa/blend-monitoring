@@ -6,7 +6,7 @@ import { AppState } from 'stores/index';
 import DrawBox from 'components/organisms/DrawBox';
 /* eslint-enable import/no-unresolved */
 
-const DrawBoxContainer = () => {
+const DrawBoxContainer: React.FC = () => {
   /**
    * en: Number of lines of items drawn
    * ja: 描画されるアイテムの行数
