@@ -14,7 +14,7 @@ const docStyle = css`
   overflow-y: scroll;
 `;
 
-export default function Doc() {
+const Doc: React.FC = () => {
   const imageResouceSites = Object.keys(imageResouceSite)
     .map((siteData) => {
       // @ts-ignore
@@ -57,4 +57,6 @@ ${devListString}
       />
     </Box>
   );
-}
+};
+
+export default Doc;

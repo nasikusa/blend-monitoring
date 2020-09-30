@@ -81,14 +81,10 @@ const mathBlendMode = readyBlendModeArray.filter(
   (singleBlendModeData) => singleBlendModeData.type.base === `math`
 );
 
-// const hslBlendMode = readyBlendModeArray.filter(
-//   (singleBlendModeData) => singleBlendModeData.type.base === `hsl`
-// );
-
 /**
  * 描画モードモーダルの中のコンテンツのReactFC
  */
-export default function BlendModalContents(props: Props) {
+const BlendModalContents: React.FC<Props> = (props) => {
   const classes = useStyles();
   const {
     blendModalMode,
@@ -122,8 +118,8 @@ export default function BlendModalContents(props: Props) {
   );
 
   /**
-   * チェックボックスグループの脇に区切り用の線を入れるかどうかのbool値。
-   * 最初のグループのみ線を入れない。
+   * en: A bool value for whether to put a delimiter line next to the checkbox group.
+   * ja: チェックボックスグループの脇に区切り用の線を入れるかどうかのbool値。
    */
   let isInsertDividerStateFlag = false;
 
@@ -153,11 +149,6 @@ export default function BlendModalContents(props: Props) {
       name: 'math',
       flagState: canDisplayMathBlend,
     },
-    // {
-    //   data: hslBlendMode,
-    //   name: 'hsl',
-    //   flagState: true,
-    // },
   ];
 
   const handleSingleChange = (
@@ -299,4 +290,6 @@ export default function BlendModalContents(props: Props) {
   );
 
   return <div className={classes.root}>{checkBoxesElementArray}</div>;
-}
+};
+
+export default BlendModalContents;

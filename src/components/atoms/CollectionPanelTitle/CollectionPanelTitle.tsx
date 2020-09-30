@@ -27,7 +27,7 @@ const styles = {
   }),
 };
 
-const CollectionPanelTitle: React.FC<Props> = (props: Props) => {
+const CollectionPanelTitle: React.FC<Props> = (props) => {
   const {
     beforeIcon,
     afterIcon,

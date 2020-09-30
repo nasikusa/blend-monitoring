@@ -22,10 +22,10 @@ export const CollectionBlendModeValueContext = React.createContext<
   Props['storedBlendModeValue']
 >([]);
 
-const BlendModePanel = (props: Props) => {
+const BlendModePanel: React.FC<Props> = (props) => {
   const { storeDeleteBlendModeValue, storedBlendModeValue } = props;
 
-  const [open, setOpen] = useState(false);
+  const [isModalOpen, setModalOpen] = useState(false);
   const rawCollectionDataContextObject = useContext(RawCollectionDataContext);
   const joinedRawCollectionData = rawCollectionDataContextObject;
 
@@ -33,7 +33,7 @@ const BlendModePanel = (props: Props) => {
    * モーダルの開閉stateをtrueにする関数
    */
   const handleOpen = (): void => {
-    setOpen(true);
+    setModalOpen(true);
   };
 
   /**
@@ -127,7 +127,10 @@ const BlendModePanel = (props: Props) => {
           ''
         )}
       </Box>
-      <BlendModalContainer modalOpen={open} setModalOpen={setOpen} />
+      <BlendModalContainer
+        modalOpen={isModalOpen}
+        setModalOpen={setModalOpen}
+      />
     </>
   );
 };

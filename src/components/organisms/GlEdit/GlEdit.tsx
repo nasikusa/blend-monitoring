@@ -15,8 +15,8 @@ type Props = {
 
 interface TabPanelProps {
   children: React.ReactNode;
-  index: any;
-  value: any;
+  index: number;
+  value: number;
 }
 
 function TabPanel(props: TabPanelProps) {
@@ -45,8 +45,8 @@ function a11yProps(index: number) {
 /**
  * editパーツのコンポーネント
  */
-export default (props: any) => {
-  const [value, setValue] = useState(0);
+const GlEdit: React.FC<Props> = (props) => {
+  const [tabValue, setTabValue] = useState(0);
 
   const { editPanelUpperMargin } = props;
 
@@ -60,15 +60,15 @@ export default (props: any) => {
     }
   `;
 
-  const handleChange = (event: React.ChangeEvent<{}>, newValue: number) => {
-    setValue(newValue);
+  const handleTabChange = (event: React.ChangeEvent<{}>, newValue: number) => {
+    setTabValue(newValue);
   };
 
   return (
     <Box style={{ height: '100%' }}>
       <Tabs
-        value={value}
-        onChange={handleChange}
+        value={tabValue}
+        onChange={handleTabChange}
         indicatorColor="secondary"
         textColor="secondary"
         aria-label="タブパネル"
@@ -80,9 +80,11 @@ export default (props: any) => {
           {...a11yProps(0)}
         />
       </Tabs>
-      <TabPanel css={tabPanelStyle} value={value} index={0}>
+      <TabPanel css={tabPanelStyle} value={tabValue} index={0}>
         <CollectionsContainer />
       </TabPanel>
     </Box>
   );
 };
+
+export default GlEdit;

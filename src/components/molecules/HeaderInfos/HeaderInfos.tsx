@@ -13,7 +13,7 @@ import { AppSiteInfo } from 'constants/general/appConstantSettings';
 /* eslint-enable import/no-unresolved */
 import Icon from '../../atoms/Icon';
 
-export default () => {
+const HeaderInfo: React.FC = () => {
   const theme = useTheme();
   const stringSpacingStyle = css`
     padding-left: ${theme.spacing() * 2}px;
@@ -63,3 +63,5 @@ export default () => {
     </Box>
   );
 };
+
+export default HeaderInfo;

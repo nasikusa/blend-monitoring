@@ -1,5 +1,11 @@
 /* eslint no-nested-ternary: 0 */
-import React, { useState, useContext, useCallback } from 'react';
+import React, {
+  useState,
+  useContext,
+  useCallback,
+  Dispatch,
+  SetStateAction,
+} from 'react';
 import { makeStyles, createStyles } from '@material-ui/core/styles';
 import { css, SerializedStyles } from '@emotion/core';
 import DialogTitle from '@material-ui/core/DialogTitle';
@@ -16,9 +22,9 @@ import { IconTypeTypes } from '../../atoms/Icon';
 import BlendModalContentsContainer from '../../../containers/BlendModalContentsContainer';
 import { RawCollectionDataContext } from '../Collection/Collection';
 
-type Props = {
+export type Props = {
   modalOpen: boolean;
-  setModalOpen: (modalOpenFlag: boolean) => void;
+  setModalOpen: Dispatch<SetStateAction<boolean>>;
 };
 
 const useStyles = makeStyles(() =>
@@ -98,7 +104,7 @@ export const BlendModalOpenContext = React.createContext<{
  * @todo モーダル背景の透過度を調整できるようにしたい
  * @todo モーダルバツボタンがタッチデバイスで対応できてない(なぜ？)
  */
-export default (props: Props) => {
+const BlendModal: React.FC<Props> = (props) => {
   const classes = useStyles();
   const { modalOpen, setModalOpen } = props;
   const [modalTransparentFlag, setModalTransparentFlag] = useState(false);
@@ -419,3 +425,5 @@ export default (props: Props) => {
     </BlendModalOpenContext.Provider>
   );
 };
+
+export default BlendModal;

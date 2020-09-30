@@ -1,15 +1,17 @@
 import React from 'react';
-import { useSelector } from 'react-redux';
 
 /* eslint-disable import/no-unresolved */
 import PageTemplate from 'components/templates/PageTemplate';
-import { AppState } from 'stores/index';
 /* eslint-enable import/no-unresolved */
 
-export default (props: any) => {
-  const themeSettings = useSelector((state: AppState) => state.themeSettings);
+type Props = {
+  body: React.ReactNode;
+};
 
-  const combineProps = { themeSettings, ...props };
+const PageTemplateContainer: React.FC<Props> = (props) => {
+  const combineProps = { ...props };
 
   return <PageTemplate {...combineProps} />;
 };
+
+export default PageTemplateContainer;

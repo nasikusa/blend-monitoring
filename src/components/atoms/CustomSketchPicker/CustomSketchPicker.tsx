@@ -22,7 +22,7 @@ export type Props = Partial<{
 }> &
   SketchPickerProps;
 
-const CustomSketchPicker = (props: Props) => {
+const CustomSketchPicker: React.FC<Props> = (props) => {
   const {
     squarePicker,
     size,

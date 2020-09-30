@@ -120,7 +120,7 @@ type Props = {
   readonly children?: never;
 } & SvgIconProps;
 
-const Icon = (p: Props) => {
+const Icon: React.FC<Props> = (p) => {
   const { type } = p;
   const IconElement = () => {
     switch (type) {

@@ -44,7 +44,7 @@ export type Props = {
 /**
  * レイヤー / コレクションを追加するメニューのコンポーネント
  */
-const CreateCollectionPanel = (props: Props) => {
+const CreateCollectionPanel: React.FC<Props> = (props) => {
   const {
     curerntSceneCollectionId,
     hasMultiItemCollection,

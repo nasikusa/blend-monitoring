@@ -35,8 +35,8 @@ export type Props = {
 
 interface TabPanelProps {
   children: React.ReactNode;
-  index: any;
-  value: any;
+  index: number;
+  value: number;
 }
 
 const tabsStyle = css`
@@ -76,7 +76,7 @@ function TabPanel(props: TabPanelProps) {
   );
 }
 
-export default function MediaModalContents(props: Props) {
+const MediaModalContents: React.FC<Props> = (props) => {
   const {
     storedMediaData,
     collectionStateImageData,
@@ -228,4 +228,6 @@ export default function MediaModalContents(props: Props) {
       </TabPanel>
     </Box>
   );
-}
+};
+
+export default MediaModalContents;

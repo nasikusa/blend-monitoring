@@ -40,7 +40,7 @@ type Props = {
  * カラーパネルコンポーネント
  * @todo ピッカーのデフォルトプリセットカラーの設定
  */
-const ColorPanel: React.FC<Props> = (props: Props) => {
+const ColorPanel: React.FC<Props> = (props) => {
   const {
     stockedColorData,
     storedColorValue,

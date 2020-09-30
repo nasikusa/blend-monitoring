@@ -2,6 +2,7 @@
 
 import React from 'react';
 import { css } from '@emotion/core';
+import { SvgIconProps } from '@material-ui/core/SvgIcon';
 import IconButton from '@material-ui/core/IconButton';
 import OpacityIcon from '@material-ui/icons/Opacity';
 import PhotoLibraryIcon from '@material-ui/icons/PhotoLibrary';
@@ -37,7 +38,7 @@ const collectionFunctionButtonStyle = css`
  * コレクションのタイトル下にあるアイコン機能メニュボタンを作成する
  * @param props
  */
-export default function CollectionFunctionMenuButton(props: Props) {
+const CollectionFunctionMenuButton: React.FC<Props> = (props) => {
   const {
     labelTitleValue,
     clickFunction,
@@ -46,7 +47,7 @@ export default function CollectionFunctionMenuButton(props: Props) {
     currentCollectionType,
   } = props;
 
-  const IconElement = (iconProps: any) => {
+  const IconElement = (iconProps: SvgIconProps) => {
     switch (taretFunctionProp) {
       case 'visibility':
         return isActiveFlag ? (
@@ -112,4 +113,6 @@ export default function CollectionFunctionMenuButton(props: Props) {
       <IconElement fontSize="small" />
     </IconButton>
   );
-}
+};
+
+export default CollectionFunctionMenuButton;

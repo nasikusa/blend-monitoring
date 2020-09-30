@@ -11,7 +11,7 @@ import {
 } from '../../../constants/general/appConstantSettings';
 // import LogoImage from '../../atoms/LogoImage';
 
-const UnSatisfiedEnv = () => {
+const UnSatisfiedEnv: React.FC = () => {
   const style = css`
     position: relative;
     max-width: 100%;

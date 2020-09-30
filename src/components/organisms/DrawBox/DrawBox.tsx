@@ -28,7 +28,7 @@ const DrawItemContext = React.createContext({
  * glsl描画アイテムのラッパーコンポーネント
  * @todo 最大アイテム数以上のときに警告を表示する
  */
-export default function DrawBox(props: Props) {
+const DrawBox: React.FC<Props> = (props) => {
   const {
     drawItemCount,
     drawItemKeys,
@@ -99,4 +99,6 @@ export default function DrawBox(props: Props) {
       </NoticeSnackbar>
     </>
   );
-}
+};
+
+export default DrawBox;

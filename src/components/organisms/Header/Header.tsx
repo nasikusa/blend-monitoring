@@ -16,7 +16,7 @@ export type Props = {
   themeSettings: ThemeSettingsType;
 };
 
-export default function (props: Props) {
+const Header: React.FC<Props> = (props) => {
   const { themeSettings } = props;
   const [isShowHeaderInfos] = useState(true);
   const theme = useTheme();
@@ -53,4 +53,6 @@ export default function (props: Props) {
       </Toolbar>
     </AppBar>
   );
-}
+};
+
+export default Header;

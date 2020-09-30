@@ -84,7 +84,7 @@ const DraggablePaperComponent = (paperProps: any) => {
  * @todo モーダル背景の透過度を調整できるようにしたい
  * @todo モーダルバツボタンがタッチデバイスで対応できてない(なぜ？)
  */
-export default (props: Props) => {
+const ColorModal: React.FC<Props> = (props) => {
   const classes = useStyles();
   const { modalOpen, setModalOpen, addMediaData } = props;
   const [onDropSnackBarOpenFlag, setOnDropSnackBarOpenFlag] = useState(false);
@@ -271,3 +271,5 @@ export default (props: Props) => {
     </>
   );
 };
+
+export default ColorModal;

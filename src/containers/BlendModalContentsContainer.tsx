@@ -7,7 +7,10 @@ import useCollectionIdContext from 'hooks/context/useCollectionIdContext';
 import useRawCollection from 'hooks/collection/useRawCollection';
 import { deleteCollectionInnerItem } from 'stores/collection/collection';
 import { AppState } from 'stores/index';
-import { updateValueValue as updateCollectionValueBlendModeValue } from 'stores/collection/collectionValueBlendMode';
+import {
+  updateValueValue as updateCollectionValueBlendModeValue,
+  UpdateValueValuePayloadType,
+} from 'stores/collection/collectionValueBlendMode';
 import BlendModalContents from 'components/molecules/BlendModalContents';
 import useAddCollectionInnerItemWithValue from 'hooks/collection/useAddCollectionInnerItemWithValue';
 /* eslint-enable import/no-unresolved */
@@ -37,7 +40,7 @@ const BlendModalContentsContainer = (props: Props) => {
   const dispatch = useDispatch();
 
   const storeUpdateCollectionValueBlendModeValue = useCallback(
-    (payload) => {
+    (payload: UpdateValueValuePayloadType) => {
       dispatch(updateCollectionValueBlendModeValue(payload));
     },
     [dispatch]

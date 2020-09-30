@@ -15,7 +15,5 @@ export default () => {
     Number(themeSettings.footer.appBarHeight.slice(0, -2))
   }px`;
 
-  const combineProps = { editPanelUpperMargin };
-
-  return <GlEdit {...combineProps} />;
+  return <GlEdit editPanelUpperMargin={editPanelUpperMargin} />;
 };

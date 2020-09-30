@@ -11,7 +11,7 @@ type Props = {
   collapseIn?: boolean;
 };
 
-const CollectionPanel = (props: Props) => {
+const CollectionPanel: React.FC<Props> = (props) => {
   const { children, collapseIn } = props;
   const theme = useTheme();
 

@@ -42,7 +42,7 @@ export const glUVName = `uv`;
 /**
  * シェーダー描画部分を担当する関数
  */
-const GlView: React.FC<Props> = (props: Props) => {
+const GlView: React.FC<Props> = (props) => {
   const { glSettings, multiCollectionData, storedMediaState } = props;
 
   /**

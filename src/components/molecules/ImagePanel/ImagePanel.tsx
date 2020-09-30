@@ -16,7 +16,7 @@ export type Props = {
   storedImageValue: collectionValueImageType | collectionValueImageType[];
 };
 
-const ImagePanel: React.FC<Props> = (props: Props) => {
+const ImagePanel: React.FC<Props> = (props) => {
   const { storedMediaData, storedImageValue } = props;
   const [imagePanelOpen, setImagePanelOpen] = useState(false);
   const [imageBoxWidth] = useState<number>(250);

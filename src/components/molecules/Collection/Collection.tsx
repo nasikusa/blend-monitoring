@@ -80,7 +80,7 @@ export const RawCollectionDataContext = React.createContext<
 /**
  * 単一のコレクションコンポーネント
  */
-const Collection: React.FC<Props> = (props: Props) => {
+const Collection: React.FC<Props> = (props) => {
   const {
     /* ,updateVisibility */
     rawCollectionData,
@@ -350,7 +350,7 @@ const Collection: React.FC<Props> = (props: Props) => {
             透過度パネル
           </CollectionPanelTitle>
           <CollectionPanelContent>
-            <CustomSliderContainer rawCollectionData={rawCollectionData} />
+            <CustomSliderContainer />
           </CollectionPanelContent>
         </>
       </CollectionPanel>

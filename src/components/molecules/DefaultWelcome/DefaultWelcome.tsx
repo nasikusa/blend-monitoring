@@ -25,7 +25,7 @@ const descriptionStyle = css`
   white-space: pre;
 `;
 
-const DefaultWelcome = () => {
+const DefaultWelcome: React.FC = () => {
   const theme = useTheme();
   return (
     <Grid container justify="center" alignItems="center" css={fullStyle}>
