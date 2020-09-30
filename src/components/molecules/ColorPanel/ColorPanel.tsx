@@ -168,6 +168,7 @@ const ColorPanel: React.FC<Props> = (props) => {
     setIsBigSketchPickerSize(!isBigSketchPickerSize);
   }, [setIsBigSketchPickerSize, isBigSketchPickerSize]);
 
+  // TODO: isShowがfalseになっているものをまた機能を回復させてtrueにしたいです
   const customIconButtonData: {
     labelTitle: string;
     iconType: IconTypeTypes;
@@ -178,13 +179,13 @@ const ColorPanel: React.FC<Props> = (props) => {
       labelTitle: '新しいカラーを追加',
       iconType: 'colorPanelAdd',
       handleFunction: handleAddNewColor,
-      isShow: true,
+      isShow: Array.isArray(rawCollectionData.innerItemId),
     },
     {
       labelTitle: '選択しているカラーを削除',
       iconType: 'colorPanelDelete',
       handleFunction: handleRemoveColor,
-      isShow: true,
+      isShow: Array.isArray(rawCollectionData.innerItemId),
     },
     {
       labelTitle: 'カラーをソート',
