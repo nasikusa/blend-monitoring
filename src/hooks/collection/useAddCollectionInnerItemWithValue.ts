@@ -12,9 +12,11 @@ import { addItem as addCollectionItem } from 'stores/collection/collectionItem';
 /* eslint-enable import/no-unresolved */
 
 /**
+ * collectionItemを追加し、新しい値を適用させるためのhook
+ * *useRawCollectionが正常に動くケースでのみ動くため注意してください。*
  * @todo: 現状、rawCollectionDataに依存しているので、もしかしたら問題になるかも...
  */
-const useAddCollectionInnerItem = () => {
+const useAddCollectionInnerItemWithValue = () => {
   const dispatch = useDispatch();
   const rawCollectionData = useRawCollection();
 
@@ -57,6 +59,7 @@ const useAddCollectionInnerItem = () => {
   const targetCollectionValueId = uuidv4();
 
   // TODO: targetIndexの型を入れたい
+  // TODO: optionsのtargetIndexが index であった場合に、追加でoptionsが必要です
   return (
     targetValue: string | number | boolean,
     options = {
@@ -129,4 +132,4 @@ const useAddCollectionInnerItem = () => {
   };
 };
 
-export default useAddCollectionInnerItem;
+export default useAddCollectionInnerItemWithValue;
