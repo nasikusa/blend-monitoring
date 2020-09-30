@@ -9,18 +9,20 @@ import HelpIcon from '@material-ui/icons/Help';
 import PhotoLibraryIcon from '@material-ui/icons/PhotoLibrary';
 import FilterNoneIcon from '@material-ui/icons/FilterNone';
 
-import { CollectionTypeType } from '../../../types/collection/collectionData';
+/* eslint-disable import/no-unresolved */
+import { CollectionTypeType } from 'types/collection/collectionData';
+/* eslint-enable import/no-unresolved */
 
-interface PropsInterface {
+type Props = {
   collectionType: CollectionTypeType;
   iconProps?: any;
-}
+};
 
 /**
  * コレクションのタイプから、アイコン画像DOMを返却す
  * @todo singleColorとsingleColorMultiBlendsのアイコンが若干わかりにくいので直したいです..
  */
-export default function CollectionMainIcon(props: PropsInterface) {
+const CollectionMainIcon: React.FC<Props> = (props) => {
   const { collectionType, iconProps } = props;
   switch (collectionType) {
     case 'singleImage':
@@ -40,8 +42,10 @@ export default function CollectionMainIcon(props: PropsInterface) {
     default:
       return <HelpIcon {...iconProps} />;
   }
-}
+};
 
 CollectionMainIcon.defaultProps = {
   iconProps: {},
 };
+
+export default CollectionMainIcon;

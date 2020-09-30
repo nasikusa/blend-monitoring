@@ -5,7 +5,7 @@ type Props = {
   children: React.ReactNode;
 };
 
-const CollectionPanelContent = (props: Props) => {
+const CollectionPanelContent: React.FC<Props> = (props) => {
   const { children } = props;
   return <Box ml={4}>{children}</Box>;
 };

@@ -1,8 +1,15 @@
 import React from 'react';
-import HeaderContainer from '../../../container/HeaderContainer';
-import FooterContainer from '../../../container/FooterContainer';
 
-export default (props: any) => {
+/* eslint-disable import/no-unresolved */
+import HeaderContainer from 'containers/HeaderContainer';
+import FooterContainer from 'containers/FooterContainer';
+/* eslint-enable import/no-unresolved */
+
+type Props = {
+  body: React.ReactNode;
+};
+
+const PageTemplate: React.FC<Props> = (props) => {
   const { body } = props;
 
   return (
@@ -13,3 +20,5 @@ export default (props: any) => {
     </div>
   );
 };
+
+export default PageTemplate;

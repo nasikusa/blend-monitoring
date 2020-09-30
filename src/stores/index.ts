@@ -3,7 +3,6 @@ import { configureStore } from '@reduxjs/toolkit';
 // import undoable from 'redux-undo';
 
 import glSettingsReducer from './general/glSettings';
-import collectionDataReducer from '../types/collection/collectionData';
 import themeSettingsReducer from './general/themeSettings';
 import blendModeOrderReducer from './blendMode/blendModeOrder';
 import storedMediaReducer from './image/storedMedia';
@@ -21,7 +20,6 @@ import currentSceneCollectionReducer from './collection/currentSceneCollection';
 
 const reducer = combineReducers({
   glSettings: glSettingsReducer,
-  collectionData: collectionDataReducer,
   themeSettings: themeSettingsReducer,
   blendModeOrder: blendModeOrderReducer,
   storedMedia: storedMediaReducer,

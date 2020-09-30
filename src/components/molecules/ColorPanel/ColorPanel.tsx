@@ -1,17 +1,18 @@
 import React, { useState, useCallback } from 'react';
-import { batch } from 'react-redux';
 import Grid from '@material-ui/core/Grid';
 import Box from '@material-ui/core/Box';
 // import Button from '@material-ui/core/Button';
-import { v4 as uuidv4 } from 'uuid';
 import { debounce } from 'lodash';
 
+/* eslint-disable import/no-unresolved */
+import ColorModalContainer from 'containers/ColorModalContainer';
+import { collectionValueColorType } from 'stores/collection/collectionValueColor';
+import { CollectionCategoryType } from 'stores/collection/collection';
+/* eslint-enable import/no-unresolved */
+
 import CustomSketchPicker from '../../atoms/CustomSketchPicker';
-import ColorModalContainer from '../../../container/ColorModalContainer';
 import ColorBox from '../../atoms/ColorBox';
 import ColorBoxGroup from '../ColorBoxGroup';
-import { collectionValueColorType } from '../../../stores/collection/collectionValueColor';
-import { CollectionCategoryType } from '../../../stores/collection/collection';
 import CustomIconButton from '../CustomIconButton';
 import { IconTypeTypes } from '../../atoms/Icon';
 
@@ -29,10 +30,8 @@ type Props = {
   storedColorValue: collectionValueColorType | collectionValueColorType[];
   rawCollectionData: CollectionCategoryType;
   storeUpdateCollectionValueColorValue: any;
-  storeAddCollectionValueColor: any;
-  storeAddCollectionItem: any;
-  storeAddCollectionInnerItem: any;
   storeDeleteCollectionInnerItem: any;
+  storeAddCollectionInnerItemWithValue: any;
   stockRemoveColor: any;
   stockAddColor: any;
 };
@@ -41,16 +40,14 @@ type Props = {
  * カラーパネルコンポーネント
  * @todo ピッカーのデフォルトプリセットカラーの設定
  */
-const ColorPanel: React.FC<Props> = (props: Props) => {
+const ColorPanel: React.FC<Props> = (props) => {
   const {
     stockedColorData,
     storedColorValue,
     rawCollectionData,
     storeUpdateCollectionValueColorValue,
-    storeAddCollectionValueColor,
-    storeAddCollectionItem,
-    storeAddCollectionInnerItem,
     storeDeleteCollectionInnerItem,
+    storeAddCollectionInnerItemWithValue,
     stockRemoveColor,
     stockAddColor,
   } = props;
@@ -134,37 +131,9 @@ const ColorPanel: React.FC<Props> = (props: Props) => {
    */
   const handleAddNewColor = useCallback(() => {
     if (Array.isArray(storedColorValue)) {
-      const targetCollectionItemId = uuidv4();
-      const targetCollectionValueId = uuidv4();
-      batch(() => {
-        if (rawCollectionData.type === 'multiColors') {
-          storeAddCollectionValueColor({
-            targetId: targetCollectionValueId,
-            targetNewValue: '#000000',
-          });
-          storeAddCollectionItem({
-            targetId: targetCollectionItemId,
-            targetType: rawCollectionData.roughType,
-            targetBlendModeId: rawCollectionData.defaultBlendModeId,
-            targetOpacityId: rawCollectionData.defaultOpacityId,
-            targetVisibilityId: rawCollectionData.defaultVisibilityId,
-            targetColorId: targetCollectionValueId,
-          });
-          storeAddCollectionInnerItem({
-            addIndexType: 'first',
-            targetInnerItemId: targetCollectionItemId,
-            targetId: rawCollectionData.id,
-          });
-        }
-      });
+      storeAddCollectionInnerItemWithValue('#000000');
     }
-  }, [
-    storedColorValue,
-    rawCollectionData,
-    storeAddCollectionValueColor,
-    storeAddCollectionItem,
-    storeAddCollectionInnerItem,
-  ]);
+  }, [storeAddCollectionInnerItemWithValue, storedColorValue]);
 
   /**
    * カラーを削除するアイコンをクリックしたときに発火する関数
@@ -199,6 +168,7 @@ const ColorPanel: React.FC<Props> = (props: Props) => {
     setIsBigSketchPickerSize(!isBigSketchPickerSize);
   }, [setIsBigSketchPickerSize, isBigSketchPickerSize]);
 
+  // TODO: isShowがfalseになっているものをまた機能を回復させてtrueにしたいです
   const customIconButtonData: {
     labelTitle: string;
     iconType: IconTypeTypes;
@@ -209,13 +179,13 @@ const ColorPanel: React.FC<Props> = (props: Props) => {
       labelTitle: '新しいカラーを追加',
       iconType: 'colorPanelAdd',
       handleFunction: handleAddNewColor,
-      isShow: true,
+      isShow: Array.isArray(rawCollectionData.innerItemId),
     },
     {
       labelTitle: '選択しているカラーを削除',
       iconType: 'colorPanelDelete',
       handleFunction: handleRemoveColor,
-      isShow: true,
+      isShow: Array.isArray(rawCollectionData.innerItemId),
     },
     {
       labelTitle: 'カラーをソート',
@@ -284,16 +254,13 @@ const ColorPanel: React.FC<Props> = (props: Props) => {
               <Box display="flex">
                 <ColorBoxGroup>
                   {Array.isArray(storedColorValue) &&
-                  !storedColorValue.every(
-                    (singleStoredColorValue) =>
-                      storedColorValue[0].value === singleStoredColorValue.value
-                  ) ? (
+                  rawCollectionData.type === 'multiColors' ? (
                     storedColorValue.map(
                       (singleGlobalStateColorData, currentIndex) => {
                         return (
                           <ColorBox
                             key={singleGlobalStateColorData.id}
-                            shapeType="circle"
+                            shapeType="round"
                             boxSize="medium"
                             activeStyleType={['scale', 'border']}
                             active={currentColorBoxKey === currentIndex}
@@ -307,14 +274,11 @@ const ColorPanel: React.FC<Props> = (props: Props) => {
                     )
                   ) : (
                     <ColorBox
-                      shapeType="circle"
+                      shapeType="round"
                       boxSize="medium"
                       color={colorValue}
-                      activeStyleType={['scale', 'border']}
-                      active
                       data-color={colorValue}
                       data-index={0}
-                      onClick={handleColorBoxSelect}
                     />
                   )}
                 </ColorBoxGroup>

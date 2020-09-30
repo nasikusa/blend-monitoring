@@ -1,6 +1,5 @@
 /* eslint no-nested-ternary: 0 */
 import React, { useState, useEffect, useCallback } from 'react';
-import { NIL as NIL_UUID } from 'uuid';
 import { makeStyles } from '@material-ui/core/styles';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
@@ -9,10 +8,10 @@ import IconButton from '@material-ui/core/IconButton';
 import { Typography } from '@material-ui/core';
 
 /* eslint-disable import/no-unresolved */
-import BlendModePanelContainer from 'container/BlendModePanelContainer';
-import ImagePanelContainer from 'container/ImagePanelContainer';
-import CustomSliderContainer from 'container/CustomSliderContainer';
-import ColorPanelContainer from 'container/ColorPanelContainer';
+import BlendModePanelContainer from 'containers/BlendModePanelContainer';
+import ImagePanelContainer from 'containers/ImagePanelContainer';
+import CustomSliderContainer from 'containers/CustomSliderContainer';
+import ColorPanelContainer from 'containers/ColorPanelContainer';
 import getCollectionsName from 'utils/collection/getCollectionsName';
 import { CollectionCategoryType } from 'stores/collection/collection';
 import { CollectionTypeType } from 'types/collection/collectionData';
@@ -22,6 +21,7 @@ import CollectionPanelTitle from 'components/atoms/CollectionPanelTitle';
 import CollectionPanel from 'components/molecules/CollectionPanel';
 import CustomIconButton from 'components/molecules/CustomIconButton';
 import CollectionPanelContent from 'components/molecules/CollectionPanelContent';
+import RawCollectionDataContext from 'contexts/RawCollectionDataContext';
 /* eslint-enable import/no-unresolved */
 import allCollectionTypeFunctionObject, {
   collectionObjectFunctionType,
@@ -61,26 +61,9 @@ const useStyles = makeStyles(() => ({
 }));
 
 /**
- * collectionデータ用のコンテクスト
- * @todo デフォルトを null かもしくは、サンプルデータにしたい
- */
-export const RawCollectionDataContext = React.createContext<
-  CollectionCategoryType
->({
-  id: NIL_UUID,
-  type: 'singleColor',
-  roughType: 'color',
-  innerItemId: NIL_UUID,
-  defaultOpacityId: NIL_UUID,
-  defaultBlendModeId: NIL_UUID,
-  defaultVisibilityId: NIL_UUID,
-  defaultColorId: NIL_UUID,
-});
-
-/**
  * 単一のコレクションコンポーネント
  */
-const Collection: React.FC<Props> = (props: Props) => {
+const Collection: React.FC<Props> = (props) => {
   const {
     /* ,updateVisibility */
     rawCollectionData,
@@ -350,7 +333,7 @@ const Collection: React.FC<Props> = (props: Props) => {
             透過度パネル
           </CollectionPanelTitle>
           <CollectionPanelContent>
-            <CustomSliderContainer rawCollectionData={rawCollectionData} />
+            <CustomSliderContainer />
           </CollectionPanelContent>
         </>
       </CollectionPanel>

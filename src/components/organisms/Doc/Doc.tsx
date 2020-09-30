@@ -2,16 +2,19 @@ import React from 'react';
 import ReactMarkdown from 'react-markdown';
 import Box from '@material-ui/core/Box';
 import { css } from '@emotion/core';
-import imageResouceSite from '../../../constants/image/imageResouceSite';
-import markdownStyle from '../../../styles/markdown/markdown';
-import developDepList from '../../../constants/develop/developDepList';
+
+/* eslint-disable import/no-unresolved */
+import imageResouceSite from 'constants/image/imageResouceSite';
+import markdownStyle from 'styles/markdown/markdown';
+import developDepList from 'constants/develop/developDepList';
+/* eslint-enable import/no-unresolved */
 
 const docStyle = css`
   height: calc(100vh - 100px);
   overflow-y: scroll;
 `;
 
-export default function Doc() {
+const Doc: React.FC = () => {
   const imageResouceSites = Object.keys(imageResouceSite)
     .map((siteData) => {
       // @ts-ignore
@@ -54,4 +57,6 @@ ${devListString}
       />
     </Box>
   );
-}
+};
+
+export default Doc;

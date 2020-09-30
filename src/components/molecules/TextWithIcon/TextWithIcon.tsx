@@ -9,7 +9,7 @@ type Props = {
   children: React.ReactNode;
 };
 
-const TextWithIcon = (props: Props) => {
+const TextWithIcon: React.FC<Props> = (props) => {
   const theme = useTheme();
   const { iconElement, children } = props;
   return (

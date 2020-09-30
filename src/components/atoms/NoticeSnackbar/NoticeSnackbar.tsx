@@ -5,7 +5,7 @@ type Props = {
   children: React.ReactElement;
 } & SnackbarProps;
 
-const NoticeSnackbar = (props: Props) => {
+const NoticeSnackbar: React.FC<Props> = (props) => {
   const { children } = props;
   return (
     <Snackbar

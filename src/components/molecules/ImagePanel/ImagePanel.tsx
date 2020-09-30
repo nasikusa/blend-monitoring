@@ -5,16 +5,18 @@ import Button from '@material-ui/core/Button';
 import GridList from '@material-ui/core/GridList';
 import GridListTile from '@material-ui/core/GridListTile';
 
-import MediaModalContainer from '../../../container/MediaModalContainer';
-import { StoredMediaStateType } from '../../../stores/image/storedMedia';
-import { collectionValueImageType } from '../../../stores/collection/collectionValueImage';
+/* eslint-disable import/no-unresolved */
+import MediaModalContainer from 'containers/MediaModalContainer';
+import { StoredMediaStateType } from 'stores/image/storedMedia';
+import { collectionValueImageType } from 'stores/collection/collectionValueImage';
+/* eslint-enable import/no-unresolved */
 
 export type Props = {
   storedMediaData: StoredMediaStateType;
   storedImageValue: collectionValueImageType | collectionValueImageType[];
 };
 
-const ImagePanel: React.FC<Props> = (props: Props) => {
+const ImagePanel: React.FC<Props> = (props) => {
   const { storedMediaData, storedImageValue } = props;
   const [imagePanelOpen, setImagePanelOpen] = useState(false);
   const [imageBoxWidth] = useState<number>(250);

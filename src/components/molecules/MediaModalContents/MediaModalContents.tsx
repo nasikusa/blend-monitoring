@@ -1,6 +1,4 @@
 import React from 'react';
-import { batch } from 'react-redux';
-import { v4 as uuidv4 } from 'uuid';
 import { css } from '@emotion/core';
 import Typography from '@material-ui/core/Typography';
 import Box from '@material-ui/core/Box';
@@ -9,15 +7,17 @@ import GridListTile from '@material-ui/core/GridListTile';
 import Tabs from '@material-ui/core/Tabs';
 import Tab from '@material-ui/core/Tab';
 import Button from '@material-ui/core/Button';
-import Icon from '../../atoms/Icon';
-import { CollectionCategoryType } from '../../../stores/collection/collection';
 
-import { StoredMediaStateType } from '../../../stores/image/storedMedia';
+/* eslint-disable import/no-unresolved */
+import { CollectionCategoryType } from 'stores/collection/collection';
+import { StoredMediaStateType } from 'stores/image/storedMedia';
 import {
   ImageRelatedGlCollectionType,
   GlCollectionTypeArray,
-} from '../../../types/collection/collectionData';
-import { collectionValueImageType } from '../../../stores/collection/collectionValueImage';
+} from 'types/collection/collectionData';
+import { collectionValueImageType } from 'stores/collection/collectionValueImage';
+/* eslint-enable import/no-unresolved */
+import Icon from '../../atoms/Icon';
 
 export type Props = {
   rawCollectionData: CollectionCategoryType;
@@ -35,16 +35,14 @@ export type Props = {
   collectionData: GlCollectionTypeArray;
   isBoxSmallFlag: boolean;
   isImageBigFlag: boolean;
-  storeAddCollectionValueImage: any;
-  storeAddCollectionItem: any;
-  storeAddCollectionInnerItem: any;
   storeDeleteCollectionInnerItem: any;
+  storeAddCollectionInnerItemWithValue: any;
 };
 
 interface TabPanelProps {
   children: React.ReactNode;
-  index: any;
-  value: any;
+  index: number;
+  value: number;
 }
 
 const tabsStyle = css`
@@ -85,7 +83,7 @@ function TabPanel(props: TabPanelProps) {
   );
 }
 
-export default function MediaModalContents(props: Props) {
+const MediaModalContents: React.FC<Props> = (props) => {
   const {
     storedMediaData,
     rawCollectionData,
@@ -94,10 +92,8 @@ export default function MediaModalContents(props: Props) {
     isBoxSmallFlag,
     isImageBigFlag,
     storeCollectionValueImageUpdateValue,
-    storeAddCollectionValueImage,
-    storeAddCollectionItem,
-    storeAddCollectionInnerItem,
     storeDeleteCollectionInnerItem,
+    storeAddCollectionInnerItemWithValue,
   } = props;
 
   const [tabValue, setTabValue] = React.useState(0);
@@ -125,29 +121,8 @@ export default function MediaModalContents(props: Props) {
         targetIdNewValue: targetImageID,
       });
     } else if (rawCollectionData.type === 'multiImages') {
-      const targetCollectionItemId = uuidv4();
-      const targetCollectionValueId = uuidv4();
       if (targetBoolValue) {
-        batch(() => {
-          storeAddCollectionValueImage({
-            targetId: targetCollectionValueId,
-            targetIdNewValue: targetImageID,
-          });
-
-          storeAddCollectionItem({
-            targetId: targetCollectionItemId,
-            targetType: rawCollectionData.roughType,
-            targetBlendModeId: rawCollectionData.defaultBlendModeId,
-            targetOpacityId: rawCollectionData.defaultOpacityId,
-            targetVisibilityId: rawCollectionData.defaultVisibilityId,
-            targetImageId: targetCollectionValueId,
-          });
-          storeAddCollectionInnerItem({
-            addIndexType: 'first',
-            targetInnerItemId: targetCollectionItemId,
-            targetId: rawCollectionData.id,
-          });
-        });
+        storeAddCollectionInnerItemWithValue(targetImageID);
       } else if (!targetBoolValue) {
         storeDeleteCollectionInnerItem({
           targetId: rawCollectionData.id,
@@ -264,4 +239,6 @@ export default function MediaModalContents(props: Props) {
       </TabPanel>
     </Box>
   );
-}
+};
+
+export default MediaModalContents;

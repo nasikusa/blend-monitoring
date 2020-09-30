@@ -5,16 +5,16 @@ import { RemoveScroll } from 'react-remove-scroll';
 import styled from '@emotion/styled';
 // import { Resizable } from 're-resizable';
 import { GlobalHotKeys } from 'react-hotkeys';
-
-// import Grid from '@material-ui/core/Grid';
 import Box from '@material-ui/core/Box';
 import { makeStyles, useTheme } from '@material-ui/core/styles';
 
-import GlEditContainer from '../../../container/GlEditContainer';
-import PageTemplateContainer from '../../../container/PageTemplateContainer';
-import DrawBoxContainer from '../../../container/DrawBoxContainer';
+/* eslint-disable import/no-unresolved */
+import GlEditContainer from 'containers/GlEditContainer';
+import PageTemplateContainer from 'containers/PageTemplateContainer';
+import DrawBoxContainer from 'containers/DrawBoxContainer';
+import GeneralFunctionsListContainer from 'containers/GeneralFunctionsListContainer';
+/* eslint-enable import/no-unresolved */
 import Doc from '../../organisms/Doc/Doc';
-import GeneralFunctionsListContainer from '../../../container/GeneralFunctionsListContainer';
 
 export type Props = Readonly<{
   updateSingleItemSize: any;
@@ -29,7 +29,7 @@ const CustomEmotionBox = styled(Box)``;
  * Editページコンポーネント
  * @param props
  */
-const Edit = (props: Props) => {
+const Edit: React.FC<Props> = (props) => {
   const {
     updateSingleItemSize,
     updateRowCount,

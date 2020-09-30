@@ -5,17 +5,18 @@ import Typography from '@material-ui/core/Typography';
 import Grid from '@material-ui/core/Grid';
 import { makeStyles, useTheme } from '@material-ui/core/styles';
 
+/* eslint-disable import/no-unresolved */
+import { AppNameHasAccent } from 'constants/general/appConstantSettings';
+import { ThemeSettingsType } from 'stores/general/themeSettings';
+/* eslint-enable import/no-unresolved */
 import HeaderInfos from '../../molecules/HeaderInfos';
 import LogoImage from '../../atoms/LogoImage';
-import { AppNameHasAccent } from '../../../constants/general/appConstantSettings';
-
-import { ThemeSettingsType } from '../../../stores/general/themeSettings';
 
 export type Props = {
   themeSettings: ThemeSettingsType;
 };
 
-export default function (props: Props) {
+const Header: React.FC<Props> = (props) => {
   const { themeSettings } = props;
   const [isShowHeaderInfos] = useState(true);
   const theme = useTheme();
@@ -52,4 +53,6 @@ export default function (props: Props) {
       </Toolbar>
     </AppBar>
   );
-}
+};
+
+export default Header;

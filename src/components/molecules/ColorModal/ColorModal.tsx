@@ -15,13 +15,14 @@ import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Switch from '@material-ui/core/Switch';
 import Snackbar from '@material-ui/core/Snackbar';
 
-import getResiedImageData from '../../../utils/image/getResizedImageData';
-import { GlCollectionTypeArray } from '../../../types/collection/collectionData';
-import MediaModalContentsContainer from '../../../container/MediaModalContentsContainer';
-import createStoredMediaItemObject from '../../../utils/image/createStoredMediaItemObject';
+/* eslint-disable import/no-unresolved */
+import getResiedImageData from 'utils/image/getResizedImageData';
+import { GlCollectionTypeArray } from 'types/collection/collectionData';
+import MediaModalContentsContainer from 'containers/MediaModalContentsContainer';
+import createStoredMediaItemObject from 'utils/image/createStoredMediaItemObject';
+import { StoredMediaStateType } from 'stores/image/storedMedia';
+/* eslint-enable import/no-unresolved */
 import CustomAlert from '../../atoms/CustomAlert';
-
-import { StoredMediaStateType } from '../../../stores/image/storedMedia';
 
 export type Props = {
   collectionData: GlCollectionTypeArray;
@@ -83,7 +84,7 @@ const DraggablePaperComponent = (paperProps: any) => {
  * @todo モーダル背景の透過度を調整できるようにしたい
  * @todo モーダルバツボタンがタッチデバイスで対応できてない(なぜ？)
  */
-export default (props: Props) => {
+const ColorModal: React.FC<Props> = (props) => {
   const classes = useStyles();
   const { modalOpen, setModalOpen, addMediaData } = props;
   const [onDropSnackBarOpenFlag, setOnDropSnackBarOpenFlag] = useState(false);
@@ -270,3 +271,5 @@ export default (props: Props) => {
     </>
   );
 };
+
+export default ColorModal;

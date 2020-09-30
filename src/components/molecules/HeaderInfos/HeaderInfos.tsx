@@ -7,11 +7,13 @@ import Divider from '@material-ui/core/Divider';
 import Typography from '@material-ui/core/Typography';
 import Link from '@material-ui/core/Link';
 import IconButton from '@material-ui/core/IconButton';
+
+/* eslint-disable import/no-unresolved */
+import { AppSiteInfo } from 'constants/general/appConstantSettings';
+/* eslint-enable import/no-unresolved */
 import Icon from '../../atoms/Icon';
 
-import { AppSiteInfo } from '../../../constants/general/appConstantSettings';
-
-export default () => {
+const HeaderInfo: React.FC = () => {
   const theme = useTheme();
   const stringSpacingStyle = css`
     padding-left: ${theme.spacing() * 2}px;
@@ -61,3 +63,5 @@ export default () => {
     </Box>
   );
 };
+
+export default HeaderInfo;

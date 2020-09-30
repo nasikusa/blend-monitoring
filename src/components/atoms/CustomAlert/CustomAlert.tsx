@@ -15,7 +15,7 @@ const deleteCloseButton = css`
   }
 `;
 
-const CustomAlert = (props: Props) => {
+const CustomAlert: React.FC<Props> = (props) => {
   const { disableClose } = props;
   return (
     <MuiAlert

@@ -6,11 +6,16 @@ import Grid from '@material-ui/core/Grid';
 import Input from '@material-ui/core/Input';
 import { debounce } from 'lodash';
 
+/* eslint-disable import/no-unresolved */
+import {
+  collectionValueOpacityType,
+  UpdateValuePayloadType,
+} from 'stores/collection/collectionValueOpacity';
+/* eslint-enable import/no-unresolved */
 import Icon from '../../atoms/Icon';
-import { collectionValueOpacityType } from '../../../stores/collection/collectionValueOpacity';
 
 type Props = {
-  storeUpdateOpacityValue: any;
+  storeUpdateOpacityValue: (payload: UpdateValuePayloadType) => void;
   storedOpacityValue: collectionValueOpacityType | collectionValueOpacityType[];
   isShowInputArea?: boolean;
   isShowBeforeIcon?: boolean;
@@ -42,7 +47,7 @@ const useStyles = makeStyles({
  * 透過度のスライダーコンポーネント
  * @todo Opacityだけでなく汎用性をもたせたい
  */
-const OpacitySlider: React.FC<Props> = (props: Props) => {
+const OpacitySlider: React.FC<Props> = (props) => {
   const classes = useStyles();
   const {
     storeUpdateOpacityValue,
@@ -148,11 +153,10 @@ const OpacitySlider: React.FC<Props> = (props: Props) => {
    */
   const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setOpacityState(event.target.value === '' ? 0 : Number(event.target.value));
-    if (storeUpdateOpacityValue != null) {
+    if (storeUpdateOpacityValue != null && event.target.value !== '') {
       storeUpdateOpacityValue({
         targetId: targetOpacityValueId,
-        targetIdNewValue:
-          event.target.value === '' ? '' : Number(event.target.value) * 0.01,
+        targetIdNewValue: Number(event.target.value) * 0.01,
       });
     }
   };
@@ -179,33 +183,6 @@ const OpacitySlider: React.FC<Props> = (props: Props) => {
       }
     }
   };
-
-  /**
-   * スライダーを一定時間保持しつづけるとreduxのglobalのstateが更新される関数
-   */
-  // useEffect(() => {
-  //   if (sliderStopCheckTime !== null && sliderStopCheckTime !== undefined) {
-  //     const timer = setTimeout(() => {
-  //       if (tempOnChangeState === true && tempOnChangeCommitState === false) {
-  //         if (storeUpdateOpacityValue != null) {
-  //           storeUpdateOpacityValue({
-  //             targetId: targetOpacityValueId,
-  //             targetIdNewValue: opacityState * 0.01,
-  //           });
-  //         }
-  //       }
-  //     }, sliderStopCheckTime);
-  //     return () => clearTimeout(timer);
-  //   }
-  //   return () => {};
-  // }, [
-  //   tempOnChangeState,
-  //   tempOnChangeCommitState,
-  //   storeUpdateOpacityValue,
-  //   opacityState,
-  //   targetOpacityValueId,
-  //   sliderStopCheckTime,
-  // ]);
 
   return (
     <Grid container spacing={2}>

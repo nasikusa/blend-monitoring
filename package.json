@@ -1,6 +1,6 @@
 {
   "name": "blend-monitoring",
-  "version": "0.2.0-alpha.3",
+  "version": "0.2.0-alpha.4",
   "private": true,
   "dependencies": {
     "@emotion/babel-preset-css-prop": "^10.0.27",
@@ -164,7 +164,7 @@
     "@storybook/addon-storyshots": "^6.0.21",
     "@storybook/node-logger": "^6.0.22",
     "@storybook/preset-create-react-app": "^3.1.4",
-    "@storybook/react": "^6.0.21",
+    "@storybook/react": "^6.0.22",
     "@testing-library/jest-dom": "^4.2.4",
     "@testing-library/react": "^9.3.2",
     "@testing-library/user-event": "^7.1.2",
@@ -216,7 +216,7 @@
     "eslint-plugin-import": "^2.22.0",
     "eslint-plugin-jsx-a11y": "^6.3.1",
     "eslint-plugin-prettier": "^3.1.4",
-    "eslint-plugin-react": "7.21.0",
+    "eslint-plugin-react": "7.21.2",
     "eslint-plugin-react-hooks": "^2.5.1",
     "file-loader": "6.1.0",
     "fs-extra": "^9.0.1",

@@ -18,7 +18,7 @@ export type Props = {
 /**
  * ロゴ画像コンポーネント
  */
-const LogoImage = (props: Props) => {
+const LogoImage: React.FC<Props> = (props) => {
   const { square, size, dense, bgColor, imageSrc, noBg, noSpace } = props;
   const logoImageBackStyle = css`
     background-color: ${noBg ? 'rgba(0,0,0,0)' : bgColor || '#232323'};

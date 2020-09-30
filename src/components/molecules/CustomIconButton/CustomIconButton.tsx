@@ -27,7 +27,7 @@ type Props = Partial<{
   children: React.ReactText;
 }>;
 
-const CustomIconButton = (props: Props) => {
+const CustomIconButton: React.FC<Props> = (props) => {
   const {
     type = 'functionHelp',
     buttonType = 'iconButton',

@@ -1,6 +1,4 @@
-import React from 'react';
-import { v4 as uuidv4 } from 'uuid';
-import { batch } from 'react-redux';
+import React, { useContext } from 'react';
 import { css } from '@emotion/core';
 import { makeStyles, createStyles } from '@material-ui/core/styles';
 import FormControl from '@material-ui/core/FormControl';
@@ -9,32 +7,29 @@ import FormControlLabel from '@material-ui/core/FormControlLabel';
 import FormLabel from '@material-ui/core/FormLabel';
 import Checkbox from '@material-ui/core/Checkbox';
 import Divider from '@material-ui/core/Divider';
-import Icon from '../../atoms/Icon';
 
+/* eslint-disable import/no-unresolved */
 import {
   readyBlendModeArray,
   readyBlendModeData,
-} from '../../../utils/blendMode/getBlendModeData';
-import { collectionValueBlendModeType } from '../../../stores/collection/collectionValueBlendMode';
-import { CollectionCategoryType } from '../../../stores/collection/collection';
+} from 'utils/blendMode/getBlendModeData';
+import { collectionValueBlendModeType } from 'stores/collection/collectionValueBlendMode';
+import { CollectionCategoryType } from 'stores/collection/collection';
+import BlendModalSettingsContext from 'contexts/BlendModalSettingsContext';
+
+/* eslint-enable import/no-unresolved */
+import Icon from '../../atoms/Icon';
 
 export type Props = {
   blendModalMode: 'single' | 'multi';
   storeUpdateCollectionValueBlendModeValue: any;
-  storeAddCollectionValueBlendMode: any;
-  storeAddCollectionItem: any;
-  storeAddCollectionInnerItem: any;
   storeDeleteCollectionInnerItem: any;
+  storeAddCollectionInnerItemWithValue: any;
   blendModeOrder: string[];
   rawCollectionData: CollectionCategoryType;
   storedBlendModeValue:
     | collectionValueBlendModeType
     | collectionValueBlendModeType[];
-  canDisplayNormalBlend: boolean;
-  canDisplayLighterBlend: boolean;
-  canDisplayLighterAndDarkerBlend: boolean;
-  canDisplayDarkerBlend: boolean;
-  canDisplayMathBlend: boolean;
 };
 
 /**
@@ -83,31 +78,28 @@ const mathBlendMode = readyBlendModeArray.filter(
   (singleBlendModeData) => singleBlendModeData.type.base === `math`
 );
 
-// const hslBlendMode = readyBlendModeArray.filter(
-//   (singleBlendModeData) => singleBlendModeData.type.base === `hsl`
-// );
-
 /**
  * 描画モードモーダルの中のコンテンツのReactFC
  */
-export default function BlendModalContents(props: Props) {
+const BlendModalContents: React.FC<Props> = (props) => {
   const classes = useStyles();
   const {
     blendModalMode,
     storeUpdateCollectionValueBlendModeValue,
-    storeAddCollectionValueBlendMode,
-    storeAddCollectionItem,
-    storeAddCollectionInnerItem,
     storeDeleteCollectionInnerItem,
+    storeAddCollectionInnerItemWithValue,
     rawCollectionData,
     storedBlendModeValue,
+  } = props;
+  const {
     canDisplayNormalBlend,
     canDisplayLighterBlend,
     canDisplayLighterAndDarkerBlend,
     canDisplayDarkerBlend,
     canDisplayMathBlend,
-  } = props;
+  } = useContext(BlendModalSettingsContext);
 
+  // もらったデータを配列に変換している
   const blendModeStateObjectArray: collectionValueBlendModeType[] = (() => {
     if (!Array.isArray(storedBlendModeValue)) {
       return [storedBlendModeValue];
@@ -126,8 +118,8 @@ export default function BlendModalContents(props: Props) {
   );
 
   /**
-   * チェックボックスグループの脇に区切り用の線を入れるかどうかのbool値。
-   * 最初のグループのみ線を入れない。
+   * en: A bool value for whether to put a delimiter line next to the checkbox group.
+   * ja: チェックボックスグループの脇に区切り用の線を入れるかどうかのbool値。
    */
   let isInsertDividerStateFlag = false;
 
@@ -157,11 +149,6 @@ export default function BlendModalContents(props: Props) {
       name: 'math',
       flagState: canDisplayMathBlend,
     },
-    // {
-    //   data: hslBlendMode,
-    //   name: 'hsl',
-    //   flagState: true,
-    // },
   ];
 
   const handleSingleChange = (
@@ -187,40 +174,8 @@ export default function BlendModalContents(props: Props) {
     event: React.ChangeEvent<HTMLInputElement>,
     targetIndex: number
   ): void => {
-    const targetCollectionItemId = uuidv4();
-    const targetCollectionValueId = uuidv4();
     if (event.target.checked) {
-      batch(() => {
-        storeAddCollectionValueBlendMode({
-          targetId: targetCollectionValueId,
-          targetNewValue: event.target.name,
-        });
-        if (rawCollectionData.type === 'singleColorMultiBlends') {
-          storeAddCollectionItem({
-            targetId: targetCollectionItemId,
-            targetType: rawCollectionData.roughType,
-            targetBlendModeId: targetCollectionValueId,
-            targetOpacityId: rawCollectionData.defaultOpacityId,
-            targetVisibilityId: rawCollectionData.defaultVisibilityId,
-            targetColorId: rawCollectionData.defaultColorId,
-          });
-        }
-        if (rawCollectionData.type === 'singleImageMultiBlends') {
-          storeAddCollectionItem({
-            targetId: targetCollectionItemId,
-            targetType: rawCollectionData.roughType,
-            targetBlendModeId: targetCollectionValueId,
-            targetOpacityId: rawCollectionData.defaultOpacityId,
-            targetVisibilityId: rawCollectionData.defaultVisibilityId,
-            targetImageId: rawCollectionData.defaultImageId,
-          });
-        }
-        storeAddCollectionInnerItem({
-          addIndexType: 'first',
-          targetInnerItemId: targetCollectionItemId,
-          targetId: rawCollectionData.id,
-        });
-      });
+      storeAddCollectionInnerItemWithValue(event.target.name);
     } else if (!event.target.checked) {
       storeDeleteCollectionInnerItem({
         targetId: rawCollectionData.id,
@@ -335,4 +290,6 @@ export default function BlendModalContents(props: Props) {
   );
 
   return <div className={classes.root}>{checkBoxesElementArray}</div>;
-}
+};
+
+export default BlendModalContents;
