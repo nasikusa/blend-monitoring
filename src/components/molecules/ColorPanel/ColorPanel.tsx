@@ -254,16 +254,13 @@ const ColorPanel: React.FC<Props> = (props) => {
               <Box display="flex">
                 <ColorBoxGroup>
                   {Array.isArray(storedColorValue) &&
-                  !storedColorValue.every(
-                    (singleStoredColorValue) =>
-                      storedColorValue[0].value === singleStoredColorValue.value
-                  ) ? (
+                  rawCollectionData.type === 'multiColors' ? (
                     storedColorValue.map(
                       (singleGlobalStateColorData, currentIndex) => {
                         return (
                           <ColorBox
                             key={singleGlobalStateColorData.id}
-                            shapeType="circle"
+                            shapeType="round"
                             boxSize="medium"
                             activeStyleType={['scale', 'border']}
                             active={currentColorBoxKey === currentIndex}
@@ -277,14 +274,11 @@ const ColorPanel: React.FC<Props> = (props) => {
                     )
                   ) : (
                     <ColorBox
-                      shapeType="circle"
+                      shapeType="round"
                       boxSize="medium"
                       color={colorValue}
-                      activeStyleType={['scale', 'border']}
-                      active
                       data-color={colorValue}
                       data-index={0}
-                      onClick={handleColorBoxSelect}
                     />
                   )}
                 </ColorBoxGroup>
