@@ -82,10 +82,11 @@ const OpacitySlider: React.FC<Props> = (props) => {
    * デフォルトのカラーをグローバルのstateから取得する
    */
   const defaultOpacityValue = (): number => {
-    if (Array.isArray(storedOpacityValue)) {
+    if (Array.isArray(storedOpacityValue) && storedOpacityValue.length > 0) {
       return storedOpacityValue[0].value * 100;
     }
     if (
+      !Array.isArray(storedOpacityValue) &&
       typeof storedOpacityValue.value === 'number' &&
       !Number.isNaN(storedOpacityValue.value)
     ) {
