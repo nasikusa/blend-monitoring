@@ -6,7 +6,7 @@ import MediaModal from 'components/molecules/MediaModal';
 import { addMediaData as addMediaDataAction } from 'stores/image/storedMedia';
 /* eslint-enable import/no-unresolved */
 
-export default (props: any) => {
+const MediaModalContainer: React.FC<any> = (props) => {
   const dispatch = useDispatch();
 
   const addMediaData = React.useCallback(
@@ -23,3 +23,5 @@ export default (props: any) => {
 
   return <MediaModal {...combineProps} />;
 };
+
+export default MediaModalContainer;

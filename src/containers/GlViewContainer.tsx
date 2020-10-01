@@ -10,7 +10,7 @@ import useCurrentSceneCollection from 'hooks/collection/useCurrentSceneCollectio
 /**
  * glViewコンポーネントのcontainerコンポーネント
  */
-export default () => {
+const GlViewContainer: React.FC = () => {
   const glSettings = useSelector((state: AppState) => state.glSettings);
   const multiCollectionData = useCurrentSceneCollection();
   const storedMediaState = useSelector((state: AppState) => state.storedMedia);
@@ -23,3 +23,5 @@ export default () => {
 
   return <GlView {...combineProps} />;
 };
+
+export default GlViewContainer;

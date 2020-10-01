@@ -6,7 +6,7 @@ import { AppState } from 'stores/index';
 import CollectionFunctionMenuButton from 'components/atoms/CollectionFunctionMenuButton';
 /* eslint-enable import/no-unresolved */
 
-const CollectionFunctionMenuButtonContainer = (props: any) => {
+const CollectionFunctionMenuButtonContainer: React.FC<any> = (props) => {
   const globalTooltopEnterDelayTime = useSelector(
     (state: AppState) => state.glSettings.tooltipEnterDelayTime,
     shallowEqual

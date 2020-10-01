@@ -7,7 +7,7 @@ import useCurrentSceneCollection from 'hooks/collection/useCurrentSceneCollectio
 import ColorModal from 'components/molecules/ColorModal';
 /* eslint-enable import/no-unresolved */
 
-export default (props: any) => {
+const ColorModalContainer: React.FC<any> = (props) => {
   const collectionData = useCurrentSceneCollection();
   const storedMediaData = useSelector(
     (state: AppState) => state.storedMedia,
@@ -22,3 +22,5 @@ export default (props: any) => {
 
   return <ColorModal {...combineProps} />;
 };
+
+export default ColorModalContainer;

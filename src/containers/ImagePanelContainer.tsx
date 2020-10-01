@@ -7,7 +7,7 @@ import ImagePanel from 'components/molecules/ImagePanel';
 import { AppState } from 'stores/index';
 /* eslint-enable import/no-unresolved */
 
-const ImagePanelContainer = () => {
+const ImagePanelContainer: React.FC = () => {
   const collectionIdContext = useCollectionIdContext();
 
   const storedImageValue = useCollectionValueImage(

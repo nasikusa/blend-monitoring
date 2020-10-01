@@ -11,7 +11,7 @@ import { StoredMediaStateItemType } from 'stores/image/storedMedia';
 import useCurrentSceneCollection from 'hooks/collection/useCurrentSceneCollection';
 /* eslint-enable import/no-unresolved */
 
-export default () => {
+const DrawItemContainer: React.FC = () => {
   const glItemOrder = useContext(GlItemOrderContext);
   // const collectionData = useSelector((state: AppState) => state.collectionData);
   const collectionData = useCurrentSceneCollection();
@@ -57,3 +57,5 @@ export default () => {
 
   return <DrawItem {...combineProps} />;
 };
+
+export default DrawItemContainer;

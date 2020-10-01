@@ -19,7 +19,7 @@ type Props = {
   blendModalMode: 'single' | 'multi';
 };
 
-const BlendModalContentsContainer = (props: Props) => {
+const BlendModalContentsContainer: React.FC<Props> = (props) => {
   const blendModeOrder = useSelector((state: AppState) => state.blendModeOrder);
 
   const rawCollectionData = useRawCollection();

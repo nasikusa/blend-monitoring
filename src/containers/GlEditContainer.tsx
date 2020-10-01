@@ -6,7 +6,7 @@ import { AppState } from 'stores/index';
 import GlEdit from 'components/organisms/GlEdit';
 /* eslint-enable import/no-unresolved */
 
-export default () => {
+const GlEditContainer: React.FC = () => {
   const themeSettings = useSelector((state: AppState) => state.themeSettings);
 
   const editPanelUpperMargin = `${
@@ -17,3 +17,5 @@ export default () => {
 
   return <GlEdit editPanelUpperMargin={editPanelUpperMargin} />;
 };
+
+export default GlEditContainer;

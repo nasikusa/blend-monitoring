@@ -15,7 +15,7 @@ import { addValue as addCollectionColor } from 'stores/collection/collectionValu
 import { addValue as addCollectionImage } from 'stores/collection/collectionValueImage';
 /* eslint-enable import/no-unresolved */
 
-const CreateCollectionPanelContainer = (props: any) => {
+const CreateCollectionPanelContainer: React.FC<any> = (props) => {
   const dispatch = useDispatch();
   const presetCollectionValue = useSelector(
     (state: AppState) => state.presetCollectionValue,

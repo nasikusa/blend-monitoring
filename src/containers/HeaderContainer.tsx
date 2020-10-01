@@ -9,9 +9,11 @@ import { AppState } from 'stores/index';
 /**
  * ヘッダーコンポーネントのcontainer
  */
-export default () => {
+const HeaderContainer: React.FC = () => {
   const themeSettings = useSelector((state: AppState) => state.themeSettings);
   const combineProps = { themeSettings };
 
   return <Header {...combineProps} />;
 };
+
+export default HeaderContainer;

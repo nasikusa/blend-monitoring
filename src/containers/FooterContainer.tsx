@@ -11,7 +11,7 @@ import useCurrentSceneCollection from 'hooks/collection/useCurrentSceneCollectio
 /**
  * フッターコンポーネントのcontainer
  */
-export default () => {
+const FooterContainer: React.FC = () => {
   // const collectionData = useSelector((state: AppState) => state.collectionData);
   const collectionData = useCurrentSceneCollection();
   const storedMediaData = useSelector(
@@ -29,3 +29,5 @@ export default () => {
 
   return <Footer {...combineProps} />;
 };
+
+export default FooterContainer;

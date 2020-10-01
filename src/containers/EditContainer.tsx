@@ -10,7 +10,7 @@ import {
 import { AppState } from 'stores/index';
 /* eslint-enable import/no-unresolved */
 
-export default () => {
+const EditContainer: React.FC = () => {
   const themeSettings = useSelector((state: AppState) => state.themeSettings);
   const appSettings = useSelector((state: AppState) => state.glSettings);
   const { isShowDocArea } = appSettings;
@@ -44,3 +44,5 @@ export default () => {
 
   return <Edit {...combineProps} />;
 };
+
+export default EditContainer;

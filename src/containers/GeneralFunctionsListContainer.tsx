@@ -18,7 +18,7 @@ import { replaceAll as replaceAllBlendModeOrderAction } from 'stores/blendMode/b
 import { replaceAll as replaceAllStockedColorsAction } from 'stores/color/stockedColors';
 /* eslint-enable import/no-unresolved */
 
-export default () => {
+const GeneralFunctionsListContainer: React.FC = () => {
   const dispatch = useDispatch();
 
   const removeAllStoredMedia = React.useCallback(() => {
@@ -82,3 +82,5 @@ export default () => {
 
   return <GeneralFunctionsList {...combineProps} />;
 };
+
+export default GeneralFunctionsListContainer;

@@ -8,7 +8,7 @@ import { useCollectionValueBlendMode } from 'hooks/collection/useCollectionValue
 import useCollectionIdContext from 'hooks/context/useCollectionIdContext';
 /* eslint-enable import/no-unresolved */
 
-const BlendModePanelContainer = () => {
+const BlendModePanelContainer: React.FC = () => {
   const collectionIdContextValue = useCollectionIdContext();
 
   const storedBlendModeValue = useCollectionValueBlendMode(

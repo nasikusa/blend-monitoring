@@ -6,7 +6,7 @@ import { AppState } from 'stores/index';
 import CollectionList from 'components/molecules/CollectionList';
 /* eslint-enable import/no-unresolved */
 
-const CollectionListContainer = () => {
+const CollectionListContainer: React.FC = () => {
   const currentSceneCollectionId = useSelector(
     (state: AppState) => state.currentSceneCollection.currentId
   );

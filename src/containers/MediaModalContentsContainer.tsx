@@ -12,7 +12,7 @@ import useAddCollectionInnerItemWithValue from 'hooks/collection/useAddCollectio
 /* eslint-enable import/no-unresolved */
 import MediaModalContents from '../components/molecules/MediaModalContents';
 
-const MediaModalContentsContainer = (props: any) => {
+const MediaModalContentsContainer: React.FC<any> = (props) => {
   const storedMediaData = useSelector(
     (state: AppState) => state.storedMedia,
     shallowEqual

@@ -18,7 +18,7 @@ import ColorPanel from 'components/molecules/ColorPanel';
 import useAddCollectionInnerItemWithValue from 'hooks/collection/useAddCollectionInnerItemWithValue';
 /* eslint-enable import/no-unresolved */
 
-export default () => {
+const ColorPanelContainer: React.FC = () => {
   const rawCollectionData = useRawCollection();
 
   const stockedColorData = useSelector(
@@ -74,3 +74,5 @@ export default () => {
 
   return <ColorPanel {...combineProps} />;
 };
+
+export default ColorPanelContainer;
