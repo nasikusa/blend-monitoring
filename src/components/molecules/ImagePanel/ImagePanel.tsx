@@ -41,6 +41,7 @@ const ImagePanel: React.FC<Props> = (props) => {
               >
                 {storedImageValue != null &&
                 Array.isArray(storedImageValue) &&
+                storedImageValue.length > 0 &&
                 !storedImageValue.every(
                   (singleStoredImageValue) =>
                     singleStoredImageValue.value === storedImageValue[0].value
@@ -60,7 +61,8 @@ const ImagePanel: React.FC<Props> = (props) => {
                       );
                     }
                   )
-                ) : Array.isArray(storedImageValue) ? (
+                ) : Array.isArray(storedImageValue) &&
+                  storedImageValue.length > 0 ? (
                   <GridListTile key={storedImageValue[0]?.value} cols={1}>
                     <img
                       src={
@@ -70,7 +72,7 @@ const ImagePanel: React.FC<Props> = (props) => {
                       alt="thumbnailImage"
                     />
                   </GridListTile>
-                ) : (
+                ) : !Array.isArray(storedImageValue) ? (
                   <GridListTile key={storedImageValue.value} cols={1}>
                     <img
                       src={
@@ -79,6 +81,8 @@ const ImagePanel: React.FC<Props> = (props) => {
                       alt="thumbnailImage"
                     />
                   </GridListTile>
+                ) : (
+                  ''
                 )}
               </GridList>
             </Box>

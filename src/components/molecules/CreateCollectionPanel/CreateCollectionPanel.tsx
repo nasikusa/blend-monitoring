@@ -195,7 +195,7 @@ const CreateCollectionPanel: React.FC<Props> = (props) => {
             type: 'multiImages',
             roughType: 'image',
             defaultBlendModeId: uuidObject.blendMode,
-            innerItemId: [uuidObject.collectionItem],
+            innerItemId: [],
           });
           break;
         default:
