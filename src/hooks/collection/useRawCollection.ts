@@ -1,5 +1,6 @@
 import { useContext } from 'react';
-import { useSelector, shallowEqual } from 'react-redux';
+import deepEqual from 'fast-deep-equal';
+import { useSelector } from 'react-redux';
 /* eslint-disable import/no-unresolved */
 import { AppState } from 'stores/index';
 import CollectionIdContext from 'contexts/CollectionIdContext';
@@ -22,7 +23,7 @@ const useRawCollection = (targetCollectionId: string | null = null) => {
           ? targetCollectionId
           : collectionIdContextValue.collectionId
       ],
-    shallowEqual
+    (prevState, nextState) => deepEqual(prevState, nextState)
   );
   return rawCollectionData;
 };

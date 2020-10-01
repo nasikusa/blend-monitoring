@@ -8,6 +8,7 @@ import IconButton from '@material-ui/core/IconButton';
 import { Typography } from '@material-ui/core';
 
 /* eslint-disable import/no-unresolved */
+import CollectionIdContext from 'contexts/CollectionIdContext';
 import BlendModePanelContainer from 'containers/BlendModePanelContainer';
 import ImagePanelContainer from 'containers/ImagePanelContainer';
 import CustomSliderContainer from 'containers/CustomSliderContainer';
@@ -28,6 +29,8 @@ import allCollectionTypeFunctionObject, {
 } from './allCollectionTypeFunctionObject';
 
 export type Props = {
+  collectionId: string;
+  collectionOrder: number;
   storeDeleteSceneCollectionInnerItem: any;
   currentSceneCollectionData: any;
   rawCollectionData: CollectionCategoryType;
@@ -66,6 +69,8 @@ const useStyles = makeStyles(() => ({
 const Collection: React.FC<Props> = (props) => {
   const {
     /* ,updateVisibility */
+    collectionId,
+    collectionOrder,
     rawCollectionData,
     currentSceneCollectionData,
     // storeDeleteCollection,
@@ -274,110 +279,121 @@ const Collection: React.FC<Props> = (props) => {
   ];
 
   return (
-    <RawCollectionDataContext.Provider value={rawCollectionData}>
-      <ListItem className={classes.main} id={rawCollectionData.id}>
-        <ListItemIcon>
-          <CollectionMainIcon collectionType={rawCollectionData.type} />
-        </ListItemIcon>
-        <ListItemText
-          primary={
-            <Typography>
-              {getCollectionsName(rawCollectionData.type)}
-            </Typography>
+    <CollectionIdContext.Provider
+      value={{
+        collectionId,
+        collectionOrder,
+      }}
+    >
+      <RawCollectionDataContext.Provider value={rawCollectionData}>
+        <ListItem className={classes.main} id={rawCollectionData.id}>
+          <ListItemIcon>
+            <CollectionMainIcon collectionType={rawCollectionData.type} />
+          </ListItemIcon>
+          <ListItemText
+            primary={
+              <Typography>
+                {getCollectionsName(rawCollectionData.type)}
+              </Typography>
+            }
+            secondary={
+              <>
+                {secondaryAreaElementDataArray.map(
+                  (singleSecondaryElemData) => (
+                    <CustomIconButton
+                      key={singleSecondaryElemData.typeName}
+                      type={singleSecondaryElemData.typeName}
+                      labelTitle={singleSecondaryElemData.labelTitleValue}
+                      buttonType="iconButton"
+                      active={singleSecondaryElemData.isActiveFlag}
+                      danger={singleSecondaryElemData.isDangerFlag}
+                      disable={
+                        singleSecondaryElemData.taretFunctionProp != null
+                          ? !collectionTypeFunctionObject[
+                              singleSecondaryElemData.taretFunctionProp
+                            ]
+                          : true
+                      }
+                      onClick={singleSecondaryElemData.clickFunction}
+                      // buttonProps={{
+                      //   fullWidth: true,
+                      // }}
+                    >
+                      {singleSecondaryElemData.labelTitleValue}
+                    </CustomIconButton>
+                  )
+                )}
+              </>
+            }
+          />
+          <IconButton
+            edge="end"
+            aria-label="開閉ボタン"
+            onClick={handleExpandClick}
+          >
+            {allOpenFlag ? (
+              <Icon type="functionExpandLess" fontSize="large" />
+            ) : (
+              <Icon type="functionExpandMore" fontSize="large" />
+            )}
+          </IconButton>
+        </ListItem>
+        <CollectionPanel
+          collapseIn={opacityOpenFlag && collectionTypeFunctionObject.opacity}
+        >
+          <>
+            <CollectionPanelTitle beforeIcon={<Icon type="opacityPanel" />}>
+              透過度パネル
+            </CollectionPanelTitle>
+            <CollectionPanelContent>
+              <CustomSliderContainer />
+            </CollectionPanelContent>
+          </>
+        </CollectionPanel>
+        <CollectionPanel
+          collapseIn={
+            blendModeOpenFlag && collectionTypeFunctionObject.blendMode
           }
-          secondary={
+        >
+          <>
+            <CollectionPanelTitle beforeIcon={<Icon type="blendModePanel" />}>
+              描画モードパネル
+            </CollectionPanelTitle>
+            <CollectionPanelContent>
+              <BlendModePanelContainer />
+            </CollectionPanelContent>
+          </>
+        </CollectionPanel>
+        {rawCollectionData.roughType === 'color' && (
+          <CollectionPanel
+            collapseIn={colorOpenFlag && collectionTypeFunctionObject.color}
+          >
             <>
-              {secondaryAreaElementDataArray.map((singleSecondaryElemData) => (
-                <CustomIconButton
-                  key={singleSecondaryElemData.typeName}
-                  type={singleSecondaryElemData.typeName}
-                  labelTitle={singleSecondaryElemData.labelTitleValue}
-                  buttonType="iconButton"
-                  active={singleSecondaryElemData.isActiveFlag}
-                  danger={singleSecondaryElemData.isDangerFlag}
-                  disable={
-                    singleSecondaryElemData.taretFunctionProp != null
-                      ? !collectionTypeFunctionObject[
-                          singleSecondaryElemData.taretFunctionProp
-                        ]
-                      : true
-                  }
-                  onClick={singleSecondaryElemData.clickFunction}
-                  // buttonProps={{
-                  //   fullWidth: true,
-                  // }}
-                >
-                  {singleSecondaryElemData.labelTitleValue}
-                </CustomIconButton>
-              ))}
+              <CollectionPanelTitle beforeIcon={<Icon type="colorPanel" />}>
+                カラーパネル
+              </CollectionPanelTitle>
+              <CollectionPanelContent>
+                <ColorPanelContainer />
+              </CollectionPanelContent>
             </>
-          }
-        />
-        <IconButton
-          edge="end"
-          aria-label="開閉ボタン"
-          onClick={handleExpandClick}
-        >
-          {allOpenFlag ? (
-            <Icon type="functionExpandLess" fontSize="large" />
-          ) : (
-            <Icon type="functionExpandMore" fontSize="large" />
-          )}
-        </IconButton>
-      </ListItem>
-      <CollectionPanel
-        collapseIn={opacityOpenFlag && collectionTypeFunctionObject.opacity}
-      >
-        <>
-          <CollectionPanelTitle beforeIcon={<Icon type="opacityPanel" />}>
-            透過度パネル
-          </CollectionPanelTitle>
-          <CollectionPanelContent>
-            <CustomSliderContainer />
-          </CollectionPanelContent>
-        </>
-      </CollectionPanel>
-      <CollectionPanel
-        collapseIn={blendModeOpenFlag && collectionTypeFunctionObject.blendMode}
-      >
-        <>
-          <CollectionPanelTitle beforeIcon={<Icon type="blendModePanel" />}>
-            描画モードパネル
-          </CollectionPanelTitle>
-          <CollectionPanelContent>
-            <BlendModePanelContainer />
-          </CollectionPanelContent>
-        </>
-      </CollectionPanel>
-      {rawCollectionData.roughType === 'color' && (
-        <CollectionPanel
-          collapseIn={colorOpenFlag && collectionTypeFunctionObject.color}
-        >
-          <>
-            <CollectionPanelTitle beforeIcon={<Icon type="colorPanel" />}>
-              カラーパネル
-            </CollectionPanelTitle>
-            <CollectionPanelContent>
-              <ColorPanelContainer />
-            </CollectionPanelContent>
-          </>
-        </CollectionPanel>
-      )}
-      {rawCollectionData.roughType === 'image' && (
-        <CollectionPanel
-          collapseIn={imageOpenFlag && collectionTypeFunctionObject.image}
-        >
-          <>
-            <CollectionPanelTitle beforeIcon={<Icon type="imagePanel" />}>
-              画像パネル
-            </CollectionPanelTitle>
-            <CollectionPanelContent>
-              <ImagePanelContainer />
-            </CollectionPanelContent>
-          </>
-        </CollectionPanel>
-      )}
-    </RawCollectionDataContext.Provider>
+          </CollectionPanel>
+        )}
+        {rawCollectionData.roughType === 'image' && (
+          <CollectionPanel
+            collapseIn={imageOpenFlag && collectionTypeFunctionObject.image}
+          >
+            <>
+              <CollectionPanelTitle beforeIcon={<Icon type="imagePanel" />}>
+                画像パネル
+              </CollectionPanelTitle>
+              <CollectionPanelContent>
+                <ImagePanelContainer />
+              </CollectionPanelContent>
+            </>
+          </CollectionPanel>
+        )}
+      </RawCollectionDataContext.Provider>
+    </CollectionIdContext.Provider>
   );
 };
 

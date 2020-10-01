@@ -5,7 +5,6 @@ import List from '@material-ui/core/List';
 import Divider from '@material-ui/core/Divider';
 
 /* eslint-disable import/no-unresolved */
-import CollectionIdContext from 'contexts/CollectionIdContext';
 import CollectionContainer from 'containers/CollectionContainer';
 import CreateCollectionPanelContainer from 'containers/CreateCollectionPanelContainer';
 import { SceneCollectionsType } from 'stores/collection/sceneCollection';
@@ -39,15 +38,11 @@ const CollectionList: React.FC<Props> = (props) => {
                 currentIndex: number
               ) => {
                 return (
-                  <CollectionIdContext.Provider
-                    value={{
-                      collectionId: currentCollectionId,
-                      collectionOrder: currentIndex,
-                    }}
+                  <CollectionContainer
                     key={currentCollectionId}
-                  >
-                    <CollectionContainer collectionId={currentCollectionId} />
-                  </CollectionIdContext.Provider>
+                    collectionOrder={currentIndex}
+                    collectionId={currentCollectionId}
+                  />
                 );
               }
             )

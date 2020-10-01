@@ -1,4 +1,4 @@
-import React, { useCallback } from 'react';
+import React, { useCallback, memo } from 'react';
 import { useDispatch, useSelector, shallowEqual } from 'react-redux';
 /* eslint-disable import/no-unresolved */
 import { AppState } from 'stores';
@@ -8,9 +8,10 @@ import Collection from 'components/molecules/Collection';
 
 type Props = {
   collectionId: string;
+  collectionOrder: number;
 };
 
-const CollectionContainer = (props: Props) => {
+const CollectionContainer: React.FC<Props> = (props) => {
   const { collectionId } = props;
   const rawCollectionData = useSelector(
     (state: AppState) => state.collection[collectionId],
@@ -44,10 +45,14 @@ const CollectionContainer = (props: Props) => {
     storeDeleteSceneCollectionInnerItem,
     currentSceneCollectionData,
     rawCollectionData,
+    ...props,
     // updateVisibility,
   };
 
   return <Collection {...combineProps} />;
 };
 
-export default CollectionContainer;
+export default memo(
+  CollectionContainer,
+  (prevProps, nextProps) => prevProps.collectionId === nextProps.collectionId
+);
