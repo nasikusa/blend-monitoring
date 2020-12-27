@@ -1,3 +1,6 @@
+/**
+ * @file 描画モードのモーダルコンポーネントファイル
+ */
 /* eslint no-nested-ternary: 0 */
 import React, { useState, useCallback, Dispatch, SetStateAction } from 'react';
 import { makeStyles, createStyles } from '@material-ui/core/styles';
@@ -284,6 +287,9 @@ const BlendModal: React.FC<Props> = (props) => {
     [handleExcludeSwitchBlend, canDisplayMathBlend]
   );
 
+  /**
+   * 表示非表示のボタンの情報オブジェクトの個別アイテムの型
+   */
   type modalSwitchInfoType = {
     name: string;
     type: IconTypeTypes;
