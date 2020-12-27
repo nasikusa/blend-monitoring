@@ -194,7 +194,7 @@ const blendModeData: BlendModeDataType = {
     exist: {
       adobe: true,
       css: false,
-      blender: true,
+      blender: false,
     },
   },
   colorDodge: {
@@ -226,7 +226,7 @@ const blendModeData: BlendModeDataType = {
     exist: {
       adobe: true,
       css: false,
-      blender: true,
+      blender: false,
     },
   },
   pinLight: {
@@ -242,7 +242,7 @@ const blendModeData: BlendModeDataType = {
     exist: {
       adobe: true,
       css: false,
-      blender: true,
+      blender: false,
     },
   },
   overlay: {
@@ -290,7 +290,7 @@ const blendModeData: BlendModeDataType = {
     exist: {
       adobe: true,
       css: false,
-      blender: true,
+      blender: false,
     },
   },
   softLight: {
@@ -322,7 +322,7 @@ const blendModeData: BlendModeDataType = {
     exist: {
       adobe: true,
       css: true,
-      blender: true,
+      blender: false,
     },
   },
   hardMix: {
@@ -338,7 +338,7 @@ const blendModeData: BlendModeDataType = {
     exist: {
       adobe: true,
       css: false,
-      blender: true,
+      blender: false,
     },
   },
   darken: {
@@ -386,7 +386,7 @@ const blendModeData: BlendModeDataType = {
     exist: {
       adobe: true,
       css: false,
-      blender: true,
+      blender: false,
     },
   },
   colorBurn: {
@@ -418,7 +418,7 @@ const blendModeData: BlendModeDataType = {
     exist: {
       adobe: true,
       css: false,
-      blender: true,
+      blender: false,
     },
   },
   hue: {
@@ -485,7 +485,7 @@ const blendModeData: BlendModeDataType = {
     exist: {
       adobe: true,
       css: true,
-      blender: true,
+      blender: false,
     },
     ready: false,
   },
@@ -518,7 +518,7 @@ const blendModeData: BlendModeDataType = {
     exist: {
       adobe: true,
       css: true,
-      blender: true,
+      blender: false,
     },
   },
   subtract: {
