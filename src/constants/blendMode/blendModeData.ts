@@ -1,3 +1,10 @@
+/**
+ * @file 描画モードの定数情報とその型のファイル
+ */
+
+/**
+ * 描画モードのおおまかな分類の型
+ */
 export type BlendModeRoughTypeType =
   | 'blendModeNormal'
   | 'blendModeBrightnessMinus'
@@ -5,8 +12,14 @@ export type BlendModeRoughTypeType =
   | 'blendModeBrightnessPlus'
   | 'blendModeMath';
 
+/**
+ * おおまかな描画モードの分類の中の、ノーマルな描画モードの内容の型
+ */
 export type BasicBlendModeType = 'normal';
 
+/**
+ * おおまかな描画モードの分類の中の、暗くなる描画モードの内容の型
+ */
 export type BrightnessPlusBlendModesType =
   | 'lighten'
   | 'screen'
@@ -14,6 +27,9 @@ export type BrightnessPlusBlendModesType =
   | 'colorDodge'
   | 'lighterColor';
 
+/**
+ * おおまかな描画モードの分類の中の、 明るくなる & 暗くなる描画モードの内容の型
+ */
 export type BrightnessPlusMinusBlendModesType =
   | 'pinLight'
   | 'overlay'
@@ -23,6 +39,9 @@ export type BrightnessPlusMinusBlendModesType =
   | 'hardLight'
   | 'hardMix';
 
+/**
+ * おおまかな描画モードの分類の中の、明るくなる描画モードの内容の型
+ */
 export type BrightnessMinusBlendModesType =
   | 'darken'
   | 'multiply'
@@ -30,14 +49,23 @@ export type BrightnessMinusBlendModesType =
   | 'colorBurn'
   | 'darkerColor';
 
+/**
+ * おおまかな描画モードの分類の中の、HSLを使用した描画モードの内容の型
+ */
 export type HSLBlendModesType = 'hue' | 'color' | 'saturation' | 'luminosity';
 
+/**
+ * BlendModeRoughTypeType の分類の中の、数学の計算を使用した描画モードの内容の型
+ */
 export type MathBlendModesType =
   | 'difference'
   | 'exclusion'
   | 'subtract'
   | 'divide';
 
+/**
+ * すべての描画モードの内容の型
+ */
 export type BlendModesType =
   | BasicBlendModeType
   | BrightnessPlusBlendModesType
@@ -46,10 +74,19 @@ export type BlendModesType =
   | HSLBlendModesType
   | MathBlendModesType;
 
+/**
+ * 明るさ以外の描画モードの分類の型
+ */
 export type BlendModeTypeBaseType = 'other' | 'normal' | 'hsl' | 'math';
 
+/**
+ * 明るさの描画モードの分類の型
+ */
 export type BlendModeTypeBrightnessType = null | '+' | '+-' | '-';
 
+/**
+ * 数学の計算の描画モードの分類の型
+ */
 export type BlendModeTypeMathType =
   | null
   | 'IndividualComparison'
@@ -58,6 +95,9 @@ export type BlendModeTypeMathType =
   | 'Division'
   | 'TotalComparison';
 
+/**
+ * 描画モード情報オブジェクトの個々のアイテムの型
+ */
 export type BlendModeDataItemType = {
   mode: BlendModesType;
   type: {
@@ -78,6 +118,9 @@ export type BlendModeDataItemType = {
   ready?: boolean;
 };
 
+/**
+ * 描画モードの情報オブジェクトの型
+ */
 export type BlendModeDataType = {
   [key in BlendModesType]: BlendModeDataItemType;
 };
