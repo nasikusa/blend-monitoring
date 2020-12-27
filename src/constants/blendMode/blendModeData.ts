@@ -193,7 +193,7 @@ const blendModeData: BlendModeDataType = {
     },
     exist: {
       adobe: true,
-      css: true,
+      css: false,
       blender: true,
     },
   },
@@ -225,7 +225,7 @@ const blendModeData: BlendModeDataType = {
     },
     exist: {
       adobe: true,
-      css: true,
+      css: false,
       blender: true,
     },
   },
@@ -241,7 +241,7 @@ const blendModeData: BlendModeDataType = {
     },
     exist: {
       adobe: true,
-      css: true,
+      css: false,
       blender: true,
     },
   },
@@ -273,7 +273,7 @@ const blendModeData: BlendModeDataType = {
     },
     exist: {
       adobe: true,
-      css: true,
+      css: false,
       blender: true,
     },
   },
@@ -289,7 +289,7 @@ const blendModeData: BlendModeDataType = {
     },
     exist: {
       adobe: true,
-      css: true,
+      css: false,
       blender: true,
     },
   },
@@ -337,7 +337,7 @@ const blendModeData: BlendModeDataType = {
     },
     exist: {
       adobe: true,
-      css: true,
+      css: false,
       blender: true,
     },
   },
@@ -385,7 +385,7 @@ const blendModeData: BlendModeDataType = {
     },
     exist: {
       adobe: true,
-      css: true,
+      css: false,
       blender: true,
     },
   },
@@ -417,7 +417,7 @@ const blendModeData: BlendModeDataType = {
     },
     exist: {
       adobe: true,
-      css: true,
+      css: false,
       blender: true,
     },
   },
@@ -467,7 +467,7 @@ const blendModeData: BlendModeDataType = {
     },
     exist: {
       adobe: true,
-      css: true,
+      css: false,
       blender: true,
     },
     ready: false,
@@ -533,7 +533,7 @@ const blendModeData: BlendModeDataType = {
     },
     exist: {
       adobe: true,
-      css: true,
+      css: false,
       blender: true,
     },
   },
@@ -549,7 +549,7 @@ const blendModeData: BlendModeDataType = {
     },
     exist: {
       adobe: true,
-      css: true,
+      css: false,
       blender: true,
     },
   },
