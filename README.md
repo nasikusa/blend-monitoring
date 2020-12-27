@@ -34,6 +34,58 @@ yarn start
 
 ### コマンド
 
+**yarn start**
+
+開発サーバーを起動し、コードの変更があれば、サーバーをリロードするスクリプト
+
+**yarn start-wdur**
+
+基本的には、 `yarn start` と一緒だが、`why-did-you-render` パッケージを使用して、無駄な再レンダリングが起きていないかも監視する (ブラウザのコンソールに表示される)
+
+**yarn build**
+
+本番環境用のコードをビルドする
+
+**yarn build-profile**
+
+上の `yarn build`とほぼ変わらないが、追加で React DevToolsにて、パフォーマンス用の`profile`機能を、本番環境でも使用できるようにして、ビルドする
+
+**yarn build-doc**
+
+ドキュメントをビルドする
+
+**yarn build-storybook**
+
+ストーリーブックのページをビルドする
+
+**yarn build-all**
+
+アプリ、ドキュメント、ストーリーブックのファイルをビルドする
+
+**yarn view-doc**
+
+ドキュメントページを開く
+
+**yarn view-storybook**
+
+ストーリーブックページを開く
+
+**yarn view-build**
+
+ビルドしたアプリを開く
+
+**yarn view-all**
+
+ドキュメント、アプリ、ストーリーブックを開く
+
+**yarn view-site**
+
+よく使用するユーティリティ系のサイトを開くコマンド
+
+**yarn view-site-doc**
+
+よく使用するドキュメントのサイトを開くコマンド
+
 ## 今後やりたいこと
 
 * Reactバージョンアップ
