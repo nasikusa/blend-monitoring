@@ -128,7 +128,7 @@ export type BlendModeDataType = {
 export type PartialBlendModeDataType = Partial<BlendModeDataType>;
 /**
  * @see: https://twitter.com/optie_f/status/974263251071418368
- * @todo: existの箇所の対応(今はすべてtrueになってるので意味がない)
+ * @todo: クリタなどの他のソフトウェアについても、描画モードが存在するかのboolの値を追加してもよいのかなと感じている
  */
 const blendModeData: BlendModeDataType = {
   normal: {
