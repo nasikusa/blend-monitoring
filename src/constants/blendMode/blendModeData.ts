@@ -132,14 +132,14 @@ export type PartialBlendModeDataType = Partial<BlendModeDataType>;
  */
 const blendModeData: BlendModeDataType = {
   normal: {
-    mode: `normal`,
+    mode: 'normal',
     type: {
-      base: `other`,
+      base: 'other',
       brightness: null,
       math: null,
     },
     name: {
-      ja: `通常`,
+      ja: '通常',
     },
     exist: {
       adobe: true,
@@ -148,14 +148,14 @@ const blendModeData: BlendModeDataType = {
     },
   },
   lighten: {
-    mode: `lighten`,
+    mode: 'lighten',
     type: {
-      base: `normal`,
-      brightness: `+`,
-      math: `IndividualComparison`,
+      base: 'normal',
+      brightness: '+',
+      math: 'IndividualComparison',
     },
     name: {
-      ja: `比較(明)`,
+      ja: '比較(明)',
     },
     exist: {
       adobe: true,
@@ -164,14 +164,14 @@ const blendModeData: BlendModeDataType = {
     },
   },
   screen: {
-    mode: `screen`,
+    mode: 'screen',
     type: {
-      base: `normal`,
-      brightness: `+`,
-      math: `Multiplication`,
+      base: 'normal',
+      brightness: '+',
+      math: 'Multiplication',
     },
     name: {
-      ja: `スクリーン`,
+      ja: 'スクリーン',
     },
     exist: {
       adobe: true,
@@ -180,16 +180,16 @@ const blendModeData: BlendModeDataType = {
     },
   },
   linearDodge: {
-    mode: `linearDodge`,
+    mode: 'linearDodge',
     type: {
-      base: `normal`,
-      brightness: `+`,
-      math: `Addition`,
+      base: 'normal',
+      brightness: '+',
+      math: 'Addition',
     },
     name: {
-      equalJa: `加算`,
-      ja: `覆い焼きリニア(加算)`,
-      equalEn: `Add`,
+      equalJa: '加算',
+      ja: '覆い焼きリニア(加算)',
+      equalEn: 'Add',
     },
     exist: {
       adobe: true,
@@ -198,14 +198,14 @@ const blendModeData: BlendModeDataType = {
     },
   },
   colorDodge: {
-    mode: `colorDodge`,
+    mode: 'colorDodge',
     type: {
-      base: `normal`,
-      brightness: `+`,
-      math: `Division`,
+      base: 'normal',
+      brightness: '+',
+      math: 'Division',
     },
     name: {
-      ja: `覆い焼きカラー`,
+      ja: '覆い焼きカラー',
     },
     exist: {
       adobe: true,
@@ -214,14 +214,14 @@ const blendModeData: BlendModeDataType = {
     },
   },
   lighterColor: {
-    mode: `lighterColor`,
+    mode: 'lighterColor',
     type: {
-      base: `normal`,
-      brightness: `+`,
-      math: `TotalComparison`,
+      base: 'normal',
+      brightness: '+',
+      math: 'TotalComparison',
     },
     name: {
-      ja: `カラー比較(明)`,
+      ja: 'カラー比較(明)',
     },
     exist: {
       adobe: true,
@@ -230,14 +230,14 @@ const blendModeData: BlendModeDataType = {
     },
   },
   pinLight: {
-    mode: `pinLight`,
+    mode: 'pinLight',
     type: {
-      base: `normal`,
-      brightness: `+-`,
-      math: `IndividualComparison`,
+      base: 'normal',
+      brightness: '+-',
+      math: 'IndividualComparison',
     },
     name: {
-      ja: `ピンライト`,
+      ja: 'ピンライト',
     },
     exist: {
       adobe: true,
@@ -246,14 +246,14 @@ const blendModeData: BlendModeDataType = {
     },
   },
   overlay: {
-    mode: `overlay`,
+    mode: 'overlay',
     type: {
-      base: `normal`,
-      brightness: `+-`,
-      math: `Multiplication`,
+      base: 'normal',
+      brightness: '+-',
+      math: 'Multiplication',
     },
     name: {
-      ja: `オーバーレイ`,
+      ja: 'オーバーレイ',
     },
     exist: {
       adobe: true,
@@ -262,14 +262,14 @@ const blendModeData: BlendModeDataType = {
     },
   },
   linearLight: {
-    mode: `linearLight`,
+    mode: 'linearLight',
     type: {
-      base: `normal`,
-      brightness: `+-`,
-      math: `Addition`,
+      base: 'normal',
+      brightness: '+-',
+      math: 'Addition',
     },
     name: {
-      ja: `リニアライト`,
+      ja: 'リニアライト',
     },
     exist: {
       adobe: true,
@@ -278,14 +278,14 @@ const blendModeData: BlendModeDataType = {
     },
   },
   vividLight: {
-    mode: `vividLight`,
+    mode: 'vividLight',
     type: {
-      base: `normal`,
-      brightness: `+-`,
-      math: `Division`,
+      base: 'normal',
+      brightness: '+-',
+      math: 'Division',
     },
     name: {
-      ja: `ビビッドライト`,
+      ja: 'ビビッドライト',
     },
     exist: {
       adobe: true,
@@ -294,14 +294,14 @@ const blendModeData: BlendModeDataType = {
     },
   },
   softLight: {
-    mode: `softLight`,
+    mode: 'softLight',
     type: {
-      base: `normal`,
-      brightness: `+-`,
-      math: `TotalComparison`,
+      base: 'normal',
+      brightness: '+-',
+      math: 'TotalComparison',
     },
     name: {
-      ja: `ソフトライト`,
+      ja: 'ソフトライト',
     },
     exist: {
       adobe: true,
@@ -310,14 +310,14 @@ const blendModeData: BlendModeDataType = {
     },
   },
   hardLight: {
-    mode: `hardLight`,
+    mode: 'hardLight',
     type: {
-      base: `normal`,
-      brightness: `+-`,
-      math: `Multiplication`,
+      base: 'normal',
+      brightness: '+-',
+      math: 'Multiplication',
     },
     name: {
-      ja: `ハードライト`,
+      ja: 'ハードライト',
     },
     exist: {
       adobe: true,
@@ -326,14 +326,14 @@ const blendModeData: BlendModeDataType = {
     },
   },
   hardMix: {
-    mode: `hardMix`,
+    mode: 'hardMix',
     type: {
-      base: `normal`,
-      brightness: `+-`,
-      math: `Division`,
+      base: 'normal',
+      brightness: '+-',
+      math: 'Division',
     },
     name: {
-      ja: `ハードミックス`,
+      ja: 'ハードミックス',
     },
     exist: {
       adobe: true,
@@ -342,14 +342,14 @@ const blendModeData: BlendModeDataType = {
     },
   },
   darken: {
-    mode: `darken`,
+    mode: 'darken',
     type: {
-      base: `normal`,
-      brightness: `-`,
-      math: `IndividualComparison`,
+      base: 'normal',
+      brightness: '-',
+      math: 'IndividualComparison',
     },
     name: {
-      ja: `比較(暗)`,
+      ja: '比較(暗)',
     },
     exist: {
       adobe: true,
@@ -358,14 +358,14 @@ const blendModeData: BlendModeDataType = {
     },
   },
   multiply: {
-    mode: `multiply`,
+    mode: 'multiply',
     type: {
-      base: `normal`,
-      brightness: `-`,
-      math: `Multiplication`,
+      base: 'normal',
+      brightness: '-',
+      math: 'Multiplication',
     },
     name: {
-      ja: `乗算`,
+      ja: '乗算',
     },
     exist: {
       adobe: true,
@@ -374,14 +374,14 @@ const blendModeData: BlendModeDataType = {
     },
   },
   linearBurn: {
-    mode: `linearBurn`,
+    mode: 'linearBurn',
     type: {
-      base: `normal`,
-      brightness: `-`,
-      math: `Addition`,
+      base: 'normal',
+      brightness: '-',
+      math: 'Addition',
     },
     name: {
-      ja: `焼き込みリニア`,
+      ja: '焼き込みリニア',
     },
     exist: {
       adobe: true,
@@ -390,14 +390,14 @@ const blendModeData: BlendModeDataType = {
     },
   },
   colorBurn: {
-    mode: `colorBurn`,
+    mode: 'colorBurn',
     type: {
-      base: `normal`,
-      brightness: `-`,
-      math: `Division`,
+      base: 'normal',
+      brightness: '-',
+      math: 'Division',
     },
     name: {
-      ja: `焼き込みカラー`,
+      ja: '焼き込みカラー',
     },
     exist: {
       adobe: true,
@@ -406,14 +406,14 @@ const blendModeData: BlendModeDataType = {
     },
   },
   darkerColor: {
-    mode: `darkerColor`,
+    mode: 'darkerColor',
     type: {
-      base: `normal`,
-      brightness: `-`,
-      math: `TotalComparison`,
+      base: 'normal',
+      brightness: '-',
+      math: 'TotalComparison',
     },
     name: {
-      ja: `カラー比較(暗)`,
+      ja: 'カラー比較(暗)',
     },
     exist: {
       adobe: true,
@@ -422,14 +422,14 @@ const blendModeData: BlendModeDataType = {
     },
   },
   hue: {
-    mode: `hue`,
+    mode: 'hue',
     type: {
-      base: `hsl`,
+      base: 'hsl',
       brightness: null,
       math: null,
     },
     name: {
-      ja: `色相`,
+      ja: '色相',
     },
     exist: {
       adobe: true,
@@ -439,14 +439,14 @@ const blendModeData: BlendModeDataType = {
     ready: false,
   },
   color: {
-    mode: `color`,
+    mode: 'color',
     type: {
-      base: `hsl`,
+      base: 'hsl',
       brightness: null,
       math: null,
     },
     name: {
-      ja: `カラー`,
+      ja: 'カラー',
     },
     exist: {
       adobe: true,
@@ -456,14 +456,14 @@ const blendModeData: BlendModeDataType = {
     ready: false,
   },
   saturation: {
-    mode: `saturation`,
+    mode: 'saturation',
     type: {
-      base: `hsl`,
+      base: 'hsl',
       brightness: null,
       math: null,
     },
     name: {
-      ja: `彩度`,
+      ja: '彩度',
     },
     exist: {
       adobe: true,
@@ -473,14 +473,14 @@ const blendModeData: BlendModeDataType = {
     ready: false,
   },
   luminosity: {
-    mode: `luminosity`,
+    mode: 'luminosity',
     type: {
-      base: `hsl`,
+      base: 'hsl',
       brightness: null,
       math: null,
     },
     name: {
-      ja: `輝度`,
+      ja: '輝度',
     },
     exist: {
       adobe: true,
@@ -490,14 +490,14 @@ const blendModeData: BlendModeDataType = {
     ready: false,
   },
   difference: {
-    mode: `difference`,
+    mode: 'difference',
     type: {
-      base: `math`,
+      base: 'math',
       brightness: null,
       math: null,
     },
     name: {
-      ja: `差の絶対値`,
+      ja: '差の絶対値',
     },
     exist: {
       adobe: true,
@@ -506,14 +506,14 @@ const blendModeData: BlendModeDataType = {
     },
   },
   exclusion: {
-    mode: `exclusion`,
+    mode: 'exclusion',
     type: {
-      base: `math`,
+      base: 'math',
       brightness: null,
       math: null,
     },
     name: {
-      ja: `除外`,
+      ja: '除外',
     },
     exist: {
       adobe: true,
@@ -522,14 +522,14 @@ const blendModeData: BlendModeDataType = {
     },
   },
   subtract: {
-    mode: `subtract`,
+    mode: 'subtract',
     type: {
-      base: `math`,
+      base: 'math',
       brightness: null,
       math: null,
     },
     name: {
-      ja: `減算`,
+      ja: '減算',
     },
     exist: {
       adobe: true,
@@ -538,14 +538,14 @@ const blendModeData: BlendModeDataType = {
     },
   },
   divide: {
-    mode: `divide`,
+    mode: 'divide',
     type: {
-      base: `math`,
+      base: 'math',
       brightness: null,
       math: null,
     },
     name: {
-      ja: `除算`,
+      ja: '除算',
     },
     exist: {
       adobe: true,
