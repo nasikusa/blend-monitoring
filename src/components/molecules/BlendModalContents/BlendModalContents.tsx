@@ -45,37 +45,37 @@ const useStyles = makeStyles(() =>
   createStyles({
     root: {
       display: 'flex',
-      padding: `10px`,
+      padding: '10px',
     },
     formControl: {},
     formLabel: {
-      width: `150px`,
+      width: '150px',
       paddingLeft: '15px',
       marginLeft: '5px',
       marginRight: '5px',
-      transition: `background-color 0.15s ease`,
+      transition: 'background-color 0.15s ease',
       '&:hover': {
-        backgroundColor: `rgba(255,255,255,0.15)`,
+        backgroundColor: 'rgba(255,255,255,0.15)',
       },
-      userSelect: `none`,
+      userSelect: 'none',
     },
   })
 );
 
 const NormalBlendMode = readyBlendModeArray.filter(
-  (singleBlendModeData) => singleBlendModeData.mode === `normal`
+  (singleBlendModeData) => singleBlendModeData.mode === 'normal'
 );
 const brightnessPlusBlendMode = readyBlendModeArray.filter(
-  (singleBlendModeData) => singleBlendModeData.type.brightness === `+`
+  (singleBlendModeData) => singleBlendModeData.type.brightness === '+'
 );
 const brightnessPlusMinusBlendMode = readyBlendModeArray.filter(
-  (singleBlendModeData) => singleBlendModeData.type.brightness === `+-`
+  (singleBlendModeData) => singleBlendModeData.type.brightness === '+-'
 );
 const brightnessMinusBlendMode = readyBlendModeArray.filter(
-  (singleBlendModeData) => singleBlendModeData.type.brightness === `-`
+  (singleBlendModeData) => singleBlendModeData.type.brightness === '-'
 );
 const mathBlendMode = readyBlendModeArray.filter(
-  (singleBlendModeData) => singleBlendModeData.type.base === `math`
+  (singleBlendModeData) => singleBlendModeData.type.base === 'math'
 );
 
 /**
