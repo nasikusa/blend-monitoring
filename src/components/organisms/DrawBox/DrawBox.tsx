@@ -19,6 +19,9 @@ export type Props = {
   hasCanMultiCollectionType: boolean;
 };
 
+/**
+ * 描画しているアイテムの順番などのコンテクスト
+ */
 const DrawItemContext = React.createContext({
   drawItemOrder: -1,
   hasCanMultiCollectionType: false,
@@ -26,7 +29,6 @@ const DrawItemContext = React.createContext({
 
 /**
  * glsl描画アイテムのラッパーコンポーネント
- * @todo 最大アイテム数以上のときに警告を表示する
  */
 const DrawBox: React.FC<Props> = (props) => {
   const {
@@ -36,8 +38,14 @@ const DrawBox: React.FC<Props> = (props) => {
     hasCanMultiCollectionType,
   } = props;
 
+  /**
+   * 表示されている描画アイテムが、最大の表示できる数を超えているかどうかを判別するフラグステート
+   */
   const [overItemNumberFlag, setOverItemNumberFlag] = useState<boolean>(false);
 
+  /**
+   * 通知スナックバーを閉じる関数
+   */
   const handleSnackbarClose = (): void => {
     setOverItemNumberFlag(false);
   };
