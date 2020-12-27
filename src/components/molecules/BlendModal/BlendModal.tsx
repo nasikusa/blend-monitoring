@@ -284,7 +284,7 @@ const BlendModal: React.FC<Props> = (props) => {
     [handleExcludeSwitchBlend, canDisplayMathBlend]
   );
 
-  type modalFunctionsType = {
+  type modalSwitchInfoType = {
     name: string;
     type: IconTypeTypes;
     onChange: any;
@@ -295,7 +295,7 @@ const BlendModal: React.FC<Props> = (props) => {
   /**
    * モーダルのスイッチコンポーネントの情報をまとめた配列
    */
-  const modalSwitchParams: modalFunctionsType[] = [
+  const modalSwitchParams: modalSwitchInfoType[] = [
     {
       name: 'transparent',
       type: 'functionOpacity',
