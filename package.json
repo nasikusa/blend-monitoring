@@ -226,7 +226,7 @@
     "http-server": "^0.12.3",
     "identity-obj-proxy": "3.0.0",
     "inquirer": "^7.3.3",
-    "jest": "24.9.0",
+    "jest": "27.0.2",
     "jest-environment-jsdom-fourteen": "1.0.1",
     "jest-resolve": "24.9.0",
     "jest-watch-typeahead": "0.4.2",
